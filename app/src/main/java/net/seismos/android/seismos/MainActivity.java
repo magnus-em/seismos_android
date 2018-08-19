@@ -1,9 +1,11 @@
 package net.seismos.android.seismos;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
+import android.util.DisplayMetrics;
 import android.view.MenuItem;
 import android.widget.TextView;
 
@@ -21,6 +23,11 @@ public class MainActivity extends AppCompatActivity {
 
 
         mTextMessage = findViewById(R.id.message);
+
+        DisplayMetrics metric = getResources().getDisplayMetrics();
+
+
+        mTextMessage.setText(Integer.toString(metric.densityDpi));
 
         final BottomNavigationView navigation =  findViewById(R.id.navigation);
 
@@ -44,8 +51,7 @@ public class MainActivity extends AppCompatActivity {
                         return true;
                    case R.id.navigation_wallet:
                         mTextMessage.setText(R.string.title_wallet);
-                        item.setChecked(true);
-
+                        return true;
 
                 }
                 return false;

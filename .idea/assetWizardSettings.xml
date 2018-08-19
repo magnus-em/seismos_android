@@ -13,6 +13,21 @@
                       <PersistentState>
                         <option name="children">
                           <map>
+                            <entry key="actionbar">
+                              <value>
+                                <PersistentState>
+                                  <option name="values">
+                                    <map>
+                                      <entry key="assetType" value="IMAGE" />
+                                      <entry key="imageAsset" value="$USER_HOME$/Seismos/app_res/Icons/ic_nav_png/logo up full_XL.png" />
+                                      <entry key="outputName" value="ic_nav_wallet_inactive" />
+                                      <entry key="theme" value="HOLO_DARK" />
+                                      <entry key="themeColor" value="ffffff" />
+                                    </map>
+                                  </option>
+                                </PersistentState>
+                              </value>
+                            </entry>
                             <entry key="launcher">
                               <value>
                                 <PersistentState>
@@ -46,7 +61,7 @@
                                     <map>
                                       <entry key="backgroundColor" value="093e5e" />
                                       <entry key="backgroundImage" value="$USER_HOME$/Desktop/App_Icon_background.png" />
-                                      <entry key="foregroundImage" value="$USER_HOME$/Desktop/App_Icon_logo.png" />
+                                      <entry key="foregroundImage" value="$USER_HOME$/Desktop/App_icon_background.png" />
                                       <entry key="legacyIconShape" value="CIRCLE" />
                                       <entry key="previewDensity" value="MEDIUM" />
                                       <entry key="webIconShape" value="CIRCLE" />
@@ -69,6 +84,11 @@
                                 </PersistentState>
                               </value>
                             </entry>
+                          </map>
+                        </option>
+                        <option name="values">
+                          <map>
+                            <entry key="outputIconType" value="ACTIONBAR" />
                           </map>
                         </option>
                       </PersistentState>

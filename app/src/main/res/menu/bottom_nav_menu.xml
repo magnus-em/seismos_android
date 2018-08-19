@@ -3,23 +3,23 @@
 
 
 
-
-
-
     <item
+        android:title="@string/title_home"
         android:id="@+id/navigation_dashboard"
         android:icon="@drawable/ic_home" />
 
     <item
+        android:title="@string/title_map"
         android:id="@+id/navigation_map"
         android:icon="@drawable/ic_map" />
 
     <item
+        android:title="@string/title_safety"
         android:id="@+id/navigation_safety"
         android:icon="@drawable/ic_safety" />
 
     <item
-
+        android:title="@string/title_wallet"
         android:id="@+id/navigation_wallet"
         android:icon="@drawable/ic_wallet"/>
 

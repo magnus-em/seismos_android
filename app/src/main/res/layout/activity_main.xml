@@ -31,7 +31,7 @@
         android:layout_height="56dp"
         app:itemIconTint="@color/nav_icon_color"
         app:labelVisibilityMode="unlabeled"
-        app:itemIconSize="28dp"
+        app:itemIconSize="38dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
