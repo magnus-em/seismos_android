@@ -1,2 +1,2 @@
 # seismos_android
-The Android app for Seismos – Crowdsourced, tokenized earthquake early warning network
+The Android app for Seismos – a crowdsourced, tokenized, earthquake early warning network
