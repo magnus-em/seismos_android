@@ -4,4 +4,5 @@
     <string name="title_map">Map</string>
     <string name="title_safety">Safety</string>
     <string name="title_wallet">Wallet</string>
+    <string name="google_maps_key">AIzaSyA0BjReKoNWhyVtwnxY1Le_PrGcsyh7ImY</string>
 </resources>

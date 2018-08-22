@@ -6,5 +6,6 @@
     <color name="colorPrimaryLight">#093e5e</color>
     <color name="whiteTransparent">#90ffffff</color>
     <color name="blackTransparent">#40000000</color>
+    <color name="colorPrimaryTransparent">#20093e5e</color>
 
 </resources>
