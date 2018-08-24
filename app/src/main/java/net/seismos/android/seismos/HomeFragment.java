@@ -3,6 +3,10 @@ package net.seismos.android.seismos;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -19,6 +23,7 @@ public class HomeFragment extends Fragment {
     private Button mButton2;
     private Button mButton3;
     private Button mButton4;
+    private Toolbar mToolbar;
 
     OnRecentEQSelectedListener mOnRecentEQSelectedListener;
 
@@ -46,20 +51,26 @@ public class HomeFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setHasOptionsMenu(true);
-
-
 
     }
 
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
 
-    }
+
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
+
+        /*
+         mToolbar =  view.findViewById(R.id.toolbar_home);
+        ((AppCompatActivity)getActivity()).setSupportActionBar(mToolbar);
+
+        ActionBar actionBar = ((AppCompatActivity)getActivity()).getSupportActionBar();
+        actionBar.setDisplayShowTitleEnabled(false); */
+
+
 
         mButton = view.findViewById(R.id.button);
         mButton2 = view.findViewById(R.id.button2);
@@ -95,7 +106,6 @@ public class HomeFragment extends Fragment {
         });
 
         return view;
-
     }
 
 

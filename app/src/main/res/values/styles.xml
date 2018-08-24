@@ -8,7 +8,7 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:colorBackground">@color/colorPrimary</item>
         <item name="colorControlHighlight">@color/blackTransparent</item>
-        <item name="android:statusBarColor">@color/colorPrimaryTransparent</item>
+        <item name="android:statusBarColor">@color/colorPrimaryDark</item>
     </style>
 
 </resources>

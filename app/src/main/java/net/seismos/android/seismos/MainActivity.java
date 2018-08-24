@@ -8,10 +8,16 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+// TODO query USGS
+// TODO implement app bar on certain fragments
+// TODO implement charting library
+// TODO figure out recentEQglobeview
 
 public class MainActivity extends AppCompatActivity implements HomeFragment.OnRecentEQSelectedListener{
 
@@ -76,9 +82,11 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.OnRe
         mNavigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
 
-        getWindow().getDecorView().setSystemUiVisibility(
+
+
+        /*getWindow().getDecorView().setSystemUiVisibility(
                 View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN); */
 
         mFragmentManager.beginTransaction()
                 .add(R.id.main_container, walletFragment, "walletFragment")
@@ -98,6 +106,13 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.OnRe
         mFragmentManager.executePendingTransactions();
 
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.fragment_wallet_menu, menu);
+        return true;
     }
 
     @Override
@@ -160,14 +175,8 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.OnRe
                 active = mapFragment;
                 mapFragment.updateLocation("london");
                 break;
-
-
         }
-
-
-
-
-
     }
+
 
 }
