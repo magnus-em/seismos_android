@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "260547406112",
+    "firebase_url": "https://seismosnet.firebaseio.com",
+    "project_id": "seismosnet",
+    "storage_bucket": "seismosnet.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:260547406112:android:d9d564ccc60e7ce0",
+        "android_client_info": {
+          "package_name": "net.seismos.android.seismos"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "260547406112-7oad0nacvgaroq066d66641dv8898ai2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "net.seismos.android.seismos",
+            "certificate_hash": "2e614da94f74b9767af9c7da702ebfbaa8b04fa6"
+          }
+        },
+        {
+          "client_id": "260547406112-rqakidjnet8rk8fceumpenlt8oje34q3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDnFDGIG-yC7aW_h0cYxVc0ymby6_t4-8g"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "260547406112-rqakidjnet8rk8fceumpenlt8oje34q3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

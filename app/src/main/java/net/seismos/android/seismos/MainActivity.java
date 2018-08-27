@@ -14,10 +14,16 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import com.google.firebase.analytics.FirebaseAnalytics;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 // TODO query USGS
 // TODO implement app bar on certain fragments
 // TODO implement charting library
 // TODO figure out recentEQglobeview
+// TODO implement globeviews on home, set to locations with same listeners
+
 
 public class MainActivity extends AppCompatActivity implements HomeFragment.OnRecentEQSelectedListener{
 
@@ -35,6 +41,8 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.OnRe
     final FragmentManager mFragmentManager = getSupportFragmentManager();
 
     BottomNavigationView mNavigation;
+
+    private FirebaseAnalytics mFirebaseAnalytics;
 
 
 
@@ -64,6 +72,13 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.OnRe
                     mFragmentManager.beginTransaction().hide(active).show(walletFragment).commit();
                     active = walletFragment;
                     mFragmentManager.executePendingTransactions();
+
+                    Bundle bundle = new Bundle();
+                    bundle.putString(FirebaseAnalytics.Param.ITEM_ID, "nav_bar_logo_wallet");
+                    bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, "nav_bar_logo_wallet");
+                    bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "icon");
+                    mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
+
                     return true;
 
             }
@@ -77,6 +92,10 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.OnRe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+
+
 
         mNavigation =  findViewById(R.id.navigation);
         mNavigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
