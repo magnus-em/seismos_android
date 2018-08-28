@@ -20,6 +20,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.List;
 
 public class MapFragment extends SupportMapFragment {
 
@@ -27,11 +28,12 @@ public class MapFragment extends SupportMapFragment {
 
     private GoogleMap mMap;
     private static final LatLng SEATTLE = new LatLng(47.6, -122.33);
-    private static final LatLng HONGKONG = new LatLng(22.39, 114.1095);
-    private static final LatLng NYC = new LatLng(40.7, -74);
-    private static final LatLng LONDON = new LatLng(51.5, 0.12);
+    private static final LatLng JAPAN = new LatLng(47.6, -122.33);
+    private static final LatLng USA = new LatLng(22.39, 114.1095);
+    private static final LatLng NEPAL = new LatLng(40.7, -74);
+    private static final LatLng CHILE = new LatLng(51.5, 0.12);
     private static final String urlSpec = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/2.5_week.geojson";
-
+    private List<RecentEq> mRecentEqs;
 
     public MapFragment() {
 
@@ -61,28 +63,40 @@ public class MapFragment extends SupportMapFragment {
     public void updateLocation(String location) {
 
         switch (location) {
-            case "hk":
-                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(HONGKONG, 5));
+            case "japan":
+                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(JAPAN, 5));
                 break;
-            case "seattle":
-                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(SEATTLE, 5));
+            case "usa":
+                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(USA, 5));
                 break;
-            case "nyc":
-                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(NYC, 5));
+            case "nepal":
+                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(NEPAL, 5));
                 break;
-            case "london":
-                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(LONDON, 5));
+            case "chile":
+                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(CHILE, 5));
                 break;
 
         }
 
     }
 
-    private class GetRecentEqsTask extends AsyncTask<Void, Void, Void> {
+    private class GetRecentEqsTask extends AsyncTask<Void, Void, List<RecentEq>> {
         @Override
-        protected Void doInBackground(Void... params) {
-            new RecentEqsQuery().fetchEqs();
-            return null;
+        protected List<RecentEq> doInBackground(Void... params) {
+            List<RecentEq> eqs = new RecentEqsQuery().fetchEqs();
+
+            int i = 0;
+            for (RecentEq eq : eqs) {
+                Log.i(TAG, "EQ " + i + " stats:" + eq.getTitle() + "Lat: " +
+                eq.getLat() + " Long: " + eq.getLong());
+                i++;
+            }
+            return eqs;
+        }
+
+        @Override
+        protected void onPostExecute(List<RecentEq> eqs) {
+            mRecentEqs = eqs;
         }
 
 

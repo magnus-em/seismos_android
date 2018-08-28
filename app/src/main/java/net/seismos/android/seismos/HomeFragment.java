@@ -1,6 +1,7 @@
 package net.seismos.android.seismos;
 
 import android.content.Context;
+import android.media.Image;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -16,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
@@ -31,10 +33,10 @@ public class HomeFragment extends Fragment {
 
     private static final String TAG = "HomeFragment";
 
-    private Button mButton;
-    private Button mButton2;
-    private Button mButton3;
-    private Button mButton4;
+    private ImageView mGlobe1;
+    private ImageView mGlobe2;
+    private ImageView mGlobe3;
+    private ImageView mGlobe4;
     private Toolbar mToolbar;
     private CheckBox mCheckBox;
 
@@ -82,36 +84,36 @@ public class HomeFragment extends Fragment {
 
 
 
-        mButton = view.findViewById(R.id.button);
-        mButton2 = view.findViewById(R.id.button2);
-        mButton3 = view.findViewById(R.id.button3);
-        mButton4 = view.findViewById(R.id.button4);
+        mGlobe1 = view.findViewById(R.id.globeview_japan);
+        mGlobe2 = view.findViewById(R.id.globeview_usa);
+        mGlobe3 = view.findViewById(R.id.globeview_nepal);
+        mGlobe4 = view.findViewById(R.id.globeview_chile);
 
-        mButton.setOnClickListener(new View.OnClickListener() {
+        mGlobe1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mOnRecentEQSelectedListener.onRecentEQSelected("seattle");
+                mOnRecentEQSelectedListener.onRecentEQSelected("japan");
             }
         });
 
-        mButton2.setOnClickListener(new View.OnClickListener() {
+        mGlobe2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mOnRecentEQSelectedListener.onRecentEQSelected("nyc");
+                mOnRecentEQSelectedListener.onRecentEQSelected("usa");
             }
         });
 
-        mButton3.setOnClickListener(new View.OnClickListener() {
+        mGlobe3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mOnRecentEQSelectedListener.onRecentEQSelected("hk");
+                mOnRecentEQSelectedListener.onRecentEQSelected("nepal");
             }
         });
 
-        mButton4.setOnClickListener(new View.OnClickListener() {
+        mGlobe4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mOnRecentEQSelectedListener.onRecentEQSelected("london");
+                mOnRecentEQSelectedListener.onRecentEQSelected("chile");
             }
         });
         /*

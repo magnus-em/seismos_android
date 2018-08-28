@@ -32,48 +32,47 @@
     </android.support.v7.widget.Toolbar>
 
 
-
-    <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="32dp"
-        android:text="Seattle"
+    <ImageView
+        android:id="@+id/globeview_japan"
+        android:layout_width="0dp"
+        android:layout_height="135dp"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="8dp"
+        android:src="@drawable/globeview_japan"
+        app:layout_constraintEnd_toStartOf="@+id/globeview_usa"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/toolbar_home" />
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_home" />
 
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="32dp"
-        android:text="NYC"
-        app:layout_constraintStart_toEndOf="@+id/button"
-        app:layout_constraintTop_toBottomOf="@id/toolbar_home" />
+    <ImageView
+        android:id="@+id/globeview_usa"
+        android:layout_width="0dp"
+        android:layout_height="135dp"
+        android:layout_marginTop="8dp"
+        android:src="@drawable/globeview_usa"
+        app:layout_constraintEnd_toStartOf="@+id/guideline"
+        app:layout_constraintStart_toEndOf="@+id/globeview_japan"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_home" />
 c
-    <Button
-        android:id="@+id/button3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="32dp"
-        android:text="HK"
-        app:layout_constraintStart_toEndOf="@+id/button2"
-        app:layout_constraintTop_toBottomOf="@id/toolbar_home" />
 
-    <Button
-        android:id="@+id/button4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="32dp"
-        android:text="London"
+    <ImageView
+        android:id="@+id/globeview_nepal"
+        android:layout_width="0dp"
+        android:layout_height="135dp"
+        android:layout_marginTop="8dp"
+        android:src="@drawable/globeview_nepal"
+        app:layout_constraintEnd_toStartOf="@+id/globeview_chile"
+        app:layout_constraintStart_toStartOf="@+id/guideline"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_home" />
+
+    <ImageView
+        android:id="@+id/globeview_chile"
+        android:layout_width="0dp"
+        android:layout_height="135dp"
+        android:layout_marginTop="8dp"
+        android:src="@drawable/globeview_chile"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/button3"
-        app:layout_constraintTop_toBottomOf="@id/toolbar_home" />
+        app:layout_constraintStart_toEndOf="@+id/globeview_nepal"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_home" />
 
     <android.support.v7.widget.CardView
         android:layout_width="0dp"
@@ -94,6 +93,13 @@ c
             android:layout_height="match_parent"
             android:text="CheckBox" />
     </android.support.v7.widget.CardView>
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5" />
 
 
 </android.support.constraint.ConstraintLayout>

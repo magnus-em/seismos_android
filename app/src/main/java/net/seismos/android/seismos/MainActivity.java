@@ -1,5 +1,6 @@
 package net.seismos.android.seismos;
 
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -17,6 +18,8 @@ import android.widget.TextView;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.List;
 
 // TODO query USGS
 // TODO implement app bar on certain fragments
@@ -44,6 +47,7 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.OnRe
 
     private FirebaseAnalytics mFirebaseAnalytics;
 
+    private List<RecentEq> mRecentEqs;
 
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -156,7 +160,7 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.OnRe
     public void onRecentEQSelected(String location) {
 
         switch (location) {
-            case "seattle":
+            case "japan":
 
                 mFragmentManager.beginTransaction()
                         .hide(active)
@@ -164,38 +168,58 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.OnRe
                         .commit();
                 mNavigation.setSelectedItemId(R.id.navigation_map);
                 active = mapFragment;
-                mapFragment.updateLocation("seattle");
+                mapFragment.updateLocation("japan");
 
                 break;
-            case "hk":
+            case "usa":
                 mFragmentManager.beginTransaction()
                         .hide(active)
                         .show(mapFragment)
                         .commit();
                 mNavigation.setSelectedItemId(R.id.navigation_map);
                 active = mapFragment;
-                mapFragment.updateLocation("hk");
+                mapFragment.updateLocation("usa");
                 break;
-            case "nyc":
+            case "nepal":
                 mFragmentManager.beginTransaction()
                         .hide(active)
                         .show(mapFragment)
                         .commit();
                 mNavigation.setSelectedItemId(R.id.navigation_map);
                 active = mapFragment;
-                mapFragment.updateLocation("nyc");
+                mapFragment.updateLocation("nepal");
                 break;
-            case "london":
+            case "chile":
                 mFragmentManager.beginTransaction()
                         .hide(active)
                         .show(mapFragment)
                         .commit();
                 mNavigation.setSelectedItemId(R.id.navigation_map);
                 active = mapFragment;
-                mapFragment.updateLocation("london");
+                mapFragment.updateLocation("chile");
                 break;
         }
     }
 
+    private class GetRecentEqsTask extends AsyncTask<Void, Void, List<RecentEq>> {
+        @Override
+        protected List<RecentEq> doInBackground(Void... params) {
+            List<RecentEq> eqs = new RecentEqsQuery().fetchEqs();
 
+            int i = 0;
+            for (RecentEq eq : eqs) {
+                Log.i(TAG, "EQ " + i + " stats:" + eq.getTitle() + "Lat: " +
+                        eq.getLat() + " Long: " + eq.getLong());
+                i++;
+            }
+            return eqs;
+        }
+
+        @Override
+        protected void onPostExecute(List<RecentEq> eqs) {
+            mRecentEqs = eqs;
+        }
+
+
+    }
 }
