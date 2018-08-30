@@ -10,7 +10,7 @@
         android:id="@+id/toolbar_home"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
+        android:background="@color/colorPrimaryDark2"
         android:elevation="4dp"
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
         app:layout_constraintEnd_toEndOf="parent"
@@ -32,55 +32,95 @@
     </android.support.v7.widget.Toolbar>
 
 
-    <ImageView
-        android:id="@+id/globeview_japan"
-        android:layout_width="0dp"
-        android:layout_height="135dp"
-        android:layout_marginStart="2dp"
-        android:layout_marginTop="8dp"
-        android:src="@drawable/globeview_japan"
-        app:layout_constraintEnd_toStartOf="@+id/globeview_usa"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar_home" />
-
-    <ImageView
-        android:id="@+id/globeview_usa"
-        android:layout_width="0dp"
-        android:layout_height="135dp"
-        android:layout_marginTop="8dp"
-        android:src="@drawable/globeview_usa"
-        app:layout_constraintEnd_toStartOf="@+id/guideline"
-        app:layout_constraintStart_toEndOf="@+id/globeview_japan"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar_home" />
-c
-
-    <ImageView
-        android:id="@+id/globeview_nepal"
-        android:layout_width="0dp"
-        android:layout_height="135dp"
-        android:layout_marginTop="8dp"
-        android:src="@drawable/globeview_nepal"
-        app:layout_constraintEnd_toStartOf="@+id/globeview_chile"
-        app:layout_constraintStart_toStartOf="@+id/guideline"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar_home" />
-
-    <ImageView
-        android:id="@+id/globeview_chile"
-        android:layout_width="0dp"
-        android:layout_height="135dp"
-        android:layout_marginTop="8dp"
-        android:src="@drawable/globeview_chile"
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="140dp"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="0dp"
+        android:layout_marginEnd="0dp"
+        android:scrollbars="none"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/globeview_nepal"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar_home" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar_home">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+
+            <ImageView
+                android:id="@+id/globeview_japan"
+                android:layout_width="90dp"
+                android:layout_height="135dp"
+                android:src="@drawable/globeview_japan" />
+
+            <ImageView
+                android:id="@+id/globeview_usa"
+                android:layout_width="90dp"
+                android:layout_height="135dp"
+                android:src="@drawable/globeview_usa" />
+
+            <ImageView
+                android:id="@+id/globeview_nepal"
+                android:layout_height="135dp"
+                android:layout_width="90dp"
+                android:src="@drawable/globeview_nepal"/>
+
+            <ImageView
+                android:id="@+id/globeview_chile"
+                android:layout_height="135dp"
+                android:layout_width="90dp"
+                android:src="@drawable/globeview_chile"/>
+            <ImageView
+                android:id="@+id/globeview_chile3"
+                android:layout_height="135dp"
+                android:layout_width="90dp"
+                android:src="@drawable/globeview_nepal"/>
+            <ImageView
+                android:id="@+id/globeview_chile4"
+                android:layout_height="135dp"
+                android:layout_width="90dp"
+                android:src="@drawable/globeview_japan"/>
+            <ImageView
+                android:id="@+id/globeview_chile5"
+                android:layout_height="135dp"
+                android:layout_width="90dp"
+                android:src="@drawable/globeview_usa"/>
+            <ImageView
+                android:id="@+id/globeview_chile6"
+                android:layout_height="135dp"
+                android:layout_width="90dp"
+                android:src="@drawable/globeview_japan"/>
+            <ImageView
+                android:id="@+id/globeview_chile7"
+                android:layout_height="135dp"
+                android:layout_width="90dp"
+                android:src="@drawable/globeview_nepal"/>
+            <ImageView
+                android:id="@+id/globeview_chile8"
+                android:layout_height="135dp"
+                android:layout_width="90dp"
+                android:src="@drawable/globeview_chile"/>
+
+
+
+
+
+        </LinearLayout>
+
+    </HorizontalScrollView>
+
+
 
     <android.support.v7.widget.CardView
+        android:id="@+id/cardView"
         android:layout_width="0dp"
         android:layout_height="60dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
         app:cardBackgroundColor="@color/blackTransparent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -94,12 +134,11 @@ c
             android:text="CheckBox" />
     </android.support.v7.widget.CardView>
 
-    <android.support.constraint.Guideline
-        android:id="@+id/guideline"
-        android:layout_width="wrap_content"
+    <android.support.v7.widget.CardView
+        android:layout_width="368dp"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.5" />
+        tools:layout_editor_absoluteX="8dp"
+        tools:layout_editor_absoluteY="388dp" />
 
 
 </android.support.constraint.ConstraintLayout>

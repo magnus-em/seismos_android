@@ -18,6 +18,7 @@ public class RecentEqsQuery {
 
     private static final String TAG = "RecentEqQuery";
     private static final String urlSpec = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/4.5_week.geojson";
+
     public byte[] getUrlBytes(String urlSpec) throws IOException {
         URL url = new URL(urlSpec);
         HttpURLConnection connection = (HttpURLConnection)url.openConnection();
@@ -45,6 +46,10 @@ public class RecentEqsQuery {
     }
 
     public String getUrlString(String urlSpec) throws IOException {
+        return new String(getUrlBytes(urlSpec));
+    }
+
+    public String getUrlString() throws IOException {
         return new String(getUrlBytes(urlSpec));
     }
 

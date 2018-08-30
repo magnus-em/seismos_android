@@ -30,7 +30,7 @@
         android:layout_width="0dp"
         android:layout_height="56dp"
         android:elevation="8dp"
-        android:background="@color/colorPrimary"
+        android:background="@color/colorPrimaryDark2"
         android:layout_marginStart="0dp"
         android:layout_marginEnd="0dp"
         app:itemIconTint="@color/nav_icon_color"
