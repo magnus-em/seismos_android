@@ -6,11 +6,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+
     <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar_safety"
+        android:id="@+id/toolbar_wallet"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
+        android:background="@color/colorPrimaryDark2"
         android:elevation="4dp"
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
         app:layout_constraintEnd_toEndOf="parent"
@@ -18,7 +19,21 @@
         app:layout_constraintTop_toTopOf="parent"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light" >
 
-
+        <ImageView
+            android:id="@+id/toolbar_wallet_logo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:paddingRight="12dp"
+            android:paddingBottom="14dp"
+            android:paddingTop="14dp"
+            android:paddingLeft="2dp"
+            android:src="@drawable/toolbar_safety_logo" />
 
     </android.support.v7.widget.Toolbar>
+
+
+
+
+
 </android.support.constraint.ConstraintLayout>

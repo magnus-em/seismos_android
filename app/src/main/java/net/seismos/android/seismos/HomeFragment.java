@@ -1,6 +1,7 @@
 package net.seismos.android.seismos;
 
 import android.content.Context;
+import android.content.Intent;
 import android.media.Image;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -33,12 +34,14 @@ public class HomeFragment extends Fragment {
 
     private static final String TAG = "HomeFragment";
 
+
+    private TextView mSEEALL;
     private ImageView mGlobe1;
     private ImageView mGlobe2;
     private ImageView mGlobe3;
     private ImageView mGlobe4;
     private Toolbar mToolbar;
-    private CheckBox mCheckBox;
+
 
     OnRecentEQSelectedListener mOnRecentEQSelectedListener;
 
@@ -68,7 +71,7 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_home, container, false);
+        View view = inflater.inflate(R.layout.fragment_home_2, container, false);
 
         /*
          mToolbar =  view.findViewById(R.id.toolbar_home);
@@ -78,9 +81,10 @@ public class HomeFragment extends Fragment {
         actionBar.setDisplayShowTitleEnabled(false); */
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        final DatabaseReference myRef = database.getReference("checkbox");
+        final DatabaseReference mCheckBoxRef = database.getReference("checkbox");
 
-        mCheckBox = view.findViewById(R.id.checkbox);
+
+
 
 
 
@@ -135,19 +139,24 @@ public class HomeFragment extends Fragment {
         });
         */
 
-        myRef.addValueEventListener(new ValueEventListener() {
+        mCheckBoxRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // This method is called once with the initial value and again
                 // whenever data at this location is updated.
                 String value = dataSnapshot.getValue(String.class);
                 if (value.equals("true")) {
-                    mCheckBox.setChecked(true);
+
+                    Intent intent = new Intent(getActivity(), AlertActivity.class);
+                    startActivity(intent);
+
                 } else if (value.equals("false")) {
-                    mCheckBox.setChecked(false);
+
                 }
 
             }
+
+
 
             @Override
             public void onCancelled(DatabaseError error) {

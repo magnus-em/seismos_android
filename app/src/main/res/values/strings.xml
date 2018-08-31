@@ -5,4 +5,12 @@
     <string name="title_safety">Safety</string>
     <string name="title_wallet">Wallet</string>
     <string name="google_maps_key">AIzaSyA0BjReKoNWhyVtwnxY1Le_PrGcsyh7ImY</string>
+
+
+    <string name="recent_eq_description">Recent Earthquakes</string>
+    <string name="see_all_recent_eq_description">SEE ALL</string>
+    
+    <string name="alert_earthquake_incoming">INCOMING EARTHQUAKE</string>
+    <string name="alert_share">SHARE ALERT</string>
+    <string name="alert_magnitude">MAGNITUDE</string>
 </resources>
