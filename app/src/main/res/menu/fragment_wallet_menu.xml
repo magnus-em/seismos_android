@@ -13,5 +13,9 @@
         android:title="Pro features"
         android:id="@+id/wallet_menu_pro" />
 
+    <item
+        android:title="Alert Demo"
+        android:id="@+id/alert_demo" />
+
 
 </menu>

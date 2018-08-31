@@ -1,5 +1,6 @@
 package net.seismos.android.seismos;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -135,6 +136,18 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.OnRe
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.fragment_wallet_menu, menu);
+
+        MenuItem alertDemo = menu.findItem(R.id.alert_demo);
+
+        alertDemo.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+                Intent intent = new Intent(getApplicationContext(), AlertActivity.class);
+                startActivity(intent);
+                return true;
+            }
+        });
+
         return true;
     }
 

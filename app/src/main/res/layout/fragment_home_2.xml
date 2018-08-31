@@ -162,47 +162,53 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/horizontalScrollView"
         app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/rings" />
+        app:srcCompat="@drawable/rings_2" />
 
     <ImageView
         android:id="@+id/low_noise"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:layout_marginEnd="16dp"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:layout_marginBottom="12dp"
+        android:layout_marginEnd="12dp"
         app:layout_constraintBottom_toTopOf="@+id/imageView2"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/low_noise" />
 
     <ImageView
         android:id="@+id/active_time"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:layout_marginStart="16dp"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:layout_marginBottom="12dp"
+        android:layout_marginStart="12dp"
         app:layout_constraintBottom_toTopOf="@+id/imageView2"
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@drawable/active_time" />
 
     <ImageView
         android:id="@+id/imageView12"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="12dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/horizontalScrollView"
         app:srcCompat="@drawable/active_state" />
 
-    <ImageView
-        android:id="@+id/imageView13"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginTop="16dp"
+    <ImageButton
+        android:id="@+id/unlock_button"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginTop="12dp"
+        android:foreground="?attr/selectableItemBackgroundBorderless"
+        android:padding="0dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/enable"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/horizontalScrollView"
-        app:srcCompat="@drawable/enable" />
+        app:layout_constraintTop_toBottomOf="@+id/horizontalScrollView" />
+
+
+
 
 
 </android.support.constraint.ConstraintLayout>
