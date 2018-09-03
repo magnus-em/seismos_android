@@ -8,6 +8,8 @@ import android.widget.TextView;
 public class AlertActivity extends AppCompatActivity {
 
     TextView mSecAway;
+    TextView mKmAway;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -15,9 +17,11 @@ public class AlertActivity extends AppCompatActivity {
         setContentView(R.layout.activity_alert);
 
         mSecAway = findViewById(R.id.seconds_away);
+        mKmAway = findViewById(R.id.km_away);
 
 
-        new CountDownTimer(32000, 1000) {
+
+        new CountDownTimer(24000, 1000) {
 
             public void onTick(long millisUntilFinished) {
                 mSecAway.setText(Long.toString(millisUntilFinished / 1000));
@@ -28,5 +32,20 @@ public class AlertActivity extends AppCompatActivity {
             }
 
         }.start();
+
+        new CountDownTimer(23700, 200) {
+
+            public void onTick(long millisUntilFinished) {
+                mKmAway.setText(Long.toString(millisUntilFinished / 200));
+
+            }
+
+            public void onFinish() {
+                mKmAway.setText("0");
+            }
+
+        }.start();
+
+
     }
 }

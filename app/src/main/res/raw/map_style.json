@@ -1,6 +1,15 @@
 [
   {
     "featureType": "administrative",
+    "elementType": "geometry.fill",
+    "stylers": [
+      {
+        "visibility": "off"
+      }
+    ]
+  },
+  {
+    "featureType": "administrative",
     "elementType": "labels",
     "stylers": [
       {
@@ -97,7 +106,7 @@
     "elementType": "geometry.fill",
     "stylers": [
       {
-        "color": "#00253b"
+        "color": "#00253B"
       }
     ]
   },

@@ -2,22 +2,14 @@ package net.seismos.android.seismos;
 
 import android.content.Context;
 import android.content.Intent;
-import android.media.Image;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -26,8 +18,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
-import java.io.IOException;
 
 
 public class HomeFragment extends Fragment {
@@ -40,7 +30,13 @@ public class HomeFragment extends Fragment {
     private ImageView mGlobe2;
     private ImageView mGlobe3;
     private ImageView mGlobe4;
+    private ImageView mGlobe5;
+    private ImageView mGlobe6;
+    private ImageButton mEnablesButton;
+    private ImageView rings;
     private Toolbar mToolbar;
+
+    private int ringsCount = 1;
 
 
     OnRecentEQSelectedListener mOnRecentEQSelectedListener;
@@ -71,7 +67,7 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_home_2, container, false);
+        View view = inflater.inflate(R.layout.fragment_home, container, false);
 
         /*
          mToolbar =  view.findViewById(R.id.toolbar_home);
@@ -92,6 +88,20 @@ public class HomeFragment extends Fragment {
         mGlobe2 = view.findViewById(R.id.globeview_usa);
         mGlobe3 = view.findViewById(R.id.globeview_nepal);
         mGlobe4 = view.findViewById(R.id.globeview_chile);
+        mGlobe5 = view.findViewById(R.id.globeview_turkey);
+        mGlobe6 = view.findViewById(R.id.globeview_australia);
+
+        rings = view.findViewById(R.id.rings);
+
+
+        mSEEALL = view.findViewById(R.id.see_all_descriptor);
+
+        mSEEALL.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mOnRecentEQSelectedListener.onRecentEQSelected("");
+            }
+        });
 
         mGlobe1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -120,6 +130,31 @@ public class HomeFragment extends Fragment {
                 mOnRecentEQSelectedListener.onRecentEQSelected("chile");
             }
         });
+
+        mGlobe5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mOnRecentEQSelectedListener.onRecentEQSelected("turkey");
+            }
+        });
+
+        mGlobe6.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mOnRecentEQSelectedListener.onRecentEQSelected("australia");
+            }
+        });
+
+
+        mEnablesButton = view.findViewById(R.id.enable_button);
+        mEnablesButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                updateRings();
+            }
+        });
+
+
         /*
         mCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -167,6 +202,32 @@ public class HomeFragment extends Fragment {
 
         return view;
     }
+
+    private void updateRings() {
+
+
+        switch (ringsCount) {
+
+            case 0:
+                rings.setImageDrawable(getResources().getDrawable(R.drawable.rings_1));
+                break;
+            case 1:
+                rings.setImageDrawable(getResources().getDrawable(R.drawable.rings_2));
+                break;
+            case 2:
+                rings.setImageDrawable(getResources().getDrawable(R.drawable.rings_3));
+                break;
+
+        }
+
+        if (ringsCount == 2) {
+            ringsCount = 0;
+        } else {
+            ringsCount++;
+        }
+    }
+
+
 
 
 

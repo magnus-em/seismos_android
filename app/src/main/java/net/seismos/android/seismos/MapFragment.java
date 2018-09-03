@@ -34,11 +34,14 @@ public class MapFragment extends SupportMapFragment {
 
     private GoogleMap mMap;
     private static final LatLng SEATTLE = new LatLng(47.6, -122.33);
-    private static final LatLng JAPAN = new LatLng(47.6, -122.33);
-    private static final LatLng USA = new LatLng(22.39, 114.1095);
-    private static final LatLng NEPAL = new LatLng(40.7, -74);
-    private static final LatLng CHILE = new LatLng(51.5, 0.12);
-    private static final String urlSpec = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/4.5_week.geojson";
+    private static final LatLng JAPAN = new LatLng(35.6895, 139.6917);
+    private static final LatLng USA = new LatLng(34.0633, -117.6509);
+    private static final LatLng NEPAL = new LatLng(27.6487, 84.4173);
+    private static final LatLng CHILE = new LatLng(-32.4499, -71.2326);
+    private static final LatLng TURKEY = new LatLng(36.9914, 35.3308);
+    private static final LatLng AUSTRALIA = new LatLng(-9.4438, 147.1803);
+
+    private static final String urlSpec = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/2.5_week.geojson";
     private List<RecentEq> mRecentEqs;
     private JSONObject mEqsJson;
 
@@ -78,16 +81,22 @@ public class MapFragment extends SupportMapFragment {
 
         switch (location) {
             case "japan":
-                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(JAPAN, 5));
+                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(JAPAN, 4));
                 break;
             case "usa":
-                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(USA, 5));
+                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(USA, 4));
                 break;
             case "nepal":
-                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(NEPAL, 5));
+                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(NEPAL, 4));
                 break;
             case "chile":
-                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(CHILE, 5));
+                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(CHILE, 4));
+                break;
+            case "turkey":
+                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(TURKEY, 4));
+                break;
+            case "australia":
+                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(AUSTRALIA, 4));
                 break;
 
         }

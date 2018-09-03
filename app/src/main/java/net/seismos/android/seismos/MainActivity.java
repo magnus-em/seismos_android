@@ -22,12 +22,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.List;
 
-// TODO query USGS
-// TODO implement app bar on certain fragments
-// TODO implement charting library
-// TODO figure out recentEQglobeview
-// TODO implement globeviews on home, set to locations with same listeners
-
+// TODO fix shadow issue on the back of the enable button
 
 public class MainActivity extends AppCompatActivity implements HomeFragment.OnRecentEQSelectedListener{
 
@@ -211,6 +206,33 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.OnRe
                 active = mapFragment;
                 mapFragment.updateLocation("chile");
                 break;
+            case "turkey":
+                mFragmentManager.beginTransaction()
+                        .hide(active)
+                        .show(mapFragment)
+                        .commit();
+                mNavigation.setSelectedItemId(R.id.navigation_map);
+                active = mapFragment;
+                mapFragment.updateLocation("turkey");
+                break;
+            case "australia":
+                mFragmentManager.beginTransaction()
+                        .hide(active)
+                        .show(mapFragment)
+                        .commit();
+                mNavigation.setSelectedItemId(R.id.navigation_map);
+                active = mapFragment;
+                mapFragment.updateLocation("australia");
+                break;
+            case "":
+                mFragmentManager.beginTransaction()
+                        .hide(active)
+                        .show(mapFragment)
+                        .commit();
+                mNavigation.setSelectedItemId(R.id.navigation_map);
+                active = mapFragment;
+                break;
+
         }
     }
 

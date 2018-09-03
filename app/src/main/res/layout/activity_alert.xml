@@ -106,7 +106,7 @@
                 app:layout_constraintStart_toStartOf="parent" />
 
             <TextView
-                android:id="@+id/textView4"
+                android:id="@+id/km_away"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
@@ -295,7 +295,7 @@
                 android:layout_height="match_parent"
                 android:adjustViewBounds="true"
                 android:paddingEnd="12dp"
-                app:srcCompat="@drawable/hold_on" />
+                app:srcCompat="@drawable/alert_hold_on" />
 
         </LinearLayout>
     </HorizontalScrollView>
