@@ -1,6 +1,6 @@
 package net.seismos.android.seismos;
 
-public class RecentEq {
+public class  RecentEq {
     private String mag;
     private String place;
     private String time;
@@ -10,6 +10,7 @@ public class RecentEq {
     private float Long;
 
     @Override
+
     public String toString() {
         return title;
     }

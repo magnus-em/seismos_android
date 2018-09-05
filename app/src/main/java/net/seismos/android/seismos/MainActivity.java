@@ -2,7 +2,6 @@ package net.seismos.android.seismos;
 
 import android.content.Intent;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -13,23 +12,24 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.TextView;
 
 import com.google.firebase.analytics.FirebaseAnalytics;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.List;
 
+// TODO implement FAB on mapfragment
+
+// TODO implement earthquake card button on click map focus
 // TODO fix shadow issue on the back of the enable button
+// TODO listActivity to see all, from earthquake card
+
+
 
 public class MainActivity extends AppCompatActivity implements HomeFragment.OnRecentEQSelectedListener{
 
     private static final String TAG = "MainActivity";
 
 
-    private TextView mTextMessage;
 
     final Fragment homeFragment = new HomeFragment();
     final MapFragment mapFragment = new MapFragment();
@@ -80,7 +80,6 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.OnRe
                     mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
 
                     return true;
-
             }
             return false;
         }
@@ -95,13 +94,8 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.OnRe
 
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
 
-
-
         mNavigation =  findViewById(R.id.navigation);
         mNavigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-
-
-
 
         /*getWindow().getDecorView().setSystemUiVisibility(
                 View.SYSTEM_UI_FLAG_LAYOUT_STABLE
@@ -126,6 +120,8 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.OnRe
 
 
     }
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

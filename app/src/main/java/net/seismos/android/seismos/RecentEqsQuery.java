@@ -17,7 +17,7 @@ import java.util.List;
 public class RecentEqsQuery {
 
     private static final String TAG = "RecentEqQuery";
-    private static final String urlSpec = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/4.5_week.geojson";
+    private static final String urlSpec = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/2.5_week.geojson";
 
     public byte[] getUrlBytes(String urlSpec) throws IOException {
         URL url = new URL(urlSpec);
