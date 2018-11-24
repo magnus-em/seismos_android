@@ -1,18 +1,26 @@
 package net.seismos.android.seismos;
 
+import android.content.res.Resources;
 import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.io.StringWriter;
+import java.io.Writer;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+
+import static java.security.AccessController.getContext;
 
 public class RecentEqsQuery {
 
@@ -45,6 +53,8 @@ public class RecentEqsQuery {
         }
     }
 
+
+
     public String getUrlString(String urlSpec) throws IOException {
         return new String(getUrlBytes(urlSpec));
     }
@@ -52,6 +62,8 @@ public class RecentEqsQuery {
     public String getUrlString() throws IOException {
         return new String(getUrlBytes(urlSpec));
     }
+
+
 
     public List<RecentEq> fetchEqs() {
         List<RecentEq> recentEqs = new ArrayList<>();

@@ -38,14 +38,16 @@ public class HomeFragment extends Fragment {
 
     private int ringsCount = 1;
 
-
     OnRecentEQSelectedListener mOnRecentEQSelectedListener;
 
     public HomeFragment() {
+        // Required empty public constructor
     }
-
+    //  Callback interface that the host Activity must implement. When the user clicks on one of
+    // the recent earthquake globes, HomeFragment calls onRecentEQSelected in the host activity,
+    // passing in the location selected
     public interface OnRecentEQSelectedListener {
-        public void onRecentEQSelected(String location);
+        void onRecentEQSelected(String location);
     }
 
     @Override
@@ -74,14 +76,11 @@ public class HomeFragment extends Fragment {
         ((AppCompatActivity)getActivity()).setSupportActionBar(mToolbar);
 
         ActionBar actionBar = ((AppCompatActivity)getActivity()).getSupportActionBar();
+
         actionBar.setDisplayShowTitleEnabled(false); */
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         final DatabaseReference mCheckBoxRef = database.getReference("checkbox");
-
-
-
-
 
 
         mGlobe1 = view.findViewById(R.id.globeview_japan);
@@ -145,7 +144,6 @@ public class HomeFragment extends Fragment {
             }
         });
 
-
         mEnablesButton = view.findViewById(R.id.enable_button);
         mEnablesButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -204,8 +202,6 @@ public class HomeFragment extends Fragment {
     }
 
     private void updateRings() {
-
-
         switch (ringsCount) {
 
             case 0:
@@ -217,7 +213,6 @@ public class HomeFragment extends Fragment {
             case 2:
                 rings.setImageDrawable(getResources().getDrawable(R.drawable.rings_3));
                 break;
-
         }
 
         if (ringsCount == 2) {
@@ -226,10 +221,4 @@ public class HomeFragment extends Fragment {
             ringsCount++;
         }
     }
-
-
-
-
-
-
 }

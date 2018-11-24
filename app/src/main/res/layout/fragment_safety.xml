@@ -230,8 +230,7 @@
                                 android:layout_height="wrap_content"
                                 android:adjustViewBounds="false"
                                 android:cropToPadding="true"
-                                android:scaleType="fitXY"
-                                app:srcCompat="@drawable/news1" />
+                                android:scaleType="fitXY" />
                         </android.support.v7.widget.CardView>
 
                         <android.support.v7.widget.CardView
@@ -248,8 +247,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:adjustViewBounds="false"
-                                android:scaleType="fitXY"
-                                app:srcCompat="@drawable/news2" />
+                                android:scaleType="fitXY" />
                         </android.support.v7.widget.CardView>
 
 
@@ -267,8 +265,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:adjustViewBounds="false"
-                                android:scaleType="fitXY"
-                                app:srcCompat="@drawable/news3" />
+                                android:scaleType="fitXY" />
                         </android.support.v7.widget.CardView>
 
                         <android.support.v7.widget.CardView
@@ -286,8 +283,7 @@
                                 android:layout_height="wrap_content"
                                 android:adjustViewBounds="false"
                                 android:cropToPadding="true"
-                                android:scaleType="fitXY"
-                                app:srcCompat="@drawable/news1" />
+                                android:scaleType="fitXY" />
                         </android.support.v7.widget.CardView>
 
                         <android.support.v7.widget.CardView
@@ -304,8 +300,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:adjustViewBounds="false"
-                                android:scaleType="fitXY"
-                                app:srcCompat="@drawable/news2" />
+                                android:scaleType="fitXY" />
                         </android.support.v7.widget.CardView>
 
 
@@ -323,8 +318,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:adjustViewBounds="false"
-                                android:scaleType="fitXY"
-                                app:srcCompat="@drawable/news3" />
+                                android:scaleType="fitXY" />
                         </android.support.v7.widget.CardView>
 
                     </LinearLayout>
@@ -376,8 +370,7 @@
                                 android:layout_height="wrap_content"
                                 android:adjustViewBounds="false"
                                 android:cropToPadding="true"
-                                android:scaleType="fitXY"
-                                app:srcCompat="@drawable/news1" />
+                                android:scaleType="fitXY" />
                         </android.support.v7.widget.CardView>
 
                         <android.support.v7.widget.CardView
@@ -394,8 +387,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:adjustViewBounds="false"
-                                android:scaleType="fitXY"
-                                app:srcCompat="@drawable/news2" />
+                                android:scaleType="fitXY" />
                         </android.support.v7.widget.CardView>
 
 
@@ -413,8 +405,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:adjustViewBounds="false"
-                                android:scaleType="fitXY"
-                                app:srcCompat="@drawable/news3" />
+                                android:scaleType="fitXY" />
                         </android.support.v7.widget.CardView>
 
                         <android.support.v7.widget.CardView
@@ -432,8 +423,7 @@
                                 android:layout_height="wrap_content"
                                 android:adjustViewBounds="false"
                                 android:cropToPadding="true"
-                                android:scaleType="fitXY"
-                                app:srcCompat="@drawable/news1" />
+                                android:scaleType="fitXY" />
                         </android.support.v7.widget.CardView>
 
                         <android.support.v7.widget.CardView
@@ -450,8 +440,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:adjustViewBounds="false"
-                                android:scaleType="fitXY"
-                                app:srcCompat="@drawable/news2" />
+                                android:scaleType="fitXY" />
                         </android.support.v7.widget.CardView>
 
 
@@ -469,8 +458,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:adjustViewBounds="false"
-                                android:scaleType="fitXY"
-                                app:srcCompat="@drawable/news3" />
+                                android:scaleType="fitXY" />
                         </android.support.v7.widget.CardView>
 
 

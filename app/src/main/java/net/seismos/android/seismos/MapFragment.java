@@ -1,7 +1,10 @@
 package net.seismos.android.seismos;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.CardView;
 import android.util.Log;
@@ -15,7 +18,6 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
@@ -47,12 +49,15 @@ public class MapFragment extends Fragment
     private static final LatLng TURKEY = new LatLng(36.9914, 35.3308);
     private static final LatLng AUSTRALIA = new LatLng(-9.4438, 147.1803);
 
-    private static final String urlSpec = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/2.5_week.geojson";
     private List<RecentEq> mRecentEqs;
     private JSONObject mEqsJson;
 
-    private TextView featureText;
+    private TextView placeText;
     private TextView magText;
+    private TextView depthText;
+    private TextView timeText;
+
+    private FloatingActionButton menuFab;
     private CardView mapCard;
     private boolean isDetailVisible;
 
@@ -62,10 +67,14 @@ public class MapFragment extends Fragment
 
         mMapView = rootView.findViewById(R.id.mapView);
         mMapView.onCreate(savedInstanceState);
-        featureText =  rootView.findViewById(R.id.place_text);
+        placeText =  rootView.findViewById(R.id.place_text);
         magText = rootView.findViewById(R.id.magnitude_text);
+        depthText = rootView.findViewById(R.id.depth_text);
+        menuFab = rootView.findViewById(R.id.menu_fab);
+        timeText = rootView.findViewById(R.id.time_text);
+
         mapCard = rootView.findViewById(R.id.mapcard);
-        mapCard.setVisibility(View.INVISIBLE);
+        mapCard.setVisibility(View.GONE);
         isDetailVisible = false;
 
         mMapView.onResume(); // needed to get the map to display immediately
@@ -96,14 +105,17 @@ public class MapFragment extends Fragment
          mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(SEATTLE, 4));
          mMap.getUiSettings().setMapToolbarEnabled(false);
          mMap.setOnMapClickListener(this);
+         mMap.setPadding(0,0,0,0);
 
     }
 
     @Override
     public void onMapClick(LatLng click) {
-        mapCard.setVisibility(View.INVISIBLE);
+        mapCard.setVisibility(View.GONE);
         mMap.setPadding(0,0,0,0);
         isDetailVisible = false;
+        updateActivePoint();
+
     }
 
     @Override
@@ -200,32 +212,42 @@ public class MapFragment extends Fragment
         @Override
         protected void onPostExecute(JSONObject jsonObject) {
 
+
+
             if (jsonObject == null) {
 
                 return;
             }
+
             mEqsJson = jsonObject;
             GeoJsonLayer layer = new GeoJsonLayer(mMap, mEqsJson);
 
             GeoJsonPointStyle pointStyle = layer.getDefaultPointStyle();
-            BitmapDescriptor bm = BitmapDescriptorFactory.fromResource(R.drawable.map_feature_icon);
-            pointStyle.setIcon(bm);
+            pointStyle.setIcon(BitmapDescriptorFactory.fromBitmap(
+                    resizeMapIcons("map_feature_icon", 125, 125)));
+
+
+
 
             layer.setOnFeatureClickListener(new GeoJsonLayer.OnFeatureClickListener() {
                 @Override
                 public void onFeatureClick(Feature feature) {
-                    featureText.setText(feature.getProperty("place"));
-                    magText.setText("Magnitude: " + feature.getProperty("mag"));
+                    placeText.setText(feature.getProperty("place"));
+                    magText.setText(feature.getProperty("mag"));
+                    depthText.setText("Depth: " + feature.getProperty("depth"));
+                    timeText.setText(feature.getProperty("time"));
                     mapCard.setVisibility(View.VISIBLE);
                     mMap.setPadding(0,0,0,400);
                     isDetailVisible = true;
+                    updateActivePoint(feature);
+
+
                 }
             });
             int i = 0;
 
             for (GeoJsonFeature feature : layer.getFeatures()) {
                 Log.i("features", feature.toString());
-                //feature.getProperty("title");
                 i++;
             }
             Log.i(TAG, "number of features: " + i);
@@ -236,7 +258,52 @@ public class MapFragment extends Fragment
 
 
 
+
+
+
+    }
+
+    public Feature lastFeature;
+
+
+    public void updateActivePoint(Feature feature) {
+
+
+        final GeoJsonPointStyle pointStyleInactive = new GeoJsonPointStyle();
+        final GeoJsonPointStyle pointStyleActive = new GeoJsonPointStyle();
+
+        pointStyleActive.setIcon(BitmapDescriptorFactory.fromBitmap(
+                resizeMapIcons("map_feature_icon", 300, 300)));
+
+
+        pointStyleInactive.setIcon(BitmapDescriptorFactory.fromBitmap(
+                resizeMapIcons("map_feature_icon", 125, 125)));
+
+        if (lastFeature != null) {
+            ((GeoJsonFeature) lastFeature).setPointStyle(pointStyleInactive);
+        }
+        lastFeature = feature;
+        ((GeoJsonFeature) feature).setPointStyle(pointStyleActive);
+
+
+    }
+
+    public void updateActivePoint() {
+        final GeoJsonPointStyle pointStyleInactive = new GeoJsonPointStyle();
+        pointStyleInactive.setIcon(BitmapDescriptorFactory.fromBitmap(
+                resizeMapIcons("map_feature_icon", 125, 125)));
+        if (lastFeature != null) {
+            ((GeoJsonFeature) lastFeature).setPointStyle(pointStyleInactive);
+        }
+
     }
 
 
+
+    public Bitmap resizeMapIcons(String iconName, int width, int height){
+        Bitmap imageBitmap = BitmapFactory.decodeResource(getResources(),getResources()
+                .getIdentifier(iconName, "drawable", getActivity().getPackageName()));
+
+        return Bitmap.createScaledBitmap(imageBitmap, width, height, false);
+    }
 }

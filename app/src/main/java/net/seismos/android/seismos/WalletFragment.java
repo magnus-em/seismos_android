@@ -17,7 +17,7 @@ public class WalletFragment extends Fragment {
     private Toolbar mToolbar;
 
     public WalletFragment() {
-
+        // Required empty public constructor
     }
 
     @Override

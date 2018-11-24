@@ -12,78 +12,117 @@
         android:layout_height="match_parent"
         />
 
-   <android.support.constraint.ConstraintLayout
-       android:layout_width="match_parent"
-       android:layout_height="match_parent">
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true">
 
-       <android.support.v7.widget.CardView
-           android:id="@+id/mapcard"
-           android:layout_width="0dp"
-           android:layout_height="100dp"
-           android:layout_marginStart="8dp"
-           android:layout_marginEnd="8dp"
-           android:layout_marginBottom="8dp"
-           android:clickable="true"
-           android:focusable="true"
-           app:cardBackgroundColor="#fff"
-           app:cardCornerRadius="12dp"
-           app:layout_constraintBottom_toBottomOf="parent"
-           app:layout_constraintEnd_toEndOf="parent"
-           app:layout_constraintStart_toStartOf="parent" >
+        <android.support.v7.widget.CardView
+            android:id="@+id/mapcard"
+            android:layout_width="0dp"
+            android:layout_height="100dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:clickable="true"
+            android:focusable="true"
+            app:cardBackgroundColor="@color/colorPrimaryDark2"
+            app:cardCornerRadius="12dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
 
-           <android.support.constraint.ConstraintLayout
-               android:layout_width="match_parent"
-               android:layout_height="match_parent">
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-               <TextView
-                   android:id="@+id/place_text"
-                   android:layout_width="wrap_content"
-                   android:layout_height="wrap_content"
-                   android:layout_marginStart="8dp"
-                   android:layout_marginTop="8dp"
-                   android:layout_marginEnd="8dp"
-                   android:fontFamily="@font/roboto_condensed_bold"
-                   tools:text="23 KM north of some place"
-                   android:textColor="@color/colorPrimaryDark2"
-                   android:textSize="18sp"
-                   app:layout_constraintEnd_toEndOf="parent"
-                   app:layout_constraintStart_toStartOf="parent"
-                   app:layout_constraintTop_toTopOf="parent" />
+                <TextView
+                    android:id="@+id/place_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="100dp"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/roboto_condensed_bold"
+                    android:text="98 Km SE of Tangier, Morocco"
+                    android:textColor="@android:color/white"
+                    android:textSize="18sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="98 Km SE of Tangier, Morocco" />
 
-               <TextView
-                   android:id="@+id/magnitude_text"
-                   android:layout_width="wrap_content"
-                   android:layout_height="wrap_content"
-                   android:layout_marginStart="8dp"
-                   android:layout_marginTop="8dp"
-                   android:layout_marginEnd="8dp"
-                   android:fontFamily="@font/roboto_condensed_bold"
-                   android:textColor="@color/colorPrimaryDark2"
-                   app:layout_constraintEnd_toEndOf="parent"
-                   app:layout_constraintStart_toStartOf="parent"
-                   app:layout_constraintTop_toBottomOf="@+id/place_text"
-                   tools:text="Magnitude 4.51" />
+                <TextView
+                    android:id="@+id/time_text"
+                    android:layout_width="189dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="100dp"
+                    android:layout_marginTop="12dp"
+                    android:fontFamily="@font/roboto_condensed_regular"
+                    android:text="9/2/2018 at 10:15:28 PST"
+                    android:textColor="@android:color/white"
+                    android:textSize="14sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/place_text" />
 
-               <TextView
-                   android:id="@+id/textView8"
-                   android:layout_width="wrap_content"
-                   android:layout_height="wrap_content"
-                   android:layout_marginStart="8dp"
-                   android:layout_marginTop="8dp"
-                   android:layout_marginEnd="8dp"
-                   android:fontFamily="@font/roboto_condensed_regular"
-                   android:textColor="@color/colorPrimaryDark2"
-                   android:visibility="invisible"
-                   app:layout_constraintEnd_toEndOf="parent"
-                   app:layout_constraintHorizontal_bias="0.3"
-                   app:layout_constraintStart_toStartOf="parent"
-                   app:layout_constraintTop_toBottomOf="@+id/magnitude_text" />
+                <TextView
+                    android:id="@+id/depth_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="100dp"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/roboto_condensed_regular"
+                    android:text="Depth: 6.2 km"
+                    android:textColor="@android:color/white"
+                    android:textSize="14sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/time_text" />
 
-           </android.support.constraint.ConstraintLayout>
+                <ImageView
+                    android:id="@+id/magnitude"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="8dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/place_text"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/map_magnitude_ring" />
+
+                <TextView
+                    android:id="@+id/magnitude_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto_condensed_bold"
+                    android:textColor="@android:color/white"
+                    android:textSize="36sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/magnitude"
+                    app:layout_constraintEnd_toEndOf="@+id/magnitude"
+                    app:layout_constraintStart_toStartOf="@+id/magnitude"
+                    app:layout_constraintTop_toTopOf="@+id/magnitude"
+                    tools:text="6.7" />
+
+            </android.support.constraint.ConstraintLayout>
 
 
-       </android.support.v7.widget.CardView>
+        </android.support.v7.widget.CardView>
 
-   </android.support.constraint.ConstraintLayout>
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/menu_fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="8dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:tint="@android:color/white"
+            app:backgroundTint="@color/colorPrimaryDark2"
+            app:layout_constraintBottom_toTopOf="@+id/mapcard"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:srcCompat="@drawable/ic_eq_list" />
+
+    </android.support.constraint.ConstraintLayout>
 
 </RelativeLayout>

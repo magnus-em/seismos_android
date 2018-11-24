@@ -1,6 +1,7 @@
 package net.seismos.android.seismos;
 
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -95,6 +96,7 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.OnRe
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
 
         mNavigation =  findViewById(R.id.navigation);
+
         mNavigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
         /*getWindow().getDecorView().setSystemUiVisibility(
@@ -157,8 +159,9 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.OnRe
             active = homeFragment;
         }
 
-
     }
+
+
 
     @Override
     public void onRecentEQSelected(String location) {
