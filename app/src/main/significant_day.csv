@@ -1,0 +1,2 @@
+time,latitude,longitude,depth,mag,magType,nst,gap,dmin,rms,net,id,updated,place,type,horizontalError,depthError,magError,magNst,status,locationSource,magSource
+2018-11-30T17:29:28.910Z,61.34,-149.9366,40.9,7,mww,,,,1.14,us,us1000hyfh,2018-12-01T08:47:24.193Z,"13km N of Anchorage, Alaska",earthquake,4.7,4.3,0.04,61,reviewed,ak,us
