@@ -30,17 +30,13 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
-public class MapFragment extends Fragment
-        implements OnMapReadyCallback,
-        GoogleMap.OnMapClickListener
-{
-
+public class MapFragment extends Fragment implements OnMapReadyCallback,
+        GoogleMap.OnMapClickListener {
     private static final String TAG = "MapFragment";
 
-    MapView mMapView;
-    private GoogleMap mMap;
     private static final LatLng SEATTLE = new LatLng(47.6, -122.33);
     private static final LatLng JAPAN = new LatLng(35.6895, 139.6917);
     private static final LatLng USA = new LatLng(34.0633, -117.6509);
@@ -49,8 +45,8 @@ public class MapFragment extends Fragment
     private static final LatLng TURKEY = new LatLng(36.9914, 35.3308);
     private static final LatLng AUSTRALIA = new LatLng(-9.4438, 147.1803);
 
-    private List<RecentEq> mRecentEqs;
-    private JSONObject mEqsJson;
+    MapView mMapView;
+    private GoogleMap mMap;
 
     private TextView placeText;
     private TextView magText;
@@ -78,7 +74,6 @@ public class MapFragment extends Fragment
         isDetailVisible = false;
 
         mMapView.onResume(); // needed to get the map to display immediately
-        new GetRecentEqsTask().execute();
         new AddRecentEqsLayer().execute();
 
         try {
@@ -86,7 +81,6 @@ public class MapFragment extends Fragment
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         mMapView.getMapAsync(this);
 
         return rootView;
@@ -94,11 +88,7 @@ public class MapFragment extends Fragment
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
-
-        mMap = googleMap;
-
-            // For showing a move to my location button
-//                googleMap.setMyLocationEnabled(true);
+         mMap = googleMap;
          mMap.setMapStyle(MapStyleOptions
                     .loadRawResourceStyle(getContext(), R.raw.map_style));
 
@@ -106,7 +96,6 @@ public class MapFragment extends Fragment
          mMap.getUiSettings().setMapToolbarEnabled(false);
          mMap.setOnMapClickListener(this);
          mMap.setPadding(0,0,0,0);
-
     }
 
     @Override
@@ -115,7 +104,6 @@ public class MapFragment extends Fragment
         mMap.setPadding(0,0,0,0);
         isDetailVisible = false;
         updateActivePoint();
-
     }
 
     @Override
@@ -143,7 +131,6 @@ public class MapFragment extends Fragment
     }
 
     public void updateLocation(String location) {
-
         switch (location) {
             case "japan":
                 mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(JAPAN, 4));
@@ -163,39 +150,16 @@ public class MapFragment extends Fragment
             case "australia":
                 mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(AUSTRALIA, 4));
                 break;
-
         }
-
     }
 
-    private class GetRecentEqsTask extends AsyncTask<Void, Void, List<RecentEq>> {
-        @Override
-        protected List<RecentEq> doInBackground(Void... params) {
-            List<RecentEq> eqs = new RecentEqsQuery().fetchEqs();
 
-            int i = 0;
-            for (RecentEq eq : eqs) {
-                Log.i(TAG, "EQ " + i + " stats:" + eq.getTitle() + "Lat: " +
-                        eq.getLat() + " Long: " + eq.getLong());
-                i++;
-            }
-            return eqs;
-        }
-
-        @Override
-        protected void onPostExecute(List<RecentEq> eqs) {
-            mRecentEqs = eqs;
-
-        }
-
-
-
-    }
 
     private class AddRecentEqsLayer extends AsyncTask<Void, Void, JSONObject> {
         @Override
         protected JSONObject doInBackground(Void... params) {
             JSONObject jsonBody = null;
+
             try {
                 jsonBody = new JSONObject(new RecentEqsQuery().getUrlString());
             } catch (IOException ioe) {
@@ -203,31 +167,22 @@ public class MapFragment extends Fragment
             } catch (JSONException joe) {
                 Log.e(TAG, "caught joe " + joe);
             }
-            return jsonBody;
 
+            return jsonBody;
         }
 
 
 
         @Override
         protected void onPostExecute(JSONObject jsonObject) {
-
-
-
             if (jsonObject == null) {
-
                 return;
             }
 
-            mEqsJson = jsonObject;
-            GeoJsonLayer layer = new GeoJsonLayer(mMap, mEqsJson);
-
+            GeoJsonLayer layer = new GeoJsonLayer(mMap, jsonObject);
             GeoJsonPointStyle pointStyle = layer.getDefaultPointStyle();
             pointStyle.setIcon(BitmapDescriptorFactory.fromBitmap(
                     resizeMapIcons("map_feature_icon", 125, 125)));
-
-
-
 
             layer.setOnFeatureClickListener(new GeoJsonLayer.OnFeatureClickListener() {
                 @Override
@@ -240,42 +195,27 @@ public class MapFragment extends Fragment
                     mMap.setPadding(0,0,0,400);
                     isDetailVisible = true;
                     updateActivePoint(feature);
-
-
                 }
             });
-            int i = 0;
 
+            int i = 0;
             for (GeoJsonFeature feature : layer.getFeatures()) {
-                Log.i("features", feature.toString());
                 i++;
             }
             Log.i(TAG, "number of features: " + i);
             layer.addLayerToMap();
-
-
         }
-
-
-
-
-
-
     }
 
     public Feature lastFeature;
 
 
     public void updateActivePoint(Feature feature) {
-
-
         final GeoJsonPointStyle pointStyleInactive = new GeoJsonPointStyle();
         final GeoJsonPointStyle pointStyleActive = new GeoJsonPointStyle();
 
         pointStyleActive.setIcon(BitmapDescriptorFactory.fromBitmap(
                 resizeMapIcons("map_feature_icon", 300, 300)));
-
-
         pointStyleInactive.setIcon(BitmapDescriptorFactory.fromBitmap(
                 resizeMapIcons("map_feature_icon", 125, 125)));
 
@@ -284,8 +224,6 @@ public class MapFragment extends Fragment
         }
         lastFeature = feature;
         ((GeoJsonFeature) feature).setPointStyle(pointStyleActive);
-
-
     }
 
     public void updateActivePoint() {
@@ -295,7 +233,6 @@ public class MapFragment extends Fragment
         if (lastFeature != null) {
             ((GeoJsonFeature) lastFeature).setPointStyle(pointStyleInactive);
         }
-
     }
 
 
@@ -303,7 +240,6 @@ public class MapFragment extends Fragment
     public Bitmap resizeMapIcons(String iconName, int width, int height){
         Bitmap imageBitmap = BitmapFactory.decodeResource(getResources(),getResources()
                 .getIdentifier(iconName, "drawable", getActivity().getPackageName()));
-
         return Bitmap.createScaledBitmap(imageBitmap, width, height, false);
     }
 }

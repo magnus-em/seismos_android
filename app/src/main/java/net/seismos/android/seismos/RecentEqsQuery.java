@@ -27,7 +27,7 @@ public class RecentEqsQuery {
     private static final String TAG = "RecentEqQuery";
     private static final String urlSpec = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/2.5_week.geojson";
 
-    public byte[] getUrlBytes(String urlSpec) throws IOException {
+    private byte[] getUrlBytes(String urlSpec) throws IOException {
         URL url = new URL(urlSpec);
         HttpURLConnection connection = (HttpURLConnection)url.openConnection();
 
@@ -38,7 +38,6 @@ public class RecentEqsQuery {
             if (connection.getResponseCode() != HttpURLConnection.HTTP_OK) {
                 throw new IOException(connection.getResponseMessage() +
                                     ": with " + urlSpec);
-
             }
 
             int bytesRead = 0;
@@ -55,20 +54,17 @@ public class RecentEqsQuery {
 
 
 
-    public String getUrlString(String urlSpec) throws IOException {
-        return new String(getUrlBytes(urlSpec));
-    }
+
 
     public String getUrlString() throws IOException {
         return new String(getUrlBytes(urlSpec));
     }
 
 
-
     public List<RecentEq> fetchEqs() {
         List<RecentEq> recentEqs = new ArrayList<>();
         try {
-            String result = getUrlString(urlSpec);
+            String result = getUrlString();
             Log.i(TAG, "fetched JSON: "  + result);
             JSONObject jsonBody = new JSONObject(result);
             parseEqs(recentEqs, jsonBody);
@@ -85,7 +81,6 @@ public class RecentEqsQuery {
             Log.e(TAG, "Failed to parse JSON");
         }
         return recentEqs;
-
     }
 
 
@@ -115,9 +110,5 @@ public class RecentEqsQuery {
 
            eqs.add(eq);
         }
-
-
     }
-
-
 }
