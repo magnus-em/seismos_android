@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:visibility="visible">
+
+    <ImageView
+        android:id="@+id/ringView"
+        android:layout_width="64dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="@id/detectedByText"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/divider"
+        app:srcCompat="@drawable/mag_ring_74" />
+
+    <TextView
+        android:id="@+id/earthquakeLocation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="2dp"
+        android:fontFamily="@font/sfpromedium"
+        android:text="169km SSW of Redoubt Volcano"
+        android:textColor="@color/offWhite"
+        android:textSize="14sp"
+        app:layout_constraintStart_toEndOf="@+id/ringView"
+        app:layout_constraintTop_toTopOf="@id/ringView" />
+
+    <TextView
+        android:id="@+id/magnitudeText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/sfpromedium"
+        android:text="6.8"
+        android:textColor="@color/offWhite"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="@+id/ringView"
+        app:layout_constraintEnd_toEndOf="@+id/ringView"
+        app:layout_constraintStart_toStartOf="@+id/ringView"
+        app:layout_constraintTop_toTopOf="@+id/ringView" />
+
+    <TextView
+        android:id="@+id/earthquakeTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:fontFamily="@font/sfprolight"
+        android:text="Jan 17th at 4:53 PM"
+        android:textColor="@color/offWhite70"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toTopOf="@+id/detectedByText"
+        app:layout_constraintStart_toEndOf="@+id/ringView"
+        app:layout_constraintTop_toBottomOf="@+id/earthquakeLocation" />
+
+    <TextView
+        android:id="@+id/detectedByText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="2dp"
+        android:fontFamily="@font/sfprolight"
+        android:text="Detected by 1063 users"
+        android:textColor="@color/offWhite70"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="@+id/ringView"
+        app:layout_constraintStart_toEndOf="@+id/ringView" />
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="40dp"
+        android:layout_height="4dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/list_scrolling_indicator_background"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/depthArrow"
+        android:layout_width="16dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="18dp"
+        android:layout_marginTop="1dp"
+        android:layout_marginBottom="1dp"
+        android:text="TextView"
+        app:layout_constraintBottom_toBottomOf="@+id/depthText"
+        app:layout_constraintStart_toEndOf="@+id/earthquakeTime"
+        app:layout_constraintTop_toTopOf="@+id/depthText"
+        app:srcCompat="@drawable/deptharrow" />
+
+    <TextView
+        android:id="@+id/depthText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/sfprolight"
+        android:text="163 km"
+        android:textColor="@color/offWhite70"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toTopOf="@+id/detectedByText"
+        app:layout_constraintStart_toEndOf="@+id/depthArrow"
+        app:layout_constraintTop_toBottomOf="@+id/earthquakeLocation" />
+
+    <ImageView
+        android:id="@+id/earthquakeFlag"
+        android:layout_width="25dp"
+        android:layout_height="16dp"
+        android:layout_marginEnd="15dp"
+        app:layout_constraintBottom_toBottomOf="@+id/earthquakeLocation"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/earthquakeLocation"
+        app:srcCompat="@drawable/demoflag" />
+
+    <ImageView
+        android:id="@+id/replayButton"
+        android:layout_width="28dp"
+        android:layout_height="28dp"
+        android:layout_marginEnd="15dp"
+        app:layout_constraintBottom_toBottomOf="@+id/detectedByText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/detectedByText"
+        app:srcCompat="@drawable/greenreplay" />
+
+
+</android.support.constraint.ConstraintLayout>

@@ -1,11 +1,20 @@
 <resources>
     <string name="app_name">Seismos</string>
-    <string name="title_home">Home</string>
-    <string name="title_map">Map</string>
-    <string name="title_safety">Safety</string>
-    <string name="title_wallet">Wallet</string>
+
+
+
+    <string name="nav_title_home">Home</string>
+    <string name="nav_title_map">Map</string>
+    <string name="nav_title_seismos">Seismos</string>
+    <string name="nav_title_store">Store</string>
+    <string name="nav_title_profile">Profile</string>
+
+
+
     <string name="google_maps_key">AIzaSyA0BjReKoNWhyVtwnxY1Le_PrGcsyh7ImY</string>
 
+
+    <string name="earthquake_feed">https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/2.5_week.atom</string>
 
     <string name="recent_eq_description">Recent Earthquakes</string>
     <string name="see_all_recent_eq_description">SEE ALL</string>

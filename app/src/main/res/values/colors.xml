@@ -1,5 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <color name="blueBackground">#00121D</color>
+    <color name="blueDark">#001A2C</color>
+    <color name="blueDefault">#00233A</color>
+    <color name="blueLight">#093E5E</color>
+    <color name="blueHighlight">#1C6490</color>
+    <color name="offWhite">#FBFBFB</color>
+    <color name="offWhite70">#70FBFBFB</color>
+    <color name="offWhite30">#30FBFBFB</color>
+
+
+
+
+
+
     <color name="colorPrimary">#093e5e</color>
     <color name="colorPrimaryDark">#012B44</color>
     <color name="colorAccent">#ff5500</color>
@@ -15,6 +30,5 @@
 
     <color name="colorAlertRed">#FF5500</color>
     <color name="colorAlertYellow">#FFCB52</color>
-
 
 </resources>
