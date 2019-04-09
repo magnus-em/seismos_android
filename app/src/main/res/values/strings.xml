@@ -23,6 +23,9 @@
     <string name="alert_share">SHARE ALERT</string>
     <string name="alert_magnitude">MAGNITUDE</string>
 
+    <string name="filters_text">Filters</string>
+    <string name="filters_title">Filters</string>
+    <string name="eq_details_title">Details</string>
 
 </resources>
 
