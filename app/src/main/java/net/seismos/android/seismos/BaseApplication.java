@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.res.Configuration;
 
 import net.seismos.android.seismos.util.ResUtil;
+import net.seismos.android.seismos.util.SplashScreenHelper;
 
 public class BaseApplication extends Application {
 
@@ -14,6 +15,7 @@ public class BaseApplication extends Application {
     public void onCreate() {
         super.onCreate();
         ResUtil.init(getApplicationContext());
+        registerActivityLifecycleCallbacks(new SplashScreenHelper());
         // Required initialization logic here!
     }
 

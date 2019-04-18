@@ -1,4 +1,4 @@
-package net.seismos.android.seismos.data;
+package net.seismos.android.seismos.data.remote.usgs;
 
 import android.content.Context;
 import android.location.Location;
@@ -6,6 +6,8 @@ import android.support.annotation.NonNull;
 import android.util.Log;
 
 import net.seismos.android.seismos.R;
+import net.seismos.android.seismos.data.model.Earthquake;
+import net.seismos.android.seismos.data.local.EarthquakeDatabaseAccessor;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -31,10 +33,10 @@ import javax.xml.parsers.ParserConfigurationException;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 
-public class EarthquakeListUpdateWorker extends Worker {
-    private static String TAG = "EarthquakeListUpdateWorker";
+public class EarthquakeListUpdateWorkerAtom extends Worker {
+    private static String TAG = "EarthquakeListUpdateWorkerAtom";
 
-    public EarthquakeListUpdateWorker(
+    public EarthquakeListUpdateWorkerAtom(
             @NonNull Context context,
             WorkerParameters params) {
         super(context, params);
@@ -114,10 +116,9 @@ public class EarthquakeListUpdateWorker extends Worker {
                         else
                             details = "";
 
-                        final Earthquake earthquake = new Earthquake(idString,
-                                qdate, details, l, magnitude , linkString);
 
-                        earthquakes.add(earthquake);
+
+
                     }
                 }
             }

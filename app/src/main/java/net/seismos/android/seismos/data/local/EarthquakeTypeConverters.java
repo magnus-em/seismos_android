@@ -1,4 +1,4 @@
-package net.seismos.android.seismos.data;
+package net.seismos.android.seismos.data.local;
 
 import android.arch.persistence.room.TypeConverter;
 import android.location.Location;

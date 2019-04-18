@@ -1,4 +1,4 @@
-package net.seismos.android.seismos.data;
+package net.seismos.android.seismos.data.local;
 
 
 import android.arch.lifecycle.LiveData;
@@ -7,6 +7,8 @@ import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.OnConflictStrategy;
 import android.arch.persistence.room.Query;
+
+import net.seismos.android.seismos.data.model.Earthquake;
 
 import java.util.List;
 
@@ -21,10 +23,10 @@ public interface EarthquakeDAO {
     @Delete
     public void deleteEarthquake(Earthquake earthquake);
 
-    @Query("SELECT * FROM earthquake ORDER BY mMagnitude ASC")
+    @Query("SELECT * FROM earthquake ORDER BY mMag ASC")
     public LiveData<List<Earthquake>> loadAllEarthquakes();
 
-    @Query("SELECT * FROM earthquake ORDER BY mMagnitude DESC")
+    @Query("SELECT * FROM earthquake ORDER BY mMag DESC")
     List<Earthquake> loadAllEarthquakesBlocking();
 }
 

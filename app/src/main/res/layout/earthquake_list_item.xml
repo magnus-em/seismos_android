@@ -8,7 +8,7 @@
             type="java.text.DateFormat"/>
         <variable
             name="earthquake"
-            type="net.seismos.android.seismos.data.Earthquake"/>
+            type="net.seismos.android.seismos.data.model.Earthquake"/>
         <variable
             name="magnitudeformat"
             type="java.text.NumberFormat"/>
@@ -43,7 +43,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="2dp"
         android:fontFamily="@font/sfpromedium"
-        android:text="@{earthquake.details}"
+        android:text="@{earthquake.place}"
         android:textColor="@color/offWhite"
         android:textSize="15sp"
         app:layout_constraintStart_toEndOf="@+id/ringView"
@@ -55,7 +55,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/sfpromedium"
-        android:text="@{magnitudeformat.format(earthquake.magnitude)}"
+        android:text="@{magnitudeformat.format(earthquake.mag)}"
         android:textColor="@color/offWhite"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="@+id/ringView"
@@ -70,7 +70,6 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:fontFamily="@font/sfprolight"
-        android:text="@{timeformat.format(earthquake.date)}"
         android:textColor="@color/offWhite70"
         android:textSize="15sp"
         app:layout_constraintBottom_toTopOf="@+id/detectedByText"
@@ -122,7 +121,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/sfprolight"
-        android:text="163 km"
+        android:text="@{Double.toString(earthquake.depth)}"
         android:textColor="@color/offWhite70"
         android:textSize="15sp"
         app:layout_constraintBottom_toTopOf="@+id/detectedByText"
@@ -150,7 +149,7 @@
         app:srcCompat="@drawable/greenreplay" />
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/detectedByCount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/sfprolight"
@@ -166,8 +165,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text=" users"
-        app:layout_constraintBottom_toBottomOf="@+id/textView4"
-        app:layout_constraintStart_toEndOf="@+id/textView4"
-        app:layout_constraintTop_toTopOf="@+id/textView4" />
+        app:layout_constraintBottom_toBottomOf="@id/detectedByCount"
+        app:layout_constraintStart_toEndOf="@id/detectedByCount"
+        app:layout_constraintTop_toTopOf="@id/detectedByCount" />
 </android.support.constraint.ConstraintLayout>
 </layout>

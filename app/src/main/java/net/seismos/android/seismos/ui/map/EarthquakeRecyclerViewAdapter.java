@@ -2,16 +2,21 @@ package net.seismos.android.seismos.ui.map;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import net.seismos.android.seismos.R;
-import net.seismos.android.seismos.data.Earthquake;
+import net.seismos.android.seismos.data.model.Earthquake;
 import net.seismos.android.seismos.databinding.EarthquakeListItemBinding;
 import net.seismos.android.seismos.util.ResUtil;
+
+import org.w3c.dom.Text;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -19,10 +24,17 @@ public class EarthquakeRecyclerViewAdapter
         extends RecyclerView.Adapter<EarthquakeRecyclerViewAdapter.ViewHolder> {
 
     private final List<Earthquake> mEarthquakes;
+    private final OnEqClickListener listener;
 
-    public EarthquakeRecyclerViewAdapter(List<Earthquake> mEarthquakes) {
+    public EarthquakeRecyclerViewAdapter(List<Earthquake> mEarthquakes, OnEqClickListener listener) {
         this.mEarthquakes = mEarthquakes;
+        this.listener = listener;
     }
+
+    public interface OnEqClickListener {
+        void onItemClicked(Earthquake eq);
+        }
+
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -39,7 +51,7 @@ public class EarthquakeRecyclerViewAdapter
     private static final NumberFormat MAGNITUDE_FORMAT =
             new DecimalFormat("0.0");
     private static final SimpleDateFormat TIME_FORMAT =
-            new SimpleDateFormat("HH:mm", Locale.US);
+            new SimpleDateFormat("EEE, d MMM HH:mm:ss", Locale.US);
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
@@ -61,6 +73,8 @@ public class EarthquakeRecyclerViewAdapter
         }
         holder.binding.setEarthquake(earthquake);
         holder.binding.executePendingBindings();
+
+        holder.bind(earthquake, listener);
     }
 
 
@@ -73,6 +87,20 @@ public class EarthquakeRecyclerViewAdapter
             this.binding = binding;
             binding.setMagnitudeformat(MAGNITUDE_FORMAT);
             binding.setTimeformat(TIME_FORMAT);
+
+        }
+
+        public void bind(final Earthquake eq, final OnEqClickListener listener) {
+            binding.getRoot().setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    listener.onItemClicked(eq);
+                }
+            });
+
+            TextView textView = binding.getRoot().findViewById(R.id.earthquakeTime);
+            Date start = new Date(eq.getTime());
+            textView.setText(TIME_FORMAT.format(start));
 
         }
     }

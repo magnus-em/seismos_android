@@ -18,6 +18,7 @@ public class FiltersActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.filters_toolbar);
         setSupportActionBar(toolbar);
 
+
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 

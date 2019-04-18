@@ -1,9 +1,13 @@
-package net.seismos.android.seismos.data;
+package net.seismos.android.seismos.data.local;
 
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.LiveData;
 
+
+import net.seismos.android.seismos.data.model.Earthquake;
+import net.seismos.android.seismos.data.remote.usgs.EarthquakeListUpdateWorkerAtom;
+import net.seismos.android.seismos.data.remote.usgs.UsgsJsonWorker;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,7 +38,7 @@ public class EarthquakeViewModel extends AndroidViewModel {
     // Asynchronously load the Earthquakes from the feed
     public void loadEarthquakes() {
         OneTimeWorkRequest downloadEarthquakes =
-                new OneTimeWorkRequest.Builder(EarthquakeListUpdateWorker.class)
+                new OneTimeWorkRequest.Builder(UsgsJsonWorker.class)
                 .build();
         WorkManager.getInstance().enqueue(downloadEarthquakes);
 

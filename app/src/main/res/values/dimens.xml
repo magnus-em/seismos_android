@@ -16,4 +16,8 @@
         tools:override="true">13sp</dimen>
     
     <dimen name="margin_text_normal">12dp</dimen>
+
+
+    <dimen name="design_fab_image_size" tools:override="true">30dp</dimen>
+
 </resources>

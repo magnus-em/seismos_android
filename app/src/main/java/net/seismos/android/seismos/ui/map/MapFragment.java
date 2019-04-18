@@ -1,14 +1,11 @@
 package net.seismos.android.seismos.ui.map;
 
 import android.arch.lifecycle.Observer;
-import android.arch.lifecycle.ViewModelProvider;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.location.Location;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -16,23 +13,17 @@ import android.support.design.chip.Chip;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapView;
-import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptor;
@@ -41,31 +32,21 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.maps.android.data.Feature;
-import com.google.maps.android.data.geojson.GeoJsonFeature;
-import com.google.maps.android.data.geojson.GeoJsonLayer;
-import com.google.maps.android.data.geojson.GeoJsonPointStyle;
 
 import net.seismos.android.seismos.R;
-import net.seismos.android.seismos.data.Earthquake;
-import net.seismos.android.seismos.data.EarthquakeViewModel;
-import net.seismos.android.seismos.data.RecentEqsQuery;
+import net.seismos.android.seismos.data.model.Earthquake;
+import net.seismos.android.seismos.data.local.EarthquakeViewModel;
+import net.seismos.android.seismos.util.ResUtil;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import static android.support.design.widget.BottomSheetBehavior.STATE_COLLAPSED;
 import static android.support.design.widget.BottomSheetBehavior.STATE_EXPANDED;
-import static android.support.design.widget.BottomSheetBehavior.STATE_HALF_EXPANDED;
 import static android.support.design.widget.BottomSheetBehavior.STATE_HIDDEN;
 
 public class MapFragment extends Fragment implements MapContract.View,
-        OnMapReadyCallback {
-
+        OnMapReadyCallback, EarthquakeRecyclerViewAdapter.OnEqClickListener{
     private static final String TAG = "MapFragment";
 
     private static final int FILTERS_RESULT = 10;
@@ -74,18 +55,15 @@ public class MapFragment extends Fragment implements MapContract.View,
 
     GoogleMap mMap;
     private static final LatLng SEATTLE = new LatLng(47.6, -122.33);
+    private Marker activeMarker = null;
 
     private BottomSheetBehavior sheetBehavior;
-
-
-    private ArrayList<Earthquake> mEarthquakes = new ArrayList<>();
     private RecyclerView mRecyclerView;
+    private ArrayList<Earthquake> mEarthquakes = new ArrayList<>();
     private EarthquakeRecyclerViewAdapter mEarthquakeAdapter =
-            new EarthquakeRecyclerViewAdapter(mEarthquakes);
+            new EarthquakeRecyclerViewAdapter(mEarthquakes, this);
 
     public EarthquakeViewModel earthquakeViewModel;
-
-    private Marker activeMarker = null;
 
     private float mMinimumMagnitude = 4;
 
@@ -94,12 +72,19 @@ public class MapFragment extends Fragment implements MapContract.View,
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
         View root = inflater.inflate(R.layout.fragment_map, container, false);
 
         mRecyclerView = root.findViewById(R.id.earthquakeList);
-
         final View scrolling = root.findViewById(R.id.scrollingIndicator);
+        final FloatingActionButton locationFab = root.findViewById(R.id.locationFab);
+        locationFab.setImageDrawable(ResUtil.getInstance().getDrawable(R.drawable.map_location_icon));
+        locationFab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                LatLng latLng = new LatLng(Double.parseDouble(getLatitude()), Double.parseDouble(getLongitude()));
+                CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(SEATTLE, 1);
+                mMap.animateCamera(cameraUpdate);            }
+        });
 
         FrameLayout layoutBottomSheet = root.findViewById(R.id.bottom_sheet);
         sheetBehavior = BottomSheetBehavior.from(layoutBottomSheet);
@@ -108,16 +93,18 @@ public class MapFragment extends Fragment implements MapContract.View,
             public void onStateChanged(@NonNull View view, int i) {
                 if (i == STATE_EXPANDED) {
                     view.setBackground(getResources().getDrawable(R.drawable.nonrounded_bottom_sheet));
-                    scrolling.setVisibility(View.INVISIBLE);
+                    scrolling.animate().alpha(0).setDuration(200);
+                    //scrolling.setVisibility(View.INVISIBLE);
+                    locationFab.hide();
                 } else {
                     view.setBackground(getResources().getDrawable(R.drawable.rounded_bottom_sheet));
-                    scrolling.setVisibility(View.VISIBLE);
+                    scrolling.animate().alpha(1).setDuration(200);
+//                    scrolling.setVisibility(View.VISIBLE);
+                    locationFab.show();
                 }
             }
             @Override
-            public void onSlide(@NonNull View view, float v) {
-
-            }
+            public void onSlide(@NonNull View view, float v) { }
         });
 
         Chip filtersChip = root.findViewById(R.id.filters_chip);
@@ -139,22 +126,6 @@ public class MapFragment extends Fragment implements MapContract.View,
             }
         });
 
-        mRecyclerView.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
-            @Override
-            public boolean onInterceptTouchEvent(@NonNull RecyclerView recyclerView, @NonNull MotionEvent motionEvent) {
-                return false;
-            }
-
-            @Override
-            public void onTouchEvent(@NonNull RecyclerView recyclerView, @NonNull MotionEvent motionEvent) {
-            }
-
-            @Override
-            public void onRequestDisallowInterceptTouchEvent(boolean b) {
-
-            }
-        });
-
         return root;
     }
 
@@ -164,18 +135,14 @@ public class MapFragment extends Fragment implements MapContract.View,
         SupportMapFragment mapFragment = (SupportMapFragment)getChildFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-
         Context context = view.getContext();
         mRecyclerView.setLayoutManager(new LinearLayoutManager(context));
         mRecyclerView.setAdapter(mEarthquakeAdapter);
-
-
     }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
         // Retrieve the Earthquake View Model for the parent Activity
         earthquakeViewModel = ViewModelProviders.of(getActivity()).get(EarthquakeViewModel.class);
         // Get the data from the View Model, and observe and changes
@@ -189,18 +156,15 @@ public class MapFragment extends Fragment implements MapContract.View,
         });
     }
 
-
-
     public void setEarthquakes(List<Earthquake> earthquakes) {
-
         for (Earthquake earthquake: earthquakes) {
             if (earthquake.getMagnitude() >= mMinimumMagnitude) {
                 if (!mEarthquakes.contains(earthquake)) {
                     mEarthquakes.add(earthquake);
                     mEarthquakeAdapter.notifyItemInserted(mEarthquakes.indexOf(earthquake));
                     if (mMap != null) {
-                        double lat = earthquake.getLocation().getLatitude();
-                        double lon= earthquake.getLocation().getLongitude();
+                        double lat = earthquake.getLatitude();
+                        double lon= earthquake.getLongitude();
                         MarkerOptions markerOptions = new MarkerOptions().position(new LatLng(lat, lon));
                         BitmapDescriptor icon;
                         if (earthquake.getMagnitude() < 5) {
@@ -240,7 +204,6 @@ public class MapFragment extends Fragment implements MapContract.View,
         mMap = googleMap;
         mMap.setMapStyle(MapStyleOptions
                 .loadRawResourceStyle(getContext(), R.raw.map_style));
-
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(SEATTLE, 4));
         mMap.getUiSettings().setMapToolbarEnabled(false);
         mMap.setPadding(0, 0, 0, 0);
@@ -252,20 +215,22 @@ public class MapFragment extends Fragment implements MapContract.View,
 
             }
         });
-
-        boolean reselectFlag = false;
-
         mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
             @Override
             public boolean onMarkerClick(Marker marker) {
                 Earthquake markedEarthquake = null;
                 LatLng markerPos = marker.getPosition();
                 for (Earthquake earthquake : mEarthquakes) {
-                    LatLng eqPos = new LatLng(earthquake.getLocation().getLatitude(), earthquake.getLocation().getLongitude());
+                    LatLng eqPos = new LatLng(earthquake.getLatitude(), earthquake.getLongitude());
                     if (markerPos.equals(eqPos)) {
 
-                        // prohibit same marker reselection leading to additional identical earthquakes in d
-                        if (activeMarker != null) {
+                        // prohibit same marker reselection leading to additional identical earthquakes in db
+                        if (activeMarker == null) {
+                            activeMarker = marker;
+                            mEarthquakes.remove(earthquake);
+                            mEarthquakes.add(0, earthquake);
+                            mEarthquakeAdapter.notifyDataSetChanged();
+                        } else {
                             if (!activeMarker.equals(marker)) {
                                 mEarthquakes.remove(earthquake);
                                 mEarthquakes.add(0, earthquake);
@@ -276,7 +241,6 @@ public class MapFragment extends Fragment implements MapContract.View,
                         break;
                     }
                 }
-
 
 
                 // This series of if else determine which active marker to use depending on the
@@ -304,7 +268,7 @@ public class MapFragment extends Fragment implements MapContract.View,
                     if (!activeMarker.equals(marker)){
                         LatLng oldMarkerPos = activeMarker.getPosition();
                         for (Earthquake earthquake : mEarthquakes) {
-                            LatLng eqPos = new LatLng(earthquake.getLocation().getLatitude(), earthquake.getLocation().getLongitude());
+                            LatLng eqPos = new LatLng(earthquake.getLatitude(), earthquake.getLongitude());
                             if (oldMarkerPos.equals(eqPos)) {
                                 BitmapDescriptor icon;
                                 if (earthquake.getMagnitude() < 5) {
@@ -336,6 +300,12 @@ public class MapFragment extends Fragment implements MapContract.View,
                 return false;
             }
         });
+
+
+
+        mMap.getUiSettings().setMyLocationButtonEnabled(false);
+
+        //mMap.setMaxZoomPreference(1);
     }
 
     @Override
@@ -357,5 +327,20 @@ public class MapFragment extends Fragment implements MapContract.View,
     @Override
     public void setPresenter(MapContract.Presenter presenter) {
         mPresenter = presenter;
+    }
+
+    @Override
+    public void onItemClicked(Earthquake eq) {
+        Intent intent = new Intent(getActivity(), EqDetailsActivity.class);
+        intent.putExtra("title", eq.getTitle());
+        intent.putExtra("mag", Double.toString(eq.getMagnitude()));
+        intent.putExtra("date", Long.toString(eq.getTime()));
+        intent.putExtra("felt", Integer.toString(eq.getFelt()));
+        intent.putExtra("tsunami", Integer.toString(eq.getTsunami()));
+        intent.putExtra("alert", eq.getAlert());
+        intent.putExtra("types", eq.getTypes());
+        intent.putExtra("cdi", Double.toString(eq.getCdi()));
+
+        startActivity(intent);
     }
 }

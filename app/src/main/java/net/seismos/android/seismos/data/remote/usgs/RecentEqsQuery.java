@@ -1,4 +1,4 @@
-package net.seismos.android.seismos.data;
+package net.seismos.android.seismos.data.remote.usgs;
 
 import android.util.Log;
 

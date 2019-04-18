@@ -1,4 +1,4 @@
-package net.seismos.android.seismos.data;
+package net.seismos.android.seismos.data.remote.usgs;
 
 public class  RecentEq {
     private String mag;
