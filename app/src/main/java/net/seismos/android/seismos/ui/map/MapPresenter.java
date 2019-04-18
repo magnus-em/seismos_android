@@ -1,5 +1,7 @@
 package net.seismos.android.seismos.ui.map;
 
+import com.google.android.gms.maps.model.LatLng;
+
 import net.seismos.android.seismos.ui.map.MapContract.Presenter;
 
 public class MapPresenter implements MapContract.Presenter {
@@ -9,6 +11,11 @@ public class MapPresenter implements MapContract.Presenter {
     public MapPresenter(MapContract.View mapView) {
         this.mapView = mapView;
         mapView.setPresenter(this);
+    }
+
+    @Override
+    public void openMapToLatLng(LatLng latLng) {
+        mapView.navigateToLatLng(latLng);
     }
 
     @Override

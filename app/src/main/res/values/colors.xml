@@ -13,8 +13,28 @@
     <color name="accentBlue">#00B4FF</color>
     <color name="accentGreen">#00FFA0</color>
 
-    <color name="eq8Start">#C723AC</color>
-    <color name="eq8End">#A700FF</color>
+    <color name="eq8GradientStart">#C723AC</color>
+    <color name="eq8GradientEnd">#A700FF</color>
+
+    <color name="eq79GradientStart">#E43844</color>
+    <color name="eq79GradientEnd">#CD299C</color>
+
+    <color name="eq74GradientStart">#F24506</color>
+    <color name="eq74GradientEnd">#E83830</color>
+
+    <color name="eq69GradientStart">#F56714</color>
+    <color name="eq69GradientEnd">#F24B08</color>
+
+    <color name="eq64GradientStart">#F98A22</color>
+    <color name="eq64GradientEnd">#F66D16</color>
+
+    <color name="eq59GradientStart">#FDAD30</color>
+    <color name="eq59GradientEnd">#FA9024</color>
+
+    <color name="eq49GradientStart">#FFCF64</color>
+    <color name="eq49GradientEnd">#FDB332</color>
+
+
 
 
 

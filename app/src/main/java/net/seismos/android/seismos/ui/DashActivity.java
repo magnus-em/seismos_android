@@ -9,6 +9,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
 
+import com.google.android.gms.maps.model.LatLng;
+
 import net.seismos.android.seismos.R;
 import net.seismos.android.seismos.ui.home.HomeContract;
 import net.seismos.android.seismos.ui.home.HomeFragment;
@@ -20,7 +22,7 @@ import net.seismos.android.seismos.ui.store.StoreFragment;
 import net.seismos.android.seismos.ui.profile.ProfileFragment;
 import net.seismos.android.seismos.ui.seismos.SeismosFragment;
 
-public class DashActivity extends AppCompatActivity  {
+public class DashActivity extends AppCompatActivity implements HomeFragment.OnEqGlobeSelectedListener {
     private static final String TAG = "DashActivity";
 
 
@@ -35,6 +37,8 @@ public class DashActivity extends AppCompatActivity  {
 
     private HomePresenter homePresenter;
     private MapPresenter mapPresenter;
+
+    private  BottomNavigationView mNavigation;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -61,7 +65,7 @@ public class DashActivity extends AppCompatActivity  {
         }
     };
 
-    private void setCurrentFragment(Fragment fragment) {
+    private void setCurrentFragment(Fragment fragment, int itemId) {
         if (fragment == currentFragment)
             return;
          fragmentManager.beginTransaction()
@@ -69,6 +73,18 @@ public class DashActivity extends AppCompatActivity  {
                  .show(fragment)
                  .commit();
          currentFragment = fragment;
+
+         mNavigation.setSelectedItemId(itemId);
+
+    }
+    private void setCurrentFragment(Fragment fragment) {
+        if (fragment == currentFragment)
+            return;
+        fragmentManager.beginTransaction()
+                .hide(currentFragment)
+                .show(fragment)
+                .commit();
+        currentFragment = fragment;
     }
 
     @Override
@@ -87,6 +103,7 @@ public class DashActivity extends AppCompatActivity  {
 
 
 
+
             fragmentManager.beginTransaction().add(R.id.fragment_container, homeFragment)
                     .hide(homeFragment).commit();
             fragmentManager.beginTransaction().add(R.id.fragment_container, mapFragment)
@@ -102,9 +119,14 @@ public class DashActivity extends AppCompatActivity  {
         fragmentManager.beginTransaction().show(homeFragment).commit();
 
 
-        BottomNavigationView mNavigation =  findViewById(R.id.navigation);
+        mNavigation =  findViewById(R.id.navigation);
         mNavigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
+    }
+
+    public void openMapToLatLng(LatLng latLng) {
+        setCurrentFragment(mapFragment, R.id.nav_item_map);
+        mapPresenter.openMapToLatLng(latLng);
     }
 
     @Override

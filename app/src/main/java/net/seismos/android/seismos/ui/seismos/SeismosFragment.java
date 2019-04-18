@@ -22,16 +22,8 @@ public class SeismosFragment extends Fragment implements SeismosContract.View {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_placeholder, container, false);
-        WebView web;
-        web = root.findViewById(R.id.web);
-        web.getSettings().setBuiltInZoomControls(false);
-        web.getSettings().setUseWideViewPort(true);
-        web.getSettings().setJavaScriptEnabled(true);
-        web.getSettings().setLoadWithOverviewMode(true);
-        web.setHorizontalScrollBarEnabled(false);
-        web.setVerticalScrollBarEnabled(false);
-        web.loadUrl("file:///android_asset/seismos_placeholder.png");
+        View root = inflater.inflate(R.layout.fragment_seismos, container, false);
+
         return root;
     }
 

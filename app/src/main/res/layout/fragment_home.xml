@@ -71,16 +71,15 @@
 
                     <net.seismos.android.seismos.ui.home.EqGlobeView
                         android:id="@+id/EqGlobe6"
-                        android:layout_width="80dp"
+                        android:layout_width="75dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="16dp"
+                        android:layout_margin="16dp"
                         app:layout_constraintStart_toEndOf="@id/EqGlobe5"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <net.seismos.android.seismos.ui.home.EqGlobeView
                         android:id="@+id/EqGlobe7"
-                        android:layout_width="80dp"
+                        android:layout_width="75dp"
                         android:layout_height="wrap_content"
                         android:layout_margin="16dp"
                         app:layout_constraintStart_toEndOf="@id/EqGlobe6"
@@ -88,7 +87,7 @@
 
                     <net.seismos.android.seismos.ui.home.EqGlobeView
                         android:id="@+id/EqGlobe8"
-                        android:layout_width="80dp"
+                        android:layout_width="75dp"
                         android:layout_height="wrap_content"
                         android:layout_margin="16dp"
                         app:layout_constraintStart_toEndOf="@id/EqGlobe7"
@@ -96,7 +95,7 @@
 
                     <net.seismos.android.seismos.ui.home.EqGlobeView
                         android:id="@+id/EqGlobe9"
-                        android:layout_width="80dp"
+                        android:layout_width="75dp"
                         android:layout_height="wrap_content"
                         android:layout_margin="16dp"
                         app:layout_constraintStart_toEndOf="@id/EqGlobe8"
@@ -104,7 +103,7 @@
 
                     <net.seismos.android.seismos.ui.home.EqGlobeView
                         android:id="@+id/EqGlobe10"
-                        android:layout_width="80dp"
+                        android:layout_width="75dp"
                         android:layout_height="wrap_content"
                         android:layout_margin="16dp"
                         app:layout_constraintStart_toEndOf="@id/EqGlobe9"
@@ -369,13 +368,15 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="40dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="32dp"
                 android:layout_marginEnd="40dp"
-                android:layout_marginBottom="24dp"
+                android:layout_marginBottom="32dp"
                 app:layout_constraintBottom_toTopOf="@+id/imageView"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/globeScrollView"
+                app:layout_constraintVertical_bias="0.0"
                 app:square_color="@color/blueHighlight" />
 
             <TextView
@@ -426,6 +427,7 @@
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="24dp"
                 android:scaleType="centerInside"
+                android:visibility="gone"
                 app:layout_constraintBottom_toTopOf="@+id/homePlayPause"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -435,9 +437,10 @@
                 android:id="@+id/homePlayPause"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="24dp"
+                android:layout_marginBottom="16dp"
                 android:clickable="true"
                 android:padding="0dp"
+                app:fabCustomSize="65dp"
                 app:fabSize="normal"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -447,13 +450,13 @@
 
             <android.support.design.chip.Chip
                 android:layout_width="125dp"
-                android:layout_height="42dp"
+                android:layout_height="45dp"
                 android:fontFamily="@font/sfproregular"
                 android:text="Schedule"
                 android:textAppearance="@style/ChipTheme"
                 android:textColor="@color/offWhite"
                 app:chipBackgroundColor="@color/blueLight"
-                app:chipCornerRadius="20dp"
+                app:chipCornerRadius="23dp"
                 app:chipIcon="@drawable/home_schedule_icon"
                 app:chipIconEnabled="true"
                 app:chipIconSize="27dp"
@@ -469,14 +472,14 @@
 
             <android.support.design.chip.Chip
                 android:layout_width="125dp"
-                android:layout_height="42dp"
+                android:layout_height="45dp"
                 android:fontFamily="@font/sfproregular"
                 android:text="Upgrade"
                 android:textAppearance="@style/ChipTheme"
                 android:textColor="@color/offWhite"
 
                 app:chipBackgroundColor="@color/blueLight"
-                app:chipCornerRadius="20dp"
+                app:chipCornerRadius="23dp"
                 app:chipIcon="@drawable/home_upgrade_icon"
                 app:chipIconEnabled="true"
                 app:chipIconSize="27dp"
@@ -485,19 +488,33 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/homePlayPause"
                 app:layout_constraintTop_toTopOf="@+id/homePlayPause"
-                app:textStartPadding="5dp">
+                app:textStartPadding="4dp">
 
             </android.support.design.chip.Chip>
 
 
         </android.support.constraint.ConstraintLayout>
 
-        <ImageView
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/viewPager"
             android:layout_width="match_parent"
-            android:layout_height="260dp"
-            android:layout_margin="12dp"
-            android:scaleType="fitCenter"
-            android:src="@drawable/home_chart_earned" />
+            android:layout_height="240dp">
+
+            <android.support.design.widget.TabLayout
+                android:id="@+id/tabLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="?actionBarSize"
+                app:tabBackground="@color/blueBackground"
+                app:tabGravity="fill"
+                app:tabIndicatorColor="@color/blueHighlight"
+                app:tabIndicatorHeight="4dp">
+
+            </android.support.design.widget.TabLayout>
+        </android.support.v4.view.ViewPager>
+
+
 
         <ImageView
             android:id="@+id/imageView2"

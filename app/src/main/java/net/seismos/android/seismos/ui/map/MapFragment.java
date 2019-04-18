@@ -67,6 +67,8 @@ public class MapFragment extends Fragment implements MapContract.View,
 
     private float mMinimumMagnitude = 4;
 
+    ArrayList<Marker> markers = new ArrayList<>();
+
 
 
     @Override
@@ -183,9 +185,8 @@ public class MapFragment extends Fragment implements MapContract.View,
                              icon = resizeBitmap(R.drawable.map_pin_8, 200, 200);
                         }
                         markerOptions.icon(icon);
-                        mMap.addMarker(markerOptions);
+                        markers.add(mMap.addMarker(markerOptions));
                     }
-
                 }
             }
         }
@@ -218,85 +219,7 @@ public class MapFragment extends Fragment implements MapContract.View,
         mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
             @Override
             public boolean onMarkerClick(Marker marker) {
-                Earthquake markedEarthquake = null;
-                LatLng markerPos = marker.getPosition();
-                for (Earthquake earthquake : mEarthquakes) {
-                    LatLng eqPos = new LatLng(earthquake.getLatitude(), earthquake.getLongitude());
-                    if (markerPos.equals(eqPos)) {
-
-                        // prohibit same marker reselection leading to additional identical earthquakes in db
-                        if (activeMarker == null) {
-                            activeMarker = marker;
-                            mEarthquakes.remove(earthquake);
-                            mEarthquakes.add(0, earthquake);
-                            mEarthquakeAdapter.notifyDataSetChanged();
-                        } else {
-                            if (!activeMarker.equals(marker)) {
-                                mEarthquakes.remove(earthquake);
-                                mEarthquakes.add(0, earthquake);
-                                mEarthquakeAdapter.notifyDataSetChanged();
-                            }
-                        }
-                        markedEarthquake = earthquake;
-                        break;
-                    }
-                }
-
-
-                // This series of if else determine which active marker to use depending on the
-                // magnitude of the earthquake
-                if (markedEarthquake != null) {
-                    if (markedEarthquake.getMagnitude() < 5) {
-                        marker.setIcon(resizeBitmap(R.drawable.active_pin_49, 90, 126));
-                    } else if (markedEarthquake.getMagnitude() < 6) {
-                        marker.setIcon(resizeBitmap(R.drawable.active_pin_59, 90, 126));
-                    } else if (markedEarthquake.getMagnitude() < 6.5) {
-                        marker.setIcon(resizeBitmap(R.drawable.active_pin_64, 90, 126));
-                    } else if (markedEarthquake.getMagnitude() < 7) {
-                        marker.setIcon(resizeBitmap(R.drawable.active_pin_69, 90, 126));
-                    } else if (markedEarthquake.getMagnitude() < 7.5) {
-                        marker.setIcon(resizeBitmap(R.drawable.active_pin_74, 90, 126));
-                    } else if (markedEarthquake.getMagnitude() < 8) {
-                        marker.setIcon(resizeBitmap(R.drawable.active_pin_79, 90, 126));
-                    } else {
-                        marker.setIcon(resizeBitmap(R.drawable.active_pin_8, 90, 126));
-                    }
-                }
-
-                // prohibit marker reselection leading to active marker being removed
-                if (activeMarker != null) {
-                    if (!activeMarker.equals(marker)){
-                        LatLng oldMarkerPos = activeMarker.getPosition();
-                        for (Earthquake earthquake : mEarthquakes) {
-                            LatLng eqPos = new LatLng(earthquake.getLatitude(), earthquake.getLongitude());
-                            if (oldMarkerPos.equals(eqPos)) {
-                                BitmapDescriptor icon;
-                                if (earthquake.getMagnitude() < 5) {
-                                    icon = resizeBitmap(R.drawable.map_pin_49, 60, 60);
-                                } else if (earthquake.getMagnitude() < 6) {
-                                    icon = resizeBitmap(R.drawable.map_pin_59, 80, 80);
-                                } else if (earthquake.getMagnitude() < 6.5) {
-                                    icon = resizeBitmap(R.drawable.map_pin_64, 120, 120);
-                                } else if (earthquake.getMagnitude() < 7) {
-                                    icon = resizeBitmap(R.drawable.map_pin_69, 150, 150);
-                                } else if (earthquake.getMagnitude() < 7.5) {
-                                    icon = resizeBitmap(R.drawable.map_pin_74, 175, 175);
-                                } else if (earthquake.getMagnitude() < 8) {
-                                    icon = resizeBitmap(R.drawable.map_pin_79, 200, 200);
-                                } else {
-                                    icon = resizeBitmap(R.drawable.map_pin_8, 200, 200);
-                                }
-                                activeMarker.setIcon(icon);
-                                break;
-                            }
-                        }
-                    }
-                }
-                activeMarker = marker;
-
-                if (sheetBehavior.getState() == STATE_HIDDEN) {
-                    sheetBehavior.setState(STATE_COLLAPSED);
-                }
+                markerSelection(marker);
                 return false;
             }
         });
@@ -342,5 +265,97 @@ public class MapFragment extends Fragment implements MapContract.View,
         intent.putExtra("cdi", Double.toString(eq.getCdi()));
 
         startActivity(intent);
+    }
+
+    @Override
+    public void navigateToLatLng(final LatLng latLng) {
+        mMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
+        for (Marker marker : markers) {
+            if (marker.getPosition().equals(latLng)) {
+                markerSelection(marker);
+            }
+        }
+    }
+
+    private void markerSelection(Marker marker) {
+        Earthquake markedEarthquake = null;
+        LatLng markerPos = marker.getPosition();
+        for (Earthquake earthquake : mEarthquakes) {
+            LatLng eqPos = new LatLng(earthquake.getLatitude(), earthquake.getLongitude());
+            if (markerPos.equals(eqPos)) {
+
+                // prohibit same marker reselection leading to additional identical earthquakes in db
+                if (activeMarker == null) {
+                    activeMarker = marker;
+                    mEarthquakes.remove(earthquake);
+                    mEarthquakes.add(0, earthquake);
+                    mEarthquakeAdapter.notifyDataSetChanged();
+                } else {
+                    if (!activeMarker.equals(marker)) {
+                        mEarthquakes.remove(earthquake);
+                        mEarthquakes.add(0, earthquake);
+                        mEarthquakeAdapter.notifyDataSetChanged();
+                    }
+                }
+                markedEarthquake = earthquake;
+                break;
+            }
+        }
+
+
+        // This series of if else determine which active marker to use depending on the
+        // magnitude of the earthquake
+        if (markedEarthquake != null) {
+            if (markedEarthquake.getMagnitude() < 5) {
+                marker.setIcon(resizeBitmap(R.drawable.active_pin_49, 90, 126));
+            } else if (markedEarthquake.getMagnitude() < 6) {
+                marker.setIcon(resizeBitmap(R.drawable.active_pin_59, 90, 126));
+            } else if (markedEarthquake.getMagnitude() < 6.5) {
+                marker.setIcon(resizeBitmap(R.drawable.active_pin_64, 90, 126));
+            } else if (markedEarthquake.getMagnitude() < 7) {
+                marker.setIcon(resizeBitmap(R.drawable.active_pin_69, 90, 126));
+            } else if (markedEarthquake.getMagnitude() < 7.5) {
+                marker.setIcon(resizeBitmap(R.drawable.active_pin_74, 90, 126));
+            } else if (markedEarthquake.getMagnitude() < 8) {
+                marker.setIcon(resizeBitmap(R.drawable.active_pin_79, 90, 126));
+            } else {
+                marker.setIcon(resizeBitmap(R.drawable.active_pin_8, 90, 126));
+            }
+        }
+
+        // prohibit marker reselection leading to active marker being removed
+        if (activeMarker != null) {
+            if (!activeMarker.equals(marker)){
+                LatLng oldMarkerPos = activeMarker.getPosition();
+                for (Earthquake earthquake : mEarthquakes) {
+                    LatLng eqPos = new LatLng(earthquake.getLatitude(), earthquake.getLongitude());
+                    if (oldMarkerPos.equals(eqPos)) {
+                        BitmapDescriptor icon;
+                        if (earthquake.getMagnitude() < 5) {
+                            icon = resizeBitmap(R.drawable.map_pin_49, 60, 60);
+                        } else if (earthquake.getMagnitude() < 6) {
+                            icon = resizeBitmap(R.drawable.map_pin_59, 80, 80);
+                        } else if (earthquake.getMagnitude() < 6.5) {
+                            icon = resizeBitmap(R.drawable.map_pin_64, 120, 120);
+                        } else if (earthquake.getMagnitude() < 7) {
+                            icon = resizeBitmap(R.drawable.map_pin_69, 150, 150);
+                        } else if (earthquake.getMagnitude() < 7.5) {
+                            icon = resizeBitmap(R.drawable.map_pin_74, 175, 175);
+                        } else if (earthquake.getMagnitude() < 8) {
+                            icon = resizeBitmap(R.drawable.map_pin_79, 200, 200);
+                        } else {
+                            icon = resizeBitmap(R.drawable.map_pin_8, 200, 200);
+                        }
+                        activeMarker.setIcon(icon);
+                        break;
+                    }
+                }
+            }
+        }
+        activeMarker = marker;
+
+        if (sheetBehavior.getState() == STATE_HIDDEN) {
+            sheetBehavior.setState(STATE_COLLAPSED);
+        }
     }
 }

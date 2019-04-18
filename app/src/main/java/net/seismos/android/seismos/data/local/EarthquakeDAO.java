@@ -23,7 +23,7 @@ public interface EarthquakeDAO {
     @Delete
     public void deleteEarthquake(Earthquake earthquake);
 
-    @Query("SELECT * FROM earthquake ORDER BY mMag ASC")
+    @Query("SELECT * FROM earthquake ORDER BY mMag DESC")
     public LiveData<List<Earthquake>> loadAllEarthquakes();
 
     @Query("SELECT * FROM earthquake ORDER BY mMag DESC")
