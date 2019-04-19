@@ -6,7 +6,6 @@
     android:layout_height="wrap_content">
 
     <ImageView
-        android:src="@drawable/gates_foundation"
         android:id="@+id/titleImage"
         android:layout_width="0dp"
         android:layout_height="220dp"
@@ -14,8 +13,9 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:adjustViewBounds="true"
-
         android:scaleType="centerInside"
+
+        android:src="@drawable/gates_foundation"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -56,4 +56,27 @@
         android:textColor="@color/offWhite70"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/titleText" />
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:background="@color/blueDivider"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/timeText" />
+
+    <ImageView
+        android:id="@+id/imageView14"
+        android:layout_width="wrap_content"
+        android:layout_height="24dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="24dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/titleText"
+        app:srcCompat="@drawable/menu_dots_icon" />
 </android.support.constraint.ConstraintLayout>

@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:scrollbarAlwaysDrawVerticalTrack="false">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -496,22 +497,22 @@
         </android.support.constraint.ConstraintLayout>
 
 
+        <android.support.design.widget.TabLayout
+            android:id="@+id/tabLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="?actionBarSize"
+            app:tabBackground="@color/blueBackground"
+            app:tabGravity="fill"
+            app:tabIndicatorColor="@color/blueHighlight"
+            app:tabIndicatorHeight="4dp">
+
+        </android.support.design.widget.TabLayout>
+
         <android.support.v4.view.ViewPager
             android:id="@+id/viewPager"
             android:layout_width="match_parent"
             android:layout_height="240dp">
-
-            <android.support.design.widget.TabLayout
-                android:id="@+id/tabLayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:minHeight="?actionBarSize"
-                app:tabBackground="@color/blueBackground"
-                app:tabGravity="fill"
-                app:tabIndicatorColor="@color/blueHighlight"
-                app:tabIndicatorHeight="4dp">
-
-            </android.support.design.widget.TabLayout>
         </android.support.v4.view.ViewPager>
 
 

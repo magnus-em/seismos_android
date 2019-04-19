@@ -10,6 +10,8 @@
     <color name="offWhite70">#70FBFBFB</color>
     <color name="offWhite30">#30FBFBFB</color>
 
+    <color name="blueDivider">#6000233A</color>
+
     <color name="accentBlue">#00B4FF</color>
     <color name="accentGreen">#00FFA0</color>
 
@@ -34,15 +36,21 @@
     <color name="eq49GradientStart">#FFCF64</color>
     <color name="eq49GradientEnd">#FDB332</color>
 
+    <color name="gradientDangerStart">#FFC238</color>
+    <color name="gradientDangerEnd">#f03600</color>
+
+    <color name="gradientBlueHighlightStart">#1C6490</color>
+    <color name="gradientBlueHighlightEnd">#1C6490</color>
 
 
 
 
 
-    <color name="colorPrimary">#093e5e</color>
-    <color name="colorPrimaryDark">#012B44</color>
-    <color name="colorAccent">#ff5500</color>
-    <color name="colorPrimaryLight">#093e5e</color>
+
+    <color name="colorPrimary">@color/blueDefault</color>
+    <color name="colorPrimaryDark">@color/blueBackground</color>
+    <color name="colorAccent">@color/blueHighlight</color>
+    <color name="colorPrimaryLight">@color/blueLight</color>
     <color name="whiteTransparent">#90ffffff</color>
     <color name="blackTransparent">#60000000</color>
     <color name="colorPrimaryTransparent">#20093e5e</color>

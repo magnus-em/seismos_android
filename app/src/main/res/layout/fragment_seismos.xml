@@ -1,27 +1,173 @@
-<?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_height="match_parent"
-    android:layout_width="match_parent">
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <LinearLayout
-        android:orientation="vertical"
+    <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@color/blueBackground"
+        android:orientation="vertical">
 
-        <android.support.design.button.MaterialButton
-            android:layout_width="153dp"
-            android:layout_height="140dp"
-            android:visibility="gone" />
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_scrollFlags="scroll">
 
-        <include layout="@layout/article_large_list_item"/>
-        <include layout="@layout/article_small_list_item"/>
+            <TextView
+                android:id="@+id/textView10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/sfpromedium"
+                android:text="News"
+                android:textColor="@color/offWhite"
+                android:textSize="26sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/divider" />
 
-        <include layout="@layout/article_large_list_item"/>
+            <android.support.constraint.Guideline
+                android:id="@+id/upperGuideLine"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.5" />
 
-        <include layout="@layout/article_small_list_item" />
+            <android.support.design.card.MaterialCardView
+                android:id="@+id/missionCardView"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
 
-        <include layout="@layout/article_large_list_item"/>
-    </LinearLayout>
+                android:layout_marginEnd="12dp"
+                app:cardBackgroundColor="@color/gradientDangerEnd"
+                app:cardCornerRadius="16dp"
+                app:layout_constraintDimensionRatio="1:0.92"
+                app:layout_constraintEnd_toStartOf="@+id/upperGuideLine"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
-</ScrollView>
+                <ImageButton
+                    android:id="@+id/imageView12"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="0dp"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/danger_gradient" />
+
+                <android.support.constraint.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/imageView15"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_marginStart="14dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="8dp"
+                        app:layout_constraintBottom_toTopOf="@+id/textView9"
+                        app:layout_constraintDimensionRatio="1:1"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/seismos_news_icon" />
+
+                    <TextView
+                        android:id="@+id/textView9"
+                        android:layout_width="110dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="18dp"
+                        android:layout_marginBottom="14dp"
+                        android:fontFamily="@font/sfpromedium"
+                        android:text="Mission Seismos"
+                        android:textAlignment="textEnd"
+                        android:textColor="@color/offWhite"
+                        android:textSize="22sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent" />
+                </android.support.constraint.ConstraintLayout>
+            </android.support.design.card.MaterialCardView>
+
+            <android.support.design.card.MaterialCardView
+                android:id="@+id/networkCardView"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                app:cardBackgroundColor="@color/blueHighlight"
+                app:cardCornerRadius="16dp"
+                app:layout_constraintDimensionRatio="1:0.92"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/upperGuideLine"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/gradient_blue_highlight" />
+
+                <android.support.constraint.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/imageView16"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_marginStart="12dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="8dp"
+                        app:layout_constraintBottom_toTopOf="@+id/textView11"
+                        app:layout_constraintDimensionRatio="1:1"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/network_icon" />
+
+                    <TextView
+                        android:id="@+id/textView11"
+                        android:layout_width="110dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="18dp"
+                        android:layout_marginBottom="14dp"
+                        android:fontFamily="@font/sfpromedium"
+                        android:text="Network Status"
+                        android:textAlignment="textEnd"
+                        android:textColor="@color/offWhite"
+                        android:textSize="22sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent" />
+                </android.support.constraint.ConstraintLayout>
+            </android.support.design.card.MaterialCardView>
+
+            <View
+                android:id="@+id/divider"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="8dp"
+                android:background="@color/blueDivider"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/networkCardView" />
+
+        </android.support.constraint.ConstraintLayout>
+    </android.support.design.widget.AppBarLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="false"
+        app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+        app:layout_behavior="android.support.design.widget.AppBarLayout$ScrollingViewBehavior"
+        tools:listitem="@layout/article_large_list_item"/>
+
+</android.support.design.widget.CoordinatorLayout>
