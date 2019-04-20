@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:scrollbarAlwaysDrawVerticalTrack="false">
+    android:scrollbars="none"
+    >
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -114,11 +115,11 @@
                         android:id="@+id/EqTitle1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
+                        android:layout_marginTop="4dp"
                         android:fontFamily="@font/sfpromedium"
                         android:text="M6.2 USA"
                         android:textColor="@color/offWhite"
-                        android:textSize="14sp"
+                        android:textSize="13dp"
                         app:layout_constraintEnd_toEndOf="@+id/EqGlobe1"
                         app:layout_constraintStart_toStartOf="@+id/EqGlobe1"
                         app:layout_constraintTop_toBottomOf="@+id/EqGlobe1" />
@@ -130,7 +131,7 @@
                         android:fontFamily="@font/sfprolight"
                         android:text="Mar 26"
                         android:textColor="@color/offWhite"
-                        android:textSize="13sp"
+                        android:textSize="12dp"
                         app:layout_constraintEnd_toEndOf="@+id/EqTitle1"
                         app:layout_constraintStart_toStartOf="@+id/EqTitle1"
                         app:layout_constraintTop_toBottomOf="@+id/EqTitle1" />
@@ -139,11 +140,11 @@
                         android:id="@+id/EqTitle2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
+                        android:layout_marginTop="4dp"
                         android:fontFamily="@font/sfpromedium"
                         android:text="M6.2 USA"
                         android:textColor="@color/offWhite"
-                        android:textSize="14sp"
+                        android:textSize="13dp"
                         app:layout_constraintEnd_toEndOf="@+id/EqGlobe2"
                         app:layout_constraintStart_toStartOf="@+id/EqGlobe2"
                         app:layout_constraintTop_toBottomOf="@+id/EqGlobe2" />
@@ -155,7 +156,7 @@
                         android:fontFamily="@font/sfprolight"
                         android:text="Mar 26"
                         android:textColor="@color/offWhite"
-                        android:textSize="13sp"
+                        android:textSize="12dp"
                         app:layout_constraintEnd_toEndOf="@+id/EqTitle2"
                         app:layout_constraintStart_toStartOf="@+id/EqTitle2"
                         app:layout_constraintTop_toBottomOf="@+id/EqTitle2" />
@@ -164,11 +165,11 @@
                         android:id="@+id/EqTitle3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
+                        android:layout_marginTop="4dp"
                         android:fontFamily="@font/sfpromedium"
                         android:text="M6.2 USA"
                         android:textColor="@color/offWhite"
-                        android:textSize="14sp"
+                        android:textSize="13dp"
                         app:layout_constraintEnd_toEndOf="@+id/EqGlobe3"
                         app:layout_constraintStart_toStartOf="@+id/EqGlobe3"
                         app:layout_constraintTop_toBottomOf="@+id/EqGlobe3" />
@@ -180,7 +181,7 @@
                         android:fontFamily="@font/sfprolight"
                         android:text="Mar 26"
                         android:textColor="@color/offWhite"
-                        android:textSize="13sp"
+                        android:textSize="12dp"
                         app:layout_constraintEnd_toEndOf="@+id/EqTitle3"
                         app:layout_constraintStart_toStartOf="@+id/EqTitle3"
                         app:layout_constraintTop_toBottomOf="@+id/EqTitle3" />
@@ -189,11 +190,11 @@
                         android:id="@+id/EqTitle4"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
+                        android:layout_marginTop="4dp"
                         android:fontFamily="@font/sfpromedium"
                         android:text="M6.2 USA"
                         android:textColor="@color/offWhite"
-                        android:textSize="14sp"
+                        android:textSize="13dp"
                         app:layout_constraintEnd_toEndOf="@+id/EqGlobe4"
                         app:layout_constraintStart_toStartOf="@+id/EqGlobe4"
                         app:layout_constraintTop_toBottomOf="@+id/EqGlobe4" />
@@ -205,7 +206,7 @@
                         android:fontFamily="@font/sfprolight"
                         android:text="Mar 26"
                         android:textColor="@color/offWhite"
-                        android:textSize="13sp"
+                        android:textSize="12dp"
                         app:layout_constraintEnd_toEndOf="@+id/EqTitle4"
                         app:layout_constraintStart_toStartOf="@+id/EqTitle4"
                         app:layout_constraintTop_toBottomOf="@+id/EqTitle4" />
@@ -214,11 +215,11 @@
                         android:id="@+id/EqTitle5"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
+                        android:layout_marginTop="4dp"
                         android:fontFamily="@font/sfpromedium"
                         android:text="M6.2 USA"
                         android:textColor="@color/offWhite"
-                        android:textSize="14sp"
+                        android:textSize="13dp"
                         app:layout_constraintEnd_toEndOf="@+id/EqGlobe5"
                         app:layout_constraintStart_toStartOf="@+id/EqGlobe5"
                         app:layout_constraintTop_toBottomOf="@+id/EqGlobe5" />
@@ -230,7 +231,7 @@
                         android:fontFamily="@font/sfprolight"
                         android:text="Mar 26"
                         android:textColor="@color/offWhite"
-                        android:textSize="13sp"
+                        android:textSize="12dp"
                         app:layout_constraintEnd_toEndOf="@+id/EqTitle5"
                         app:layout_constraintStart_toStartOf="@+id/EqTitle5"
                         app:layout_constraintTop_toBottomOf="@+id/EqTitle5" />
@@ -239,11 +240,11 @@
                         android:id="@+id/EqTitle6"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
+                        android:layout_marginTop="4dp"
                         android:fontFamily="@font/sfpromedium"
                         android:text="M6.2 USA"
                         android:textColor="@color/offWhite"
-                        android:textSize="14sp"
+                        android:textSize="13dp"
                         app:layout_constraintEnd_toEndOf="@+id/EqGlobe6"
                         app:layout_constraintStart_toStartOf="@+id/EqGlobe6"
                         app:layout_constraintTop_toBottomOf="@+id/EqGlobe6" />
@@ -255,7 +256,7 @@
                         android:fontFamily="@font/sfprolight"
                         android:text="Mar 26"
                         android:textColor="@color/offWhite"
-                        android:textSize="13sp"
+                        android:textSize="12dp"
                         app:layout_constraintEnd_toEndOf="@+id/EqTitle6"
                         app:layout_constraintStart_toStartOf="@+id/EqTitle6"
                         app:layout_constraintTop_toBottomOf="@+id/EqTitle6" />
@@ -264,11 +265,11 @@
                         android:id="@+id/EqTitle7"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
+                        android:layout_marginTop="4dp"
                         android:fontFamily="@font/sfpromedium"
                         android:text="M6.2 USA"
                         android:textColor="@color/offWhite"
-                        android:textSize="14sp"
+                        android:textSize="13dp"
                         app:layout_constraintEnd_toEndOf="@+id/EqGlobe7"
                         app:layout_constraintStart_toStartOf="@+id/EqGlobe7"
                         app:layout_constraintTop_toBottomOf="@+id/EqGlobe7" />
@@ -280,7 +281,7 @@
                         android:fontFamily="@font/sfprolight"
                         android:text="Mar 26"
                         android:textColor="@color/offWhite"
-                        android:textSize="13sp"
+                        android:textSize="12dp"
                         app:layout_constraintEnd_toEndOf="@+id/EqTitle7"
                         app:layout_constraintStart_toStartOf="@+id/EqTitle7"
                         app:layout_constraintTop_toBottomOf="@+id/EqTitle7" />
@@ -289,11 +290,11 @@
                         android:id="@+id/EqTitle8"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
+                        android:layout_marginTop="4dp"
                         android:fontFamily="@font/sfpromedium"
                         android:text="M6.2 USA"
                         android:textColor="@color/offWhite"
-                        android:textSize="14sp"
+                        android:textSize="13dp"
                         app:layout_constraintEnd_toEndOf="@+id/EqGlobe8"
                         app:layout_constraintStart_toStartOf="@+id/EqGlobe8"
                         app:layout_constraintTop_toBottomOf="@+id/EqGlobe8" />
@@ -305,7 +306,7 @@
                         android:fontFamily="@font/sfprolight"
                         android:text="Mar 26"
                         android:textColor="@color/offWhite"
-                        android:textSize="13sp"
+                        android:textSize="12dp"
                         app:layout_constraintEnd_toEndOf="@+id/EqTitle8"
                         app:layout_constraintStart_toStartOf="@+id/EqTitle8"
                         app:layout_constraintTop_toBottomOf="@+id/EqTitle8" />
@@ -314,11 +315,11 @@
                         android:id="@+id/EqTitle9"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
+                        android:layout_marginTop="4dp"
                         android:fontFamily="@font/sfpromedium"
                         android:text="M6.2 USA"
                         android:textColor="@color/offWhite"
-                        android:textSize="14sp"
+                        android:textSize="13dp"
                         app:layout_constraintEnd_toEndOf="@+id/EqGlobe9"
                         app:layout_constraintStart_toStartOf="@+id/EqGlobe9"
                         app:layout_constraintTop_toBottomOf="@+id/EqGlobe9" />
@@ -330,7 +331,7 @@
                         android:fontFamily="@font/sfprolight"
                         android:text="Mar 26"
                         android:textColor="@color/offWhite"
-                        android:textSize="13sp"
+                        android:textSize="12dp"
                         app:layout_constraintEnd_toEndOf="@+id/EqTitle9"
                         app:layout_constraintStart_toStartOf="@+id/EqTitle9"
                         app:layout_constraintTop_toBottomOf="@+id/EqTitle9" />
@@ -339,11 +340,11 @@
                         android:id="@+id/EqTitle10"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
+                        android:layout_marginTop="4dp"
                         android:fontFamily="@font/sfpromedium"
                         android:text="M6.2 USA"
                         android:textColor="@color/offWhite"
-                        android:textSize="14sp"
+                        android:textSize="13dp"
                         app:layout_constraintEnd_toEndOf="@+id/EqGlobe10"
                         app:layout_constraintStart_toStartOf="@+id/EqGlobe10"
                         app:layout_constraintTop_toBottomOf="@+id/EqGlobe10" />
@@ -355,7 +356,7 @@
                         android:fontFamily="@font/sfprolight"
                         android:text="Mar 26"
                         android:textColor="@color/offWhite"
-                        android:textSize="13sp"
+                        android:textSize="12dp"
                         app:layout_constraintEnd_toEndOf="@+id/EqTitle10"
                         app:layout_constraintStart_toStartOf="@+id/EqTitle10"
                         app:layout_constraintTop_toBottomOf="@+id/EqTitle10" />
@@ -369,15 +370,12 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="40dp"
-                android:layout_marginTop="32dp"
+                android:layout_marginTop="24dp"
                 android:layout_marginEnd="40dp"
-                android:layout_marginBottom="32dp"
-                app:layout_constraintBottom_toTopOf="@+id/imageView"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/globeScrollView"
-                app:layout_constraintVertical_bias="0.0"
                 app:square_color="@color/blueHighlight" />
 
             <TextView
@@ -402,7 +400,7 @@
                 android:text="SEI"
                 android:textAlignment="textStart"
                 android:textColor="@color/offWhite"
-                android:textSize="20sp"
+                android:textSize="20dp"
                 app:layout_constraintBottom_toTopOf="@+id/homeSeiCount"
                 app:layout_constraintEnd_toEndOf="@+id/homeSeiCount"
                 app:layout_constraintStart_toStartOf="@+id/homeSeiCount" />
@@ -415,7 +413,7 @@
                 android:fontFamily="@font/sfprolight"
                 android:text="earned"
                 android:textColor="@color/offWhite"
-                android:textSize="16sp"
+                android:textSize="16dp"
                 app:layout_constraintEnd_toEndOf="@+id/homeSeiCount"
                 app:layout_constraintStart_toStartOf="@+id/homeSeiCount"
                 app:layout_constraintTop_toBottomOf="@+id/homeSeiCount" />
@@ -456,12 +454,14 @@
                 android:text="Schedule"
                 android:textAppearance="@style/ChipTheme"
                 android:textColor="@color/offWhite"
-                app:chipBackgroundColor="@color/blueLight"
+                app:chipBackgroundColor="@android:color/transparent"
                 app:chipCornerRadius="23dp"
                 app:chipIcon="@drawable/home_schedule_icon"
                 app:chipIconEnabled="true"
                 app:chipIconSize="27dp"
                 app:chipStartPadding="10dp"
+                app:chipStrokeColor="@color/offWhite"
+                app:chipStrokeWidth="2dp"
                 app:layout_constraintBottom_toBottomOf="@+id/homePlayPause"
                 app:layout_constraintEnd_toStartOf="@+id/homePlayPause"
                 app:layout_constraintStart_toStartOf="parent"
@@ -472,19 +472,22 @@
             </android.support.design.chip.Chip>
 
             <android.support.design.chip.Chip
+                android:id="@+id/upgradeButton"
                 android:layout_width="125dp"
                 android:layout_height="45dp"
                 android:fontFamily="@font/sfproregular"
                 android:text="Upgrade"
                 android:textAppearance="@style/ChipTheme"
-                android:textColor="@color/offWhite"
 
-                app:chipBackgroundColor="@color/blueLight"
+                android:textColor="@color/offWhite"
+                app:chipBackgroundColor="@android:color/transparent"
                 app:chipCornerRadius="23dp"
                 app:chipIcon="@drawable/home_upgrade_icon"
                 app:chipIconEnabled="true"
                 app:chipIconSize="27dp"
-                app:chipStartPadding="12dp"
+                app:chipStartPadding="10dp"
+                app:chipStrokeColor="@color/offWhite"
+                app:chipStrokeWidth="2dp"
                 app:layout_constraintBottom_toBottomOf="@+id/homePlayPause"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/homePlayPause"
@@ -492,6 +495,19 @@
                 app:textStartPadding="4dp">
 
             </android.support.design.chip.Chip>
+
+            <ImageView
+                android:id="@+id/accelerometer_placeholder"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:layout_marginBottom="30dp"
+                android:adjustViewBounds="true"
+                app:layout_constraintBottom_toBottomOf="@+id/imageView"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/seiEarnedView"
+                app:srcCompat="@drawable/acc_active_shake" />
 
 
         </android.support.constraint.ConstraintLayout>
@@ -505,7 +521,8 @@
             app:tabBackground="@color/blueBackground"
             app:tabGravity="fill"
             app:tabIndicatorColor="@color/blueHighlight"
-            app:tabIndicatorHeight="4dp">
+            app:tabIndicatorHeight="3dp"
+            app:tabTextAppearance="@style/tabTextAppearance">
 
         </android.support.design.widget.TabLayout>
 

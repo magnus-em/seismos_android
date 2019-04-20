@@ -1,17 +1,25 @@
 package net.seismos.android.seismos.ui.store;
 
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
 
 import net.seismos.android.seismos.R;
+import net.seismos.android.seismos.ui.home.ChartFragmentToday;
+import net.seismos.android.seismos.ui.home.ChartFragmentWeek;
+import net.seismos.android.seismos.ui.home.ChartTabAdapter;
 
 public class StoreFragment extends Fragment implements StoreContract.View {
 
-    private WebView web;
+    private StoreTabAdapter storeTabAdapter;
+    private TabLayout tabLayout;
+    private ViewPager viewPager;
+
 
     public StoreFragment() { // required empty public constructor
         }
@@ -26,15 +34,16 @@ public class StoreFragment extends Fragment implements StoreContract.View {
 
         View root = inflater.inflate(R.layout.fragment_store, container, false);
 
-//        web = root.findViewById(R.id.web);
-//        web.getSettings().setBuiltInZoomControls(false);
-//        web.getSettings().setUseWideViewPort(true);
-//        web.getSettings().setJavaScriptEnabled(true);
-//        web.getSettings().setLoadWithOverviewMode(true);
-//        web.setHorizontalScrollBarEnabled(false);
-//        web.setVerticalScrollBarEnabled(false);
-//        web.loadUrl("file:///android_asset/store_placeholder.png");
+        tabLayout = root.findViewById(R.id.tabLayout);
+        viewPager = root.findViewById(R.id.viewPager);
 
+        storeTabAdapter = new StoreTabAdapter(getChildFragmentManager());
+        storeTabAdapter.addFragment(new OffersFragment(), "Today's offers");
+        storeTabAdapter.addFragment(new CollectionFragment(), "My collection");
+
+
+        viewPager.setAdapter(storeTabAdapter);
+        tabLayout.setupWithViewPager(viewPager);
         return root;
     }
 

@@ -16,7 +16,10 @@ import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.AnticipateInterpolator;
 import android.view.animation.BounceInterpolator;
 import android.webkit.WebView;
+import android.widget.Button;
 import android.widget.HorizontalScrollView;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.google.android.gms.maps.model.LatLng;
@@ -24,6 +27,7 @@ import com.google.android.gms.maps.model.LatLng;
 import net.seismos.android.seismos.R;
 import net.seismos.android.seismos.data.local.EarthquakeViewModel;
 import net.seismos.android.seismos.data.model.Earthquake;
+import net.seismos.android.seismos.util.ResUtil;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -36,6 +40,8 @@ import java.util.TimerTask;
 public class HomeFragment extends Fragment implements HomeContract.View {
 
     private static final String TAG = "HomeFragment";
+
+    private int accelCount;
 
     private HomeContract.Presenter mPresenter;
 
@@ -307,6 +313,27 @@ public class HomeFragment extends Fragment implements HomeContract.View {
          viewPager.setAdapter(chartTabAdapter);
          tabLayout.setupWithViewPager(viewPager);
 
+         Button button = root.findViewById(R.id.upgradeButton);
+        final ImageView accel = root.findViewById(R.id.accelerometer_placeholder);
+         accelCount = 0;
+         button.setOnClickListener(new View.OnClickListener() {
+             @Override
+             public void onClick(View v) {
+                 if (accelCount==0) {
+                     accel.setImageDrawable(ResUtil.getInstance().getDrawable(R.drawable.acc_active_shake));
+                     accelCount+=1;
+                 } else if (accelCount==1) {
+                     accel.setImageDrawable(ResUtil.getInstance().getDrawable(R.drawable.acc_active_still));
+                     accelCount++;
+                 } else if (accelCount==2) {
+                     accel.setImageDrawable(ResUtil.getInstance().getDrawable(R.drawable.acc_inactive_shake));
+                     accelCount++;
+                 } else if (accelCount==3) {
+                     accel.setImageDrawable(ResUtil.getInstance().getDrawable(R.drawable.acc_inactive_still));
+                     accelCount = 0;
+                 }
+             }
+         });
 
         return root;
     }
