@@ -27,6 +27,12 @@ public class SeiEarnedView extends View {
 
     float mSweepAngle;
     int mStartAngle;
+
+    Paint mPaintProgress1;
+    Paint mPaintProgress2;
+    Paint mPaintProgress3;
+
+
     Paint mPaintProgress;
     Paint mPaintBackground;
     float mStrokeWidth;
@@ -78,18 +84,6 @@ public class SeiEarnedView extends View {
         rectRing2 = new RectF();
         rectRing3 = new RectF();
 
-//        rectRing3.left = mStrokeWidth/2;
-//        rectRing3.right = getWidth() - mStrokeWidth/2;
-//        rectRing3.top = mStrokeWidth/2;
-//        rectRing3.bottom = getHeight() - mStrokeWidth/2;
-//
-//        rectRing2.left = rectRing3.left + mStrokeWidth + 2;
-//        rectRing2.right = rectRing3.right - (mStrokeWidth + 2);
-//        rectRing2.top = rectRing3.top + mStrokeWidth + 2;
-//        rectRing2.bottom = rectRing3.bottom - (mStrokeWidth + 2);
-
-
-
 
 
         mSweepAngle = 0;
@@ -97,14 +91,26 @@ public class SeiEarnedView extends View {
         mPaintProgress = new Paint();
         mPaintProgress.setAntiAlias(true);
         mPaintProgress.setStyle(Paint.Style.STROKE);
-//        mPaintProgress.setStrokeWidth(mStrokeWidth);
         mPaintProgress.setStrokeCap(Paint.Cap.ROUND);
+
+        mPaintProgress1 = new Paint();
+        mPaintProgress1.setAntiAlias(true);
+        mPaintProgress1.setStyle(Paint.Style.STROKE);
+        mPaintProgress1.setStrokeCap(Paint.Cap.ROUND);
+        mPaintProgress2 = new Paint();
+        mPaintProgress2.setAntiAlias(true);
+        mPaintProgress2.setStyle(Paint.Style.STROKE);
+        mPaintProgress2.setStrokeCap(Paint.Cap.ROUND);
+        mPaintProgress3 = new Paint();
+        mPaintProgress3.setAntiAlias(true);
+        mPaintProgress3.setStyle(Paint.Style.STROKE);
+        mPaintProgress3.setStrokeCap(Paint.Cap.ROUND);
+
 
 
         mPaintBackground = new Paint();
         mPaintBackground.setAntiAlias(true);
         mPaintBackground.setStyle(Paint.Style.STROKE);
-//        mPaintBackground.setStrokeWidth(mStrokeWidth);
         mPaintBackground.setColor(ContextCompat.getColor(getContext(), R.color.blueDark));
 
         if (set == null) {
@@ -153,10 +159,14 @@ public class SeiEarnedView extends View {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
-        mStrokeWidth = (int) (getHeight() * 0.092);
+        mStrokeWidth = (int) (getHeight() * 0.095);
         mPaintProgress.setStrokeWidth(mStrokeWidth);
+        mPaintProgress1.setStrokeWidth(mStrokeWidth);
+        mPaintProgress2.setStrokeWidth(mStrokeWidth);
+        mPaintProgress3.setStrokeWidth(mStrokeWidth);
+
         mPaintBackground.setStrokeWidth(mStrokeWidth);
-        mStrokeGap = 8;
+        mStrokeGap = (int)(mStrokeWidth*0.08);
 
         rectRing3.left = mStrokeWidth/2f;
         rectRing3.right = getWidth() - mStrokeWidth/2f;
@@ -173,14 +183,64 @@ public class SeiEarnedView extends View {
         rectRing1.top = rectRing2.top + mStrokeWidth + mStrokeGap;
         rectRing1.bottom = rectRing2.bottom - (mStrokeWidth + mStrokeGap);
 
+//        float[] positions = {0, 20/360f, 1};
+//        float[] positions2 = {0, 1};
+//        int[] colors2 = {accentBlue, accentGreen};
+//
+//        SweepGradient progressGradient;
+//
+//        if (mSweepAngle < 31) {
+//             positions[2] = 60/360f;
+//        } else {
+//            positions[2] = (mSweepAngle+20)/360f;
+//        }
+//        if (mSweepAngle>300 && mSweepAngle < 330) {
+//
+//
+//            int color = ArgbEvaluatorCompat
+//                    .getInstance()
+//                    .evaluate((-(300-mSweepAngle)/30), accentBlue, accentGreen);
+//
+//            colors2[0] = color;
+//            progressGradient = new SweepGradient(getWidth()/2f, getHeight()/2f,
+//                    colors2, positions2);
+//
+//        } else if (mSweepAngle>=330) {
+//            progressGradient = null;
+//            mPaintProgress.setColor(accentGreen);
+//        } else {
+//            progressGradient = new SweepGradient(getWidth()/2f, getHeight()/2f,
+//                    colors, positions);
+//        }
+//
+//        if (!(mSweepAngle>=330)) {
+//            Matrix gradientMatrix = new Matrix();
+//            gradientMatrix.preRotate(250, getWidth()/2f,getHeight()/2f);
+//            progressGradient.setLocalMatrix(gradientMatrix);
+//        }
+
+        mPaintProgress.setShader(getSweepGradient(mSweepAngle));
+        mPaintProgress1.setShader(getSweepGradient(mSweepAngle1));
+        mPaintProgress2.setShader(getSweepGradient(mSweepAngle2));
+        mPaintProgress3.setShader(getSweepGradient(mSweepAngle3));
+
+
+        canvas.drawArc(rectRing3, 0, 360, false,  mPaintBackground);
+        canvas.drawArc(rectRing3, 270, mSweepAngle3+1, false, mPaintProgress3);
+        canvas.drawArc(rectRing2, 0, 360, false, mPaintBackground);
+        canvas.drawArc(rectRing2, 270, mSweepAngle2+1, false, mPaintProgress2);
+        canvas.drawArc(rectRing1, 0, 360, false, mPaintBackground);
+        canvas.drawArc(rectRing1, 270, mSweepAngle1+1, false, mPaintProgress1);
+    }
+
+    private SweepGradient getSweepGradient(float mSweepAngle) {
+        SweepGradient progressGradient;
         float[] positions = {0, 20/360f, 1};
         float[] positions2 = {0, 1};
         int[] colors2 = {accentBlue, accentGreen};
 
-        SweepGradient progressGradient;
-
         if (mSweepAngle < 31) {
-             positions[2] = 60/360f;
+            positions[2] = 60/360f;
         } else {
             positions[2] = (mSweepAngle+20)/360f;
         }
@@ -196,8 +256,8 @@ public class SeiEarnedView extends View {
                     colors2, positions2);
 
         } else if (mSweepAngle>=330) {
-            progressGradient = null;
-            mPaintProgress.setColor(accentGreen);
+            progressGradient = new SweepGradient(getWidth()/2f, getHeight()/2f,
+                    accentGreen, accentGreen);
         } else {
             progressGradient = new SweepGradient(getWidth()/2f, getHeight()/2f,
                     colors, positions);
@@ -209,15 +269,6 @@ public class SeiEarnedView extends View {
             progressGradient.setLocalMatrix(gradientMatrix);
         }
 
-        mPaintProgress.setShader(progressGradient);
-
-
-
-        canvas.drawArc(rectRing3, 0, 360, false,  mPaintBackground);
-        canvas.drawArc(rectRing3, 270, mSweepAngle+1, false, mPaintProgress);
-        canvas.drawArc(rectRing2, 0, 360, false, mPaintBackground);
-        canvas.drawArc(rectRing2, 270, mSweepAngle+1, false, mPaintProgress);
-        canvas.drawArc(rectRing1, 0, 360, false, mPaintBackground);
-        canvas.drawArc(rectRing1, 270, mSweepAngle+1, false, mPaintProgress);
+        return progressGradient;
     }
 }

@@ -57,7 +57,7 @@ public class EqGlobeView extends View {
     }
 
     private void init(AttributeSet attrs) {
-        mGap = (int)mStrokeWidth*2;
+        mGap = (int)mStrokeWidth;
 
         mRingPaint = new Paint();
         mRingPaint.setAntiAlias(true);

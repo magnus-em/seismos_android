@@ -6,6 +6,7 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -144,10 +145,17 @@ public class HomeFragment extends Fragment implements HomeContract.View {
                 animator.setDuration(25000);
                 animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
                     public void onAnimationUpdate(ValueAnimator animation) {
-                        seiEarnedView.update(animation.getAnimatedFraction()*(360));
+                        float progress = animation.getAnimatedFraction()*(1080);
+                        if (progress <= 360) {
+                            seiEarnedView.updateFirstRing(progress);
+                        } else if (progress <= 720) {
+                            seiEarnedView.updateSecondRing(progress-360);
+                        } else {
+                            seiEarnedView.updateThirdRing(progress-720);
+                        }
+
                     }
                 });
-                animator.setInterpolator(new BounceInterpolator());
                 animator.start();
 
             }
@@ -313,9 +321,9 @@ public class HomeFragment extends Fragment implements HomeContract.View {
          viewPager.setAdapter(chartTabAdapter);
          tabLayout.setupWithViewPager(viewPager);
 
-         Button button = root.findViewById(R.id.upgradeButton);
+         FloatingActionButton button = root.findViewById(R.id.homePlayPause);
         final ImageView accel = root.findViewById(R.id.accelerometer_placeholder);
-         accelCount = 0;
+         accelCount = 1;
          button.setOnClickListener(new View.OnClickListener() {
              @Override
              public void onClick(View v) {
@@ -348,7 +356,7 @@ public class HomeFragment extends Fragment implements HomeContract.View {
             @Override
             public void onChanged(@Nullable List<Earthquake> earthquakes) {
                 // When the View Model changes, update the list
-                if (earthquakes != null)
+                if (earthquakes != null && earthquakes.size() != 0)
                     setEarthquakes(earthquakes);
             }
         });
