@@ -120,19 +120,14 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/chip2" />
 
-        <ImageView
-            android:id="@+id/imageView20"
+        <com.github.mikephil.charting.charts.LineChart
+            android:id="@+id/chart1"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:adjustViewBounds="true"
+            android:layout_height="200dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView21"
-            app:srcCompat="@drawable/total_earned_chart" />
+            app:layout_constraintTop_toBottomOf="@+id/textView21" />
 
         <TextView
             android:id="@+id/textView21"
@@ -148,7 +143,7 @@
             app:layout_constraintTop_toBottomOf="@+id/divider" />
 
         <TextView
-            android:id="@+id/textView22"
+            android:id="@+id/seiEarnedCount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
@@ -171,7 +166,7 @@
             android:background="@color/blueDefault"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView20" />
+            app:layout_constraintTop_toBottomOf="@+id/chart1" />
 
         <TextView
             android:id="@+id/textView23"

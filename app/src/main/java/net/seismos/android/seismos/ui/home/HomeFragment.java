@@ -4,12 +4,19 @@ import android.animation.ValueAnimator;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
+import android.graphics.Color;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +30,14 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.Legend;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.google.android.gms.maps.model.LatLng;
 
 import net.seismos.android.seismos.R;
@@ -38,7 +53,8 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 
-public class HomeFragment extends Fragment implements HomeContract.View {
+public class HomeFragment extends Fragment implements HomeContract.View ,
+        SensorEventListener {
 
     private static final String TAG = "HomeFragment";
 
@@ -51,6 +67,14 @@ public class HomeFragment extends Fragment implements HomeContract.View {
     public interface OnEqGlobeSelectedListener {
         public void openMapToLatLng(LatLng latLng);
     }
+
+    private  LineChart mChart;
+    private SensorManager mSensorManager;
+    private Sensor mAccelerometer;
+    private Thread thread;
+    private boolean plotData = true;
+
+
 
     private ChartTabAdapter chartTabAdapter;
     private TabLayout tabLayout;
@@ -92,6 +116,7 @@ public class HomeFragment extends Fragment implements HomeContract.View {
 
 
 
+    int upgradeCount = 0;
 
     double progressAngle;
 
@@ -163,22 +188,7 @@ public class HomeFragment extends Fragment implements HomeContract.View {
 
         final TextView seiCount = root.findViewById(R.id.homeSeiCount);
 
-        root.findViewById(R.id.homePlayPause).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ValueAnimator animator = ValueAnimator.ofInt(0, 1000);
-                animator.setDuration(25000);
-                animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-                    public void onAnimationUpdate(ValueAnimator animation) {
-                        seiEarnedView.update(animation.getAnimatedFraction()*(360));
-                    }
-                });
-                animator.setInterpolator(new BounceInterpolator());
-                animator.start();
 
-
-            }
-        });
 
          globe1 = root.findViewById(R.id.EqGlobe1);
         globe1.setOnClickListener(new View.OnClickListener() {
@@ -322,29 +332,122 @@ public class HomeFragment extends Fragment implements HomeContract.View {
          tabLayout.setupWithViewPager(viewPager);
 
          FloatingActionButton button = root.findViewById(R.id.homePlayPause);
-        final ImageView accel = root.findViewById(R.id.accelerometer_placeholder);
-         accelCount = 1;
-         button.setOnClickListener(new View.OnClickListener() {
+//        final ImageView accel = root.findViewById(R.id.accelerometer_placeholder);
+//         accelCount = 1;
+//         button.setOnClickListener(new View.OnClickListener() {
+//             @Override
+//             public void onClick(View v) {
+//                 if (accelCount==0) {
+//                     accel.setImageDrawable(ResUtil.getInstance().getDrawable(R.drawable.acc_active_shake));
+//                     accelCount+=1;
+//                 } else if (accelCount==1) {
+//                     accel.setImageDrawable(ResUtil.getInstance().getDrawable(R.drawable.acc_active_still));
+//                     accelCount++;
+//                 } else if (accelCount==2) {
+//                     accel.setImageDrawable(ResUtil.getInstance().getDrawable(R.drawable.acc_inactive_shake));
+//                     accelCount++;
+//                 } else if (accelCount==3) {
+//                     accel.setImageDrawable(ResUtil.getInstance().getDrawable(R.drawable.acc_inactive_still));
+//                     accelCount = 0;
+//                 }
+//             }
+//         });
+
+         mChart = root.findViewById(R.id.accelerometer_placeholder);
+
+         root.findViewById(R.id.upgradeChip).setOnClickListener(new View.OnClickListener() {
              @Override
              public void onClick(View v) {
-                 if (accelCount==0) {
-                     accel.setImageDrawable(ResUtil.getInstance().getDrawable(R.drawable.acc_active_shake));
-                     accelCount+=1;
-                 } else if (accelCount==1) {
-                     accel.setImageDrawable(ResUtil.getInstance().getDrawable(R.drawable.acc_active_still));
-                     accelCount++;
-                 } else if (accelCount==2) {
-                     accel.setImageDrawable(ResUtil.getInstance().getDrawable(R.drawable.acc_inactive_shake));
-                     accelCount++;
-                 } else if (accelCount==3) {
-                     accel.setImageDrawable(ResUtil.getInstance().getDrawable(R.drawable.acc_inactive_still));
-                     accelCount = 0;
+                 if (upgradeCount ==0) {
+                     seiEarnedView.setRing2Activated(true);
+                     upgradeCount++;
+                 } else if (upgradeCount == 1) {
+                     seiEarnedView.setRing3Activated(true);
+                     upgradeCount++;
+                 } else if (upgradeCount == 2) {
+                     seiEarnedView.setRing2Activated(false);
+                     seiEarnedView.setRing3Activated(false);
+                     upgradeCount = 0;
                  }
              }
          });
 
+
+
         return root;
     }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        mSensorManager = (SensorManager) getContext().getSystemService(Context.SENSOR_SERVICE);
+        mAccelerometer = mSensorManager.getDefaultSensor(Sensor.TYPE_LINEAR_ACCELERATION);
+
+
+        if (mAccelerometer != null) {
+            mSensorManager.registerListener(this, mAccelerometer, SensorManager.SENSOR_DELAY_GAME);
+        }
+
+
+        // enable description text
+        mChart.getDescription().setEnabled(false);
+
+        // enable touch gestures
+        mChart.setTouchEnabled(false);
+
+        // enable scaling and dragging
+        mChart.setDragEnabled(false);
+        mChart.setScaleEnabled(false);
+        mChart.setDrawGridBackground(false);
+
+        // if disabled, scaling can be done on x- and y-axis separately
+        mChart.setPinchZoom(false);
+
+        // set an alternative background color
+        mChart.setBackgroundColor(getResources().getColor(R.color.blueBackground));
+
+        LineData data = new LineData();
+        data.setValueTextColor(Color.WHITE);
+
+        // add empty data
+        mChart.setData(data);
+
+        // get the legend (only possible after setting data)
+        Legend l = mChart.getLegend();
+        l.setEnabled(false);
+
+        // modify the legend ...
+        l.setForm(Legend.LegendForm.LINE);
+        l.setTextColor(Color.WHITE);
+
+        XAxis xl = mChart.getXAxis();
+        xl.setTextColor(getResources().getColor(R.color.eq64GradientEnd));
+        xl.setDrawGridLines(false);
+        xl.setAvoidFirstLastClipping(true);
+        xl.setEnabled(false);
+
+        YAxis leftAxis = mChart.getAxisLeft();
+        leftAxis.setTextColor(Color.WHITE);
+        leftAxis.setAxisMaximum(10f);
+        leftAxis.setAxisMinimum(0f);
+        leftAxis.setDrawGridLines(false);
+        leftAxis.setEnabled(false);
+
+        YAxis rightAxis = mChart.getAxisRight();
+        rightAxis.setDrawZeroLine(false);
+        rightAxis.setEnabled(false);
+
+        mChart.getAxisLeft().setDrawGridLines(false);
+        mChart.getXAxis().setDrawGridLines(false);
+        mChart.setDrawBorders(false);
+
+        mChart.setViewPortOffsets(0, 0, 0, 0);
+
+        startPlot();
+    }
+
+
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -428,6 +531,117 @@ public class HomeFragment extends Fragment implements HomeContract.View {
         return sdf.format(date);
     }
 
+    private void startPlot() {
+
+        if (thread != null) {
+            thread.interrupt();
+        }
+
+        thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while (true) {
+                    plotData = true;
+                    try {
+                        Thread.sleep(20);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
+        thread.start();
+    }
+
+    @Override
+    public void onSensorChanged(SensorEvent event) {
+
+        if (plotData) {
+            addEntry(event);
+            plotData = false;
+        }
+    }
+
+    @Override
+    public void onAccuracyChanged(Sensor sensor, int accuracy) {
+
+    }
+
+    private void addEntry(SensorEvent event) {
+
+
+
+
+        LineData data = mChart.getData();
+
+        if (data != null) {
+
+            ILineDataSet set = data.getDataSetByIndex(0);
+
+            if (set==null) {
+                set = createSet();
+                data.addDataSet(set);
+            }
+//            data.addEntry(new Entry(set.getEntryCount(), (float) (Math.random() * 80) + 10f), 0);
+            float entryval = (event.values[0] + event.values[1] + event.values[2])/3f;
+
+            if (Math.abs(entryval) < 0.1) {
+                entryval = 0;
+            }
+
+            if (entryval <= 0)  {
+                entryval = entryval*-1;
+                entryval = (float)(5 - (5 / (0.5*entryval + 1)));
+                entryval = entryval*-1;
+            } else {
+                entryval = (float)(5 - (5 / (0.5*entryval + 1)));
+            }
+            entryval += 5;
+            data.addEntry(new Entry(set.getEntryCount(), entryval), 0);
+
+//            data.addEntry(new Entry(set.getEntryCount(), (event.values[0] + event.values[1] + event.values[2])/4  + 5), 0);
+            Log.d(TAG, Float.toString((event.values[0] + event.values[1] + event.values[2])/3f ));
+            data.notifyDataChanged();
+
+            mChart.notifyDataSetChanged();
+
+            mChart.setVisibleXRangeMaximum(150);
+
+            mChart.moveViewToX(data.getEntryCount());
+        }
+    }
+
+    private LineDataSet createSet() {
+        LineDataSet set = new LineDataSet(null, "Dynamic Data");
+        set.setAxisDependency(YAxis.AxisDependency.LEFT);
+        set.setLineWidth(4f);
+        set.setColor(getResources().getColor(R.color.eq74GradientStart));
+        set.setHighlightEnabled(false);
+        set.setDrawValues(false);
+        set.setDrawCircles(false);
+        set.setMode(LineDataSet.Mode.CUBIC_BEZIER);
+        set.setCubicIntensity(0.05f);
+        return set;
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+
+        if (thread != null) {
+            thread.interrupt();
+        }
+        mSensorManager.unregisterListener(this);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        mSensorManager.registerListener(this, mAccelerometer, SensorManager.SENSOR_DELAY_GAME);
+    }
+
+
+
 
     @Override
     public void showSomething() {
@@ -438,5 +652,14 @@ public class HomeFragment extends Fragment implements HomeContract.View {
     @Override
     public void setPresenter(HomeContract.Presenter presenter) {
         mPresenter = presenter;
+    }
+
+    @Override
+    public Context getContextHandle() {
+        if (getContext()!=null) {
+            return getContext();
+        } else {
+            return null;
+        }
     }
 }

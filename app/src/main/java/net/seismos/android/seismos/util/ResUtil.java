@@ -5,6 +5,7 @@ import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.StringRes;
+import android.util.DisplayMetrics;
 
 public class ResUtil {
     private static ResUtil mInstance;
@@ -29,5 +30,17 @@ public class ResUtil {
 
     public Drawable getDrawable(@DrawableRes int id) {
         return mContext.getDrawable(id);
+    }
+
+    public int dpToPx(int dp) {
+        DisplayMetrics displayMetrics = mContext.getResources().getDisplayMetrics();
+        int px = Math.round(dp * (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT));
+        return px;
+    }
+
+    public int pxToDp(int px) {
+        DisplayMetrics displayMetrics = mContext.getResources().getDisplayMetrics();
+        int dp = Math.round(px / (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT));
+        return dp;
     }
 }

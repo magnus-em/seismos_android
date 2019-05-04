@@ -32,7 +32,7 @@
 
                     <net.seismos.android.seismos.ui.home.EqGlobeView
                         android:id="@+id/EqGlobe1"
-                        android:layout_width="70dp"
+                        android:layout_width="75dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
                         android:layout_marginTop="8dp"
@@ -41,7 +41,7 @@
 
                     <net.seismos.android.seismos.ui.home.EqGlobeView
                         android:id="@+id/EqGlobe2"
-                        android:layout_width="70dp"
+                        android:layout_width="75dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="8dp"
@@ -50,7 +50,7 @@
 
                     <net.seismos.android.seismos.ui.home.EqGlobeView
                         android:id="@+id/EqGlobe3"
-                        android:layout_width="70dp"
+                        android:layout_width="75dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="8dp"
@@ -59,7 +59,7 @@
 
                     <net.seismos.android.seismos.ui.home.EqGlobeView
                         android:id="@+id/EqGlobe4"
-                        android:layout_width="70dp"
+                        android:layout_width="75dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="8dp"
@@ -68,7 +68,7 @@
 
                     <net.seismos.android.seismos.ui.home.EqGlobeView
                         android:id="@+id/EqGlobe5"
-                        android:layout_width="70dp"
+                        android:layout_width="75dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="8dp"
@@ -77,7 +77,7 @@
 
                     <net.seismos.android.seismos.ui.home.EqGlobeView
                         android:id="@+id/EqGlobe6"
-                        android:layout_width="70dp"
+                        android:layout_width="75dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="8dp"
@@ -86,7 +86,7 @@
 
                     <net.seismos.android.seismos.ui.home.EqGlobeView
                         android:id="@+id/EqGlobe7"
-                        android:layout_width="70dp"
+                        android:layout_width="75dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="8dp"
@@ -95,7 +95,7 @@
 
                     <net.seismos.android.seismos.ui.home.EqGlobeView
                         android:id="@+id/EqGlobe8"
-                        android:layout_width="70dp"
+                        android:layout_width="75dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="8dp"
@@ -104,7 +104,7 @@
 
                     <net.seismos.android.seismos.ui.home.EqGlobeView
                         android:id="@+id/EqGlobe9"
-                        android:layout_width="70dp"
+                        android:layout_width="75dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="8dp"
@@ -113,7 +113,7 @@
 
                     <net.seismos.android.seismos.ui.home.EqGlobeView
                         android:id="@+id/EqGlobe10"
-                        android:layout_width="70dp"
+                        android:layout_width="75dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="8dp"
@@ -124,6 +124,7 @@
                         android:id="@+id/EqTitle1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
                         android:fontFamily="@font/sfpromedium"
                         android:text="Loading"
                         android:textColor="@color/offWhite"
@@ -148,6 +149,7 @@
                         android:id="@+id/EqTitle2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
                         android:fontFamily="@font/sfpromedium"
                         android:text="Loading"
                         android:textColor="@color/offWhite"
@@ -172,6 +174,7 @@
                         android:id="@+id/EqTitle3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
                         android:fontFamily="@font/sfpromedium"
                         android:text="Loading"
                         android:textColor="@color/offWhite"
@@ -196,6 +199,7 @@
                         android:id="@+id/EqTitle4"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
                         android:fontFamily="@font/sfpromedium"
                         android:text="Loading"
                         android:textColor="@color/offWhite"
@@ -220,6 +224,7 @@
                         android:id="@+id/EqTitle5"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
                         android:fontFamily="@font/sfpromedium"
                         android:text="Loading"
                         android:textColor="@color/offWhite"
@@ -244,6 +249,7 @@
                         android:id="@+id/EqTitle6"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
                         android:fontFamily="@font/sfpromedium"
                         android:text="Loading"
                         android:textColor="@color/offWhite"
@@ -268,6 +274,7 @@
                         android:id="@+id/EqTitle7"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
                         android:fontFamily="@font/sfpromedium"
                         android:text="Loading"
                         android:textColor="@color/offWhite"
@@ -292,6 +299,7 @@
                         android:id="@+id/EqTitle8"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
                         android:fontFamily="@font/sfpromedium"
                         android:text="Loading"
                         android:textColor="@color/offWhite"
@@ -316,6 +324,7 @@
                         android:id="@+id/EqTitle9"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
                         android:fontFamily="@font/sfpromedium"
                         android:text="Loading"
                         android:textColor="@color/offWhite"
@@ -340,6 +349,7 @@
                         android:id="@+id/EqTitle10"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
                         android:fontFamily="@font/sfpromedium"
                         android:text="Loading"
                         android:textColor="@color/offWhite"
@@ -368,9 +378,9 @@
                 android:id="@+id/seiEarnedView"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="50dp"
+                android:layout_marginStart="24dp"
                 android:layout_marginTop="16dp"
-                android:layout_marginEnd="50dp"
+                android:layout_marginEnd="24dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
@@ -382,10 +392,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/sfpromedium"
-                android:text="9878"
+                android:text="763"
                 android:textAppearance="@style/TextAppearance.AppCompat"
                 android:textColor="@color/offWhite"
-                android:textSize="32dp"
+                android:textSize="46dp"
                 app:layout_constraintBottom_toBottomOf="@+id/seiEarnedView"
                 app:layout_constraintEnd_toEndOf="@+id/seiEarnedView"
                 app:layout_constraintStart_toStartOf="@+id/seiEarnedView"
@@ -399,7 +409,8 @@
                 android:text="SEI"
                 android:textAlignment="textStart"
                 android:textColor="@color/offWhite"
-                android:textSize="16dp"
+                android:textSize="18dp"
+                android:visibility="visible"
                 app:layout_constraintBottom_toTopOf="@+id/homeSeiCount"
                 app:layout_constraintEnd_toEndOf="@+id/homeSeiCount"
                 app:layout_constraintStart_toStartOf="@+id/homeSeiCount" />
@@ -412,6 +423,7 @@
                 android:text="earned"
                 android:textColor="@color/offWhite"
                 android:textSize="14dp"
+                android:visibility="visible"
                 app:layout_constraintEnd_toEndOf="@+id/homeSeiCount"
                 app:layout_constraintStart_toStartOf="@+id/homeSeiCount"
                 app:layout_constraintTop_toBottomOf="@+id/homeSeiCount" />
@@ -432,84 +444,87 @@
 
             <android.support.design.widget.FloatingActionButton
                 android:id="@+id/homePlayPause"
+                style="@style/Widget.MaterialComponents.FloatingActionButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:layout_marginBottom="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="24dp"
+                android:backgroundTint="@color/offWhite"
                 android:clickable="true"
                 android:padding="0dp"
-                app:fabCustomSize="60dp"
-                app:fabSize="normal"
+                android:tint="@color/blueBackground"
+                app:fabCustomSize="65dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.498"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/accelerometer_placeholder"
+                app:rippleColor="@color/blueDefault"
                 app:srcCompat="@drawable/home_play_icon" />
 
 
             <android.support.design.chip.Chip
                 android:id="@+id/chip"
-                android:layout_width="125dp"
-                android:layout_height="45dp"
+                android:layout_width="130dp"
+                android:layout_height="48dp"
                 android:fontFamily="@font/sfproregular"
                 android:text="Schedule"
                 android:textAppearance="@style/ChipTheme"
                 android:textColor="@color/offWhite"
-                app:chipBackgroundColor="@color/blueLight"
-                app:chipCornerRadius="23dp"
+                app:chipBackgroundColor="@android:color/transparent"
+                app:chipCornerRadius="24dp"
                 app:chipIcon="@drawable/home_schedule_icon"
                 app:chipIconEnabled="true"
-                app:chipIconSize="27dp"
+                app:chipIconSize="32dp"
                 app:chipStartPadding="10dp"
                 app:chipStrokeColor="@color/offWhite"
-                app:chipStrokeWidth="0dp"
+                app:chipStrokeWidth="1dp"
                 app:layout_constraintBottom_toBottomOf="@+id/homePlayPause"
                 app:layout_constraintEnd_toStartOf="@+id/homePlayPause"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/homePlayPause"
                 app:layout_constraintVertical_bias="0.533"
-                app:textStartPadding="4dp">
+                app:textEndPadding="8dp"
+                app:textStartPadding="2dp">
 
 
             </android.support.design.chip.Chip>
 
             <android.support.design.chip.Chip
-                android:id="@+id/upgradeButton"
-                android:layout_width="125dp"
-                android:layout_height="45dp"
-
+                android:id="@+id/upgradeChip"
+                android:layout_width="130dp"
+                android:layout_height="48dp"
                 android:fontFamily="@font/sfproregular"
                 android:text="Upgrade"
                 android:textAppearance="@style/ChipTheme"
                 android:textColor="@color/offWhite"
-                app:chipBackgroundColor="@color/blueLight"
-                app:chipCornerRadius="23dp"
+                app:chipBackgroundColor="@android:color/transparent"
+                app:chipCornerRadius="24dp"
                 app:chipIcon="@drawable/home_upgrade_icon"
                 app:chipIconEnabled="true"
-                app:chipIconSize="27dp"
+                app:chipIconSize="32dp"
                 app:chipStartPadding="10dp"
                 app:chipStrokeColor="@color/offWhite"
-                app:chipStrokeWidth="0dp"
+                app:chipStrokeWidth="1dp"
                 app:layout_constraintBottom_toBottomOf="@+id/homePlayPause"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/homePlayPause"
                 app:layout_constraintTop_toTopOf="@+id/homePlayPause"
                 app:layout_constraintVertical_bias="0.533"
-                app:textStartPadding="4dp">
+                app:textEndPadding="10dp"
+                app:textStartPadding="2dp">
 
             </android.support.design.chip.Chip>
 
-            <ImageView
+            <com.github.mikephil.charting.charts.LineChart
                 android:id="@+id/accelerometer_placeholder"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:adjustViewBounds="true"
+                android:layout_height="80dp"
+                android:layout_marginTop="8dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/seiEarnedView"
-                app:srcCompat="@drawable/acc_active_shake" />
+                app:layout_constraintTop_toBottomOf="@+id/seiEarnedView" />
 
 
         </android.support.constraint.ConstraintLayout>

@@ -18,6 +18,7 @@ import com.google.android.gms.maps.model.LatLng;
 
 import net.seismos.android.seismos.R;
 import net.seismos.android.seismos.data.model.Earthquake;
+import net.seismos.android.seismos.util.ResUtil;
 
 public class EqGlobeView extends View {
 
@@ -57,7 +58,10 @@ public class EqGlobeView extends View {
     }
 
     private void init(AttributeSet attrs) {
-        mGap = (int)mStrokeWidth;
+
+        mStrokeWidth = ResUtil.getInstance().dpToPx(3);
+
+        mGap = ResUtil.getInstance().dpToPx(6);
 
         mRingPaint = new Paint();
         mRingPaint.setAntiAlias(true);
