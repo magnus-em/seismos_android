@@ -14,7 +14,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <android.support.v7.widget.Toolbar
-            android:id="@+id/filters_toolbar"
+            android:id="@+id/store_details_toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/blueDark"
@@ -99,42 +99,52 @@
         app:layout_constraintTop_toBottomOf="@+id/view2" />
 
     <TextView
-        android:id="@+id/textView37"
+        android:id="@+id/magRangeMax"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:fontFamily="@font/sfprolight"
-        android:text="M 4.0 - M 9.5"
-        android:textColor="@color/offWhite70"
-        android:textSize="16dp"
+        android:text="9.5"
+        android:textColor="@color/offWhite"
+        android:textSize="18dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/view2" />
 
-    <ImageView
-        android:id="@+id/imageView25"
-        android:layout_width="0dp"
+    <com.crystal.crystalrangeseekbar.widgets.CrystalRangeSeekbar
+        android:id="@+id/seekbar"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:adjustViewBounds="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView32"
-        app:srcCompat="@drawable/magnitude_slider" />
+        app:srcCompat="@drawable/magnitude_slider"
+        app:corner_radius="10"
+        app:min_value="0"
+        app:max_value="10"
+        app:steps="0.1"
+        app:bar_color="@color/offWhite70"
+        app:bar_highlight_color="@color/offWhite"
+        app:left_thumb_color="@color/blueLight"
+        app:right_thumb_color="@color/blueLight"
+        app:left_thumb_color_pressed="@color/blueHighlight"
+        app:right_thumb_color_pressed="@color/blueHighlight"
+        app:data_type="_float"/>
 
     <View
         android:id="@+id/divider2"
         android:layout_width="match_parent"
         android:layout_height="2dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="24dp"
         android:layout_marginEnd="16dp"
         android:background="@color/blueDefault"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView25" />
+        app:layout_constraintTop_toBottomOf="@+id/seekbar" />
 
     <TextView
         android:id="@+id/textView38"
@@ -154,12 +164,107 @@
         android:layout_width="match_parent"
         android:layout_height="2dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:background="@color/blueDefault"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView38" />
+        tools:layout_editor_absoluteY="511dp" />
+
+    <TextView
+        android:id="@+id/textView53"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:fontFamily="@font/sfprolight"
+        android:text="–"
+        android:textColor="@color/offWhite"
+        android:textSize="18dp"
+        app:layout_constraintBottom_toBottomOf="@+id/magRangeMax"
+        app:layout_constraintEnd_toStartOf="@+id/magRangeMax"
+        app:layout_constraintTop_toTopOf="@+id/magRangeMax" />
+
+    <TextView
+        android:id="@+id/magRangeMin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:fontFamily="@font/sfprolight"
+        android:text="4.0"
+        android:textColor="@color/offWhite"
+        android:textSize="18dp"
+        app:layout_constraintBottom_toBottomOf="@+id/textView53"
+        app:layout_constraintEnd_toStartOf="@+id/textView53"
+        app:layout_constraintTop_toTopOf="@+id/textView53" />
+
+    <RadioGroup
+        android:id="@+id/hourDayGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView38">
+
+        <RadioButton
+            android:id="@+id/hourRadio"
+            android:layout_width="wrap_content"
+            android:layout_height="45dp"
+            android:layout_weight="1"
+            android:fontFamily="@font/sfprolight"
+            android:onClick="onRadioButtonClicked"
+            android:paddingStart="8dp"
+            android:text="Past hour"
+            android:textColor="@color/offWhite"
+            android:textSize="18dp" />
+
+        <RadioButton
+            android:id="@+id/dayRadio"
+            android:layout_width="wrap_content"
+            android:layout_height="45dp"
+            android:layout_weight="1"
+            android:fontFamily="@font/sfprolight"
+            android:onClick="onRadioButtonClicked"
+            android:paddingStart="8dp"
+            android:text="Past day"
+            android:textColor="@color/offWhite"
+            android:textSize="18dp" />
+
+    </RadioGroup>
+
+    <RadioGroup
+        android:id="@+id/weekMonthGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="70dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toEndOf="@+id/hourDayGroup"
+        app:layout_constraintTop_toBottomOf="@+id/textView38">
+
+        <RadioButton
+            android:id="@+id/weekRadio"
+            android:layout_width="wrap_content"
+            android:layout_height="45dp"
+            android:layout_weight="1"
+            android:fontFamily="@font/sfprolight"
+            android:onClick="onRadioButtonClicked"
+            android:paddingStart="8dp"
+            android:text="Past week"
+            android:textColor="@color/offWhite"
+            android:textSize="18dp" />
+
+        <RadioButton
+            android:id="@+id/monthRadio"
+            android:layout_width="wrap_content"
+            android:layout_height="45dp"
+            android:layout_weight="1"
+            android:fontFamily="@font/sfprolight"
+            android:onClick="onRadioButtonClicked"
+            android:paddingStart="8dp"
+            android:text="Past month"
+            android:textColor="@color/offWhite"
+            android:textSize="18dp" />
+    </RadioGroup>
 
 
 </android.support.constraint.ConstraintLayout>

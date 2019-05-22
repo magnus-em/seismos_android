@@ -11,7 +11,7 @@
 
 
 
-    <string name="google_maps_key">AIzaSyA0BjReKoNWhyVtwnxY1Le_PrGcsyh7ImY</string>
+    <string name="google_maps_key">AIzaSyB_whHGSt8caGBKHkNNVBXGg5VSHI79MnM</string>
 
 
     <string name="earthquake_feed">https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/2.5_week.atom</string>

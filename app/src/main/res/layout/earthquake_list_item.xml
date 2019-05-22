@@ -24,9 +24,9 @@
 
     <ImageView
         android:id="@+id/ringView"
-        android:layout_width="64dp"
+        android:layout_width="75dp"
         android:layout_height="0dp"
-        android:layout_marginStart="12dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="18dp"
         app:layout_constraintBottom_toBottomOf="@id/detectedByText"
         app:layout_constraintStart_toStartOf="parent"
@@ -34,21 +34,23 @@
         app:srcCompat="@drawable/mag_ring_74" />
 
     <TextView
-        android:ellipsize="end"
-        android:maxLines="2"
-        android:maxLength="35"
         android:id="@+id/earthquakeLocation"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="12dp"
         android:layout_marginTop="2dp"
+        android:layout_marginEnd="16dp"
         android:fontFamily="@font/sfpromedium"
+        android:maxLines="2"
         android:text="@{earthquake.place}"
+        android:textAlignment="textStart"
         android:textColor="@color/offWhite"
-        android:textSize="15sp"
+        android:textSize="16dp"
+        app:layout_constraintEnd_toStartOf="@+id/earthquakeFlag"
         app:layout_constraintStart_toEndOf="@+id/ringView"
         app:layout_constraintTop_toTopOf="@id/ringView"
-        tools:text="223 km SE of Zurovska, Czechia" />
+        tools:ellipsize="marqee"
+        tools:text="223 km SE of Zurovska, Czechia " />
 
     <TextView
         android:id="@+id/magnitudeText"
@@ -57,7 +59,7 @@
         android:fontFamily="@font/sfpromedium"
         android:text="@{magnitudeformat.format(earthquake.mag)}"
         android:textColor="@color/offWhite"
-        android:textSize="24sp"
+        android:textSize="28dp"
         app:layout_constraintBottom_toBottomOf="@+id/ringView"
         app:layout_constraintEnd_toEndOf="@+id/ringView"
         app:layout_constraintStart_toStartOf="@+id/ringView"
@@ -68,7 +70,8 @@
         android:id="@+id/earthquakeTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="4dp"
         android:fontFamily="@font/sfprolight"
         android:textColor="@color/offWhite70"
         android:textSize="15sp"
@@ -81,22 +84,22 @@
         android:id="@+id/detectedByText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginBottom="2dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="2dp"
         android:fontFamily="@font/sfprolight"
         android:text="Detected by "
         android:textColor="@color/offWhite70"
         android:textSize="15sp"
-        app:layout_constraintBottom_toBottomOf="@+id/ringView"
-        app:layout_constraintStart_toEndOf="@+id/ringView" />
+        app:layout_constraintStart_toEndOf="@+id/ringView"
+        app:layout_constraintTop_toBottomOf="@+id/earthquakeTime" />
 
     <View
         android:id="@+id/divider"
         android:layout_width="0dp"
         android:layout_height="1dp"
-        android:layout_marginStart="10dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="18dp"
-        android:layout_marginEnd="10dp"
+        android:layout_marginEnd="16dp"
         android:background="#60415D6E"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
@@ -133,6 +136,7 @@
         android:layout_width="25dp"
         android:layout_height="16dp"
         android:layout_marginEnd="15dp"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@+id/earthquakeLocation"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/earthquakeLocation"
@@ -143,6 +147,7 @@
         android:layout_width="28dp"
         android:layout_height="28dp"
         android:layout_marginEnd="15dp"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@+id/detectedByText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/detectedByText"
@@ -155,7 +160,7 @@
         android:fontFamily="@font/sfprolight"
         android:text="1086"
         android:textColor="@color/offWhite"
-        android:textSize="14sp"
+        android:textSize="16dp"
         app:layout_constraintBottom_toBottomOf="@+id/detectedByText"
         app:layout_constraintStart_toEndOf="@+id/detectedByText"
         app:layout_constraintTop_toTopOf="@+id/detectedByText" />
@@ -168,5 +173,6 @@
         app:layout_constraintBottom_toBottomOf="@id/detectedByCount"
         app:layout_constraintStart_toEndOf="@id/detectedByCount"
         app:layout_constraintTop_toTopOf="@id/detectedByCount" />
+
 </android.support.constraint.ConstraintLayout>
 </layout>

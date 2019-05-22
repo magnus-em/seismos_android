@@ -20,6 +20,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -79,13 +80,14 @@ public class MapFragment extends Fragment implements MapContract.View,
         mRecyclerView = root.findViewById(R.id.earthquakeList);
         final View scrolling = root.findViewById(R.id.scrollingIndicator);
         final FloatingActionButton locationFab = root.findViewById(R.id.locationFab);
-        locationFab.setImageDrawable(ResUtil.getInstance().getDrawable(R.drawable.map_location_icon));
+        locationFab.setImageDrawable(ResUtil.getInstance().getDrawable(R.drawable.filter_icon));
         locationFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                LatLng latLng = new LatLng(Double.parseDouble(getLatitude()), Double.parseDouble(getLongitude()));
-                CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(SEATTLE, 1);
-                mMap.animateCamera(cameraUpdate);            }
+
+                Intent intent = new Intent(getActivity(), FiltersActivity.class);
+                startActivityForResult(intent, FILTERS_RESULT);
+            }
         });
 
         FrameLayout layoutBottomSheet = root.findViewById(R.id.bottom_sheet);
@@ -257,6 +259,10 @@ public class MapFragment extends Fragment implements MapContract.View,
         Intent intent = new Intent(getActivity(), EqDetailsActivity.class);
         intent.putExtra("title", eq.getTitle());
         intent.putExtra("mag", Double.toString(eq.getMagnitude()));
+        intent.putExtra("lat", eq.getLatitude());
+        Log.d(TAG, "LAT:" + eq.getLatitude());
+        intent.putExtra("long", eq.getLongitude());
+        intent.putExtra("place", eq.getPlace());
         intent.putExtra("date", Long.toString(eq.getTime()));
         intent.putExtra("felt", Integer.toString(eq.getFelt()));
         intent.putExtra("tsunami", Integer.toString(eq.getTsunami()));

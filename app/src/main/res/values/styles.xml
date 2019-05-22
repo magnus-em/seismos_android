@@ -22,9 +22,19 @@
         <item name="android:textSize">16dp</item>
         <item name="android:fontFamily">@font/sfproregular</item>
     </style>
-    
+
+    <style name="ChipThemeBig" parent="Widget.MaterialComponents.Chip.Action">
+        <item name="android:textSize">18dp</item>
+        <item name="android:fontFamily">@font/sfproregular</item>
+    </style>
+
+
     <style name="tabTextAppearance" parent="@android:style/TextAppearance.Widget.TabWidget">
        <item name="android:fontFamily">@font/sfprolight</item>
         <item name="android:textSize">18dp</item>
+    </style>
+
+    <style name="floating_action_button">
+        <item name="android:layout_margin">16dp</item>
     </style>
 </resources>

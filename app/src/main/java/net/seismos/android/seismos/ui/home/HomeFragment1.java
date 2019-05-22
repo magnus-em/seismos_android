@@ -4,10 +4,7 @@ import android.animation.ValueAnimator;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
-import android.content.Intent;
-import android.graphics.LinearGradient;
-import android.graphics.Paint;
-import android.graphics.Shader;
+import android.graphics.Color;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -26,21 +23,19 @@ import android.view.ViewGroup;
 import android.widget.HorizontalScrollView;
 import android.widget.TextView;
 
-import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
-import com.github.mikephil.charting.data.BarData;
-import com.github.mikephil.charting.data.BarDataSet;
-import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.Entry;
-import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
+import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.google.android.gms.maps.model.LatLng;
 
 import net.seismos.android.seismos.R;
 import net.seismos.android.seismos.data.local.EarthquakeViewModel;
 import net.seismos.android.seismos.data.model.Earthquake;
-import net.seismos.android.seismos.util.ResUtil;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -48,14 +43,12 @@ import java.util.Date;
 import java.util.List;
 
 
-public class HomeFragment extends Fragment implements HomeContract.View ,
+public class HomeFragment1 extends Fragment implements HomeContract.View ,
         SensorEventListener {
 
     private static final String TAG = "HomeFragment";
 
     private int accelCount;
-
-    private static final int SCHEDULE_RESULT = 101;
 
     private HomeContract.Presenter mPresenter;
 
@@ -65,14 +58,11 @@ public class HomeFragment extends Fragment implements HomeContract.View ,
         public void openMapToLatLng(LatLng latLng);
     }
 
-    private BarChart mChart;
+    private  LineChart mChart;
     private SensorManager mSensorManager;
     private Sensor mAccelerometer;
     private Thread thread;
     private boolean plotData = true;
-
-    ArrayList<BarEntry> oldVals = null;
-    ArrayList<BarEntry> newVals = new ArrayList<>();
 
 
 
@@ -125,7 +115,7 @@ public class HomeFragment extends Fragment implements HomeContract.View ,
 
 
 
-    public HomeFragment() {
+    public HomeFragment1() {
     }
 
     public static HomeFragment newInstance() {
@@ -150,6 +140,14 @@ public class HomeFragment extends Fragment implements HomeContract.View ,
                              Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_home, container, false);
 
+//        web = root.findViewById(R.id.web);
+//        web.getSettings().setBuiltInZoomControls(false);
+//        web.getSettings().setUseWideViewPort(true);
+//        web.getSettings().setJavaScriptEnabled(true);
+//        web.getSettings().setLoadWithOverviewMode(true);
+//        web.setHorizontalScrollBarEnabled(false);
+//        web.setVerticalScrollBarEnabled(false);
+//        web.loadUrl("file:///android_asset/home_placeholder1.png");
 
         seiEarnedView = root.findViewById(R.id.seiEarnedView);
         HorizontalScrollView scrollView = root.findViewById(R.id.globeScrollView);
@@ -182,7 +180,7 @@ public class HomeFragment extends Fragment implements HomeContract.View ,
 
 
 
-         globe1 = root.findViewById(R.id.EqGlobe1);
+        globe1 = root.findViewById(R.id.EqGlobe1);
         globe1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -192,17 +190,17 @@ public class HomeFragment extends Fragment implements HomeContract.View ,
                 );
             }
         });
-         globe2 = root.findViewById(R.id.EqGlobe2);
-         globe2.setOnClickListener(new View.OnClickListener() {
-             @Override
-             public void onClick(View v) {
-                 listener.openMapToLatLng(new LatLng(
-                         mEarthquakes.get(1).getLatitude(),
-                         mEarthquakes.get(1).getLongitude()
-                 ));
-             }
-         });
-         globe3 = root.findViewById(R.id.EqGlobe3);
+        globe2 = root.findViewById(R.id.EqGlobe2);
+        globe2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.openMapToLatLng(new LatLng(
+                        mEarthquakes.get(1).getLatitude(),
+                        mEarthquakes.get(1).getLongitude()
+                ));
+            }
+        });
+        globe3 = root.findViewById(R.id.EqGlobe3);
         globe3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -212,18 +210,18 @@ public class HomeFragment extends Fragment implements HomeContract.View ,
                 ));
             }
         });
-         globe4 = root.findViewById(R.id.EqGlobe4);
-         globe4.setOnClickListener(new View.OnClickListener() {
-             @Override
-             public void onClick(View v) {
-                 listener.openMapToLatLng(new LatLng(
-                         mEarthquakes.get(3).getLatitude(),
-                         mEarthquakes.get(3).getLongitude()
-                 ));
-             }
-         });
+        globe4 = root.findViewById(R.id.EqGlobe4);
+        globe4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.openMapToLatLng(new LatLng(
+                        mEarthquakes.get(3).getLatitude(),
+                        mEarthquakes.get(3).getLongitude()
+                ));
+            }
+        });
 
-         globe5 = root.findViewById(R.id.EqGlobe5);
+        globe5 = root.findViewById(R.id.EqGlobe5);
         globe5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -234,7 +232,7 @@ public class HomeFragment extends Fragment implements HomeContract.View ,
             }
         });
 
-         globe6 = root.findViewById(R.id.EqGlobe6);
+        globe6 = root.findViewById(R.id.EqGlobe6);
         globe6.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -245,7 +243,7 @@ public class HomeFragment extends Fragment implements HomeContract.View ,
             }
         });
 
-         globe7 = root.findViewById(R.id.EqGlobe7);
+        globe7 = root.findViewById(R.id.EqGlobe7);
         globe7.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -256,7 +254,7 @@ public class HomeFragment extends Fragment implements HomeContract.View ,
             }
         });
 
-         globe8 = root.findViewById(R.id.EqGlobe8);
+        globe8 = root.findViewById(R.id.EqGlobe8);
         globe8.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -267,7 +265,7 @@ public class HomeFragment extends Fragment implements HomeContract.View ,
             }
         });
 
-         globe9 = root.findViewById(R.id.EqGlobe9);
+        globe9 = root.findViewById(R.id.EqGlobe9);
         globe9.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -278,7 +276,7 @@ public class HomeFragment extends Fragment implements HomeContract.View ,
             }
         });
 
-         globe10 = root.findViewById(R.id.EqGlobe10);
+        globe10 = root.findViewById(R.id.EqGlobe10);
         globe10.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -290,40 +288,40 @@ public class HomeFragment extends Fragment implements HomeContract.View ,
         });
 
 
-         eqTitle1 = root.findViewById(R.id.EqTitle1);
-         eqTitle2 = root.findViewById(R.id.EqTitle2);
-         eqTitle3 = root.findViewById(R.id.EqTitle3);
-         eqTitle4 = root.findViewById(R.id.EqTitle4);
-         eqTitle5 = root.findViewById(R.id.EqTitle5);
-         eqTitle6 = root.findViewById(R.id.EqTitle6);
-         eqTitle7 = root.findViewById(R.id.EqTitle7);
-         eqTitle8 = root.findViewById(R.id.EqTitle8);
-         eqTitle9 = root.findViewById(R.id.EqTitle9);
-         eqTitle10 = root.findViewById(R.id.EqTitle10);
+        eqTitle1 = root.findViewById(R.id.EqTitle1);
+        eqTitle2 = root.findViewById(R.id.EqTitle2);
+        eqTitle3 = root.findViewById(R.id.EqTitle3);
+        eqTitle4 = root.findViewById(R.id.EqTitle4);
+        eqTitle5 = root.findViewById(R.id.EqTitle5);
+        eqTitle6 = root.findViewById(R.id.EqTitle6);
+        eqTitle7 = root.findViewById(R.id.EqTitle7);
+        eqTitle8 = root.findViewById(R.id.EqTitle8);
+        eqTitle9 = root.findViewById(R.id.EqTitle9);
+        eqTitle10 = root.findViewById(R.id.EqTitle10);
 
-         eqDetail1 = root.findViewById(R.id.EqDetail1);
-         eqDetail2 = root.findViewById(R.id.EqDetail2);
-         eqDetail3 = root.findViewById(R.id.EqDetail3);
-         eqDetail4 = root.findViewById(R.id.EqDetail4);
-         eqDetail5 = root.findViewById(R.id.EqDetail5);
-         eqDetail6 = root.findViewById(R.id.EqDetail6);
-         eqDetail7 = root.findViewById(R.id.EqDetail7);
-         eqDetail8 = root.findViewById(R.id.EqDetail8);
-         eqDetail9 = root.findViewById(R.id.EqDetail9);
-         eqDetail10 = root.findViewById(R.id.EqDetail10);
+        eqDetail1 = root.findViewById(R.id.EqDetail1);
+        eqDetail2 = root.findViewById(R.id.EqDetail2);
+        eqDetail3 = root.findViewById(R.id.EqDetail3);
+        eqDetail4 = root.findViewById(R.id.EqDetail4);
+        eqDetail5 = root.findViewById(R.id.EqDetail5);
+        eqDetail6 = root.findViewById(R.id.EqDetail6);
+        eqDetail7 = root.findViewById(R.id.EqDetail7);
+        eqDetail8 = root.findViewById(R.id.EqDetail8);
+        eqDetail9 = root.findViewById(R.id.EqDetail9);
+        eqDetail10 = root.findViewById(R.id.EqDetail10);
 
-         viewPager = root.findViewById(R.id.viewPager);
-         tabLayout = root.findViewById(R.id.tabLayout);
+        viewPager = root.findViewById(R.id.viewPager);
+        tabLayout = root.findViewById(R.id.tabLayout);
 
-         chartTabAdapter = new ChartTabAdapter(getFragmentManager());
-         chartTabAdapter.addFragment(new ChartFragmentToday(), "Today");
-         chartTabAdapter.addFragment(new ChartFragmentWeek(), "Week");
-         chartTabAdapter.addFragment(new ChartFragmentMonth(), "Month");
+        chartTabAdapter = new ChartTabAdapter(getFragmentManager());
+        chartTabAdapter.addFragment(new ChartFragmentToday(), "Today");
+        chartTabAdapter.addFragment(new ChartFragmentWeek(), "Week");
+        chartTabAdapter.addFragment(new ChartFragmentMonth(), "Month");
 
-         viewPager.setAdapter(chartTabAdapter);
-         tabLayout.setupWithViewPager(viewPager);
+        viewPager.setAdapter(chartTabAdapter);
+        tabLayout.setupWithViewPager(viewPager);
 
-         FloatingActionButton button = root.findViewById(R.id.homePlayPause);
+        FloatingActionButton button = root.findViewById(R.id.homePlayPause);
 //        final ImageView accel = root.findViewById(R.id.accelerometer_placeholder);
 //         accelCount = 1;
 //         button.setOnClickListener(new View.OnClickListener() {
@@ -345,41 +343,24 @@ public class HomeFragment extends Fragment implements HomeContract.View ,
 //             }
 //         });
 
-         mChart = root.findViewById(R.id.accelerometer_placeholder);
+        mChart = root.findViewById(R.id.accelerometer_placeholder);
 
-         root.findViewById(R.id.homePlayPause).setOnClickListener(new View.OnClickListener() {
-             @Override
-             public void onClick(View v) {
-                 if (upgradeCount ==0) {
-                     seiEarnedView.setRing2Activated(true);
-                     upgradeCount++;
-                 } else if (upgradeCount == 1) {
-                     seiEarnedView.setRing3Activated(true);
-                     upgradeCount++;
-                 } else if (upgradeCount == 2) {
-                     seiEarnedView.setRing2Activated(false);
-                     seiEarnedView.setRing3Activated(false);
-                     upgradeCount = 0;
-                 }
-             }
-         });
-
-
-         root.findViewById(R.id.scheduleChip).setOnClickListener(new View.OnClickListener() {
-             @Override
-             public void onClick(View v) {
-                 Intent intent = new Intent(getContext(), ScheduleActivity.class);
-                 startActivityForResult(intent, SCHEDULE_RESULT);
-             }
-         });
-
-         root.findViewById(R.id.upgradeChip).setOnClickListener(new View.OnClickListener() {
-             @Override
-             public void onClick(View v) {
-                 Intent intent = new Intent(getActivity(), UpgradeActivity.class);
-                 startActivity(intent);
-             }
-         });
+        root.findViewById(R.id.upgradeChip).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (upgradeCount ==0) {
+                    seiEarnedView.setRing2Activated(true);
+                    upgradeCount++;
+                } else if (upgradeCount == 1) {
+                    seiEarnedView.setRing3Activated(true);
+                    upgradeCount++;
+                } else if (upgradeCount == 2) {
+                    seiEarnedView.setRing2Activated(false);
+                    seiEarnedView.setRing3Activated(false);
+                    upgradeCount = 0;
+                }
+            }
+        });
 
 
 
@@ -416,8 +397,8 @@ public class HomeFragment extends Fragment implements HomeContract.View ,
         // set an alternative background color
         mChart.setBackgroundColor(getResources().getColor(R.color.blueBackground));
 
-        BarData data = new BarData();
-
+        LineData data = new LineData();
+        data.setValueTextColor(Color.WHITE);
 
         // add empty data
         mChart.setData(data);
@@ -426,13 +407,21 @@ public class HomeFragment extends Fragment implements HomeContract.View ,
         Legend l = mChart.getLegend();
         l.setEnabled(false);
 
+        // modify the legend ...
+        l.setForm(Legend.LegendForm.LINE);
+        l.setTextColor(Color.WHITE);
 
         XAxis xl = mChart.getXAxis();
+        xl.setTextColor(getResources().getColor(R.color.eq64GradientEnd));
+        xl.setDrawGridLines(false);
+        xl.setAvoidFirstLastClipping(true);
         xl.setEnabled(false);
 
         YAxis leftAxis = mChart.getAxisLeft();
-        leftAxis.setAxisMaximum(5f);
-        leftAxis.setAxisMinimum(0);
+        leftAxis.setTextColor(Color.WHITE);
+        leftAxis.setAxisMaximum(10f);
+        leftAxis.setAxisMinimum(0f);
+        leftAxis.setDrawGridLines(false);
         leftAxis.setEnabled(false);
 
         YAxis rightAxis = mChart.getAxisRight();
@@ -444,13 +433,6 @@ public class HomeFragment extends Fragment implements HomeContract.View ,
         mChart.setDrawBorders(false);
 
         mChart.setViewPortOffsets(0, 0, 0, 0);
-
-        CustomBarChartRender barChartRender = new CustomBarChartRender(mChart,mChart.getAnimator(), mChart.getViewPortHandler());
-        barChartRender.setRadius(10);
-        mChart.setRenderer(barChartRender);
-
-        setupGradient(mChart);
-
 
         startPlot();
     }
@@ -474,10 +456,10 @@ public class HomeFragment extends Fragment implements HomeContract.View ,
     }
 
     public void setEarthquakes(List<Earthquake> earthquakes) {
-        for (int i = 0; i < 9; i++) {
+        for (int i = 0; i < 10; i++) {
             mEarthquakes.add(earthquakes.get(i));
         }
-//        mEarthquakes.get(2).setMag(7.6);
+        mEarthquakes.get(2).setMag(7.6);
         globe1.setEarthquake(mEarthquakes.get(0));
         eqTitle1.setText(parseTitle(mEarthquakes.get(0)));
         eqDetail1.setText(parseDetail(mEarthquakes.get(0)));
@@ -515,10 +497,10 @@ public class HomeFragment extends Fragment implements HomeContract.View ,
         eqTitle9.setText(parseTitle(mEarthquakes.get(8)));
         eqDetail9.setText(parseDetail(mEarthquakes.get(8)));
 
-//        globe10.setEarthquake(mEarthquakes.get(9));
-//        eqTitle10.setText(parseTitle(mEarthquakes.get(9)));
-//        eqDetail10.setText(parseDetail(mEarthquakes.get(9)));
-//
+        globe10.setEarthquake(mEarthquakes.get(9));
+        eqTitle10.setText(parseTitle(mEarthquakes.get(9)));
+        eqDetail10.setText(parseDetail(mEarthquakes.get(9)));
+
 
 
 
@@ -551,7 +533,7 @@ public class HomeFragment extends Fragment implements HomeContract.View ,
                 while (true) {
                     plotData = true;
                     try {
-                        Thread.sleep(15);
+                        Thread.sleep(20);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -575,30 +557,27 @@ public class HomeFragment extends Fragment implements HomeContract.View ,
 
     }
 
-    List<Entry> oldEntries = new ArrayList<Entry>();
-    List<Entry> newEntries = new ArrayList<Entry>();
-
     private void addEntry(SensorEvent event) {
 
 
 
 
-        BarData data = mChart.getData();
+        LineData data = mChart.getData();
 
         if (data != null) {
 
-            IBarDataSet set = data.getDataSetByIndex(0);
+            ILineDataSet set = data.getDataSetByIndex(0);
 
             if (set==null) {
                 set = createSet();
                 data.addDataSet(set);
             }
 //            data.addEntry(new Entry(set.getEntryCount(), (float) (Math.random() * 80) + 10f), 0);
-            float entryval = (Math.abs(event.values[0]) + Math.abs(event.values[1]) + Math.abs(event.values[2]))/3f;
+            float entryval = (event.values[0] + event.values[1] + event.values[2])/3f;
 
-//            if (Math.abs(entryval) < 0.1) {
-//                entryval = 0;
-//            }
+            if (Math.abs(entryval) < 0.1) {
+                entryval = 0;
+            }
 
             if (entryval <= 0)  {
                 entryval = entryval*-1;
@@ -607,92 +586,32 @@ public class HomeFragment extends Fragment implements HomeContract.View ,
             } else {
                 entryval = (float)(5 - (5 / (0.5*entryval + 1)));
             }
-
-
-
-            entryval += 0.2;
-
-            data.setBarWidth(0.5f);
-            Log.d("homefragbar", "valu: " + entryval);
-            data.addEntry(new BarEntry(set.getEntryCount(), entryval), 0);
-
-
-
-
-
-//            if (newVals.size()>71) {
-//                if (oldVals == null){
-//                    oldVals = new ArrayList<>(newVals);
-//                }
-////                newVals.add(new BarEntry(newVals.size(), entryval));
-////                AnimateDataSetChanged changer = new AnimateDataSetChanged(100, mChart, oldVals, newVals);
-////                changer.setInterpolator(new AccelerateInterpolator()); // optionally set the Interpolator
-////                changer.run();
-//                data.addDataSet(new BarDataSet(newVals, "lavel"));
-//                data.notifyDataChanged();
-//                mChart.notifyDataSetChanged();
-//                Log.d("homefragtest", "changer called");
-//                oldVals = new ArrayList<>(newVals);
-//
-//
-//
-//            } else {
-//                newVals.add(new BarEntry(newVals.size(), entryval));
-//                Log.d("homefragtest1", "newvals size: " + newVals.size());
-//            }
-
-
-
+            entryval += 5;
+            data.addEntry(new Entry(set.getEntryCount(), entryval), 0);
 
 //            data.addEntry(new Entry(set.getEntryCount(), (event.values[0] + event.values[1] + event.values[2])/4  + 5), 0);
             Log.d(TAG, Float.toString((event.values[0] + event.values[1] + event.values[2])/3f ));
-
-
             data.notifyDataChanged();
-//
+
             mChart.notifyDataSetChanged();
 
-            mChart.setVisibleXRangeMaximum(90);
+            mChart.setVisibleXRangeMaximum(150);
 
             mChart.moveViewToX(data.getEntryCount());
-
-
-
-//            if (newEntries.size()>80) {
-//                oldEntries = newEntries;
-//                newEntries.add(new BarEntry(set.getEntryCount(), entryval));
-//                AnimateDataSetChanged changer = new AnimateDataSetChanged(100, mChart, oldEntries, newEntries);
-//                changer.run();
-//            } else {'
-//                newEntries.add(new BarEntry(set.getEntryCount(), entryval));
-//            }
-
-
         }
     }
 
-    private BarDataSet createSet() {
-
-        ArrayList<BarEntry> values = new ArrayList<>();
-        BarDataSet set = new BarDataSet(values, "data");
+    private LineDataSet createSet() {
+        LineDataSet set = new LineDataSet(null, "Dynamic Data");
         set.setAxisDependency(YAxis.AxisDependency.LEFT);
-
+        set.setLineWidth(4f);
         set.setColor(getResources().getColor(R.color.eq74GradientStart));
         set.setHighlightEnabled(false);
         set.setDrawValues(false);
+        set.setDrawCircles(false);
+        set.setMode(LineDataSet.Mode.CUBIC_BEZIER);
+        set.setCubicIntensity(0.05f);
         return set;
-    }
-
-    private void setupGradient(BarChart chart) {
-        Paint paint = chart.getRenderer().getPaintRender();
-        int height = ResUtil.getInstance().dpToPx(100);
-//        Log.d(TAG, Integer.toString(height));
-
-        LinearGradient gradient = new LinearGradient(0, 0, 0, height,
-                getResources().getColor(R.color.gradientDangerEnd),
-                getResources().getColor(R.color.gradientDangerStart),
-                Shader.TileMode.CLAMP);
-        paint.setShader(gradient);
     }
 
     @Override

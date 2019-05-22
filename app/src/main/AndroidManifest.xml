@@ -25,12 +25,12 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".ui.home.ScheduleActivity" android:screenOrientation="portrait"/>
         <activity android:name=".ui.map.FiltersActivity" android:screenOrientation="portrait"/>
         <activity android:name=".ui.map.EqDetailsActivity" android:screenOrientation="portrait"/>
-
         <activity android:name=".ui.alert.AlertActivity" android:screenOrientation="portrait"/>
-
-
+        <activity android:name=".ui.store.StoreDetailActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".ui.home.UpgradeActivity" android:screenOrientation="portrait"/>
 
 
 

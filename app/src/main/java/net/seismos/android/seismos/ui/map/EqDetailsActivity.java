@@ -6,12 +6,28 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.widget.TextView;
 
+import com.google.android.gms.maps.CameraUpdate;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MapStyleOptions;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
+
 import net.seismos.android.seismos.R;
 
-import org.w3c.dom.Text;
+public class EqDetailsActivity extends AppCompatActivity implements OnMapReadyCallback {
 
-public class EqDetailsActivity extends AppCompatActivity {
     private static final String TAG = "EqDetailsActivity";
+
+    private GoogleMap mMap;
+
+    private double latitude;
+    private double longitude;
+    private Marker marker;
+    private String place;
 
 
     @Override
@@ -25,27 +41,62 @@ public class EqDetailsActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-        TextView mag = findViewById(R.id.magText);
-        TextView title = findViewById(R.id.titleText);
-        TextView date = findViewById(R.id.dateText);
-        TextView felt = findViewById(R.id.feltCountText);
-        TextView tsunami = findViewById(R.id.tsunamiText);
-        TextView alert = findViewById(R.id.alertText);
-        TextView types = findViewById(R.id.typesText);
-        TextView cdi = findViewById(R.id.cdiText);
+        TextView placeText = findViewById(R.id.placeText);
+        TextView locationText = findViewById(R.id.locationText);
 
 
         Intent intent = getIntent();
 
-        mag.setText(intent.getStringExtra("mag"));
-        title.setText(intent.getStringExtra("title"));
-        date.setText(intent.getStringExtra("date"));
-        felt.setText(intent.getStringExtra("felt"));
-        tsunami.setText(intent.getStringExtra("tsunami"));
-        alert.setText(intent.getStringExtra("alert"));
-        types.setText(intent.getStringExtra("types"));
-        cdi.setText(intent.getStringExtra("cdi"));
+        latitude = intent.getDoubleExtra("lat", 0);
+        longitude = intent.getDoubleExtra("long", 0);
+        place = intent.getStringExtra("place");
 
+        placeText.setText(place);
+        locationText.setText("Lat: " + latitude + " Long: " + longitude);
+
+//        mag.setText(intent.getStringExtra("mag"));
+//        title.setText(intent.getStringExtra("title"));
+//        date.setText(intent.getStringExtra("date"));
+//        felt.setText(intent.getStringExtra("felt"));
+//        tsunami.setText(intent.getStringExtra("tsunami"));
+//        alert.setText(intent.getStringExtra("alert"));
+//        types.setText(intent.getStringExtra("types"));
+//        cdi.setText(intent.getStringExtra("cdi"));
+
+        SupportMapFragment mapFragment = (SupportMapFragment)getSupportFragmentManager().findFragmentById(R.id.mapfrag);
+        mapFragment.getMapAsync(this);
+
+    }
+
+//    @Override
+//    protected void onStart() {
+//        super.onStart();
+//        SupportMapFragment mapFragment = (SupportMapFragment)getSupportFragmentManager().findFragmentById(R.id.mapfrag);
+//        mapFragment.getMapAsync(this);
+//    }
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        mMap = googleMap;
+        mMap.setMapStyle(MapStyleOptions
+                .loadRawResourceStyle(getApplicationContext(), R.raw.map_style));
+        mMap.getUiSettings().setMapToolbarEnabled(false);
+        mMap.setPadding(0, 0, 0, 0);
+
+        MarkerOptions options = new MarkerOptions();
+
+        options.position(new LatLng(latitude, longitude));
+
+        marker = mMap.addMarker(options);
+        CameraUpdate update = CameraUpdateFactory.newLatLngZoom(new LatLng(latitude, longitude),
+                                                                    3);
+
+
+        mMap.moveCamera(update);
+        mMap.getUiSettings().setMyLocationButtonEnabled(false);
+        mMap.getUiSettings().setScrollGesturesEnabled(false);
+
+        //mMap.setMaxZoomPreference(1);
     }
 
     @Override
