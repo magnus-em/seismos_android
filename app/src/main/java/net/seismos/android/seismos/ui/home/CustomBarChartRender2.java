@@ -17,13 +17,13 @@ import com.github.mikephil.charting.utils.Transformer;
 import com.github.mikephil.charting.utils.Utils;
 import com.github.mikephil.charting.utils.ViewPortHandler;
 
-public class CustomBarChartRender extends BarChartRenderer {
+public class CustomBarChartRender2 extends BarChartRenderer {
 
     private RectF mBarShadowRectBuffer = new RectF();
 
     private int mRadius;
 
-    public CustomBarChartRender(BarDataProvider chart, ChartAnimator animator, ViewPortHandler viewPortHandler) {
+    public CustomBarChartRender2(BarDataProvider chart, ChartAnimator animator, ViewPortHandler viewPortHandler) {
         super(chart, animator, viewPortHandler);
     }
 
@@ -138,11 +138,11 @@ public class CustomBarChartRender extends BarChartRenderer {
 //                        Shader.TileMode.MIRROR));
 //            }
             Path path2 = roundRect(new RectF(buffer.buffer[j], buffer.buffer[j + 1], buffer.buffer[j + 2],
-                    buffer.buffer[j + 3]), mRadius, mRadius, true, true, false, false);
+                    buffer.buffer[j + 3]), mRadius, mRadius, false, false, true, true);
             c.drawPath(path2, mRenderPaint);
             if (drawBorder) {
                 Path path = roundRect(new RectF(buffer.buffer[j], buffer.buffer[j + 1], buffer.buffer[j + 2],
-                        buffer.buffer[j + 3]), mRadius, mRadius, true, true, false, false);
+                        buffer.buffer[j + 3]), mRadius, mRadius, false, false, true, true);
                 c.drawPath(path, mBarBorderPaint);
             }
             j += 4;

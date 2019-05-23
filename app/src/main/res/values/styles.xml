@@ -37,4 +37,8 @@
     <style name="floating_action_button">
         <item name="android:layout_margin">16dp</item>
     </style>
+
+    <style name="upgradeActivity" parent="AppTheme">
+        <item name="android:statusBarColor">#3B9EC3</item>
+    </style>
 </resources>

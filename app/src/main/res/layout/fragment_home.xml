@@ -458,7 +458,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.498"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/accelerometer_placeholder"
+                app:layout_constraintTop_toBottomOf="@id/accelChart2"
                 app:rippleColor="@color/blueDefault"
                 app:srcCompat="@drawable/home_play_icon" />
 
@@ -519,12 +519,23 @@
             <com.github.mikephil.charting.charts.BarChart
                 android:id="@+id/accelerometer_placeholder"
                 android:layout_width="0dp"
-                android:layout_height="70dp"
+                android:layout_height="40dp"
                 android:layout_marginTop="16dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/seiEarnedView" />
+
+            <com.github.mikephil.charting.charts.BarChart
+                android:id="@+id/accelChart2"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/accelerometer_placeholder" />
+
+
 
 
         </android.support.constraint.ConstraintLayout>

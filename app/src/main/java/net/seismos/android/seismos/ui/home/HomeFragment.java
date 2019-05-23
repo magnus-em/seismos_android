@@ -5,6 +5,7 @@ import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.LinearGradient;
 import android.graphics.Paint;
 import android.graphics.Shader;
@@ -65,14 +66,15 @@ public class HomeFragment extends Fragment implements HomeContract.View ,
         public void openMapToLatLng(LatLng latLng);
     }
 
+    private BarChart mChart2;
+
+
     private BarChart mChart;
     private SensorManager mSensorManager;
     private Sensor mAccelerometer;
     private Thread thread;
     private boolean plotData = true;
 
-    ArrayList<BarEntry> oldVals = null;
-    ArrayList<BarEntry> newVals = new ArrayList<>();
 
 
 
@@ -324,28 +326,10 @@ public class HomeFragment extends Fragment implements HomeContract.View ,
          tabLayout.setupWithViewPager(viewPager);
 
          FloatingActionButton button = root.findViewById(R.id.homePlayPause);
-//        final ImageView accel = root.findViewById(R.id.accelerometer_placeholder);
-//         accelCount = 1;
-//         button.setOnClickListener(new View.OnClickListener() {
-//             @Override
-//             public void onClick(View v) {
-//                 if (accelCount==0) {
-//                     accel.setImageDrawable(ResUtil.getInstance().getDrawable(R.drawable.acc_active_shake));
-//                     accelCount+=1;
-//                 } else if (accelCount==1) {
-//                     accel.setImageDrawable(ResUtil.getInstance().getDrawable(R.drawable.acc_active_still));
-//                     accelCount++;
-//                 } else if (accelCount==2) {
-//                     accel.setImageDrawable(ResUtil.getInstance().getDrawable(R.drawable.acc_inactive_shake));
-//                     accelCount++;
-//                 } else if (accelCount==3) {
-//                     accel.setImageDrawable(ResUtil.getInstance().getDrawable(R.drawable.acc_inactive_still));
-//                     accelCount = 0;
-//                 }
-//             }
-//         });
+
 
          mChart = root.findViewById(R.id.accelerometer_placeholder);
+         mChart2 = root.findViewById(R.id.accelChart2);
 
          root.findViewById(R.id.homePlayPause).setOnClickListener(new View.OnClickListener() {
              @Override
@@ -399,25 +383,72 @@ public class HomeFragment extends Fragment implements HomeContract.View ,
         }
 
 
+
+        // start
+        // enable description text
+        mChart2.getDescription().setEnabled(false);
+        // enable touch gestures
+        mChart2.setTouchEnabled(false);
+        // enable scaling and dragging
+        mChart2.setDragEnabled(false);
+        mChart2.setScaleEnabled(false);
+        mChart2.setDrawGridBackground(false);
+        // if disabled, scaling can be done on x- and y-axis separately
+        mChart2.setPinchZoom(false);
+        // set an alternative background color
+        mChart2.setBackgroundColor(getResources().getColor(R.color.blueBackground));
+
+        //end
+
+
         // enable description text
         mChart.getDescription().setEnabled(false);
-
         // enable touch gestures
         mChart.setTouchEnabled(false);
-
         // enable scaling and dragging
         mChart.setDragEnabled(false);
         mChart.setScaleEnabled(false);
         mChart.setDrawGridBackground(false);
-
         // if disabled, scaling can be done on x- and y-axis separately
         mChart.setPinchZoom(false);
-
         // set an alternative background color
         mChart.setBackgroundColor(getResources().getColor(R.color.blueBackground));
-
         BarData data = new BarData();
 
+
+
+        //start
+        mChart2.setData(data);
+        Legend l2 = mChart2.getLegend();
+        l2.setEnabled(false);
+
+        XAxis xl2 = mChart2.getXAxis();
+        xl2.setEnabled(false);
+
+        YAxis leftAxis2 = mChart2.getAxisLeft();
+        leftAxis2.setAxisMaximum(5f);
+        leftAxis2.setAxisMinimum(0);
+        leftAxis2.setInverted(true);
+        leftAxis2.setEnabled(false);
+
+        YAxis rightAxis2 = mChart2.getAxisRight();
+        rightAxis2.setDrawZeroLine(false);
+        rightAxis2.setEnabled(false);
+
+        mChart2.getAxisLeft().setDrawGridLines(false);
+        mChart2.getXAxis().setDrawGridLines(false);
+        mChart2.setDrawBorders(false);
+
+        mChart2.setViewPortOffsets(0, 0, 0, 0);
+
+        CustomBarChartRender2 barChartRender2 = new CustomBarChartRender2(mChart2,mChart2.getAnimator(), mChart2.getViewPortHandler());
+        barChartRender2.setRadius(10);
+        mChart2.setRenderer(barChartRender2);
+
+
+//        setupGradient2(mChart);
+
+        //end
 
         // add empty data
         mChart.setData(data);
@@ -425,7 +456,6 @@ public class HomeFragment extends Fragment implements HomeContract.View ,
         // get the legend (only possible after setting data)
         Legend l = mChart.getLegend();
         l.setEnabled(false);
-
 
         XAxis xl = mChart.getXAxis();
         xl.setEnabled(false);
@@ -449,7 +479,10 @@ public class HomeFragment extends Fragment implements HomeContract.View ,
         barChartRender.setRadius(10);
         mChart.setRenderer(barChartRender);
 
-        setupGradient(mChart);
+
+//        setupGradient(mChart);
+
+
 
 
         startPlot();
@@ -593,24 +626,13 @@ public class HomeFragment extends Fragment implements HomeContract.View ,
                 set = createSet();
                 data.addDataSet(set);
             }
-//            data.addEntry(new Entry(set.getEntryCount(), (float) (Math.random() * 80) + 10f), 0);
             float entryval = (Math.abs(event.values[0]) + Math.abs(event.values[1]) + Math.abs(event.values[2]))/3f;
 
-//            if (Math.abs(entryval) < 0.1) {
-//                entryval = 0;
-//            }
-
-            if (entryval <= 0)  {
-                entryval = entryval*-1;
-                entryval = (float)(5 - (5 / (0.5*entryval + 1)));
-                entryval = entryval*-1;
-            } else {
-                entryval = (float)(5 - (5 / (0.5*entryval + 1)));
-            }
+            entryval = (float)(5 - (5 / (0.5*entryval + 1)));
 
 
 
-            entryval += 0.2;
+            entryval += 0.1;
 
             data.setBarWidth(0.5f);
             Log.d("homefragbar", "valu: " + entryval);
@@ -618,43 +640,25 @@ public class HomeFragment extends Fragment implements HomeContract.View ,
 
 
 
-
-
-//            if (newVals.size()>71) {
-//                if (oldVals == null){
-//                    oldVals = new ArrayList<>(newVals);
-//                }
-////                newVals.add(new BarEntry(newVals.size(), entryval));
-////                AnimateDataSetChanged changer = new AnimateDataSetChanged(100, mChart, oldVals, newVals);
-////                changer.setInterpolator(new AccelerateInterpolator()); // optionally set the Interpolator
-////                changer.run();
-//                data.addDataSet(new BarDataSet(newVals, "lavel"));
-//                data.notifyDataChanged();
-//                mChart.notifyDataSetChanged();
-//                Log.d("homefragtest", "changer called");
-//                oldVals = new ArrayList<>(newVals);
-//
-//
-//
-//            } else {
-//                newVals.add(new BarEntry(newVals.size(), entryval));
-//                Log.d("homefragtest1", "newvals size: " + newVals.size());
-//            }
-
-
-
-
-//            data.addEntry(new Entry(set.getEntryCount(), (event.values[0] + event.values[1] + event.values[2])/4  + 5), 0);
-            Log.d(TAG, Float.toString((event.values[0] + event.values[1] + event.values[2])/3f ));
-
-
             data.notifyDataChanged();
+
+
+            // start
+
+            mChart2.notifyDataSetChanged();
+
+            mChart2.setVisibleXRangeMaximum(50);
+
+
+
+            //end
 //
             mChart.notifyDataSetChanged();
 
-            mChart.setVisibleXRangeMaximum(90);
+            mChart.setVisibleXRangeMaximum(50);
 
             mChart.moveViewToX(data.getEntryCount());
+            mChart2.moveViewToX(data.getEntryCount());
 
 
 
@@ -677,6 +681,8 @@ public class HomeFragment extends Fragment implements HomeContract.View ,
         BarDataSet set = new BarDataSet(values, "data");
         set.setAxisDependency(YAxis.AxisDependency.LEFT);
 
+//        set.setColors(Color.rgb(67,67,72), Color.rgb(124,181,236));
+
         set.setColor(getResources().getColor(R.color.eq74GradientStart));
         set.setHighlightEnabled(false);
         set.setDrawValues(false);
@@ -694,6 +700,19 @@ public class HomeFragment extends Fragment implements HomeContract.View ,
                 Shader.TileMode.CLAMP);
         paint.setShader(gradient);
     }
+
+    private void setupGradient2(BarChart chart) {
+        Paint paint = chart.getRenderer().getPaintRender();
+        int height = ResUtil.getInstance().dpToPx(100);
+//        Log.d(TAG, Integer.toString(height));
+
+        LinearGradient gradient = new LinearGradient(0, 0, 0, height,
+                getResources().getColor(R.color.gradientDangerEnd),
+                getResources().getColor(R.color.gradientDangerStart),
+                Shader.TileMode.CLAMP);
+        paint.setShader(gradient);
+    }
+
 
     @Override
     public void onStop() {
