@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:scrollbars="none"
-    >
+    android:scrollbars="none">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -16,6 +15,7 @@
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
 
             <HorizontalScrollView
                 android:id="@+id/globeScrollView"
@@ -36,6 +36,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
                         android:layout_marginTop="8dp"
+                        android:visibility="gone"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
@@ -45,6 +46,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="8dp"
+                        android:visibility="gone"
                         app:layout_constraintStart_toEndOf="@id/EqGlobe1"
                         app:layout_constraintTop_toTopOf="parent" />
 
@@ -54,6 +56,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="8dp"
+                        android:visibility="gone"
                         app:layout_constraintStart_toEndOf="@id/EqGlobe2"
                         app:layout_constraintTop_toTopOf="parent" />
 
@@ -63,6 +66,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="8dp"
+                        android:visibility="gone"
                         app:layout_constraintStart_toEndOf="@id/EqGlobe3"
                         app:layout_constraintTop_toTopOf="parent" />
 
@@ -72,6 +76,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="8dp"
+                        android:visibility="gone"
                         app:layout_constraintStart_toEndOf="@id/EqGlobe4"
                         app:layout_constraintTop_toTopOf="parent" />
 
@@ -81,6 +86,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="8dp"
+                        android:visibility="gone"
                         app:layout_constraintStart_toEndOf="@id/EqGlobe5"
                         app:layout_constraintTop_toTopOf="parent" />
 
@@ -90,6 +96,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="8dp"
+                        android:visibility="gone"
                         app:layout_constraintStart_toEndOf="@id/EqGlobe6"
                         app:layout_constraintTop_toTopOf="parent" />
 
@@ -99,6 +106,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="8dp"
+                        android:visibility="gone"
                         app:layout_constraintStart_toEndOf="@id/EqGlobe7"
                         app:layout_constraintTop_toTopOf="parent" />
 
@@ -108,6 +116,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="8dp"
+                        android:visibility="gone"
                         app:layout_constraintStart_toEndOf="@id/EqGlobe8"
                         app:layout_constraintTop_toTopOf="parent" />
 
@@ -117,6 +126,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="8dp"
+                        android:visibility="gone"
                         app:layout_constraintStart_toEndOf="@id/EqGlobe9"
                         app:layout_constraintTop_toTopOf="parent" />
 
@@ -129,6 +139,8 @@
                         android:text="Loading"
                         android:textColor="@color/offWhite"
                         android:textSize="13dp"
+                        android:textStyle="bold"
+                        android:visibility="gone"
                         app:layout_constraintEnd_toEndOf="@+id/EqGlobe1"
                         app:layout_constraintStart_toStartOf="@+id/EqGlobe1"
                         app:layout_constraintTop_toBottomOf="@+id/EqGlobe1" />
@@ -141,6 +153,7 @@
                         android:text="Loading"
                         android:textColor="@color/offWhite"
                         android:textSize="12dp"
+                        android:visibility="gone"
                         app:layout_constraintEnd_toEndOf="@+id/EqTitle1"
                         app:layout_constraintStart_toStartOf="@+id/EqTitle1"
                         app:layout_constraintTop_toBottomOf="@+id/EqTitle1" />
@@ -154,6 +167,8 @@
                         android:text="Loading"
                         android:textColor="@color/offWhite"
                         android:textSize="13dp"
+                        android:textStyle="bold"
+                        android:visibility="gone"
                         app:layout_constraintEnd_toEndOf="@+id/EqGlobe2"
                         app:layout_constraintStart_toStartOf="@+id/EqGlobe2"
                         app:layout_constraintTop_toBottomOf="@+id/EqGlobe2" />
@@ -166,6 +181,7 @@
                         android:text="Loading"
                         android:textColor="@color/offWhite"
                         android:textSize="12dp"
+                        android:visibility="gone"
                         app:layout_constraintEnd_toEndOf="@+id/EqTitle2"
                         app:layout_constraintStart_toStartOf="@+id/EqTitle2"
                         app:layout_constraintTop_toBottomOf="@+id/EqTitle2" />
@@ -179,6 +195,8 @@
                         android:text="Loading"
                         android:textColor="@color/offWhite"
                         android:textSize="13dp"
+                        android:textStyle="bold"
+                        android:visibility="gone"
                         app:layout_constraintEnd_toEndOf="@+id/EqGlobe3"
                         app:layout_constraintStart_toStartOf="@+id/EqGlobe3"
                         app:layout_constraintTop_toBottomOf="@+id/EqGlobe3" />
@@ -191,6 +209,7 @@
                         android:text="Loading"
                         android:textColor="@color/offWhite"
                         android:textSize="12dp"
+                        android:visibility="gone"
                         app:layout_constraintEnd_toEndOf="@+id/EqTitle3"
                         app:layout_constraintStart_toStartOf="@+id/EqTitle3"
                         app:layout_constraintTop_toBottomOf="@+id/EqTitle3" />
@@ -204,6 +223,8 @@
                         android:text="Loading"
                         android:textColor="@color/offWhite"
                         android:textSize="13dp"
+                        android:textStyle="bold"
+                        android:visibility="gone"
                         app:layout_constraintEnd_toEndOf="@+id/EqGlobe4"
                         app:layout_constraintStart_toStartOf="@+id/EqGlobe4"
                         app:layout_constraintTop_toBottomOf="@+id/EqGlobe4" />
@@ -216,6 +237,7 @@
                         android:text="Loading"
                         android:textColor="@color/offWhite"
                         android:textSize="12dp"
+                        android:visibility="gone"
                         app:layout_constraintEnd_toEndOf="@+id/EqTitle4"
                         app:layout_constraintStart_toStartOf="@+id/EqTitle4"
                         app:layout_constraintTop_toBottomOf="@+id/EqTitle4" />
@@ -229,6 +251,8 @@
                         android:text="Loading"
                         android:textColor="@color/offWhite"
                         android:textSize="13dp"
+                        android:textStyle="bold"
+                        android:visibility="gone"
                         app:layout_constraintEnd_toEndOf="@+id/EqGlobe5"
                         app:layout_constraintStart_toStartOf="@+id/EqGlobe5"
                         app:layout_constraintTop_toBottomOf="@+id/EqGlobe5" />
@@ -241,6 +265,7 @@
                         android:text="Loading"
                         android:textColor="@color/offWhite"
                         android:textSize="12dp"
+                        android:visibility="gone"
                         app:layout_constraintEnd_toEndOf="@+id/EqTitle5"
                         app:layout_constraintStart_toStartOf="@+id/EqTitle5"
                         app:layout_constraintTop_toBottomOf="@+id/EqTitle5" />
@@ -254,6 +279,8 @@
                         android:text="Loading"
                         android:textColor="@color/offWhite"
                         android:textSize="13dp"
+                        android:textStyle="bold"
+                        android:visibility="gone"
                         app:layout_constraintEnd_toEndOf="@+id/EqGlobe6"
                         app:layout_constraintStart_toStartOf="@+id/EqGlobe6"
                         app:layout_constraintTop_toBottomOf="@+id/EqGlobe6" />
@@ -266,6 +293,7 @@
                         android:text="Loading"
                         android:textColor="@color/offWhite"
                         android:textSize="12dp"
+                        android:visibility="gone"
                         app:layout_constraintEnd_toEndOf="@+id/EqTitle6"
                         app:layout_constraintStart_toStartOf="@+id/EqTitle6"
                         app:layout_constraintTop_toBottomOf="@+id/EqTitle6" />
@@ -279,6 +307,8 @@
                         android:text="Loading"
                         android:textColor="@color/offWhite"
                         android:textSize="13dp"
+                        android:textStyle="bold"
+                        android:visibility="gone"
                         app:layout_constraintEnd_toEndOf="@+id/EqGlobe7"
                         app:layout_constraintStart_toStartOf="@+id/EqGlobe7"
                         app:layout_constraintTop_toBottomOf="@+id/EqGlobe7" />
@@ -291,6 +321,7 @@
                         android:text="Loading"
                         android:textColor="@color/offWhite"
                         android:textSize="12dp"
+                        android:visibility="gone"
                         app:layout_constraintEnd_toEndOf="@+id/EqTitle7"
                         app:layout_constraintStart_toStartOf="@+id/EqTitle7"
                         app:layout_constraintTop_toBottomOf="@+id/EqTitle7" />
@@ -304,6 +335,8 @@
                         android:text="Loading"
                         android:textColor="@color/offWhite"
                         android:textSize="13dp"
+                        android:textStyle="bold"
+                        android:visibility="gone"
                         app:layout_constraintEnd_toEndOf="@+id/EqGlobe8"
                         app:layout_constraintStart_toStartOf="@+id/EqGlobe8"
                         app:layout_constraintTop_toBottomOf="@+id/EqGlobe8" />
@@ -316,6 +349,7 @@
                         android:text="Loading"
                         android:textColor="@color/offWhite"
                         android:textSize="12dp"
+                        android:visibility="gone"
                         app:layout_constraintEnd_toEndOf="@+id/EqTitle8"
                         app:layout_constraintStart_toStartOf="@+id/EqTitle8"
                         app:layout_constraintTop_toBottomOf="@+id/EqTitle8" />
@@ -329,6 +363,8 @@
                         android:text="Loading"
                         android:textColor="@color/offWhite"
                         android:textSize="13dp"
+                        android:textStyle="bold"
+                        android:visibility="gone"
                         app:layout_constraintEnd_toEndOf="@+id/EqGlobe9"
                         app:layout_constraintStart_toStartOf="@+id/EqGlobe9"
                         app:layout_constraintTop_toBottomOf="@+id/EqGlobe9" />
@@ -341,6 +377,7 @@
                         android:text="Loading"
                         android:textColor="@color/offWhite"
                         android:textSize="12dp"
+                        android:visibility="gone"
                         app:layout_constraintEnd_toEndOf="@+id/EqTitle9"
                         app:layout_constraintStart_toStartOf="@+id/EqTitle9"
                         app:layout_constraintTop_toBottomOf="@+id/EqTitle9" />
@@ -354,6 +391,8 @@
                         android:text="Loading"
                         android:textColor="@color/offWhite"
                         android:textSize="13dp"
+                        android:textStyle="bold"
+                        android:visibility="gone"
                         app:layout_constraintEnd_toEndOf="@+id/EqGlobe10"
                         app:layout_constraintStart_toStartOf="@+id/EqGlobe10"
                         app:layout_constraintTop_toBottomOf="@+id/EqGlobe10" />
@@ -366,6 +405,7 @@
                         android:text="Loading"
                         android:textColor="@color/offWhite"
                         android:textSize="12dp"
+                        android:visibility="gone"
                         app:layout_constraintEnd_toEndOf="@+id/EqTitle10"
                         app:layout_constraintStart_toStartOf="@+id/EqTitle10"
                         app:layout_constraintTop_toBottomOf="@+id/EqTitle10" />
@@ -378,9 +418,9 @@
                 android:id="@+id/seiEarnedView"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="24dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="32dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
@@ -388,7 +428,7 @@
                 app:square_color="@color/blueHighlight" />
 
             <TextView
-                android:id="@+id/homeSeiCount"
+                android:id="@+id/homeDailySeiCount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/sfpromedium"
@@ -411,9 +451,9 @@
                 android:textColor="@color/offWhite"
                 android:textSize="18dp"
                 android:visibility="visible"
-                app:layout_constraintBottom_toTopOf="@+id/homeSeiCount"
-                app:layout_constraintEnd_toEndOf="@+id/homeSeiCount"
-                app:layout_constraintStart_toStartOf="@+id/homeSeiCount" />
+                app:layout_constraintBottom_toTopOf="@+id/homeDailySeiCount"
+                app:layout_constraintEnd_toEndOf="@+id/homeDailySeiCount"
+                app:layout_constraintStart_toStartOf="@+id/homeDailySeiCount" />
 
             <TextView
                 android:id="@+id/homeEarnedLabel"
@@ -424,23 +464,9 @@
                 android:textColor="@color/offWhite"
                 android:textSize="14dp"
                 android:visibility="visible"
-                app:layout_constraintEnd_toEndOf="@+id/homeSeiCount"
-                app:layout_constraintStart_toStartOf="@+id/homeSeiCount"
-                app:layout_constraintTop_toBottomOf="@+id/homeSeiCount" />
-
-            <ImageView
-                android:id="@+id/imageView"
-                android:layout_width="0dp"
-                android:layout_height="78dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginBottom="24dp"
-                android:scaleType="centerInside"
-                android:visibility="gone"
-                app:layout_constraintBottom_toTopOf="@+id/homePlayPause"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:srcCompat="@drawable/accelerometer" />
+                app:layout_constraintEnd_toEndOf="@+id/homeDailySeiCount"
+                app:layout_constraintStart_toStartOf="@+id/homeDailySeiCount"
+                app:layout_constraintTop_toBottomOf="@+id/homeDailySeiCount" />
 
             <android.support.design.widget.FloatingActionButton
                 android:id="@+id/homePlayPause"
@@ -517,7 +543,7 @@
             </android.support.design.chip.Chip>
 
             <com.github.mikephil.charting.charts.BarChart
-                android:id="@+id/accelerometer_placeholder"
+                android:id="@+id/accelChart1"
                 android:layout_width="0dp"
                 android:layout_height="40dp"
                 android:layout_marginTop="16dp"
@@ -533,7 +559,22 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/accelerometer_placeholder" />
+                app:layout_constraintTop_toBottomOf="@+id/accelChart1" />
+
+
+            <View
+                android:id="@+id/dividerHome1"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="8dp"
+                android:background="@color/blueDivider"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/homePlayPause" />
 
 
 
@@ -561,19 +602,40 @@
         </android.support.v4.view.ViewPager>
 
 
+        <View
+            android:id="@+id/homeDivider2"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:background="@color/blueDivider" />
 
         <ImageView
-            android:id="@+id/imageView2"
+            android:id="@+id/homeDataQuality"
             android:layout_width="match_parent"
             android:layout_height="260dp"
             android:layout_margin="12dp"
             app:srcCompat="@drawable/home_data_quality" />
 
+        <View
+            android:id="@+id/homeDivider3"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="24dp"
+            android:background="@color/blueDivider" />
+
         <ImageView
-            android:id="@+id/imageView3"
+            android:id="@+id/homeBadges"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="12dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:adjustViewBounds="true"
+            android:cropToPadding="true"
+            app:layout_constraintStart_toStartOf="parent"
             app:srcCompat="@drawable/home_badges" />
 
     </LinearLayout>

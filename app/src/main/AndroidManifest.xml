@@ -32,6 +32,7 @@
         <activity android:name=".ui.store.StoreDetailActivity" android:screenOrientation="portrait"/>
         <activity android:name=".ui.home.UpgradeActivity"
             android:theme="@style/upgradeActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".ui.map.AlertsActivity"/>
 
 
 

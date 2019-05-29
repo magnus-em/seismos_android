@@ -38,7 +38,7 @@
                 android:layout_marginStart="32dp"
                 android:layout_marginEnd="32dp"
                 android:layout_marginBottom="24dp"
-                android:fontFamily="@font/sfproregular"
+                android:fontFamily="@font/sfpromedium"
                 android:text="$2.99 / Month"
                 android:textAlignment="center"
                 android:textAppearance="@style/ChipTheme"
@@ -60,9 +60,9 @@
                 android:layout_height="41dp"
                 android:layout_marginStart="32dp"
                 android:layout_marginEnd="32dp"
-                android:layout_marginBottom="8dp"
-                android:fontFamily="@font/sfproregular"
-                android:text="29.99 / Year (2 Months Free)"
+                android:layout_marginBottom="12dp"
+                android:fontFamily="@font/sfpromedium"
+                android:text="12 Months - $2.49 / Month"
                 android:textAlignment="center"
                 android:textAppearance="@style/ChipTheme"
                 android:textColor="@color/blueHighlight"
@@ -82,7 +82,7 @@
                 android:layout_width="75dp"
                 android:layout_height="75dp"
                 android:layout_marginStart="32dp"
-                android:layout_marginTop="32dp"
+                android:layout_marginTop="24dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/profile_image" />
@@ -124,7 +124,7 @@
                 android:fontFamily="@font/sfprolight"
                 android:text="Simple tools to increase production, 2.5x basic limit"
                 android:textColor="@color/offWhite"
-                android:textSize="14dp"
+                android:textSize="15dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/imageView27" />
@@ -135,12 +135,12 @@
                 android:layout_width="0dp"
                 android:layout_height="1dp"
                 android:layout_marginStart="24dp"
-                android:layout_marginTop="50dp"
+                android:layout_marginTop="100dp"
                 android:layout_marginEnd="24dp"
                 android:background="@color/offWhite30"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView62" />
+                app:layout_constraintTop_toBottomOf="@+id/imageView27" />
 
             <TextView
                 android:id="@+id/textView63"

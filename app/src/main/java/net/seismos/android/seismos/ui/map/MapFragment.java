@@ -20,9 +20,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
 
-import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -51,6 +49,8 @@ public class MapFragment extends Fragment implements MapContract.View,
     private static final String TAG = "MapFragment";
 
     private static final int FILTERS_RESULT = 10;
+    private static final int ALERTS_RESULT = 11;
+
 
     MapContract.Presenter mPresenter;
 
@@ -97,12 +97,12 @@ public class MapFragment extends Fragment implements MapContract.View,
             public void onStateChanged(@NonNull View view, int i) {
                 if (i == STATE_EXPANDED) {
                     view.setBackground(getResources().getDrawable(R.drawable.nonrounded_bottom_sheet));
-                    scrolling.animate().alpha(0).setDuration(200);
+                    scrolling.animate().alpha(0).setDuration(100);
                     //scrolling.setVisibility(View.INVISIBLE);
                     locationFab.hide();
                 } else {
                     view.setBackground(getResources().getDrawable(R.drawable.rounded_bottom_sheet));
-                    scrolling.animate().alpha(1).setDuration(200);
+                    scrolling.animate().alpha(1).setDuration(100);
 //                    scrolling.setVisibility(View.VISIBLE);
                     locationFab.show();
                 }
@@ -111,22 +111,22 @@ public class MapFragment extends Fragment implements MapContract.View,
             public void onSlide(@NonNull View view, float v) { }
         });
 
-        Chip filtersChip = root.findViewById(R.id.filters_chip);
-        filtersChip.setOnClickListener(new View.OnClickListener() {
+        Chip alertsChip = root.findViewById(R.id.alerts_chip);
+        alertsChip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), FiltersActivity.class);
-                startActivityForResult(intent, FILTERS_RESULT);
+                Intent intent = new Intent(getActivity(), AlertsActivity.class);
+                startActivityForResult(intent, ALERTS_RESULT);
             }
         });
 
 
         // this is the same as the setOnClickListener because the Close Icon blocks the touch event
-        filtersChip.setOnCloseIconClickListener(new View.OnClickListener() {
+        alertsChip.setOnCloseIconClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), FiltersActivity.class);
-                startActivityForResult(intent, FILTERS_RESULT);
+                Intent intent = new Intent(getActivity(), AlertsActivity.class);
+                startActivityForResult(intent, ALERTS_RESULT);
             }
         });
 

@@ -36,7 +36,7 @@ public class UsgsJsonWorker extends Worker {
         ArrayList<Earthquake> earthquakes;
 
         try {
-            String quakeFeed = getApplicationContext().getString(R.string.earthquake_json_feed);
+            String quakeFeed = getApplicationContext().getString(R.string.earthquake_json_feed_45week);
             earthquakes = fetchEqs(quakeFeed);
 
             EarthquakeDatabaseAccessor.getInstance(getApplicationContext())

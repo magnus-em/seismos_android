@@ -20,8 +20,9 @@
             android:cropToPadding="false"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:srcCompat="@drawable/white_upgrade_frame" />
+            app:srcCompat="@drawable/green_upgrade_frame" />
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="0dp"
@@ -33,18 +34,18 @@
 
             <android.support.design.chip.Chip
                 android:id="@+id/scheduleChip3"
-                android:layout_width="267dp"
+                android:layout_width="0dp"
                 android:layout_height="41dp"
                 android:layout_marginStart="32dp"
                 android:layout_marginEnd="32dp"
                 android:layout_marginBottom="24dp"
-                android:fontFamily="@font/sfproregular"
-                android:text="$2.99 / Month"
+                android:fontFamily="@font/sfpromedium"
+                android:text="$4.99 / Month"
                 android:textAlignment="center"
                 android:textAppearance="@style/ChipTheme"
                 android:textColor="@color/offWhite"
                 app:chipBackgroundColor="@android:color/transparent"
-                app:chipCornerRadius="12dp"
+                app:chipCornerRadius="10dp"
                 app:chipStrokeColor="@color/offWhite"
                 app:chipStrokeWidth="1dp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -56,18 +57,18 @@
 
             <android.support.design.chip.Chip
                 android:id="@+id/scheduleChip4"
-                android:layout_width="267dp"
+                android:layout_width="0dp"
                 android:layout_height="41dp"
                 android:layout_marginStart="32dp"
                 android:layout_marginEnd="32dp"
-                android:layout_marginBottom="8dp"
-                android:fontFamily="@font/sfproregular"
-                android:text="29.99 / Year (2 Months Free)"
+                android:layout_marginBottom="12dp"
+                android:fontFamily="@font/sfpromedium"
+                android:text="12 Months - $4.16 / Month"
                 android:textAlignment="center"
                 android:textAppearance="@style/ChipTheme"
                 android:textColor="@color/blueHighlight"
                 app:chipBackgroundColor="@color/accentGreen"
-                app:chipCornerRadius="12dp"
+                app:chipCornerRadius="10dp"
                 app:chipStrokeColor="@color/offWhite"
                 app:layout_constraintBottom_toTopOf="@+id/scheduleChip3"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -82,7 +83,7 @@
                 android:layout_width="75dp"
                 android:layout_height="75dp"
                 android:layout_marginStart="32dp"
-                android:layout_marginTop="32dp"
+                android:layout_marginTop="60dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/profile_image" />
@@ -122,9 +123,9 @@
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
                 android:fontFamily="@font/sfprolight"
-                android:text="Simple tools to increase production, 2.5x basic limit"
+                android:text="Everything you need to be ready for the big one, plus advanced tools to optimize Sei earnings and 5x your daily limit"
                 android:textColor="@color/offWhite"
-                android:textSize="14dp"
+                android:textSize="15dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/imageView27" />
@@ -135,12 +136,12 @@
                 android:layout_width="0dp"
                 android:layout_height="1dp"
                 android:layout_marginStart="24dp"
-                android:layout_marginTop="50dp"
+                android:layout_marginTop="100dp"
                 android:layout_marginEnd="24dp"
                 android:background="@color/offWhite30"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView62" />
+                app:layout_constraintTop_toBottomOf="@+id/imageView27" />
 
             <TextView
                 android:id="@+id/textView63"
@@ -159,7 +160,7 @@
                 android:id="@+id/imageView28"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:layout_marginStart="40dp"
+                android:layout_marginStart="32dp"
                 android:layout_marginTop="16dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView63"
@@ -169,7 +170,7 @@
                 android:id="@+id/imageView35"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:layout_marginStart="40dp"
+                android:layout_marginStart="32dp"
                 android:layout_marginTop="8dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/imageView28"
@@ -179,7 +180,7 @@
                 android:id="@+id/imageView36"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:layout_marginStart="40dp"
+                android:layout_marginStart="32dp"
                 android:layout_marginTop="8dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/imageView35"
@@ -189,7 +190,7 @@
                 android:id="@+id/imageView37"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:layout_marginStart="40dp"
+                android:layout_marginStart="32dp"
                 android:layout_marginTop="8dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/imageView36"
@@ -199,10 +200,20 @@
                 android:id="@+id/imageView38"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:layout_marginStart="40dp"
+                android:layout_marginStart="32dp"
                 android:layout_marginTop="8dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/imageView37"
+                app:srcCompat="@drawable/upgrade_check" />
+
+            <ImageView
+                android:id="@+id/imageView25"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="8dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imageView38"
                 app:srcCompat="@drawable/upgrade_check" />
 
             <TextView
@@ -211,9 +222,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:fontFamily="@font/sfprolight"
-                android:text="2 Rings for 2,500 daily Sei limit"
+                android:text="Everything in Plus"
                 android:textColor="@color/offWhite"
                 android:textSize="16dp"
+                android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="@+id/imageView28"
                 app:layout_constraintStart_toEndOf="@+id/imageView28"
                 app:layout_constraintTop_toTopOf="@+id/imageView28" />
@@ -224,7 +236,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:fontFamily="@font/sfprolight"
-                android:text="Tools to improve data quality"
+                android:text="All 3 rings for 5000 Sei limit"
                 android:textColor="@color/offWhite"
                 android:textSize="16dp"
                 app:layout_constraintBottom_toBottomOf="@+id/imageView35"
@@ -237,7 +249,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:fontFamily="@font/sfprolight"
-                android:text="Earthquake safety checklists"
+                android:text="Schedule earthquake listening"
                 android:textColor="@color/offWhite"
                 android:textSize="16dp"
                 app:layout_constraintBottom_toBottomOf="@+id/imageView36"
@@ -250,7 +262,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:fontFamily="@font/sfprolight"
-                android:text="Earn sei on 2 devices at once"
+                android:text="Custom earthquake alert zones"
                 android:textColor="@color/offWhite"
                 android:textSize="16dp"
                 app:layout_constraintBottom_toBottomOf="@+id/imageView37"
@@ -263,12 +275,25 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:fontFamily="@font/sfprolight"
-                android:text="Exclusive Plus badge"
+                android:text='"Marked as safe" for family'
                 android:textColor="@color/offWhite"
                 android:textSize="16dp"
                 app:layout_constraintBottom_toBottomOf="@+id/imageView38"
                 app:layout_constraintStart_toEndOf="@+id/imageView38"
                 app:layout_constraintTop_toTopOf="@+id/imageView38" />
+
+            <TextView
+                android:id="@+id/textView69"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:fontFamily="@font/sfprolight"
+                android:text="Earn Sei on 3 devices at once"
+                android:textColor="@color/offWhite"
+                android:textSize="16dp"
+                app:layout_constraintBottom_toBottomOf="@+id/imageView25"
+                app:layout_constraintStart_toEndOf="@+id/imageView25"
+                app:layout_constraintTop_toTopOf="@+id/imageView25" />
 
 
         </android.support.constraint.ConstraintLayout>

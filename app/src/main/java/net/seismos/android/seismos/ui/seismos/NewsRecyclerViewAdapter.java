@@ -71,7 +71,7 @@ public class NewsRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
 
         public NewsLargeViewHolder(@NonNull View itemView) {
             super(itemView);
-            title = itemView.findViewById(R.id.timeText);
+            title = itemView.findViewById(R.id.detailTimeText);
         }
     }
 
@@ -81,7 +81,7 @@ public class NewsRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
 
         public NewsSmallViewHolder(@NonNull View itemView) {
             super(itemView);
-            title = itemView.findViewById(R.id.timeText);
+            title = itemView.findViewById(R.id.detailTimeText);
         }
     }
 

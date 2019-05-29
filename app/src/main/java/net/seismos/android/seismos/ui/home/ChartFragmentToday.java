@@ -111,16 +111,17 @@ public class ChartFragmentToday extends Fragment {
 
         BarData data = new BarData(dataSets);
 
-        data.setBarWidth(0.95f);
+        data.setBarWidth(0.97f);
 
 
         chart.setData(data);
         chart.setFitBars(true);
 
-        chart.animateY(1500);
+//        chart.animateY(1500);
 
-        CustomBarChartRender barChartRender = new CustomBarChartRender(chart,chart.getAnimator(), chart.getViewPortHandler());
-        barChartRender.setRadius(32);
+
+        CustomBarChartRenderAll barChartRender = new CustomBarChartRenderAll(chart,chart.getAnimator(), chart.getViewPortHandler());
+        barChartRender.setRadius(26);
         chart.setRenderer(barChartRender);
 
         chart.setOnClickListener(new View.OnClickListener() {

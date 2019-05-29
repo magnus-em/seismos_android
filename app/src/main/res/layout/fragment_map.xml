@@ -16,7 +16,7 @@
 
 
     <android.support.design.chip.Chip
-        android:id="@+id/filters_chip"
+        android:id="@+id/alerts_chip"
         android:layout_width="105dp"
         android:layout_height="40dp"
         android:layout_gravity="center_horizontal"
@@ -32,7 +32,7 @@
         app:chipBackgroundColor="@color/blueLight"
         app:chipCornerRadius="18dp"
         app:chipIcon="@drawable/alerticon"
-        app:chipIconSize="22dp"
+        app:chipIconSize="20dp"
         app:iconStartPadding="10dp"
         app:layout_anchor="@id/bottom_sheet"
         app:layout_anchorGravity="top|center"

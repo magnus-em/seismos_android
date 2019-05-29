@@ -18,6 +18,8 @@
 
     <string name="earthquake_json_feed">https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/significant_month.geojson</string>
 
+    <string name="earthquake_json_feed_45week">https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/4.5_week.geojson</string>
+
     <string name="recent_eq_description">Recent Earthquakes</string>
     <string name="see_all_recent_eq_description">SEE ALL</string>
     
@@ -28,6 +30,11 @@
     <string name="filters_text">Filters</string>
     <string name="filters_title">Filters</string>
     <string name="eq_details_title">Details</string>
+
+    <string name="alerts">Alerts</string>
+    <string name="friendsandfamily">Friends and Family</string>
+    <string name="custom_eq_alert_zones">Custom earthquake alert zones</string>
+
 
 </resources>
 

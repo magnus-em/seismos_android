@@ -41,8 +41,8 @@ public class EqDetailsActivity extends AppCompatActivity implements OnMapReadyCa
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-        TextView placeText = findViewById(R.id.placeText);
-        TextView locationText = findViewById(R.id.locationText);
+        TextView placeText = findViewById(R.id.placeTextTitle);
+        TextView locationText = findViewById(R.id.detailLocationText);
 
 
         Intent intent = getIntent();

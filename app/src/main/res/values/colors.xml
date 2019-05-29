@@ -10,7 +10,7 @@
     <color name="offWhite70">#70FBFBFB</color>
     <color name="offWhite30">#30FBFBFB</color>
 
-    <color name="blueDivider">#6000233A</color>
+    <color name="blueDivider">#00233A</color>
 
     <color name="blueHighlight70">#701C6490</color>
 
@@ -42,7 +42,9 @@
     <color name="gradientDangerEnd">#f03600</color>
 
     <color name="gradientBlueHighlightStart">#1C6490</color>
-    <color name="gradientBlueHighlightEnd">#1C6490</color>
+    <color name="gradientBlueHighlightEnd">#3B9EC3</color>
+
+
 
 
 

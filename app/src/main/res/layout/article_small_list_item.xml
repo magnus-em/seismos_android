@@ -3,7 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="@drawable/earthquake_list_ripple"
+    android:focusable="true"
+    android:clickable="true">
 
     <ImageView
         android:id="@+id/imageView4"
@@ -49,7 +52,7 @@
         app:layout_constraintTop_toBottomOf="@+id/titleText" />
 
     <TextView
-        android:id="@+id/timeText"
+        android:id="@+id/detailTimeText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -69,7 +72,7 @@
         android:background="@color/blueDivider"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/timeText" />
+        app:layout_constraintTop_toBottomOf="@+id/detailTimeText" />
 
     <ImageView
         android:id="@+id/imageView13"

@@ -16,7 +16,7 @@ public class StoreDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_store_detail);
 
-        Toolbar toolbar = findViewById(R.id.store_details_toolbar);
+        Toolbar toolbar = findViewById(R.id.filters_toolbar);
         setSupportActionBar(toolbar);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

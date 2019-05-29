@@ -5,7 +5,6 @@ import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.LinearGradient;
 import android.graphics.Paint;
 import android.graphics.Shader;
@@ -94,6 +93,8 @@ public class HomeFragment extends Fragment implements HomeContract.View ,
     EqGlobeView globe9;
     EqGlobeView globe10;
 
+    ArrayList<EqGlobeView> globes;
+
     TextView eqTitle1;
     TextView eqTitle2;
     TextView eqTitle3;
@@ -104,6 +105,8 @@ public class HomeFragment extends Fragment implements HomeContract.View ,
     TextView eqTitle8;
     TextView eqTitle9;
     TextView eqTitle10;
+
+    ArrayList<TextView> titles;
 
     TextView eqDetail1;
     TextView eqDetail2;
@@ -116,6 +119,7 @@ public class HomeFragment extends Fragment implements HomeContract.View ,
     TextView eqDetail9;
     TextView eqDetail10;
 
+    ArrayList<TextView> details;
 
 
     int upgradeCount = 0;
@@ -123,7 +127,7 @@ public class HomeFragment extends Fragment implements HomeContract.View ,
     double progressAngle;
 
     public EarthquakeViewModel earthquakeViewModel;
-    private ArrayList<Earthquake> mEarthquakes = new ArrayList<>();
+    private ArrayList<Earthquake> mTopEarthquakes = new ArrayList<>();
 
 
 
@@ -156,7 +160,7 @@ public class HomeFragment extends Fragment implements HomeContract.View ,
         seiEarnedView = root.findViewById(R.id.seiEarnedView);
         HorizontalScrollView scrollView = root.findViewById(R.id.globeScrollView);
         scrollView.setHorizontalScrollBarEnabled(false);
-        root.findViewById(R.id.homeSeiCount).setOnClickListener(new View.OnClickListener() {
+        root.findViewById(R.id.homeDailySeiCount).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -180,17 +184,18 @@ public class HomeFragment extends Fragment implements HomeContract.View ,
             }
         });
 
-        final TextView seiCount = root.findViewById(R.id.homeSeiCount);
+        final TextView seiCount = root.findViewById(R.id.homeDailySeiCount);
 
 
+        globes = new ArrayList<>();
 
          globe1 = root.findViewById(R.id.EqGlobe1);
         globe1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 listener.openMapToLatLng(
-                        new LatLng(mEarthquakes.get(0).getLatitude(),
-                                mEarthquakes.get(0).getLongitude())
+                        new LatLng(mTopEarthquakes.get(0).getLatitude(),
+                                mTopEarthquakes.get(0).getLongitude())
                 );
             }
         });
@@ -199,8 +204,8 @@ public class HomeFragment extends Fragment implements HomeContract.View ,
              @Override
              public void onClick(View v) {
                  listener.openMapToLatLng(new LatLng(
-                         mEarthquakes.get(1).getLatitude(),
-                         mEarthquakes.get(1).getLongitude()
+                         mTopEarthquakes.get(1).getLatitude(),
+                         mTopEarthquakes.get(1).getLongitude()
                  ));
              }
          });
@@ -209,8 +214,8 @@ public class HomeFragment extends Fragment implements HomeContract.View ,
             @Override
             public void onClick(View v) {
                 listener.openMapToLatLng(new LatLng(
-                        mEarthquakes.get(2).getLatitude(),
-                        mEarthquakes.get(2).getLongitude()
+                        mTopEarthquakes.get(2).getLatitude(),
+                        mTopEarthquakes.get(2).getLongitude()
                 ));
             }
         });
@@ -219,8 +224,8 @@ public class HomeFragment extends Fragment implements HomeContract.View ,
              @Override
              public void onClick(View v) {
                  listener.openMapToLatLng(new LatLng(
-                         mEarthquakes.get(3).getLatitude(),
-                         mEarthquakes.get(3).getLongitude()
+                         mTopEarthquakes.get(3).getLatitude(),
+                         mTopEarthquakes.get(3).getLongitude()
                  ));
              }
          });
@@ -230,8 +235,8 @@ public class HomeFragment extends Fragment implements HomeContract.View ,
             @Override
             public void onClick(View v) {
                 listener.openMapToLatLng(new LatLng(
-                        mEarthquakes.get(4).getLatitude(),
-                        mEarthquakes.get(4).getLongitude()
+                        mTopEarthquakes.get(4).getLatitude(),
+                        mTopEarthquakes.get(4).getLongitude()
                 ));
             }
         });
@@ -241,8 +246,8 @@ public class HomeFragment extends Fragment implements HomeContract.View ,
             @Override
             public void onClick(View v) {
                 listener.openMapToLatLng(new LatLng(
-                        mEarthquakes.get(5).getLatitude(),
-                        mEarthquakes.get(5).getLongitude()
+                        mTopEarthquakes.get(5).getLatitude(),
+                        mTopEarthquakes.get(5).getLongitude()
                 ));
             }
         });
@@ -252,8 +257,8 @@ public class HomeFragment extends Fragment implements HomeContract.View ,
             @Override
             public void onClick(View v) {
                 listener.openMapToLatLng(new LatLng(
-                        mEarthquakes.get(6).getLatitude(),
-                        mEarthquakes.get(6).getLongitude()
+                        mTopEarthquakes.get(6).getLatitude(),
+                        mTopEarthquakes.get(6).getLongitude()
                 ));
             }
         });
@@ -263,8 +268,8 @@ public class HomeFragment extends Fragment implements HomeContract.View ,
             @Override
             public void onClick(View v) {
                 listener.openMapToLatLng(new LatLng(
-                        mEarthquakes.get(7).getLatitude(),
-                        mEarthquakes.get(7).getLongitude()
+                        mTopEarthquakes.get(7).getLatitude(),
+                        mTopEarthquakes.get(7).getLongitude()
                 ));
             }
         });
@@ -274,8 +279,8 @@ public class HomeFragment extends Fragment implements HomeContract.View ,
             @Override
             public void onClick(View v) {
                 listener.openMapToLatLng(new LatLng(
-                        mEarthquakes.get(8).getLatitude(),
-                        mEarthquakes.get(8).getLongitude()
+                        mTopEarthquakes.get(8).getLatitude(),
+                        mTopEarthquakes.get(8).getLongitude()
                 ));
             }
         });
@@ -285,23 +290,47 @@ public class HomeFragment extends Fragment implements HomeContract.View ,
             @Override
             public void onClick(View v) {
                 listener.openMapToLatLng(new LatLng(
-                        mEarthquakes.get(9).getLatitude(),
-                        mEarthquakes.get(9).getLongitude()
+                        mTopEarthquakes.get(9).getLatitude(),
+                        mTopEarthquakes.get(9).getLongitude()
                 ));
             }
         });
 
+        globes.add(globe1);
+        globes.add(globe2);
+        globes.add(globe3);
+        globes.add(globe4);
+        globes.add(globe5);
+        globes.add(globe6);
+        globes.add(globe7);
+        globes.add(globe8);
+        globes.add(globe9);
+        globes.add(globe10);
+
+
+
+         titles = new ArrayList<>();
 
          eqTitle1 = root.findViewById(R.id.EqTitle1);
+         titles.add(eqTitle1);
          eqTitle2 = root.findViewById(R.id.EqTitle2);
-         eqTitle3 = root.findViewById(R.id.EqTitle3);
-         eqTitle4 = root.findViewById(R.id.EqTitle4);
-         eqTitle5 = root.findViewById(R.id.EqTitle5);
-         eqTitle6 = root.findViewById(R.id.EqTitle6);
-         eqTitle7 = root.findViewById(R.id.EqTitle7);
-         eqTitle8 = root.findViewById(R.id.EqTitle8);
-         eqTitle9 = root.findViewById(R.id.EqTitle9);
-         eqTitle10 = root.findViewById(R.id.EqTitle10);
+         titles.add(eqTitle2);
+        eqTitle3 = root.findViewById(R.id.EqTitle3);
+        titles.add(eqTitle3);
+        eqTitle4 = root.findViewById(R.id.EqTitle4);
+        titles.add(eqTitle4);
+        eqTitle5 = root.findViewById(R.id.EqTitle5);
+        titles.add(eqTitle5);
+        eqTitle6 = root.findViewById(R.id.EqTitle6);
+        titles.add(eqTitle6);
+        eqTitle7 = root.findViewById(R.id.EqTitle7);
+        titles.add(eqTitle7);
+        eqTitle8 = root.findViewById(R.id.EqTitle8);
+        titles.add(eqTitle8);
+        eqTitle9 = root.findViewById(R.id.EqTitle9);
+        titles.add(eqTitle9);
+        eqTitle10 = root.findViewById(R.id.EqTitle10);
+        titles.add(eqTitle10);
 
          eqDetail1 = root.findViewById(R.id.EqDetail1);
          eqDetail2 = root.findViewById(R.id.EqDetail2);
@@ -313,6 +342,19 @@ public class HomeFragment extends Fragment implements HomeContract.View ,
          eqDetail8 = root.findViewById(R.id.EqDetail8);
          eqDetail9 = root.findViewById(R.id.EqDetail9);
          eqDetail10 = root.findViewById(R.id.EqDetail10);
+
+         details = new ArrayList<>();
+
+         details.add(eqDetail1);
+         details.add(eqDetail2);
+         details.add(eqDetail3);
+         details.add(eqDetail4);
+         details.add(eqDetail5);
+         details.add(eqDetail6);
+         details.add(eqDetail7);
+         details.add(eqDetail8);
+         details.add(eqDetail9);
+         details.add(eqDetail10);
 
          viewPager = root.findViewById(R.id.viewPager);
          tabLayout = root.findViewById(R.id.tabLayout);
@@ -328,7 +370,7 @@ public class HomeFragment extends Fragment implements HomeContract.View ,
          FloatingActionButton button = root.findViewById(R.id.homePlayPause);
 
 
-         mChart = root.findViewById(R.id.accelerometer_placeholder);
+         mChart = root.findViewById(R.id.accelChart1);
          mChart2 = root.findViewById(R.id.accelChart2);
 
          root.findViewById(R.id.homePlayPause).setOnClickListener(new View.OnClickListener() {
@@ -358,6 +400,14 @@ public class HomeFragment extends Fragment implements HomeContract.View ,
          });
 
          root.findViewById(R.id.upgradeChip).setOnClickListener(new View.OnClickListener() {
+             @Override
+             public void onClick(View v) {
+                 Intent intent = new Intent(getActivity(), UpgradeActivity.class);
+                 startActivity(intent);
+             }
+         });
+
+         root.findViewById(R.id.homeDataQuality).setOnClickListener(new View.OnClickListener() {
              @Override
              public void onClick(View v) {
                  Intent intent = new Intent(getActivity(), UpgradeActivity.class);
@@ -397,9 +447,6 @@ public class HomeFragment extends Fragment implements HomeContract.View ,
         mChart2.setPinchZoom(false);
         // set an alternative background color
         mChart2.setBackgroundColor(getResources().getColor(R.color.blueBackground));
-
-        //end
-
 
         // enable description text
         mChart.getDescription().setEnabled(false);
@@ -508,50 +555,59 @@ public class HomeFragment extends Fragment implements HomeContract.View ,
 
     public void setEarthquakes(List<Earthquake> earthquakes) {
         for (int i = 0; i < 9; i++) {
-            mEarthquakes.add(earthquakes.get(i));
+            mTopEarthquakes.add(earthquakes.get(i));
+            globes.get(i).setEarthquake(mTopEarthquakes.get(i));
+            globes.get(i).setVisibility(View.VISIBLE);
+            titles.get(i).setText(parseTitle(mTopEarthquakes.get(i)));
+            titles.get(i).setVisibility(View.VISIBLE);
+            details.get(i).setText(parseDetail(mTopEarthquakes.get(i)));
+            details.get(i).setVisibility(View.VISIBLE);
         }
-//        mEarthquakes.get(2).setMag(7.6);
-        globe1.setEarthquake(mEarthquakes.get(0));
-        eqTitle1.setText(parseTitle(mEarthquakes.get(0)));
-        eqDetail1.setText(parseDetail(mEarthquakes.get(0)));
-
-
-        globe2.setEarthquake(mEarthquakes.get(1));
-        eqTitle2.setText(parseTitle(mEarthquakes.get(1)));
-        eqDetail2.setText(parseDetail(mEarthquakes.get(1)));
-
-        globe3.setEarthquake((mEarthquakes.get(2)));
-        eqTitle3.setText(parseTitle(mEarthquakes.get(2)));
-        eqDetail3.setText(parseDetail(mEarthquakes.get(2)));
-
-        globe4.setEarthquake(mEarthquakes.get(3));
-        eqTitle4.setText(parseTitle(mEarthquakes.get(3)));
-        eqDetail4.setText(parseDetail(mEarthquakes.get(3)));
-
-        globe5.setEarthquake(mEarthquakes.get(4));
-        eqTitle5.setText(parseTitle(mEarthquakes.get(4)));
-        eqDetail5.setText(parseDetail(mEarthquakes.get(4)));
-
-        globe6.setEarthquake(mEarthquakes.get(5));
-        eqTitle6.setText(parseTitle(mEarthquakes.get(5)));
-        eqDetail6.setText(parseDetail(mEarthquakes.get(5)));
-
-        globe7.setEarthquake(mEarthquakes.get(6));
-        eqTitle7.setText(parseTitle(mEarthquakes.get(6)));
-        eqDetail7.setText(parseDetail(mEarthquakes.get(6)));
-
-        globe8.setEarthquake(mEarthquakes.get(7));
-        eqTitle8.setText(parseTitle(mEarthquakes.get(7)));
-        eqDetail8.setText(parseDetail(mEarthquakes.get(7)));
-
-        globe9.setEarthquake(mEarthquakes.get(8));
-        eqTitle9.setText(parseTitle(mEarthquakes.get(8)));
-        eqDetail9.setText(parseDetail(mEarthquakes.get(8)));
-
-//        globe10.setEarthquake(mEarthquakes.get(9));
-//        eqTitle10.setText(parseTitle(mEarthquakes.get(9)));
-//        eqDetail10.setText(parseDetail(mEarthquakes.get(9)));
 //
+//
+//        globe1.setEarthquake(mTopEarthquakes.get(0));
+//        eqTitle1.setText(parseTitle(mTopEarthquakes.get(0)));
+//        eqDetail1.setText(parseDetail(mTopEarthquakes.get(0)));
+//
+//
+//        globe2.setEarthquake(mTopEarthquakes.get(1));
+//        eqTitle2.setText(parseTitle(mTopEarthquakes.get(1)));
+//        eqDetail2.setText(parseDetail(mTopEarthquakes.get(1)));
+//
+//        globe3.setEarthquake((mTopEarthquakes.get(2)));
+//        eqTitle3.setText(parseTitle(mTopEarthquakes.get(2)));
+//        eqDetail3.setText(parseDetail(mTopEarthquakes.get(2)));
+//
+//        globe4.setEarthquake(mTopEarthquakes.get(3));
+//        eqTitle4.setText(parseTitle(mTopEarthquakes.get(3)));
+//        eqDetail4.setText(parseDetail(mTopEarthquakes.get(3)));
+//
+//        globe5.setEarthquake(mTopEarthquakes.get(4));
+//        eqTitle5.setText(parseTitle(mTopEarthquakes.get(4)));
+//        eqDetail5.setText(parseDetail(mTopEarthquakes.get(4)));
+//
+//        globe6.setEarthquake(mTopEarthquakes.get(5));
+//        eqTitle6.setText(parseTitle(mTopEarthquakes.get(5)));
+//        eqDetail6.setText(parseDetail(mTopEarthquakes.get(5)));
+//
+//        if (mTopEarthquakes.size() <= 9) return;
+//
+//        globe7.setEarthquake(mTopEarthquakes.get(6));
+//        eqTitle7.setText(parseTitle(mTopEarthquakes.get(6)));
+//        eqDetail7.setText(parseDetail(mTopEarthquakes.get(6)));
+//
+//        globe8.setEarthquake(mTopEarthquakes.get(7));
+//        eqTitle8.setText(parseTitle(mTopEarthquakes.get(7)));
+//        eqDetail8.setText(parseDetail(mTopEarthquakes.get(7)));
+//
+//        globe9.setEarthquake(mTopEarthquakes.get(8));
+//        eqTitle9.setText(parseTitle(mTopEarthquakes.get(8)));
+//        eqDetail9.setText(parseDetail(mTopEarthquakes.get(8)));
+//
+////        globe10.setEarthquake(mTopEarthquakes.get(9));
+////        eqTitle10.setText(parseTitle(mTopEarthquakes.get(9)));
+////        eqDetail10.setText(parseDetail(mTopEarthquakes.get(9)));
+////
 
 
 

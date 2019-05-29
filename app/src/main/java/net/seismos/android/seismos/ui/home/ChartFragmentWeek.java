@@ -114,16 +114,16 @@ public class ChartFragmentWeek extends Fragment {
 
         BarData data = new BarData(dataSets);
 
-        data.setBarWidth(0.95f);
+        data.setBarWidth(0.98f);
 
 
         chart.setData(data);
         chart.setFitBars(true);
 
-        chart.animateY(1500);
+//        chart.animateY(1500);
 
-        CustomBarChartRender barChartRender = new CustomBarChartRender(chart,chart.getAnimator(), chart.getViewPortHandler());
-        barChartRender.setRadius(80);
+        CustomBarChartRenderAll barChartRender = new CustomBarChartRenderAll(chart,chart.getAnimator(), chart.getViewPortHandler());
+        barChartRender.setRadius(45);
         chart.setRenderer(barChartRender);
 
 

@@ -28,7 +28,7 @@
                     app:layout_scrollFlags="scroll|snap">
 
                     <TextView
-                        android:id="@+id/toolbar_title"
+                        android:id="@+id/eq_detail_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -53,7 +53,7 @@
                 android:layout_height="match_parent">
 
                 <TextView
-                    android:id="@+id/placeText"
+                    android:id="@+id/placeTextTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
@@ -78,7 +78,7 @@
                     android:textColor="@color/offWhite"
                     android:textSize="16dp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/placeText" />
+                    app:layout_constraintTop_toBottomOf="@+id/placeTextTitle" />
 
                 <TextView
                     android:id="@+id/dateText"
@@ -133,7 +133,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/tsunamiText" />
 
                 <TextView
-                    android:id="@+id/locationText"
+                    android:id="@+id/detailLocationText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="120dp"
@@ -146,7 +146,7 @@
                     app:layout_constraintTop_toTopOf="@+id/titleText" />
 
                 <TextView
-                    android:id="@+id/textView43"
+                    android:id="@+id/detailTimeText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="120dp"
@@ -159,7 +159,7 @@
                     app:layout_constraintTop_toTopOf="@+id/dateText" />
 
                 <TextView
-                    android:id="@+id/textView44"
+                    android:id="@+id/detailDepthText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="120dp"

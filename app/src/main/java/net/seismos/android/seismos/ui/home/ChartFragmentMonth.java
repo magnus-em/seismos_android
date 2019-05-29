@@ -110,15 +110,15 @@ public class ChartFragmentMonth extends Fragment {
 
         BarData data = new BarData(dataSets);
 
-        data.setBarWidth(0.95f);
+        data.setBarWidth(0.97f);
 
 
         chart.setData(data);
         chart.setFitBars(true);
 
-        chart.animateY(1500);
+//        chart.animateY(1500);
 
-        CustomBarChartRender barChartRender = new CustomBarChartRender(chart,chart.getAnimator(), chart.getViewPortHandler());
+        CustomBarChartRenderAll barChartRender = new CustomBarChartRenderAll(chart,chart.getAnimator(), chart.getViewPortHandler());
         barChartRender.setRadius(20);
         chart.setRenderer(barChartRender);
 
