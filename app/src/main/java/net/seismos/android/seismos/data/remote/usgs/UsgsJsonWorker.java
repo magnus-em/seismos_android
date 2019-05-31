@@ -36,9 +36,9 @@ public class UsgsJsonWorker extends Worker {
         ArrayList<Earthquake> earthquakes;
 
         try {
-            String quakeFeed = getApplicationContext().getString(R.string.earthquake_json_feed_45week);
-            earthquakes = fetchEqs(quakeFeed);
 
+            String quakeFeed = getApplicationContext().getString(R.string.earthquake_json_feed);
+            earthquakes = fetchEqs(quakeFeed);
             EarthquakeDatabaseAccessor.getInstance(getApplicationContext())
                     .earthquakeDAO()
                     .insertEarthquakes(earthquakes);
@@ -62,9 +62,13 @@ public class UsgsJsonWorker extends Worker {
         URL url = new URL(urlSpec);
         HttpURLConnection connection = (HttpURLConnection)url.openConnection();
 
+
         try {
+
             ByteArrayOutputStream out = new ByteArrayOutputStream();
+
             InputStream in = connection.getInputStream();
+
 
             if (connection.getResponseCode() != HttpURLConnection.HTTP_OK) {
                 throw new IOException(connection.getResponseMessage() + ": with " + urlSpec);
@@ -77,9 +81,13 @@ public class UsgsJsonWorker extends Worker {
             }
             out.close();
             return out.toByteArray();
+        } catch (Exception e) {
+            Log.d(TAG, "Exception in geting URL bytes from usgs: " +  e.toString());
         } finally {
+
             connection.disconnect();
         }
+        return null;
     }
 
     private String getUrlString(String urlSpec) throws IOException {

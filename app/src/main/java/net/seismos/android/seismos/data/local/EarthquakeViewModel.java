@@ -3,6 +3,7 @@ package net.seismos.android.seismos.data.local;
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.LiveData;
+import android.util.Log;
 
 
 import net.seismos.android.seismos.data.model.Earthquake;
@@ -41,6 +42,5 @@ public class EarthquakeViewModel extends AndroidViewModel {
                 new OneTimeWorkRequest.Builder(UsgsJsonWorker.class)
                 .build();
         WorkManager.getInstance().enqueue(downloadEarthquakes);
-
     }
 }

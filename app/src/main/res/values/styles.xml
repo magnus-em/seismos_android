@@ -5,7 +5,7 @@
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/blueDefault</item>
         <item name="colorPrimaryDark">@color/blueDark</item>
-        <item name="colorAccent">@color/blueLight</item>
+        <item name="colorAccent">@color/accentBlue</item>
         <item name="android:colorBackground">@color/blueBackground</item>
         <item name="colorControlHighlight">@color/blackTransparent</item>
         <item name="android:statusBarColor">@color/blueDark</item>

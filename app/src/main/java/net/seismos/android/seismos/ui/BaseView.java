@@ -1,4 +1,4 @@
-package net.seismos.android.seismos;
+package net.seismos.android.seismos.ui;
 
 
 public interface BaseView<T> {

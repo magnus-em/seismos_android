@@ -41,19 +41,19 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="24dp"
         android:fontFamily="@font/sfpromedium"
         android:text="Friends and Family"
         android:textColor="@color/offWhite"
         android:textSize="18dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/appBarLayout" />
+        app:layout_constraintTop_toBottomOf="@+id/view16" />
 
     <HorizontalScrollView
         android:id="@+id/friendScrollView"
         android:layout_width="0dp"
         android:layout_height="100dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:scrollbars="none"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -62,7 +62,7 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:orientation="horizontal" >
+            android:orientation="horizontal">
 
             <net.seismos.android.seismos.ui.profile.FriendsView
                 android:layout_width="75dp"
@@ -79,6 +79,7 @@
                 android:layout_marginTop="8dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
             <net.seismos.android.seismos.ui.profile.FriendsView
                 android:layout_width="75dp"
                 android:layout_height="wrap_content"
@@ -86,6 +87,7 @@
                 android:layout_marginTop="8dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
             <net.seismos.android.seismos.ui.profile.FriendsView
                 android:layout_width="75dp"
                 android:layout_height="wrap_content"
@@ -93,6 +95,7 @@
                 android:layout_marginTop="8dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
             <net.seismos.android.seismos.ui.profile.FriendsView
                 android:layout_width="75dp"
                 android:layout_height="wrap_content"
@@ -109,9 +112,10 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
         android:background="@color/blueDivider"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/friendScrollView" />
@@ -208,6 +212,19 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView81" />
+
+    <View
+        android:id="@+id/view16"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="16dp"
+        android:background="@color/blueDefault"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView43" />
 
     <TextView
         android:id="@+id/textView75"
@@ -442,6 +459,28 @@
         app:layout_constraintBottom_toBottomOf="@+id/textView93"
         app:layout_constraintStart_toEndOf="@+id/textView93"
         app:layout_constraintTop_toTopOf="@+id/textView93" />
+
+    <TextView
+        android:id="@+id/textView43"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:fontFamily="@font/sfpromedium"
+        android:text="Significant earthquakes"
+        android:textColor="@color/offWhite"
+        android:textSize="18dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/appBarLayout" />
+
+    <Switch
+        android:id="@+id/eqNotification"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/appBarLayout" />
 
 
 </android.support.constraint.ConstraintLayout>

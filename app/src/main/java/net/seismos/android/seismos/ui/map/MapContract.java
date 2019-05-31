@@ -2,8 +2,8 @@ package net.seismos.android.seismos.ui.map;
 
 import com.google.android.gms.maps.model.LatLng;
 
-import net.seismos.android.seismos.BasePresenter;
-import net.seismos.android.seismos.BaseView;
+import net.seismos.android.seismos.ui.BasePresenter;
+import net.seismos.android.seismos.ui.BaseView;
 
 public interface MapContract {
 

@@ -43,11 +43,13 @@
     <include layout="@layout/bottom_sheet" />
 
     <android.support.design.widget.FloatingActionButton
-        android:scaleType="centerCrop"
         android:id="@+id/locationFab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:backgroundTint="@color/blueLight"
+        android:backgroundTintMode="multiply"
         android:clickable="true"
+        android:scaleType="centerCrop"
         android:translationX="-10dp"
         android:translationY="10dp"
         app:elevation="0dp"

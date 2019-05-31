@@ -63,12 +63,12 @@
         app:layout_constraintTop_toBottomOf="@+id/textView17" />
 
     <Switch
-        android:id="@+id/switch1"
+        android:id="@+id/coverageSwitch"
+        style="@style/TextAppearance.AppCompat.Widget.Switch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="32dp"
-        style="@style/TextAppearance.AppCompat.Widget.Switch"
         app:layout_constraintBottom_toBottomOf="@+id/textView17"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/textView17" />

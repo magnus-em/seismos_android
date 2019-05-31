@@ -36,7 +36,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
                         android:layout_marginTop="8dp"
-                        android:visibility="gone"
+                        android:visibility="visible"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
@@ -46,7 +46,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="8dp"
-                        android:visibility="gone"
+                        android:visibility="visible"
                         app:layout_constraintStart_toEndOf="@id/EqGlobe1"
                         app:layout_constraintTop_toTopOf="parent" />
 
@@ -56,7 +56,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="8dp"
-                        android:visibility="gone"
+                        android:visibility="visible"
                         app:layout_constraintStart_toEndOf="@id/EqGlobe2"
                         app:layout_constraintTop_toTopOf="parent" />
 
@@ -66,7 +66,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="8dp"
-                        android:visibility="gone"
+                        android:visibility="visible"
                         app:layout_constraintStart_toEndOf="@id/EqGlobe3"
                         app:layout_constraintTop_toTopOf="parent" />
 
@@ -76,7 +76,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="8dp"
-                        android:visibility="gone"
+                        android:visibility="visible"
                         app:layout_constraintStart_toEndOf="@id/EqGlobe4"
                         app:layout_constraintTop_toTopOf="parent" />
 
@@ -86,7 +86,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="8dp"
-                        android:visibility="gone"
+                        android:visibility="visible"
                         app:layout_constraintStart_toEndOf="@id/EqGlobe5"
                         app:layout_constraintTop_toTopOf="parent" />
 
@@ -96,7 +96,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="8dp"
-                        android:visibility="gone"
+                        android:visibility="visible"
                         app:layout_constraintStart_toEndOf="@id/EqGlobe6"
                         app:layout_constraintTop_toTopOf="parent" />
 
@@ -106,7 +106,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="8dp"
-                        android:visibility="gone"
+                        android:visibility="visible"
                         app:layout_constraintStart_toEndOf="@id/EqGlobe7"
                         app:layout_constraintTop_toTopOf="parent" />
 
@@ -116,18 +116,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="8dp"
-                        android:visibility="gone"
+                        android:visibility="visible"
                         app:layout_constraintStart_toEndOf="@id/EqGlobe8"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <net.seismos.android.seismos.ui.home.EqGlobeView
-                        android:id="@+id/EqGlobe10"
-                        android:layout_width="75dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="8dp"
-                        android:visibility="gone"
-                        app:layout_constraintStart_toEndOf="@id/EqGlobe9"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
@@ -140,7 +130,7 @@
                         android:textColor="@color/offWhite"
                         android:textSize="13dp"
                         android:textStyle="bold"
-                        android:visibility="gone"
+                        android:visibility="visible"
                         app:layout_constraintEnd_toEndOf="@+id/EqGlobe1"
                         app:layout_constraintStart_toStartOf="@+id/EqGlobe1"
                         app:layout_constraintTop_toBottomOf="@+id/EqGlobe1" />
@@ -153,7 +143,7 @@
                         android:text="Loading"
                         android:textColor="@color/offWhite"
                         android:textSize="12dp"
-                        android:visibility="gone"
+                        android:visibility="visible"
                         app:layout_constraintEnd_toEndOf="@+id/EqTitle1"
                         app:layout_constraintStart_toStartOf="@+id/EqTitle1"
                         app:layout_constraintTop_toBottomOf="@+id/EqTitle1" />
@@ -168,7 +158,7 @@
                         android:textColor="@color/offWhite"
                         android:textSize="13dp"
                         android:textStyle="bold"
-                        android:visibility="gone"
+                        android:visibility="visible"
                         app:layout_constraintEnd_toEndOf="@+id/EqGlobe2"
                         app:layout_constraintStart_toStartOf="@+id/EqGlobe2"
                         app:layout_constraintTop_toBottomOf="@+id/EqGlobe2" />
@@ -181,7 +171,7 @@
                         android:text="Loading"
                         android:textColor="@color/offWhite"
                         android:textSize="12dp"
-                        android:visibility="gone"
+                        android:visibility="visible"
                         app:layout_constraintEnd_toEndOf="@+id/EqTitle2"
                         app:layout_constraintStart_toStartOf="@+id/EqTitle2"
                         app:layout_constraintTop_toBottomOf="@+id/EqTitle2" />
@@ -196,7 +186,7 @@
                         android:textColor="@color/offWhite"
                         android:textSize="13dp"
                         android:textStyle="bold"
-                        android:visibility="gone"
+                        android:visibility="visible"
                         app:layout_constraintEnd_toEndOf="@+id/EqGlobe3"
                         app:layout_constraintStart_toStartOf="@+id/EqGlobe3"
                         app:layout_constraintTop_toBottomOf="@+id/EqGlobe3" />
@@ -209,7 +199,7 @@
                         android:text="Loading"
                         android:textColor="@color/offWhite"
                         android:textSize="12dp"
-                        android:visibility="gone"
+                        android:visibility="visible"
                         app:layout_constraintEnd_toEndOf="@+id/EqTitle3"
                         app:layout_constraintStart_toStartOf="@+id/EqTitle3"
                         app:layout_constraintTop_toBottomOf="@+id/EqTitle3" />
@@ -224,7 +214,7 @@
                         android:textColor="@color/offWhite"
                         android:textSize="13dp"
                         android:textStyle="bold"
-                        android:visibility="gone"
+                        android:visibility="visible"
                         app:layout_constraintEnd_toEndOf="@+id/EqGlobe4"
                         app:layout_constraintStart_toStartOf="@+id/EqGlobe4"
                         app:layout_constraintTop_toBottomOf="@+id/EqGlobe4" />
@@ -237,7 +227,7 @@
                         android:text="Loading"
                         android:textColor="@color/offWhite"
                         android:textSize="12dp"
-                        android:visibility="gone"
+                        android:visibility="visible"
                         app:layout_constraintEnd_toEndOf="@+id/EqTitle4"
                         app:layout_constraintStart_toStartOf="@+id/EqTitle4"
                         app:layout_constraintTop_toBottomOf="@+id/EqTitle4" />
@@ -252,7 +242,7 @@
                         android:textColor="@color/offWhite"
                         android:textSize="13dp"
                         android:textStyle="bold"
-                        android:visibility="gone"
+                        android:visibility="visible"
                         app:layout_constraintEnd_toEndOf="@+id/EqGlobe5"
                         app:layout_constraintStart_toStartOf="@+id/EqGlobe5"
                         app:layout_constraintTop_toBottomOf="@+id/EqGlobe5" />
@@ -265,7 +255,7 @@
                         android:text="Loading"
                         android:textColor="@color/offWhite"
                         android:textSize="12dp"
-                        android:visibility="gone"
+                        android:visibility="visible"
                         app:layout_constraintEnd_toEndOf="@+id/EqTitle5"
                         app:layout_constraintStart_toStartOf="@+id/EqTitle5"
                         app:layout_constraintTop_toBottomOf="@+id/EqTitle5" />
@@ -280,7 +270,7 @@
                         android:textColor="@color/offWhite"
                         android:textSize="13dp"
                         android:textStyle="bold"
-                        android:visibility="gone"
+                        android:visibility="visible"
                         app:layout_constraintEnd_toEndOf="@+id/EqGlobe6"
                         app:layout_constraintStart_toStartOf="@+id/EqGlobe6"
                         app:layout_constraintTop_toBottomOf="@+id/EqGlobe6" />
@@ -293,7 +283,7 @@
                         android:text="Loading"
                         android:textColor="@color/offWhite"
                         android:textSize="12dp"
-                        android:visibility="gone"
+                        android:visibility="visible"
                         app:layout_constraintEnd_toEndOf="@+id/EqTitle6"
                         app:layout_constraintStart_toStartOf="@+id/EqTitle6"
                         app:layout_constraintTop_toBottomOf="@+id/EqTitle6" />
@@ -308,7 +298,7 @@
                         android:textColor="@color/offWhite"
                         android:textSize="13dp"
                         android:textStyle="bold"
-                        android:visibility="gone"
+                        android:visibility="visible"
                         app:layout_constraintEnd_toEndOf="@+id/EqGlobe7"
                         app:layout_constraintStart_toStartOf="@+id/EqGlobe7"
                         app:layout_constraintTop_toBottomOf="@+id/EqGlobe7" />
@@ -321,7 +311,7 @@
                         android:text="Loading"
                         android:textColor="@color/offWhite"
                         android:textSize="12dp"
-                        android:visibility="gone"
+                        android:visibility="visible"
                         app:layout_constraintEnd_toEndOf="@+id/EqTitle7"
                         app:layout_constraintStart_toStartOf="@+id/EqTitle7"
                         app:layout_constraintTop_toBottomOf="@+id/EqTitle7" />
@@ -336,7 +326,7 @@
                         android:textColor="@color/offWhite"
                         android:textSize="13dp"
                         android:textStyle="bold"
-                        android:visibility="gone"
+                        android:visibility="visible"
                         app:layout_constraintEnd_toEndOf="@+id/EqGlobe8"
                         app:layout_constraintStart_toStartOf="@+id/EqGlobe8"
                         app:layout_constraintTop_toBottomOf="@+id/EqGlobe8" />
@@ -349,7 +339,7 @@
                         android:text="Loading"
                         android:textColor="@color/offWhite"
                         android:textSize="12dp"
-                        android:visibility="gone"
+                        android:visibility="visible"
                         app:layout_constraintEnd_toEndOf="@+id/EqTitle8"
                         app:layout_constraintStart_toStartOf="@+id/EqTitle8"
                         app:layout_constraintTop_toBottomOf="@+id/EqTitle8" />
@@ -364,7 +354,7 @@
                         android:textColor="@color/offWhite"
                         android:textSize="13dp"
                         android:textStyle="bold"
-                        android:visibility="gone"
+                        android:visibility="visible"
                         app:layout_constraintEnd_toEndOf="@+id/EqGlobe9"
                         app:layout_constraintStart_toStartOf="@+id/EqGlobe9"
                         app:layout_constraintTop_toBottomOf="@+id/EqGlobe9" />
@@ -377,38 +367,10 @@
                         android:text="Loading"
                         android:textColor="@color/offWhite"
                         android:textSize="12dp"
-                        android:visibility="gone"
+                        android:visibility="visible"
                         app:layout_constraintEnd_toEndOf="@+id/EqTitle9"
                         app:layout_constraintStart_toStartOf="@+id/EqTitle9"
                         app:layout_constraintTop_toBottomOf="@+id/EqTitle9" />
-
-                    <TextView
-                        android:id="@+id/EqTitle10"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:fontFamily="@font/sfpromedium"
-                        android:text="Loading"
-                        android:textColor="@color/offWhite"
-                        android:textSize="13dp"
-                        android:textStyle="bold"
-                        android:visibility="gone"
-                        app:layout_constraintEnd_toEndOf="@+id/EqGlobe10"
-                        app:layout_constraintStart_toStartOf="@+id/EqGlobe10"
-                        app:layout_constraintTop_toBottomOf="@+id/EqGlobe10" />
-
-                    <TextView
-                        android:id="@+id/EqDetail10"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/sfprolight"
-                        android:text="Loading"
-                        android:textColor="@color/offWhite"
-                        android:textSize="12dp"
-                        android:visibility="gone"
-                        app:layout_constraintEnd_toEndOf="@+id/EqTitle10"
-                        app:layout_constraintStart_toStartOf="@+id/EqTitle10"
-                        app:layout_constraintTop_toBottomOf="@+id/EqTitle10" />
 
 
                 </android.support.constraint.ConstraintLayout>
@@ -615,7 +577,7 @@
             android:id="@+id/homeDataQuality"
             android:layout_width="match_parent"
             android:layout_height="260dp"
-            android:layout_margin="12dp"
+            android:layout_margin="16dp"
             app:srcCompat="@drawable/home_data_quality" />
 
         <View
