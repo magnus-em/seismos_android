@@ -14,7 +14,14 @@
     
     <style name="AppTheme.Launcher">
         <item name="android:windowBackground">@drawable/launcher_screen</item>
-        <item name="colorPrimaryDark">@color/blueDefault</item>
+        <item name="colorPrimaryDark">@color/blueBackground</item>
+        <item name="android:statusBarColor">@color/blueBackground</item>
+    </style>
+
+    <style name="SignInTheme" parent="AppTheme">
+        <item name="android:statusBarColor">@color/blueBackground</item>
+
+
     </style>
 
 

@@ -9,6 +9,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
 
+import com.firebase.ui.auth.AuthMethodPickerLayout;
+import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.maps.model.LatLng;
 
 import net.seismos.android.seismos.R;
@@ -22,8 +24,13 @@ import net.seismos.android.seismos.ui.store.StoreFragment;
 import net.seismos.android.seismos.ui.profile.ProfileFragment;
 import net.seismos.android.seismos.ui.seismos.SeismosFragment;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class DashActivity extends AppCompatActivity implements HomeFragment.OnEqGlobeSelectedListener {
     private static final String TAG = "DashActivity";
+
+    int RC_SIGN_IN = 123;
 
 
 
@@ -122,6 +129,33 @@ public class DashActivity extends AppCompatActivity implements HomeFragment.OnEq
         mNavigation =  findViewById(R.id.navigation);
         mNavigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
+
+        createSignInIntent();
+
+
+    }
+
+    public void createSignInIntent() {
+        List<AuthUI.IdpConfig> providers = Arrays.asList(
+                new AuthUI.IdpConfig.GoogleBuilder().build(),
+                new AuthUI.IdpConfig.EmailBuilder().build());
+
+        AuthMethodPickerLayout customLayout = new AuthMethodPickerLayout
+                .Builder(R.layout.firebase_sign_in)
+                .setGoogleButtonId(R.id.googleButton)
+                .setEmailButtonId(R.id.emailButton)
+                .build();
+
+
+        startActivityForResult(
+                AuthUI.getInstance()
+                        .createSignInIntentBuilder()
+                        .setAvailableProviders(providers)
+                        .setAuthMethodPickerLayout(customLayout)
+                        .setTheme(R.style.SignInTheme)
+                        .setIsSmartLockEnabled(false)
+                        .build(),
+                RC_SIGN_IN);
     }
 
     public void openMapToLatLng(LatLng latLng) {

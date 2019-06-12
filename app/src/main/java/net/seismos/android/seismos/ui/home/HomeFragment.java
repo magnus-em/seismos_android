@@ -19,7 +19,6 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -401,7 +400,7 @@ public class HomeFragment extends Fragment implements HomeContract.View ,
          });
 
 
-         root.findViewById(R.id.scheduleChip).setOnClickListener(new View.OnClickListener() {
+         root.findViewById(R.id.emailButton).setOnClickListener(new View.OnClickListener() {
              @Override
              public void onClick(View v) {
                  Intent intent = new Intent(getContext(), ScheduleActivity.class);
@@ -553,12 +552,13 @@ public class HomeFragment extends Fragment implements HomeContract.View ,
         // Retrieve the Earthquake View Model for the parent Activity
         earthquakeViewModel = ViewModelProviders.of(getActivity()).get(EarthquakeViewModel.class);
         // Get the data from the View Model, and observe and changes
-        earthquakeViewModel.getEarthquakes().observe(this, new Observer<List<Earthquake>>() {
+
+        earthquakeViewModel.getSignificantEqs().observe(this, new Observer<List<Earthquake>>() {
             @Override
             public void onChanged(@Nullable List<Earthquake> earthquakes) {
-                // When the View Model changes, update the list
-                if (earthquakes != null && earthquakes.size() != 0)
+                if (earthquakes != null && earthquakes.size()  != 0) {
                     setEarthquakes(earthquakes);
+                }
             }
         });
     }

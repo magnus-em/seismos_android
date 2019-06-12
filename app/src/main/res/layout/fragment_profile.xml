@@ -70,7 +70,7 @@
             app:layout_constraintStart_toEndOf="@+id/imageView17" />
 
         <android.support.design.chip.Chip
-            android:id="@+id/scheduleChip"
+            android:id="@+id/emailButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"

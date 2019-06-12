@@ -1,9 +1,11 @@
 package net.seismos.android.seismos.ui.map;
 
 import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProvider;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -35,6 +37,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import net.seismos.android.seismos.R;
 import net.seismos.android.seismos.data.model.Earthquake;
 import net.seismos.android.seismos.data.local.EarthquakeViewModel;
+import net.seismos.android.seismos.global.Preferences;
 import net.seismos.android.seismos.util.ResUtil;
 
 import java.util.ArrayList;
@@ -66,9 +69,13 @@ public class MapFragment extends Fragment implements MapContract.View,
 
     public EarthquakeViewModel earthquakeViewModel;
 
-    private float mMinimumMagnitude = 4;
+    private float mMinimumMagnitude;
 
     ArrayList<Marker> markers = new ArrayList<>();
+
+    SharedPreferences preferences;
+
+    SharedPreferences.OnSharedPreferenceChangeListener listener;
 
 
 
@@ -79,9 +86,10 @@ public class MapFragment extends Fragment implements MapContract.View,
 
         mRecyclerView = root.findViewById(R.id.earthquakeList);
         final View scrolling = root.findViewById(R.id.scrollingIndicator);
-        final FloatingActionButton locationFab = root.findViewById(R.id.locationFab);
-        locationFab.setImageDrawable(ResUtil.getInstance().getDrawable(R.drawable.filter_icon));
-        locationFab.setOnClickListener(new View.OnClickListener() {
+        final FloatingActionButton filterFab = root.findViewById(R.id.locationFab);
+
+        filterFab.setImageDrawable(ResUtil.getInstance().getDrawable(R.drawable.filter_icon));
+        filterFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -97,18 +105,17 @@ public class MapFragment extends Fragment implements MapContract.View,
             public void onStateChanged(@NonNull View view, int i) {
                 if (i == STATE_EXPANDED) {
                     view.setBackground(getResources().getDrawable(R.drawable.nonrounded_bottom_sheet));
-                    scrolling.animate().alpha(0).setDuration(100);
-                    //scrolling.setVisibility(View.INVISIBLE);
-                    locationFab.hide();
+                    filterFab.hide();
                 } else {
                     view.setBackground(getResources().getDrawable(R.drawable.rounded_bottom_sheet));
-                    scrolling.animate().alpha(1).setDuration(100);
-//                    scrolling.setVisibility(View.VISIBLE);
-                    locationFab.show();
+                    filterFab.show();
                 }
             }
             @Override
-            public void onSlide(@NonNull View view, float v) { }
+            public void onSlide(@NonNull View view, float v) {
+                if (v>0)
+                    filterFab.hide();
+            }
         });
 
         Chip alertsChip = root.findViewById(R.id.alerts_chip);
@@ -129,6 +136,10 @@ public class MapFragment extends Fragment implements MapContract.View,
                 startActivityForResult(intent, ALERTS_RESULT);
             }
         });
+
+        preferences = getActivity().getSharedPreferences(Preferences.PREFERENCES, 0);
+
+        mMinimumMagnitude = Float.valueOf(preferences.getString(Preferences.PREF_MIN_MAG, "4"));
 
         return root;
     }
@@ -158,7 +169,60 @@ public class MapFragment extends Fragment implements MapContract.View,
                     setEarthquakes(earthquakes);
             }
         });
+
+        earthquakeViewModel.getSignificantEqs().observe(this, new Observer<List<Earthquake>>() {
+            @Override
+            public void onChanged(@Nullable List<Earthquake> earthquakes) {
+                if (earthquakes != null) {
+                    setEarthquakes(earthquakes);
+                }
+            }
+        });
+
+        preferences.registerOnSharedPreferenceChangeListener(listener = new SharedPreferences.OnSharedPreferenceChangeListener() {
+            @Override
+            public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+                Log.d(TAG, "onsharedprefs listener called");
+                if (key.equals(Preferences.PREF_MIN_MAG)) {
+
+                    mMinimumMagnitude = Float.valueOf(sharedPreferences.getString(Preferences.PREF_MIN_MAG, "4"));
+                    resetEarthquakes(mEarthquakes);
+                    earthquakeViewModel.loadEarthquakes();
+
+                    // alright I figured this situation out. this issue has something to do with the fact
+                    // that the map refresh rate is different somhow thatn the rest of the enclosing fragment
+
+                    // I think the best way to set up this filter in the future is just to have a render side implementation
+                    // beecause it's less resource intestinve and I think it'll be simnpler to install acros all aps
+
+
+
+                    //TODO
+                    // I need to setup the initial databases that are going to populate the news feed and the store
+                    // I also need to figure out how to make it custojizale for every indivdual users and verify the security of the reward keys that'll we'll use as the monetary value foe the sei to store conversion
+
+                }
+            }
+        });
+
+
+
     }
+
+
+    public void resetEarthquakes(List<Earthquake> earthquakes) {
+
+        ArrayList<Earthquake> newEqs = new ArrayList<>(earthquakes);
+//        newEqs.addAll(earthquakes);
+
+        mMap.clear();
+        mEarthquakes.clear();
+        mEarthquakeAdapter.notifyDataSetChanged();
+
+        setEarthquakes(newEqs);
+
+    }
+
 
     public void setEarthquakes(List<Earthquake> earthquakes) {
         for (Earthquake earthquake: earthquakes) {
@@ -247,6 +311,7 @@ public class MapFragment extends Fragment implements MapContract.View,
         Log.d(TAG, "showSomething");
 
 
+
     }
 
     @Override
@@ -256,11 +321,13 @@ public class MapFragment extends Fragment implements MapContract.View,
 
     @Override
     public void onItemClicked(Earthquake eq) {
+
         Intent intent = new Intent(getActivity(), EqDetailsActivity.class);
         intent.putExtra("title", eq.getTitle());
         intent.putExtra("mag", Double.toString(eq.getMagnitude()));
         intent.putExtra("lat", eq.getLatitude());
         Log.d(TAG, "LAT:" + eq.getLatitude());
+        Log.d(TAG, "preference: " + preferences.getString(Preferences.PREF_MIN_MAG, "nonthing"));
         intent.putExtra("long", eq.getLongitude());
         intent.putExtra("place", eq.getPlace());
         intent.putExtra("date", Long.toString(eq.getTime()));

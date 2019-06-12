@@ -452,7 +452,7 @@
 
 
             <android.support.design.chip.Chip
-                android:id="@+id/scheduleChip"
+                android:id="@+id/emailButton"
                 android:layout_width="130dp"
                 android:layout_height="48dp"
                 android:fontFamily="@font/sfproregular"

@@ -6,6 +6,7 @@ import android.util.Log;
 
 import net.seismos.android.seismos.R;
 import net.seismos.android.seismos.data.local.EarthquakeDatabaseAccessor;
+import net.seismos.android.seismos.data.local.SignificantEqDBAccessor;
 import net.seismos.android.seismos.data.model.Earthquake;
 
 import org.json.JSONArray;
@@ -33,12 +34,25 @@ public class UsgsJsonWorker extends Worker {
 
     @Override
     public Result doWork() {
+        ArrayList<Earthquake> sigEqs;
         ArrayList<Earthquake> earthquakes;
 
         try {
 
             String quakeFeed = getApplicationContext().getString(R.string.earthquake_json_feed);
+            sigEqs = fetchEqs(quakeFeed);
+
+            SignificantEqDBAccessor.getInstance(getApplicationContext())
+                    .earthquakeDAO()
+                    .insertEarthquakes(sigEqs);
+            Log.d(TAG, "inserted significant earthquakes");
+
+
+
+
+            quakeFeed = getApplicationContext().getString(R.string.earthquake_json_feed_45week);
             earthquakes = fetchEqs(quakeFeed);
+
             EarthquakeDatabaseAccessor.getInstance(getApplicationContext())
                     .earthquakeDAO()
                     .insertEarthquakes(earthquakes);
@@ -62,13 +76,9 @@ public class UsgsJsonWorker extends Worker {
         URL url = new URL(urlSpec);
         HttpURLConnection connection = (HttpURLConnection)url.openConnection();
 
-
         try {
-
             ByteArrayOutputStream out = new ByteArrayOutputStream();
-
             InputStream in = connection.getInputStream();
-
 
             if (connection.getResponseCode() != HttpURLConnection.HTTP_OK) {
                 throw new IOException(connection.getResponseMessage() + ": with " + urlSpec);
@@ -78,13 +88,15 @@ public class UsgsJsonWorker extends Worker {
             byte[] buffer = new byte[1024];
             while ((bytesRead = in.read(buffer)) > 0) {
                 out.write(buffer, 0, bytesRead);
+
             }
             out.close();
+
             return out.toByteArray();
+
         } catch (Exception e) {
             Log.d(TAG, "Exception in geting URL bytes from usgs: " +  e.toString());
         } finally {
-
             connection.disconnect();
         }
         return null;
@@ -141,24 +153,16 @@ public class UsgsJsonWorker extends Worker {
             eq.setLongitude(coordinates.getDouble(0));
             eq.setLatitude(coordinates.getDouble(1));
             eq.setDepth(coordinates.getDouble(2));
-
-           eq.setId(eqObject.getString("id"));
-
-
+            eq.setId(eqObject.getString("id"));
             earthquakes.add(eq);
         }
-
-
-
     }
 
-    public ArrayList<Earthquake> fetchEqs(String urlSpec) throws IOException, JSONException {
+    private ArrayList<Earthquake> fetchEqs(String urlSpec) throws IOException, JSONException {
         ArrayList<Earthquake> recentEqs = new ArrayList<>();
-
         String result = getUrlString(urlSpec);
         Log.i(TAG, "fetched JSON: " + result);
         parseEqs(recentEqs, result);
-
         return recentEqs;
     }
 }

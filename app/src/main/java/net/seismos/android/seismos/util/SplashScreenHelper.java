@@ -2,9 +2,11 @@ package net.seismos.android.seismos.util;
 
 import android.app.Activity;
 import android.app.Application;
+import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 
 import net.seismos.android.seismos.R;
+import net.seismos.android.seismos.data.local.EarthquakeViewModel;
 
 public class SplashScreenHelper implements Application.ActivityLifecycleCallbacks {
 
