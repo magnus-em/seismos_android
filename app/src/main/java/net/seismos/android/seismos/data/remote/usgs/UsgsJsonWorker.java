@@ -29,7 +29,6 @@ public class UsgsJsonWorker extends Worker {
 
     public UsgsJsonWorker(@NonNull Context context, WorkerParameters params) {
         super(context, params);
-
     }
 
     @Override
@@ -39,30 +38,24 @@ public class UsgsJsonWorker extends Worker {
 
         try {
 
-            String quakeFeed = getApplicationContext().getString(R.string.earthquake_json_feed);
-            sigEqs = fetchEqs(quakeFeed);
-
+            // for purposes of quick loading when first opening the app
+            sigEqs = fetchEqs(getApplicationContext().getString(R.string.earthquake_json_feed_sig_month));
             SignificantEqDBAccessor.getInstance(getApplicationContext())
                     .earthquakeDAO()
                     .insertEarthquakes(sigEqs);
-            Log.d(TAG, "inserted significant earthquakes");
+            Log.d(TAG, "inserted significant earthquakes count: " + sigEqs.size());
 
+            // load all earthquakes from the last month. Usually several thousand. Not sure if this
+            // is necessary -- maybe in the future just do 2.5 plus or something like that. The
+            // limit for rendering on the GoogleMap is a few hundred anyways, which is around 4.0 +
 
-
-
-            quakeFeed = getApplicationContext().getString(R.string.earthquake_json_feed_45week);
-            earthquakes = fetchEqs(quakeFeed);
-
+            earthquakes = fetchEqs(getApplicationContext().getString(R.string.earthquake_json_feed_all_month));
             EarthquakeDatabaseAccessor.getInstance(getApplicationContext())
                     .earthquakeDAO()
                     .insertEarthquakes(earthquakes);
-            Log.d(TAG, "successfully inserted " + earthquakes.size() + " earthquakes");
-            Log.i(TAG, "Earthquake 0 title: " + earthquakes.get(0).getTitle());
-            Log.i(TAG, "eq 0 id: " + earthquakes.get(0).getId());
-            Log.i(TAG, "eq 0 felt count: " + earthquakes.get(0).getFelt());
+            Log.d(TAG, "inserted all earthquakes count: " + earthquakes.size());
 
             return Result.success();
-
         } catch (IOException ioe) {
             Log.e(TAG, "IO Exception" + ioe);
             return Result.retry();
@@ -75,25 +68,19 @@ public class UsgsJsonWorker extends Worker {
     private byte[] getUrlBytes(String urlSpec) throws IOException {
         URL url = new URL(urlSpec);
         HttpURLConnection connection = (HttpURLConnection)url.openConnection();
-
         try {
             ByteArrayOutputStream out = new ByteArrayOutputStream();
             InputStream in = connection.getInputStream();
-
             if (connection.getResponseCode() != HttpURLConnection.HTTP_OK) {
                 throw new IOException(connection.getResponseMessage() + ": with " + urlSpec);
             }
-
             int bytesRead = 0;
             byte[] buffer = new byte[1024];
             while ((bytesRead = in.read(buffer)) > 0) {
                 out.write(buffer, 0, bytesRead);
-
             }
             out.close();
-
             return out.toByteArray();
-
         } catch (Exception e) {
             Log.d(TAG, "Exception in geting URL bytes from usgs: " +  e.toString());
         } finally {

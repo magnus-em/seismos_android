@@ -1,5 +1,8 @@
 package net.seismos.android.seismos.ui.seismos;
 
+import android.annotation.SuppressLint;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
@@ -8,23 +11,38 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebView;
+import android.widget.ImageView;
+
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import net.seismos.android.seismos.R;
+import net.seismos.android.seismos.data.model.Article;
+import net.seismos.android.seismos.ui.onboarding.OnboardingActivity;
 
 import java.util.ArrayList;
 
-public class SeismosFragment extends Fragment implements SeismosContract.View {
+public class SeismosFragment extends Fragment implements SeismosContract.View,
+                                                    NewsRecyclerViewAdapter.ArticleClickListener {
 
     private SeismosContract.Presenter mPresenter;
+
+    private static final String TAG = "SeismosFragment";
+
 
     RecyclerView recyclerView;
     NewsRecyclerViewAdapter recyclerViewAdapter;
     ArrayList<String> rowsArrayList = new ArrayList<>();
 
     boolean isLoading = false;
+
+    final ArrayList<Article> articles = new ArrayList<>();
 
 
     public SeismosFragment() {} // Required empty public constructor
@@ -33,31 +51,110 @@ public class SeismosFragment extends Fragment implements SeismosContract.View {
         return new SeismosFragment();
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_seismos, container, false);
 
         recyclerView = root.findViewById(R.id.recyclerView);
-        populateData();
-        initAdapter();
-        initScrollListener();
+
+
+
+
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+
+
+        db.collection("articles")
+                .orderBy("entry", Query.Direction.DESCENDING)
+                .get()
+                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
+                            articles.add(document.toObject(Article.class));
+                            Log.d(TAG, "article title: " + document.get("title"));
+
+                        }
+                        initAdapter();
+                        initScrollListener();
+                    }
+                });
+
+
+        ImageView projectSeismos = root.findViewById(R.id.projectSeismos);
+        ImageView networkStatus = root.findViewById(R.id.networkStatus);
+        ImageView eqSafety = root.findViewById(R.id.earthquakeSafety);
+        ImageView dyfi = root.findViewById(R.id.didYouFeelIt);
+
+        setupImageButton(projectSeismos);
+        setupImageButton(networkStatus);
+        setupImageButton(eqSafety);
+        setupImageButton(dyfi);
+
+        networkStatus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(), NetworkStatusActivity.class));
+            }
+        });
+
+        eqSafety.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(), EqSafetyActivity.class));
+            }
+        });
+
+        dyfi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(), DYFIActivity.class));
+            }
+        });
+
+
+        projectSeismos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(), ProjectSeismosActivity.class));
+            }
+        });
+
+
 
         return root;
     }
 
-    private void populateData() {
-        for (int i = 0; i < 12; i++) {
-            if (i%2==0) {
-                rowsArrayList.add("large");
-            } else {
-                rowsArrayList.add("small");
+    @SuppressLint("ClickableViewAccessibility")
+    private void setupImageButton(ImageView button) {
+        button.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN: {
+                        v.setAlpha(0.5f);
+                        break;
+                    }
+                    case MotionEvent.ACTION_UP: {
+                        v.setAlpha(1);
+                        v.performClick();
+                        break;
+                    }
+                    case MotionEvent.ACTION_CANCEL:{
+                        v.setAlpha(1);
+                        break;
+                    }
+                }
+                return true;
             }
-        }
+        });
     }
 
+
     private void initAdapter() {
-        recyclerViewAdapter = new NewsRecyclerViewAdapter(rowsArrayList);
+        recyclerViewAdapter = new NewsRecyclerViewAdapter(articles, this);
         recyclerView.setAdapter(recyclerViewAdapter);
     }
 
@@ -102,11 +199,23 @@ public class SeismosFragment extends Fragment implements SeismosContract.View {
                 rowsArrayList.remove(rowsArrayList.size() - 1);
                 int scrollPosition = rowsArrayList.size();
                 recyclerViewAdapter.notifyItemRemoved(scrollPosition);
-                populateData();
                 recyclerViewAdapter.notifyDataSetChanged();
                 isLoading = false;
             }
         }, 2000);
+    }
+
+    @Override
+    public void onArticleClicked(Article article) {
+        String url = article.getUrl();
+
+        if (!url.startsWith("http://") && !url.startsWith("https://"))
+            url = "http://" + url;
+
+        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+        startActivity(browserIntent);
+
+        Log.d(TAG, "Article clicked: " + article.getTitle());
     }
 
     @Override

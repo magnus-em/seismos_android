@@ -9,7 +9,7 @@
     android:clickable="true">
 
     <ImageView
-        android:id="@+id/imageView4"
+        android:id="@+id/titleImage"
         android:layout_width="120dp"
         android:layout_height="120dp"
         android:layout_marginTop="16dp"
@@ -20,7 +20,7 @@
         app:srcCompat="@drawable/smallnewsimage" />
 
     <TextView
-        android:id="@+id/titleText"
+        android:id="@+id/articleTitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -28,39 +28,68 @@
         android:layout_marginEnd="8dp"
         android:ellipsize="none"
         android:fontFamily="@font/sfpromedium"
-        android:maxLines="2"
+        android:maxLines="3"
         android:scrollHorizontally="false"
-        android:text="The Hayward fault - is it due for a repeat"
+        android:text="Earthquake detection startup Seismos saves entire nation of Tonga"
         android:textColor="@color/offWhite"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toStartOf="@+id/imageView4"
+        android:textSize="20dp"
+        app:layout_constraintEnd_toStartOf="@+id/titleImage"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/detailText"
+        android:id="@+id/subtitleText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:text="On October 21, 1868, a magnitude 6.8 earthquake struck the San Francisco bay area"
+        android:fontFamily="@font/sfprolight"
         android:textColor="@color/offWhite70"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toStartOf="@+id/imageView4"
+        android:textSize="16dp"
+        app:layout_constraintEnd_toStartOf="@+id/titleImage"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/titleText" />
+        app:layout_constraintTop_toBottomOf="@+id/articleTitle" />
 
     <TextView
         android:id="@+id/detailTimeText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:text="4 hours ago - USGS"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/sfprolight"
+        android:text="June 3, 2019"
         android:textColor="@color/offWhite70"
+        android:textSize="14dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/detailText" />
+        app:layout_constraintTop_toBottomOf="@+id/subtitleText" />
+
+    <TextView
+        android:id="@+id/publisherText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:fontFamily="@font/sfprolight"
+        android:text="The New York Times"
+        android:textColor="@color/offWhite70"
+        android:textSize="14dp"
+        app:layout_constraintBottom_toBottomOf="@+id/detailTimeText"
+        app:layout_constraintStart_toEndOf="@+id/detailTimeText3"
+        app:layout_constraintTop_toTopOf="@+id/detailTimeText"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/detailTimeText3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:fontFamily="@font/sfprolight"
+        android:text="–"
+        android:textColor="@color/offWhite70"
+        android:textSize="14dp"
+        app:layout_constraintBottom_toBottomOf="@+id/detailTimeText"
+        app:layout_constraintStart_toEndOf="@+id/detailTimeText"
+        app:layout_constraintTop_toTopOf="@+id/detailTimeText" />
 
     <View
         android:id="@+id/divider"
@@ -81,8 +110,10 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView4"
+        app:layout_constraintTop_toBottomOf="@+id/titleImage"
         app:srcCompat="@drawable/menu_dots_icon" />
+
 </android.support.constraint.ConstraintLayout>

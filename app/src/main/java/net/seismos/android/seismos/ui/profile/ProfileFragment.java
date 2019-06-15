@@ -13,21 +13,20 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.LineChart;
-import com.github.mikephil.charting.components.AxisBase;
-import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
-import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.github.mikephil.charting.formatter.LargeValueFormatter;
 import com.github.mikephil.charting.highlight.Highlight;
-import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.squareup.picasso.Picasso;
 
 import net.seismos.android.seismos.R;
 
@@ -61,13 +60,26 @@ public class ProfileFragment extends Fragment implements ProfileContract.View
         mChart =  root.findViewById(R.id.chart1);
         seiCount = root.findViewById(R.id.seiEarnedCount);
 
+        ((TextView)root.findViewById(R.id.profileTitle)).setText(
+                FirebaseAuth.getInstance().getCurrentUser().getDisplayName()
+
+        );
+
+
+
+
 
         return root;
     }
 
+
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        Picasso.get().load("http://i.imgur.com/DvpvklR.png").into((ImageView)view.findViewById(R.id.profileImage));
+
 
 
         // enable description text

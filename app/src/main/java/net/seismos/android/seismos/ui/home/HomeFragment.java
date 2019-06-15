@@ -1,6 +1,7 @@
 package net.seismos.android.seismos.ui.home;
 
 import android.animation.ValueAnimator;
+import android.annotation.SuppressLint;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
@@ -19,10 +20,13 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.HorizontalScrollView;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.BarChart;
@@ -36,6 +40,7 @@ import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 import com.google.android.gms.maps.model.LatLng;
 
+
 import net.seismos.android.seismos.R;
 import net.seismos.android.seismos.data.local.EarthquakeViewModel;
 import net.seismos.android.seismos.data.model.Earthquake;
@@ -44,16 +49,15 @@ import net.seismos.android.seismos.util.ResUtil;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 public class HomeFragment extends Fragment implements HomeContract.View ,
         SensorEventListener {
 
     private static final String TAG = "HomeFragment";
-
-    private int accelCount;
-
     private static final int SCHEDULE_RESULT = 101;
 
     private HomeContract.Presenter mPresenter;
@@ -298,6 +302,10 @@ public class HomeFragment extends Fragment implements HomeContract.View ,
         globes.add(globe8);
         globes.add(globe9);
 
+        for (EqGlobeView globeView : globes) {
+            setupGlobesDepress(globeView);
+        }
+
 
 
 
@@ -498,7 +506,7 @@ public class HomeFragment extends Fragment implements HomeContract.View ,
         mChart2.setViewPortOffsets(0, 0, 0, 0);
 
         CustomBarChartRender2 barChartRender2 = new CustomBarChartRender2(mChart2,mChart2.getAnimator(), mChart2.getViewPortHandler());
-        barChartRender2.setRadius(10);
+        barChartRender2.setRadius(15);
         mChart2.setRenderer(barChartRender2);
 
 
@@ -532,7 +540,7 @@ public class HomeFragment extends Fragment implements HomeContract.View ,
         mChart.setViewPortOffsets(0, 0, 0, 0);
 
         CustomBarChartRender barChartRender = new CustomBarChartRender(mChart,mChart.getAnimator(), mChart.getViewPortHandler());
-        barChartRender.setRadius(10);
+        barChartRender.setRadius(15);
         mChart.setRenderer(barChartRender);
 
 
@@ -660,7 +668,7 @@ public class HomeFragment extends Fragment implements HomeContract.View ,
 
 
 
-            entryval += 0.1;
+            entryval += 0.3;
 
             data.setBarWidth(0.5f);
             data.addEntry(new BarEntry(set.getEntryCount(), entryval), 0);
@@ -738,6 +746,31 @@ public class HomeFragment extends Fragment implements HomeContract.View ,
                 getResources().getColor(R.color.gradientDangerStart),
                 Shader.TileMode.CLAMP);
         paint.setShader(gradient);
+    }
+
+    @SuppressLint("ClickableViewAccessibility")
+    private void setupGlobesDepress(EqGlobeView button) {
+        button.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN: {
+                        v.setAlpha(0.5f);
+                        break;
+                    }
+                    case MotionEvent.ACTION_UP: {
+                        v.setAlpha(1);
+                        v.performClick();
+                        break;
+                    }
+                    case MotionEvent.ACTION_CANCEL:{
+                        v.setAlpha(1);
+                        break;
+                    }
+                }
+                return true;
+            }
+        });
     }
 
 

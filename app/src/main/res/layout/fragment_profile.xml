@@ -12,14 +12,13 @@
         android:layout_height="match_parent">
 
         <ImageView
-            android:id="@+id/imageView17"
+            android:id="@+id/profileImage"
             android:layout_width="120dp"
             android:layout_height="120dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/profile_image" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:id="@+id/imageView19"
@@ -32,7 +31,7 @@
             app:srcCompat="@drawable/profile_settings_icon" />
 
         <TextView
-            android:id="@+id/textView18"
+            android:id="@+id/profileTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -41,7 +40,7 @@
             android:text="Benjamin"
             android:textColor="@color/offWhite"
             android:textSize="22dp"
-            app:layout_constraintStart_toEndOf="@+id/imageView17"
+            app:layout_constraintStart_toEndOf="@+id/profileImage"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
@@ -53,8 +52,8 @@
             android:text="Member since Dec 2018"
             android:textColor="@color/offWhite70"
             android:textSize="16sp"
-            app:layout_constraintStart_toEndOf="@+id/imageView17"
-            app:layout_constraintTop_toBottomOf="@+id/textView18" />
+            app:layout_constraintStart_toEndOf="@+id/profileImage"
+            app:layout_constraintTop_toBottomOf="@+id/profileTitle" />
 
         <TextView
             android:id="@+id/textView20"
@@ -66,8 +65,8 @@
             android:text="Sub tier 3 - Citizen Scientist"
             android:textColor="@color/offWhite"
             android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="@+id/imageView17"
-            app:layout_constraintStart_toEndOf="@+id/imageView17" />
+            app:layout_constraintBottom_toBottomOf="@+id/profileImage"
+            app:layout_constraintStart_toEndOf="@+id/profileImage" />
 
         <android.support.design.chip.Chip
             android:id="@+id/emailButton"
@@ -84,9 +83,9 @@
             app:chipCornerRadius="10dp"
             app:chipStrokeColor="@color/blueHighlight70"
             app:chipStrokeWidth="2dp"
-            app:layout_constraintEnd_toEndOf="@+id/imageView17"
-            app:layout_constraintStart_toStartOf="@+id/imageView17"
-            app:layout_constraintTop_toBottomOf="@+id/imageView17"
+            app:layout_constraintEnd_toEndOf="@+id/profileImage"
+            app:layout_constraintStart_toStartOf="@+id/profileImage"
+            app:layout_constraintTop_toBottomOf="@+id/profileImage"
             app:textStartPadding="10dp" />
 
         <android.support.design.chip.Chip
@@ -104,8 +103,8 @@
 
             app:chipStrokeColor="@color/blueHighlight70"
             app:chipStrokeWidth="2dp"
-            app:layout_constraintStart_toEndOf="@+id/imageView17"
-            app:layout_constraintTop_toBottomOf="@+id/imageView17"
+            app:layout_constraintStart_toEndOf="@+id/profileImage"
+            app:layout_constraintTop_toBottomOf="@+id/profileImage"
             app:textStartPadding="10dp" />
 
         <View

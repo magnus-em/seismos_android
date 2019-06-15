@@ -14,9 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.Launcher">
 
-        <activity
-            android:name=".ui.DashActivity"
-            android:label="@string/app_name"
+        <activity android:name=".ui.global.LauncherActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -25,6 +23,9 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".ui.onboarding.OnboardingActivity" android:screenOrientation="portrait"/>
+
+        <activity android:name=".ui.global.DashActivity" android:screenOrientation="portrait"/>
         <activity android:name=".ui.home.ScheduleActivity" android:screenOrientation="portrait" android:launchMode="singleTop"/>
         <activity android:name=".ui.map.FiltersActivity" android:screenOrientation="portrait" android:launchMode="singleTop"/>
         <activity android:name=".ui.map.EqDetailsActivity" android:screenOrientation="portrait" android:launchMode="singleTop"/>
@@ -32,6 +33,11 @@
         <activity android:name=".ui.store.StoreDetailActivity" android:screenOrientation="portrait" android:launchMode="singleTop"/>
         <activity android:name=".ui.home.UpgradeActivity" android:theme="@style/upgradeActivity" android:screenOrientation="portrait" android:launchMode="singleTop"/>
         <activity android:name=".ui.map.AlertsActivity" android:launchMode="singleTop"/>
+
+        <activity android:name=".ui.seismos.ProjectSeismosActivity" android:screenOrientation="portrait" android:launchMode="singleTop"/>
+        <activity android:name=".ui.seismos.DYFIActivity" android:screenOrientation="portrait" android:launchMode="singleTop"/>
+        <activity android:name=".ui.seismos.EqSafetyActivity" android:screenOrientation="portrait" android:launchMode="singleTop"/>
+        <activity android:name=".ui.seismos.NetworkStatusActivity" android:screenOrientation="portrait" android:launchMode="singleTop"/>
 
 
 

@@ -55,4 +55,8 @@ public class EarthquakeViewModel extends AndroidViewModel {
                 .build();
         WorkManager.getInstance().enqueue(downloadEarthquakes);
     }
+
+
+
+
 }

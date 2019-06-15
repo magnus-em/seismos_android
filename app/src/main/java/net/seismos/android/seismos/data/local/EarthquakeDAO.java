@@ -26,6 +26,10 @@ public interface EarthquakeDAO {
     @Query("SELECT * FROM earthquake ORDER BY mMag DESC")
     public LiveData<List<Earthquake>> loadAllEarthquakes();
 
+
+    // This query is run synchronously unlike the above LiveData query. Use this one for checking
+    // for new biggest earthquakes when already on a background thread.
+
     @Query("SELECT * FROM earthquake ORDER BY mMag DESC")
     List<Earthquake> loadAllEarthquakesBlocking();
 }

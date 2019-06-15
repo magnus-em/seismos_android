@@ -16,9 +16,9 @@
 
     <string name="earthquake_feed">https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/2.5_week.atom</string>
 
-    <string name="earthquake_json_feed">https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/significant_month.geojson</string>
+    <string name="earthquake_json_feed_sig_month">https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/significant_month.geojson</string>
 
-    <string name="earthquake_json_feed_45week">https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_month.geojson</string>
+    <string name="earthquake_json_feed_all_month">https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_month.geojson</string>
 
     <string name="recent_eq_description">Recent Earthquakes</string>
     <string name="see_all_recent_eq_description">SEE ALL</string>

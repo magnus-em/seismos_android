@@ -25,7 +25,7 @@
         tools:srcCompat="@drawable/disaster" />
 
     <TextView
-        android:id="@+id/sourceText"
+        android:id="@+id/publisherText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -37,7 +37,7 @@
 
     <TextView
 
-        android:id="@+id/titleText"
+        android:id="@+id/articleTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -47,7 +47,7 @@
         android:textColor="@color/offWhite"
         android:textSize="22sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sourceText" />
+        app:layout_constraintTop_toBottomOf="@+id/publisherText" />
 
     <View
         android:id="@+id/divider"
@@ -59,14 +59,14 @@
         android:background="@color/blueDivider"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/titleText" />
+        app:layout_constraintTop_toBottomOf="@+id/articleTitle" />
 
     <ImageView
         android:id="@+id/imageView14"
         android:layout_width="wrap_content"
         android:layout_height="20dp"
         android:layout_marginEnd="8dp"
-        app:layout_constraintBottom_toBottomOf="@+id/titleText"
+        app:layout_constraintBottom_toBottomOf="@+id/articleTitle"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/menu_dots_icon" />
 
