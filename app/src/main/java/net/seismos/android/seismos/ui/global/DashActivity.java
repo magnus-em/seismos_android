@@ -33,9 +33,6 @@ import java.util.List;
 public class DashActivity extends AppCompatActivity implements HomeFragment.OnEqGlobeSelectedListener {
     private static final String TAG = "DashActivity";
 
-    int RC_SIGN_IN = 123;
-
-
 
     private FragmentManager fragmentManager = getSupportFragmentManager();
     private Fragment currentFragment;
@@ -101,6 +98,16 @@ public class DashActivity extends AppCompatActivity implements HomeFragment.OnEq
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dash);
+
+
+
+        if (savedInstanceState != null) {
+            for (Fragment fragment:getSupportFragmentManager().getFragments()) {
+                 if (fragment!=null) {
+                    getSupportFragmentManager().beginTransaction().remove(fragment).commit();
+                }
+            }
+        }
 
         homeFragment = HomeFragment.newInstance();
         mapFragment = new MapFragment();

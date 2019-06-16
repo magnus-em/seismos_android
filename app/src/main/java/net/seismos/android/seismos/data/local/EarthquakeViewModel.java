@@ -3,16 +3,19 @@ package net.seismos.android.seismos.data.local;
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.LiveData;
-import android.util.Log;
 
 
 import net.seismos.android.seismos.data.model.Earthquake;
-import net.seismos.android.seismos.data.remote.usgs.UsgsJsonWorker;
+import net.seismos.android.seismos.data.remote.usgs.InitialUsgsJsonWorker;
+import net.seismos.android.seismos.data.remote.usgs.UpdateUsgsJsonWorker;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
+import androidx.work.Data;
 import androidx.work.OneTimeWorkRequest;
+import androidx.work.PeriodicWorkRequest;
 import androidx.work.WorkManager;
 
 public class EarthquakeViewModel extends AndroidViewModel {
@@ -50,13 +53,24 @@ public class EarthquakeViewModel extends AndroidViewModel {
 
     // Asynchronously load the Earthquakes from the feed
     public void loadEarthquakes() {
-        OneTimeWorkRequest downloadEarthquakes =
-                new OneTimeWorkRequest.Builder(UsgsJsonWorker.class)
+
+        Data data = new Data.Builder()
+                .putString("test", "this is the test string")
                 .build();
+
+
+        OneTimeWorkRequest downloadEarthquakes =
+                new OneTimeWorkRequest.Builder(InitialUsgsJsonWorker.class)
+                        .setInputData(data)
+                        .build();
         WorkManager.getInstance().enqueue(downloadEarthquakes);
+
+        PeriodicWorkRequest updateEarthquakes =
+                new PeriodicWorkRequest.Builder(UpdateUsgsJsonWorker.class, 15, TimeUnit.MINUTES)
+//                .setConstraints(constraints)
+                .build();
+
+        WorkManager.getInstance().enqueue(updateEarthquakes);
+
     }
-
-
-
-
 }

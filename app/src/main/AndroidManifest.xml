@@ -28,7 +28,8 @@
         <activity android:name=".ui.global.DashActivity" android:screenOrientation="portrait"/>
         <activity android:name=".ui.home.ScheduleActivity" android:screenOrientation="portrait" android:launchMode="singleTop"/>
         <activity android:name=".ui.map.FiltersActivity" android:screenOrientation="portrait" android:launchMode="singleTop"/>
-        <activity android:name=".ui.map.EqDetailsActivity" android:screenOrientation="portrait" android:launchMode="singleTop"/>
+        <activity android:name=".ui.map.EqDetailsActivity" android:screenOrientation="portrait"
+            android:launchMode="singleTop" android:parentActivityName=".ui.global.DashActivity"/>
         <activity android:name=".ui.alert.AlertActivity" android:screenOrientation="portrait"/>
         <activity android:name=".ui.store.StoreDetailActivity" android:screenOrientation="portrait" android:launchMode="singleTop"/>
         <activity android:name=".ui.home.UpgradeActivity" android:theme="@style/upgradeActivity" android:screenOrientation="portrait" android:launchMode="singleTop"/>

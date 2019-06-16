@@ -34,7 +34,7 @@ public class Preferences {
         }
 
         if (!preferences.contains(PREF_EQ_NOTIF_MIN)) {
-            preferences.edit().putString(PREF_EQ_NOTIF_MIN, "7").apply();
+            preferences.edit().putString(PREF_EQ_NOTIF_MIN, "4").apply();
         }
 
         if (!preferences.contains(PREF_NODE_COVERAGE)) {

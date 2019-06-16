@@ -21,13 +21,14 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.work.Data;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 
-public class UsgsJsonWorker extends Worker {
-    private static final String TAG = "UsgsJsonWorker";
+public class InitialUsgsJsonWorker extends Worker {
+    private static final String TAG = "InitialUsgsJsonWorker";
 
-    public UsgsJsonWorker(@NonNull Context context, WorkerParameters params) {
+    public InitialUsgsJsonWorker(@NonNull Context context, WorkerParameters params) {
         super(context, params);
     }
 
@@ -38,6 +39,8 @@ public class UsgsJsonWorker extends Worker {
 
         try {
 
+
+
             // for purposes of quick loading when first opening the app
             sigEqs = fetchEqs(getApplicationContext().getString(R.string.earthquake_json_feed_sig_month));
             SignificantEqDBAccessor.getInstance(getApplicationContext())
@@ -45,10 +48,10 @@ public class UsgsJsonWorker extends Worker {
                     .insertEarthquakes(sigEqs);
             Log.d(TAG, "inserted significant earthquakes count: " + sigEqs.size());
 
+
             // load all earthquakes from the last month. Usually several thousand. Not sure if this
             // is necessary -- maybe in the future just do 2.5 plus or something like that. The
             // limit for rendering on the GoogleMap is a few hundred anyways, which is around 4.0 +
-
             earthquakes = fetchEqs(getApplicationContext().getString(R.string.earthquake_json_feed_all_month));
             EarthquakeDatabaseAccessor.getInstance(getApplicationContext())
                     .earthquakeDAO()
@@ -56,6 +59,8 @@ public class UsgsJsonWorker extends Worker {
             Log.d(TAG, "inserted all earthquakes count: " + earthquakes.size());
 
             return Result.success();
+
+
         } catch (IOException ioe) {
             Log.e(TAG, "IO Exception" + ioe);
             return Result.retry();

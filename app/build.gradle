@@ -57,6 +57,9 @@ dependencies {
     implementation 'com.firebase:firebase-jobdispatcher:0.8.5'
     implementation 'com.firebaseui:firebase-ui-auth:4.3.1'
 
+
+
+
 }
 
 apply plugin: 'com.google.gms.google-services'
