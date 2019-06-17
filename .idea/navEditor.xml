@@ -20,7 +20,7 @@
                       </LayoutPositions>
                     </value>
                   </entry>
-                  <entry key="homeFragment">
+                  <entry key="home">
                     <value>
                       <LayoutPositions>
                         <option name="myPosition">
@@ -29,25 +29,52 @@
                             <option name="y" value="-511" />
                           </Point>
                         </option>
-                        <option name="myPositions">
-                          <map>
-                            <entry key="action_homeFragment_to_mapFragment">
-                              <value>
-                                <LayoutPositions />
-                              </value>
-                            </entry>
-                          </map>
-                        </option>
                       </LayoutPositions>
                     </value>
                   </entry>
-                  <entry key="mapFragment">
+                  <entry key="map">
                     <value>
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="-121" />
-                            <option name="y" value="-474" />
+                            <option name="x" value="-443" />
+                            <option name="y" value="-195" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="profile">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="-430" />
+                            <option name="y" value="696" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="seismos">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="-437" />
+                            <option name="y" value="105" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="store">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="-432" />
+                            <option name="y" value="413" />
                           </Point>
                         </option>
                       </LayoutPositions>
