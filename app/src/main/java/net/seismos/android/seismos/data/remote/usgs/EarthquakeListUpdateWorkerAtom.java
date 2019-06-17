@@ -2,7 +2,7 @@ package net.seismos.android.seismos.data.remote.usgs;
 
 import android.content.Context;
 import android.location.Location;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import android.util.Log;
 
 import net.seismos.android.seismos.R;

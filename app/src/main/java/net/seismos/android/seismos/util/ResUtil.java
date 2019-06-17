@@ -3,8 +3,8 @@ package net.seismos.android.seismos.util;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
-import android.support.annotation.DrawableRes;
-import android.support.annotation.StringRes;
+import androidx.annotation.DrawableRes;
+import androidx.annotation.StringRes;
 import android.util.DisplayMetrics;
 
 public class ResUtil {

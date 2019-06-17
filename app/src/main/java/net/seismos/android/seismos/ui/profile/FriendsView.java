@@ -3,22 +3,17 @@ package net.seismos.android.seismos.ui.profile;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.LinearGradient;
 import android.graphics.Paint;
-import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.Shader;
 import android.graphics.drawable.Drawable;
-import android.support.annotation.Nullable;
-import android.support.v4.content.ContextCompat;
+import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import android.util.AttributeSet;
 import android.view.View;
 
-import com.google.android.gms.maps.model.LatLng;
-
 import net.seismos.android.seismos.R;
-import net.seismos.android.seismos.data.model.Earthquake;
 
 public class FriendsView extends View {
 

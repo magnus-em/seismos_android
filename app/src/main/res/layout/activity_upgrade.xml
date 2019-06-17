@@ -1,10 +1,10 @@
-<android.support.constraint.ConstraintLayout 
+<androidx.constraintlayout.widget.ConstraintLayout
     android:layout_height="match_parent"
     android:layout_width="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <android.support.constraint.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
         android:layout_height="56dp"
@@ -34,9 +34,9 @@
             app:piv_viewPager="@id/upgradeViewPager" />
 
 
-    </android.support.constraint.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <android.support.v4.view.ViewPager
+    <androidx.viewpager.widget.ViewPager
         android:id="@+id/upgradeViewPager"
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -44,4 +44,4 @@
         app:layout_constraintTop_toTopOf="parent" />
     
     
-</android.support.constraint.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

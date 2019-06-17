@@ -1,10 +1,8 @@
 package net.seismos.android.seismos.data.local;
 
 
-import android.arch.persistence.room.Room;
+import androidx.room.Room;
 import android.content.Context;
-
-import net.seismos.android.seismos.data.local.EarthquakeDatabase;
 
 // Singleton with a private constructor that prohibits external instantiation. You shouldn't
 // ever need to instantiate this class because the getInstance method is static

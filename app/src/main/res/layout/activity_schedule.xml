@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<android.support.constraint.ConstraintLayout
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <android.support.design.widget.AppBarLayout
+    <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
         android:layout_height="56dp"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         app:layout_constraintTop_toTopOf="parent">
 
-        <android.support.v7.widget.Toolbar
+        <androidx.appcompat.widget.Toolbar
             android:id="@+id/schedule_toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -32,9 +32,9 @@
                 android:textSize="22sp" />
 
 
-        </android.support.v7.widget.Toolbar>
+        </androidx.appcompat.widget.Toolbar>
 
-    </android.support.design.widget.AppBarLayout>
+    </com.google.android.material.appbar.AppBarLayout>
 
     <TextView
         android:id="@+id/textView41"
@@ -90,7 +90,7 @@
         app:layout_constraintTop_toBottomOf="@id/divider">
 
 
-        <android.support.constraint.ConstraintLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="parent">
@@ -128,7 +128,7 @@
                     android:textSize="18dp" />
             </RadioGroup>
 
-            <android.support.design.chip.Chip
+            <com.google.android.material.chip.Chip
                 android:id="@+id/chip4"
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
@@ -159,7 +159,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/radioGroup">
 
-                <android.support.constraint.ConstraintLayout
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/customDayContainer"
                     android:layout_width="match_parent"
                     android:layout_height="400dp"
@@ -170,7 +170,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="parent">
 
-                    <android.support.design.chip.Chip
+                    <com.google.android.material.chip.Chip
                         android:layout_width="wrap_content"
                         android:layout_height="30dp"
                         android:layout_marginEnd="16dp"
@@ -188,7 +188,7 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
-                    <android.support.design.chip.Chip
+                    <com.google.android.material.chip.Chip
                         android:id="@+id/chip6"
                         android:layout_width="wrap_content"
                         android:layout_height="30dp"
@@ -208,7 +208,7 @@
                         app:layout_constraintTop_toTopOf="@+id/checkBox3"
                         app:layout_constraintVertical_bias="1.0" />
 
-                    <android.support.design.chip.Chip
+                    <com.google.android.material.chip.Chip
                         android:id="@+id/chip7"
                         android:layout_width="wrap_content"
                         android:layout_height="30dp"
@@ -227,7 +227,7 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="@+id/checkBox5" />
 
-                    <android.support.design.chip.Chip
+                    <com.google.android.material.chip.Chip
                         android:id="@+id/chip8"
                         android:layout_width="wrap_content"
                         android:layout_height="30dp"
@@ -246,7 +246,7 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="@+id/checkBox6" />
 
-                    <android.support.design.chip.Chip
+                    <com.google.android.material.chip.Chip
                         android:id="@+id/chip9"
                         android:layout_width="wrap_content"
                         android:layout_height="30dp"
@@ -265,7 +265,7 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="@+id/checkBox4" />
 
-                    <android.support.design.chip.Chip
+                    <com.google.android.material.chip.Chip
                         android:id="@+id/chip10"
                         android:layout_width="wrap_content"
                         android:layout_height="30dp"
@@ -284,7 +284,7 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="@+id/checkBox8" />
 
-                    <android.support.design.chip.Chip
+                    <com.google.android.material.chip.Chip
                         android:id="@+id/chip11"
                         android:layout_width="wrap_content"
                         android:layout_height="30dp"
@@ -399,7 +399,7 @@
                         android:textSize="18dp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/checkBox3" />
-                </android.support.constraint.ConstraintLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <View
                     android:id="@+id/disableFilterCustom"
@@ -411,7 +411,7 @@
             </RelativeLayout>
 
 
-        </android.support.constraint.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <View
             android:id="@+id/disableFilterSchedule"
@@ -423,4 +423,4 @@
 
     </RelativeLayout>
 
-</android.support.constraint.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

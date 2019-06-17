@@ -1,27 +1,19 @@
 package net.seismos.android.seismos.ui.home;
 
-import android.animation.ArgbEvaluator;
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.LinearGradient;
 import android.graphics.Matrix;
 import android.graphics.Paint;
-import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.SweepGradient;
-import android.support.annotation.Nullable;
-import android.support.design.animation.ArgbEvaluatorCompat;
-import android.support.v4.content.ContextCompat;
+import androidx.annotation.Nullable;
+import com.google.android.material.animation.ArgbEvaluatorCompat;
+import androidx.core.content.ContextCompat;
 import android.util.AttributeSet;
-import android.util.DisplayMetrics;
-import android.util.TypedValue;
 import android.view.View;
-import android.widget.LinearLayout;
 
 import net.seismos.android.seismos.R;
 

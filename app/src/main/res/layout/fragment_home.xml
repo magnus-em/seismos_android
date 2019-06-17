@@ -12,7 +12,7 @@
         android:orientation="vertical">
 
 
-        <android.support.constraint.ConstraintLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -26,7 +26,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
-                <android.support.constraint.ConstraintLayout
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent">
 
@@ -373,7 +373,7 @@
                         app:layout_constraintTop_toBottomOf="@+id/EqTitle9" />
 
 
-                </android.support.constraint.ConstraintLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
             </HorizontalScrollView>
 
             <net.seismos.android.seismos.ui.home.SeiEarnedView
@@ -430,7 +430,7 @@
                 app:layout_constraintStart_toStartOf="@+id/homeDailySeiCount"
                 app:layout_constraintTop_toBottomOf="@+id/homeDailySeiCount" />
 
-            <android.support.design.widget.FloatingActionButton
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/homePlayPause"
                 style="@style/Widget.MaterialComponents.FloatingActionButton"
                 android:layout_width="wrap_content"
@@ -451,7 +451,7 @@
                 app:srcCompat="@drawable/home_play_icon" />
 
 
-            <android.support.design.chip.Chip
+            <com.google.android.material.chip.Chip
                 android:id="@+id/emailButton"
                 android:layout_width="130dp"
                 android:layout_height="48dp"
@@ -476,9 +476,9 @@
                 app:textStartPadding="2dp">
 
 
-            </android.support.design.chip.Chip>
+            </com.google.android.material.chip.Chip>
 
-            <android.support.design.chip.Chip
+            <com.google.android.material.chip.Chip
                 android:id="@+id/upgradeChip"
                 android:layout_width="130dp"
                 android:layout_height="48dp"
@@ -502,7 +502,7 @@
                 app:textEndPadding="10dp"
                 app:textStartPadding="2dp">
 
-            </android.support.design.chip.Chip>
+            </com.google.android.material.chip.Chip>
 
             <com.github.mikephil.charting.charts.BarChart
                 android:id="@+id/accelChart1"
@@ -541,10 +541,10 @@
 
 
 
-        </android.support.constraint.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-        <android.support.design.widget.TabLayout
+        <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -555,13 +555,13 @@
             app:tabIndicatorHeight="3dp"
             app:tabTextAppearance="@style/tabTextAppearance">
 
-        </android.support.design.widget.TabLayout>
+        </com.google.android.material.tabs.TabLayout>
 
-        <android.support.v4.view.ViewPager
+        <androidx.viewpager.widget.ViewPager
             android:id="@+id/viewPager"
             android:layout_width="match_parent"
             android:layout_height="240dp">
-        </android.support.v4.view.ViewPager>
+        </androidx.viewpager.widget.ViewPager>
 
 
         <View

@@ -2,7 +2,6 @@ package net.seismos.android.seismos.ui.home;
 
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
-import android.support.v4.app.Fragment;
 
 public class HomePresenter implements HomeContract.Presenter {
 

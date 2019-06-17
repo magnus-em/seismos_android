@@ -1,10 +1,10 @@
 package net.seismos.android.seismos.ui.profile;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.support.v7.preference.PreferenceFragmentCompat;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.preference.PreferenceFragmentCompat;
 
 
 import net.seismos.android.seismos.R;

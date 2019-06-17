@@ -2,8 +2,8 @@ package net.seismos.android.seismos.ui.home;
 
 import android.animation.ValueAnimator;
 import android.annotation.SuppressLint;
-import android.arch.lifecycle.Observer;
-import android.arch.lifecycle.ViewModelProviders;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.LinearGradient;
@@ -14,19 +14,18 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
-import android.util.Log;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.tabs.TabLayout;
+import androidx.fragment.app.Fragment;
+import androidx.viewpager.widget.ViewPager;
+
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.HorizontalScrollView;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.BarChart;
@@ -49,9 +48,7 @@ import net.seismos.android.seismos.util.ResUtil;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 
 public class HomeFragment extends Fragment implements HomeContract.View ,
@@ -506,7 +503,7 @@ public class HomeFragment extends Fragment implements HomeContract.View ,
         mChart2.setViewPortOffsets(0, 0, 0, 0);
 
         CustomBarChartRender2 barChartRender2 = new CustomBarChartRender2(mChart2,mChart2.getAnimator(), mChart2.getViewPortHandler());
-        barChartRender2.setRadius(15);
+        barChartRender2.setRadius(10);
         mChart2.setRenderer(barChartRender2);
 
 
@@ -540,7 +537,7 @@ public class HomeFragment extends Fragment implements HomeContract.View ,
         mChart.setViewPortOffsets(0, 0, 0, 0);
 
         CustomBarChartRender barChartRender = new CustomBarChartRender(mChart,mChart.getAnimator(), mChart.getViewPortHandler());
-        barChartRender.setRadius(15);
+        barChartRender.setRadius(10);
         mChart.setRenderer(barChartRender);
 
 
@@ -668,7 +665,7 @@ public class HomeFragment extends Fragment implements HomeContract.View ,
 
 
 
-            entryval += 0.3;
+            entryval += 0.2;
 
             data.setBarWidth(0.5f);
             data.addEntry(new BarEntry(set.getEntryCount(), entryval), 0);

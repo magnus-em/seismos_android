@@ -7,24 +7,21 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
-import android.support.annotation.NonNull;
-import android.support.v4.app.NotificationCompat;
-import android.support.v4.app.NotificationManagerCompat;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.preference.PreferenceManager;
+import androidx.annotation.NonNull;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
+import androidx.core.content.ContextCompat;
+import androidx.preference.PreferenceManager;
 import android.util.Log;
 
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 
 import net.seismos.android.seismos.R;
-import net.seismos.android.seismos.data.local.DayUpdateDB;
 import net.seismos.android.seismos.data.local.DayUpdateDBAccessor;
 import net.seismos.android.seismos.data.local.EarthquakeDatabaseAccessor;
-import net.seismos.android.seismos.data.local.SignificantEqDBAccessor;
 import net.seismos.android.seismos.data.model.Earthquake;
 import net.seismos.android.seismos.global.Preferences;
-import net.seismos.android.seismos.ui.global.DashActivity;
 import net.seismos.android.seismos.ui.map.EqDetailsActivity;
 
 import org.json.JSONArray;

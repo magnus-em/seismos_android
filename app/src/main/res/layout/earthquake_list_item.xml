@@ -14,7 +14,7 @@
             type="java.text.NumberFormat"/>
     </data>
 
-<android.support.constraint.ConstraintLayout
+<androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:visibility="visible"
@@ -174,5 +174,5 @@
         app:layout_constraintStart_toEndOf="@id/detectedByCount"
         app:layout_constraintTop_toTopOf="@id/detectedByCount" />
 
-</android.support.constraint.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

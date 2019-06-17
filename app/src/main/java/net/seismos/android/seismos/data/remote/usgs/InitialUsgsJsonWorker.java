@@ -1,7 +1,7 @@
 package net.seismos.android.seismos.data.remote.usgs;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import android.util.Log;
 
 import net.seismos.android.seismos.R;
@@ -21,7 +21,6 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-import androidx.work.Data;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 

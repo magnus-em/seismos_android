@@ -1,6 +1,6 @@
 package net.seismos.android.seismos.ui.map;
 
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,8 +10,6 @@ import net.seismos.android.seismos.R;
 import net.seismos.android.seismos.data.model.Earthquake;
 import net.seismos.android.seismos.databinding.EarthquakeListItemBinding;
 import net.seismos.android.seismos.util.ResUtil;
-
-import org.w3c.dom.Text;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;

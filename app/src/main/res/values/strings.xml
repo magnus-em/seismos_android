@@ -2,7 +2,6 @@
     <string name="app_name">Seismos</string>
 
 
-
     <string name="nav_title_home">Home</string>
     <string name="nav_title_map">Map</string>
     <string name="nav_title_seismos">Seismos</string>
@@ -10,23 +9,22 @@
     <string name="nav_title_profile">Profile</string>
 
 
-
     <string name="google_maps_key">AIzaSyB_whHGSt8caGBKHkNNVBXGg5VSHI79MnM</string>
 
 
     <string name="earthquake_feed">https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/2.5_week.atom</string>
-    
+
     <string name="earthquake_json_feed_45_day">https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/4.5_day.geojson</string>
 
     <string name="earthquake_json_feed_sig_month">https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/significant_month.geojson</string>
 
     <string name="earthquake_json_feed_all_month">https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_month.geojson</string>
-    
+
     <string name="earthquake_channel_name">Global earthquakes</string>
 
     <string name="recent_eq_description">Recent Earthquakes</string>
     <string name="see_all_recent_eq_description">SEE ALL</string>
-    
+
     <string name="alert_earthquake_incoming">INCOMING EARTHQUAKE</string>
     <string name="alert_share">SHARE ALERT</string>
     <string name="alert_magnitude">MAGNITUDE</string>
@@ -38,6 +36,9 @@
     <string name="alerts">Alerts</string>
     <string name="friendsandfamily">Friends and Family</string>
     <string name="custom_eq_alert_zones">Custom earthquake alert zones</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
 </resources>

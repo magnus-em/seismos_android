@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 
-    <android.support.v4.widget.NestedScrollView
+    <androidx.core.widget.NestedScrollView
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
@@ -14,13 +14,13 @@
             android:layout_height="wrap_content"
             android:orientation="vertical" >
 
-            <android.support.design.widget.AppBarLayout
+            <com.google.android.material.appbar.AppBarLayout
                 android:id="@+id/appBarLayout2"
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
                 android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
-                <android.support.v7.widget.Toolbar
+                <androidx.appcompat.widget.Toolbar
                     android:id="@+id/eq_details_toolbar"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -38,9 +38,9 @@
                         android:textSize="22sp" />
 
 
-                </android.support.v7.widget.Toolbar>
+                </androidx.appcompat.widget.Toolbar>
 
-            </android.support.design.widget.AppBarLayout>
+            </com.google.android.material.appbar.AppBarLayout>
 
             <fragment
                 android:id="@+id/mapfrag"
@@ -48,7 +48,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="400dp" />
 
-            <android.support.constraint.ConstraintLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
@@ -326,12 +326,12 @@
                     app:layout_constraintStart_toEndOf="@+id/liquefactionStatusImg" />
 
 
-            </android.support.constraint.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 
 
 
         </LinearLayout>
-    </android.support.v4.widget.NestedScrollView>
+    </androidx.core.widget.NestedScrollView>
 

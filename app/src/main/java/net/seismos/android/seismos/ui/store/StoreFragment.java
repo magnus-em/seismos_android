@@ -2,20 +2,15 @@ package net.seismos.android.seismos.ui.store;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
+import com.google.android.material.tabs.TabLayout;
+import androidx.fragment.app.Fragment;
+import androidx.viewpager.widget.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebView;
 import android.widget.TextView;
 
 import net.seismos.android.seismos.R;
-import net.seismos.android.seismos.ui.home.ChartFragmentToday;
-import net.seismos.android.seismos.ui.home.ChartFragmentWeek;
-import net.seismos.android.seismos.ui.home.ChartTabAdapter;
-import net.seismos.android.seismos.ui.map.EqDetailsActivity;
 
 public class StoreFragment extends Fragment implements StoreContract.View {
 
