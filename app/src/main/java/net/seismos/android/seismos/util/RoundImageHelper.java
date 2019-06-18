@@ -9,8 +9,26 @@ import android.graphics.RectF;
 import android.graphics.Bitmap.Config;
 import android.graphics.PorterDuff.Mode;
 
-public class ImageHelper {
+import com.squareup.picasso.Transformation;
+
+public class RoundImageHelper implements Transformation {
+
+    // implementing Transformation so that this class can be passed
+    // as an object to Picasso for really easy image loading and transformation
+    // 60 px creates a circular image for the profile profileImage, which is 120 across
+
+    @Override
+    public Bitmap transform(Bitmap source) {
+        return getRoundedCornerBitmap(source, 60);
+    }
+
+    @Override
+    public String key() {
+        return "roundCorners()";
+    }
+
     public static Bitmap getRoundedCornerBitmap(Bitmap bitmap, int pixels) {
+
         Bitmap output = Bitmap.createBitmap(bitmap.getWidth(), bitmap
                 .getHeight(), Config.ARGB_8888);
         Canvas canvas = new Canvas(output);
@@ -28,6 +46,8 @@ public class ImageHelper {
 
         paint.setXfermode(new PorterDuffXfermode(Mode.SRC_IN));
         canvas.drawBitmap(bitmap, rect, rect, paint);
+
+        bitmap.recycle();
 
         return output;
     }

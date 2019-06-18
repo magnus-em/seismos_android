@@ -1,6 +1,6 @@
 package net.seismos.android.seismos.data.model;
 
-import com.google.firebase.Timestamp;
+
 
 public class Article {
 

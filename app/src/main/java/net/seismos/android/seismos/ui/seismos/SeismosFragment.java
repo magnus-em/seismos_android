@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -34,14 +35,17 @@ public class SeismosFragment extends Fragment implements SeismosContract.View,
 
     private static final String TAG = "SeismosFragment";
 
-
-    RecyclerView recyclerView;
     NewsRecyclerViewAdapter recyclerViewAdapter;
     ArrayList<String> rowsArrayList = new ArrayList<>();
+
+    FirebaseFirestore db;
 
     boolean isLoading = false;
 
     final ArrayList<Article> articles = new ArrayList<>();
+
+
+    RecyclerView recyclerView;
 
 
     public SeismosFragment() {} // Required empty public constructor
@@ -50,20 +54,13 @@ public class SeismosFragment extends Fragment implements SeismosContract.View,
         return new SeismosFragment();
     }
 
-    @SuppressLint("ClickableViewAccessibility")
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_seismos, container, false);
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
-        recyclerView = root.findViewById(R.id.recyclerView);
+        Log.d(TAG, "onCreate called");
 
-
-
-
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-
-
+        db = FirebaseFirestore.getInstance();
 
         db.collection("articles")
                 .orderBy("entry", Query.Direction.DESCENDING)
@@ -76,16 +73,38 @@ public class SeismosFragment extends Fragment implements SeismosContract.View,
                             Log.d(TAG, "article title: " + document.get("title"));
 
                         }
+
+                        // only begin initialization of the recyclerView and everything once
+                        // the firestore query returns
+
                         initAdapter();
                         initScrollListener();
                     }
                 });
 
+    }
 
-        ImageView projectSeismos = root.findViewById(R.id.projectSeismos);
-        ImageView networkStatus = root.findViewById(R.id.networkStatus);
-        ImageView eqSafety = root.findViewById(R.id.earthquakeSafety);
-        ImageView dyfi = root.findViewById(R.id.didYouFeelIt);
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View root = inflater.inflate(R.layout.fragment_seismos, container, false);
+
+        recyclerView = root.findViewById(R.id.recyclerView);
+        return root;
+    }
+
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+
+
+        ImageView projectSeismos = view.findViewById(R.id.projectSeismos);
+        ImageView networkStatus = view.findViewById(R.id.networkStatus);
+        ImageView eqSafety = view.findViewById(R.id.earthquakeSafety);
+        ImageView dyfi = view.findViewById(R.id.didYouFeelIt);
 
         setupImageButton(projectSeismos);
         setupImageButton(networkStatus);
@@ -120,11 +139,8 @@ public class SeismosFragment extends Fragment implements SeismosContract.View,
                 startActivity(new Intent(getActivity(), ProjectSeismosActivity.class));
             }
         });
-
-
-
-        return root;
     }
+
 
     @SuppressLint("ClickableViewAccessibility")
     private void setupImageButton(ImageView button) {

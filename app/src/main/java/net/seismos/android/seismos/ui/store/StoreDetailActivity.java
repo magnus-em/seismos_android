@@ -6,10 +6,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import net.seismos.android.seismos.R;
 
 public class StoreDetailActivity extends AppCompatActivity {
+
+    public static final String ID = "id";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -31,6 +34,13 @@ public class StoreDetailActivity extends AppCompatActivity {
                 unlock.setVisibility(View.GONE);
             }
         });
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        TextView title = findViewById(R.id.title);
+        title.setText(getIntent().getStringExtra(ID));
     }
 
     @Override

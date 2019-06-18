@@ -1,5 +1,6 @@
 package net.seismos.android.seismos.ui.profile;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.LinearGradient;
 import android.graphics.Paint;
@@ -16,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.firebase.ui.auth.AuthUI;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
@@ -25,10 +27,18 @@ import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.LargeValueFormatter;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.android.material.chip.Chip;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.squareup.picasso.Picasso;
 
 import net.seismos.android.seismos.R;
+import net.seismos.android.seismos.ui.global.LauncherActivity;
+import net.seismos.android.seismos.util.RoundImageHelper;
 
 import java.util.ArrayList;
 
@@ -54,22 +64,7 @@ public class ProfileFragment extends Fragment implements ProfileContract.View
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
-        View root = inflater.inflate(R.layout.fragment_profile, container, false);
-
-        mChart =  root.findViewById(R.id.chart1);
-        seiCount = root.findViewById(R.id.seiEarnedCount);
-
-        ((TextView)root.findViewById(R.id.profileTitle)).setText(
-                FirebaseAuth.getInstance().getCurrentUser().getDisplayName()
-
-        );
-
-
-
-
-
-        return root;
+        return inflater.inflate(R.layout.fragment_profile, container, false);
     }
 
 
@@ -78,7 +73,54 @@ public class ProfileFragment extends Fragment implements ProfileContract.View
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        Picasso.get().load("http://i.imgur.com/DvpvklR.png").into((ImageView)view.findViewById(R.id.profileImage));
+        mChart =  view.findViewById(R.id.chart1);
+        seiCount = view.findViewById(R.id.seiEarnedCount);
+
+        ((TextView)view.findViewById(R.id.profileTitle)).setText(
+                FirebaseAuth.getInstance().getCurrentUser().getDisplayName()
+
+        );
+
+        Chip editProfile = view.findViewById(R.id.editProfileButton);
+        editProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AuthUI.getInstance().signOut(getContext())
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        startActivity(new Intent(getActivity(), LauncherActivity.class));
+                        getActivity().finish();
+                    }
+                });
+            }
+        });
+
+        final ImageView profileImage = view.findViewById(R.id.profileImage);
+
+        final TextView email = view.findViewById(R.id.memberSinceText);
+
+        FirebaseFirestore fb = FirebaseFirestore.getInstance();
+
+        fb.collection("users").document(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                .get()
+                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+
+                        if (documentSnapshot.get("photo")!= null) {
+                            Picasso.get()
+                                    .load((String)documentSnapshot.get("photo"))
+                                    .transform(new RoundImageHelper())
+                                    .into(profileImage);
+
+                        email.setText((String)documentSnapshot.get("email"));
+
+                            Log.d(TAG, "IMAGE LOADED");
+
+                        }
+                    }
+                });
 
 
 

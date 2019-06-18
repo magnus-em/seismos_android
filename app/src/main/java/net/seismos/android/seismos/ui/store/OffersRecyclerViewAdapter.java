@@ -6,10 +6,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 import net.seismos.android.seismos.R;
+import net.seismos.android.seismos.data.model.Offer;
 import net.seismos.android.seismos.util.ResUtil;
 
+import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 public class OffersRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -19,25 +25,38 @@ public class OffersRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView
     private final int VIEW_TYPE_BOOST50 = 2;
     private final int VIEW_TYPE_BOOST150 = 3;
 
-    public List<String> mItemList;
+
+     ArrayList<Offer> offers;
+
+     OfferClickListener listener;
+
+     public interface OfferClickListener {
+         void onOfferClicked(String Id);
+     }
 
 
-    public OffersRecyclerViewAdapter(List<String> itemList) {
-        mItemList = itemList;
+    public OffersRecyclerViewAdapter(ArrayList<Offer> offers, OfferClickListener listener) {
+        this.offers = offers;
+        this.listener = listener;
     }
+
+    // for future use – to throw in other types of views like streak and sharing views
 
     @Override
     public int getItemViewType(int position) {
-        if (mItemList.get(position) == null) return VIEW_TYPE_LOADING;
-        if (mItemList.get(position).equalsIgnoreCase("offer")) {
-            return VIEW_TYPE_OFFER;
-        } else if (mItemList.get(position).equalsIgnoreCase("boost50")) {
-            return VIEW_TYPE_BOOST50;
-        } else if (mItemList.get(position).equalsIgnoreCase("boost100")) {
-            return VIEW_TYPE_BOOST150;
-        } else {
-            return VIEW_TYPE_LOADING;
-        }
+        return VIEW_TYPE_OFFER;
+        // recreate this logic without using the deleted itemList, base it off offers
+
+//        if (itemList.get(position) == null) return VIEW_TYPE_LOADING;
+//        if (itemList.get(position).equalsIgnoreCase("offer")) {
+//            return VIEW_TYPE_OFFER;
+//        } else if (itemList.get(position).equalsIgnoreCase("boost50")) {
+//            return VIEW_TYPE_BOOST50;
+//        } else if (itemList.get(position).equalsIgnoreCase("boost100")) {
+//            return VIEW_TYPE_BOOST150;
+//        } else {
+//            return VIEW_TYPE_LOADING;
+//        }
     }
 
 
@@ -70,26 +89,47 @@ public class OffersRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView
 
     @Override
     public int getItemCount() {
-        return mItemList == null ? 0 : mItemList.size();
+        return offers == null ? 0 : offers.size();
     }
 
     private class OfferViewHolder extends RecyclerView.ViewHolder {
         ImageView image;
+        TextView title;
+        TextView creator;
+        TextView subtitle;
+        TextView avail;
+        TextView price;
+        TextView details;
 
         public OfferViewHolder(@NonNull View itemView) {
             super(itemView);
             image = itemView.findViewById(R.id.titleImage);
+            title = itemView.findViewById(R.id.articleTitle);
+            creator = itemView.findViewById(R.id.publisherText);
+            price = itemView.findViewById(R.id.priceText);
+
         }
     }
 
-    private void populateOffer(OfferViewHolder viewHolder, int position) {
-        if (position%2==0) {
-            viewHolder.image.setImageDrawable(ResUtil.getInstance().getDrawable(R.drawable.offers_iphone));
-        } else if (position%3==0) {
-            viewHolder.image.setImageDrawable(ResUtil.getInstance().getDrawable(R.drawable.offers_airpods));
-        } else {
-            viewHolder.image.setImageDrawable(ResUtil.getInstance().getDrawable(R.drawable.disaster));
-        }
+    private void populateOffer(OfferViewHolder viewHolder, final int position) {
+
+        DecimalFormat formatter = new DecimalFormat("#,###");
+
+        viewHolder.title.setText(offers.get(position).getTitle());
+        viewHolder.price.setText(formatter.format(offers.get(position).getPrice()));
+        viewHolder.creator.setText(offers.get(position).getCreator());
+
+        Picasso.get()
+                .load(offers.get(position).getPhoto())
+                .into(viewHolder.image);
+
+        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.onOfferClicked(offers.get(position).getId());
+            }
+        });
+
     }
 
 }

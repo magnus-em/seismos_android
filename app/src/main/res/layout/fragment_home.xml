@@ -452,7 +452,7 @@
 
 
             <com.google.android.material.chip.Chip
-                android:id="@+id/emailButton"
+                android:id="@+id/editProfileButton"
                 android:layout_width="130dp"
                 android:layout_height="48dp"
                 android:fontFamily="@font/sfproregular"

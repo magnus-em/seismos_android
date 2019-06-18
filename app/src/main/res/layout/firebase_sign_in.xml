@@ -21,7 +21,7 @@
         app:srcCompat="@drawable/launcher_logo" />
 
     <com.google.android.material.chip.Chip
-        android:id="@+id/emailButton"
+        android:id="@+id/editProfileButton"
         android:layout_width="wrap_content"
         android:layout_height="48dp"
         android:layout_marginStart="8dp"
@@ -87,7 +87,7 @@
         android:text="- or -"
         android:textColor="@color/offWhite"
         android:textSize="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/emailButton"
+        app:layout_constraintBottom_toTopOf="@+id/editProfileButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 

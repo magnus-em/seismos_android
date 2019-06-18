@@ -405,7 +405,7 @@ public class HomeFragment extends Fragment implements HomeContract.View ,
          });
 
 
-         root.findViewById(R.id.emailButton).setOnClickListener(new View.OnClickListener() {
+         root.findViewById(R.id.editProfileButton).setOnClickListener(new View.OnClickListener() {
              @Override
              public void onClick(View v) {
                  Intent intent = new Intent(getContext(), ScheduleActivity.class);
