@@ -8,6 +8,15 @@ public class User {
     private String phone;
     private String email;
     private String provider;
+    private int balance;
+
+    public int getBalance() {
+        return balance;
+    }
+
+    public void setBalance(int balance) {
+        this.balance = balance;
+    }
 
     public String getProvider() {
         return provider;

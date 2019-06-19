@@ -5,8 +5,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import net.seismos.android.seismos.R;
+import net.seismos.android.seismos.data.model.Offer;
 import net.seismos.android.seismos.util.ResUtil;
 
 import java.util.ArrayList;
@@ -15,25 +17,24 @@ public class CollectionRecyclerViewAdapter extends RecyclerView.Adapter<ViewHold
     private final int VIEW_TYPE_IPHONE = 1;
     private final int VIEW_TYPE_AIRPODS = 2;
 
-    ArrayList<String> demoList;
+    ArrayList<Offer> offers;
 
-    public CollectionRecyclerViewAdapter(ArrayList<String> list) {
-        demoList = list;
+    OfferClickListener listener;
+
+    public interface OfferClickListener {
+        void onOfferClicked(String id);
     }
 
-    @Override
-    public int getItemViewType(int position) {
-        String entry = demoList.get(position);
-        if (entry.equalsIgnoreCase("even")) {
-            return VIEW_TYPE_IPHONE;
-        } else {
-            return VIEW_TYPE_AIRPODS;
-        }
+    public CollectionRecyclerViewAdapter(ArrayList<Offer> offers,
+                                         CollectionRecyclerViewAdapter.OfferClickListener listener) {
+        this.offers = offers;
+        this.listener = listener;
     }
+
 
     @Override
     public int getItemCount() {
-        return demoList.size();
+        return offers.size();
     }
 
     @Override
@@ -44,7 +45,18 @@ public class CollectionRecyclerViewAdapter extends RecyclerView.Adapter<ViewHold
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder viewHolder, int position) {
+    public void onBindViewHolder(ViewHolder viewHolder, final int position) {
+
+        viewHolder.title.setText(offers.get(position).getTitle());
+        viewHolder.creator.setText(offers.get(position).getCreator());
+
+        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.onOfferClicked(offers.get(position).getId());
+            }
+        });
+
         if (position%2==0) {
             viewHolder.titleImage.setImageDrawable(ResUtil.getInstance().getDrawable(R.drawable.iphone_square));
         } else {
@@ -54,9 +66,16 @@ public class CollectionRecyclerViewAdapter extends RecyclerView.Adapter<ViewHold
 
 }
  class ViewHolder extends RecyclerView.ViewHolder {
+    TextView title;
+    TextView creator;
+    TextView validUntil;
+
     ImageView titleImage;
     public ViewHolder(View view) {
         super(view);
         titleImage = view.findViewById(R.id.titleImage);
+        title = view.findViewById(R.id.title);
+        creator = view.findViewById(R.id.creator);
+        validUntil = view.findViewById(R.id.validUntil);
     }
 }

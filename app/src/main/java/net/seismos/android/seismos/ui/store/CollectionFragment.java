@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import net.seismos.android.seismos.R;
+import net.seismos.android.seismos.data.model.Offer;
 
 import java.util.ArrayList;
 
@@ -18,6 +19,15 @@ public class CollectionFragment extends Fragment {
 
     // for demo
     ArrayList<String> rowsArrayList = new ArrayList<>();
+
+    ArrayList<Offer> offers;
+
+    CollectionRecyclerViewAdapter.OfferClickListener listener;
+
+    CollectionFragment(CollectionRecyclerViewAdapter.OfferClickListener listener) {
+        this.listener = listener;
+    }
+
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -35,12 +45,12 @@ public class CollectionFragment extends Fragment {
                 rowsArrayList.add("odd");
             }
         }
-
-        recyclerViewAdapter = new CollectionRecyclerViewAdapter(rowsArrayList);
-        recyclerView.setAdapter(recyclerViewAdapter);
-
     }
 
-
-
+    protected void populateData(ArrayList<Offer> offerList) {
+        offers = offerList;
+        recyclerViewAdapter = new CollectionRecyclerViewAdapter(offers, listener);
+        recyclerView.setAdapter(recyclerViewAdapter);
+        recyclerViewAdapter.notifyDataSetChanged();
+    }
 }
