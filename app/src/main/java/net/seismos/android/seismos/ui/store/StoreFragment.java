@@ -3,13 +3,15 @@ package net.seismos.android.seismos.ui.store;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.firebase.ui.auth.AuthUI;
+
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -26,7 +28,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import net.seismos.android.seismos.R;
-import net.seismos.android.seismos.data.model.Article;
 import net.seismos.android.seismos.data.model.Offer;
 
 import java.util.ArrayList;
@@ -36,21 +37,17 @@ public class StoreFragment extends Fragment implements StoreContract.View,
                             CollectionRecyclerViewAdapter.OfferClickListener {
     private static final String TAG = "StoreFragment";
 
-    private StoreTabAdapter storeTabAdapter;
-    private TabLayout tabLayout;
-    private ViewPager viewPager;
-
     private OffersFragment offersFragment;
     private CollectionFragment collectionFragment;
 
+    private FirebaseFirestore db;
 
-    private boolean offersLoaded = false;
+    final private ArrayList<Offer> offers = new ArrayList<>();
+    final private ArrayList<Offer> bought = new ArrayList<>();
 
+    private boolean initial = true;
 
-    FirebaseFirestore db;
-
-    final ArrayList<Offer> offers = new ArrayList<>();
-    final ArrayList<Offer> bought = new ArrayList<>();
+    StoreTabAdapter storeTabAdapter;
 
 
     public StoreFragment() {} // required empty public constructor
@@ -67,36 +64,57 @@ public class StoreFragment extends Fragment implements StoreContract.View,
 
         db.collection("globalstore")
                 .orderBy("entry", Query.Direction.DESCENDING)
-                .get()
-                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override
-                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                        for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
-                            Offer offer = document.toObject(Offer.class);
-                            String id = document.getId();
-                            id = id.replaceAll("\\s","");
-                            offer.setId(id);
-                            offers.add(offer);
+                    public void onEvent(QuerySnapshot queryDocumentSnapshots,
+                                        FirebaseFirestoreException e) {
+                        if (e != null) {
+                            Log.d(TAG, "Listen failed: ", e);
+                            return;
                         }
-                        // only begin initialization of the recyclerView and everything once
-                        // the firestore query returns
-                        populateOffers();
+
+                        if (queryDocumentSnapshots != null) {
+                            for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
+                                Offer offer = document.toObject(Offer.class);
+                                String id = document.getId();
+                                id = id.replaceAll("\\s", "");
+                                offer.setId(id);
+                                offers.add(offer);
+
+                                String source =queryDocumentSnapshots.getMetadata().hasPendingWrites()
+                                        ? "Local" : "Server";
+
+                                Log.d(TAG, "SOURCE: " + source);
+
+                            }
+
+                            if (initial) {
+                                populateOffers();
+                                initial = false;
+                            } else {
+                                storeTabAdapter.notifyDataSetChanged(); // this might only do the tab adapter and not the fragment's adapters underneath
+                            }
+                        }
+
 
                     }
                 });
+
+
+
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull  LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_store, container, false);
+            return inflater.inflate(R.layout.fragment_store, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        tabLayout = view.findViewById(R.id.tabLayout);
-        viewPager = view.findViewById(R.id.viewPager);
+        TabLayout tabLayout = view.findViewById(R.id.tabLayout);
+        ViewPager viewPager = view.findViewById(R.id.viewPager);
 
         offersFragment = new OffersFragment(this);
         collectionFragment = new CollectionFragment(this);
@@ -118,12 +136,10 @@ public class StoreFragment extends Fragment implements StoreContract.View,
             }
         });
 
-         db.collection("users").document(FirebaseAuth.getInstance().getUid())
-                .get()
-                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+        db.collection("users").document(FirebaseAuth.getInstance().getUid())
+                .addSnapshotListener(new EventListener<DocumentSnapshot>() {
                     @Override
-                    public void onSuccess(DocumentSnapshot documentSnapshot) {
-                        Log.d(TAG, "GOT BALANCE: " + (long)documentSnapshot.get("balance"));
+                    public void onEvent(@javax.annotation.Nullable DocumentSnapshot documentSnapshot, @javax.annotation.Nullable FirebaseFirestoreException e) {
                         balance.setText(Long.toString((long)documentSnapshot.get("balance")));
                     }
                 });
@@ -133,12 +149,13 @@ public class StoreFragment extends Fragment implements StoreContract.View,
 
     private void populateOffers() {
         offersFragment.populateData(offers);
+
         db.collection("users").document(FirebaseAuth.getInstance().getUid())
                 .collection("bought")
-                .get()
-                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override
-                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                    public void onEvent(QuerySnapshot queryDocumentSnapshots,
+                                        FirebaseFirestoreException e) {
                         Log.d(TAG, "Successfully got BOUGHT offers");
                         for (DocumentSnapshot doc : queryDocumentSnapshots) {
                             Offer offer = new Offer();
@@ -148,16 +165,34 @@ public class StoreFragment extends Fragment implements StoreContract.View,
                             offer.setKey((String)doc.get("key"));
                             bought.add(offer);
                         }
-
-
                         populateCollection();
                     }
-                }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Log.d(TAG, "Failure to get bought offers: " + e.toString());
-            }
-        });
+                });
+
+
+//        db.collection("users").document(FirebaseAuth.getInstance().getUid())
+//                .collection("bought")
+//                .get()
+//                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+//                    @Override
+//                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+//                        Log.d(TAG, "Successfully got BOUGHT offers");
+//                        for (DocumentSnapshot doc : queryDocumentSnapshots) {
+//                            Offer offer = new Offer();
+//                            String id = doc.getId();
+//                            id = id.replaceAll("\\s","");
+//                            offer.setId(id);
+//                            offer.setKey((String)doc.get("key"));
+//                            bought.add(offer);
+//                        }
+//                        populateCollection();
+//                    }
+//                }).addOnFailureListener(new OnFailureListener() {
+//            @Override
+//            public void onFailure(@NonNull Exception e) {
+//                Log.d(TAG, "Failure to get bought offers: " + e.toString());
+//            }
+//        });
     }
 
     private void populateCollection() {
@@ -182,9 +217,6 @@ public class StoreFragment extends Fragment implements StoreContract.View,
             }
         }
 
-        for (Offer offer : bought) {
-            Log.d(TAG, "Bought titles: " + offer.getTitle());
-        }
         collectionFragment.populateData(bought);
     }
 
@@ -197,14 +229,11 @@ public class StoreFragment extends Fragment implements StoreContract.View,
     }
 
 
-
     @Override
     public void showSomething() {
-
     }
 
     @Override
     public void setPresenter(StoreContract.Presenter presenter) {
-
     }
 }

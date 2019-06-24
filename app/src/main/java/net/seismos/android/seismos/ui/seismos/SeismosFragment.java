@@ -18,7 +18,11 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -35,7 +39,7 @@ public class SeismosFragment extends Fragment implements SeismosContract.View,
 
     private static final String TAG = "SeismosFragment";
 
-    NewsRecyclerViewAdapter recyclerViewAdapter;
+
     ArrayList<String> rowsArrayList = new ArrayList<>();
 
     FirebaseFirestore db;
@@ -44,8 +48,10 @@ public class SeismosFragment extends Fragment implements SeismosContract.View,
 
     final ArrayList<Article> articles = new ArrayList<>();
 
-
     RecyclerView recyclerView;
+    NewsRecyclerViewAdapter recyclerViewAdapter;
+
+    private boolean initial = true;
 
 
     public SeismosFragment() {} // Required empty public constructor
@@ -62,26 +68,34 @@ public class SeismosFragment extends Fragment implements SeismosContract.View,
 
         db = FirebaseFirestore.getInstance();
 
-        db.collection("articles")
-                .orderBy("entry", Query.Direction.DESCENDING)
-                .get()
-                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                    @Override
-                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                        for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
-                            articles.add(document.toObject(Article.class));
-                            Log.d(TAG, "article title: " + document.get("title"));
 
+        db.collection("articles").orderBy("entry", Query.Direction.DESCENDING)
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @Override
+                    public void onEvent(QuerySnapshot queryDocumentSnapshots,
+                                        FirebaseFirestoreException e) {
+                        if (e != null) {
+                            Log.d(TAG, "Listen failed.", e);
+                            return;
                         }
 
-                        // only begin initialization of the recyclerView and everything once
-                        // the firestore query returns
+                        if (queryDocumentSnapshots != null) {
+                            for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
+                                articles.add(document.toObject(Article.class));
+                                Log.d(TAG, "article title: " + document.get("title"));
+                            }
 
-                        initAdapter();
-                        initScrollListener();
+                            if (initial) {
+                                initAdapter();
+                                initScrollListener();
+                                initial = false;
+                            } else {
+                                recyclerViewAdapter.notifyDataSetChanged();
+                            }
+
+                        }
                     }
                 });
-
     }
 
 

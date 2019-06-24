@@ -95,6 +95,7 @@ public class LauncherActivity extends AppCompatActivity {
                 user.setPhone(firebaseUser.getPhoneNumber());
                 user.setProvider(firebaseUser.getProviderId());
 
+
                 users.document(firebaseUser.getUid()).set(user)
                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override

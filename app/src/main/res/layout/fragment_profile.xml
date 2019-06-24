@@ -142,13 +142,13 @@
             app:layout_constraintTop_toBottomOf="@+id/divider" />
 
         <TextView
-            android:id="@+id/seiEarnedCount"
+            android:id="@+id/earnedTotal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:layout_marginEnd="16dp"
             android:fontFamily="@font/sfproregular"
-            android:text="420,420"
+            android:text="0"
             android:textAlignment="textEnd"
             android:textColor="@color/offWhite"
             android:textSize="22dp"

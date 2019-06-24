@@ -23,6 +23,16 @@ public class EarthquakeViewModel extends AndroidViewModel {
     private LiveData<List<Earthquake>> earthquakes;
     private LiveData<List<Earthquake>> significantEqs;
 
+    public Earthquake getNotifiedEq() {
+        return notifiedEq;
+    }
+
+    public void setNotifiedEq(Earthquake notifiedEq) {
+        this.notifiedEq = notifiedEq;
+    }
+
+    private Earthquake notifiedEq;
+
     ArrayList<Earthquake> tempEqs = new ArrayList<>();
     public EarthquakeViewModel(Application application) {
         super(application);

@@ -21,6 +21,7 @@ import com.google.android.material.tabs.TabLayout;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -38,6 +39,11 @@ import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 
 
 import net.seismos.android.seismos.R;
@@ -57,6 +63,9 @@ public class HomeFragment extends Fragment implements HomeContract.View ,
     private static final String TAG = "HomeFragment";
     private static final int SCHEDULE_RESULT = 101;
 
+    FirebaseFirestore db;
+    private int earnedToday = 69;
+
     private HomeContract.Presenter mPresenter;
 
     OnEqGlobeSelectedListener listener;
@@ -75,8 +84,6 @@ public class HomeFragment extends Fragment implements HomeContract.View ,
     private boolean plotData = true;
 
     private boolean listening = false;
-
-
 
 
     private ChartTabAdapter chartTabAdapter;
@@ -151,6 +158,8 @@ public class HomeFragment extends Fragment implements HomeContract.View ,
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        db = FirebaseFirestore.getInstance();
+
     }
 
     @Override
@@ -162,7 +171,7 @@ public class HomeFragment extends Fragment implements HomeContract.View ,
         seiEarnedView = root.findViewById(R.id.seiEarnedView);
         HorizontalScrollView scrollView = root.findViewById(R.id.globeScrollView);
         scrollView.setHorizontalScrollBarEnabled(false);
-        root.findViewById(R.id.homeDailySeiCount).setOnClickListener(new View.OnClickListener() {
+        root.findViewById(R.id.earnedToday).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -186,12 +195,12 @@ public class HomeFragment extends Fragment implements HomeContract.View ,
             }
         });
 
-        final TextView seiCount = root.findViewById(R.id.homeDailySeiCount);
+        final TextView seiCount = root.findViewById(R.id.earnedToday);
 
 
         globes = new ArrayList<>();
 
-         globe1 = root.findViewById(R.id.EqGlobe1);
+        globe1 = root.findViewById(R.id.EqGlobe1);
         globe1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -437,6 +446,25 @@ public class HomeFragment extends Fragment implements HomeContract.View ,
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        final TextView earnedTodayText = view.findViewById(R.id.earnedToday);
+        db.collection("users").document(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                .addSnapshotListener(new EventListener<DocumentSnapshot>() {
+                    @Override
+                    public void onEvent(DocumentSnapshot documentSnapshot, FirebaseFirestoreException e) {
+                        if (e != null) {
+                            Log.d(TAG, "Firestore listen failed: ", e);
+                            return;
+                        }
+
+                        Double today = documentSnapshot.getDouble("earnedToday");
+                        if (today != null) {
+                            earnedToday  = today.intValue();
+                            earnedTodayText.setText(Integer.toString(earnedToday));
+                        }
+                    }
+                });
+
 
         mSensorManager = (SensorManager) getContext().getSystemService(Context.SENSOR_SERVICE);
         mAccelerometer = mSensorManager.getDefaultSensor(Sensor.TYPE_LINEAR_ACCELERATION);

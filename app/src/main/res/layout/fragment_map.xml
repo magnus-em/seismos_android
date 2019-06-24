@@ -52,11 +52,11 @@
         android:scaleType="centerCrop"
         android:translationX="-10dp"
         android:translationY="10dp"
+        app:borderWidth="0dp"
         app:elevation="0dp"
         app:fabSize="auto"
         app:layout_anchor="@+id/map"
         app:layout_anchorGravity="right|top"
-        app:rippleColor="@color/blueHighlight"
         app:srcCompat="@color/blueLight" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

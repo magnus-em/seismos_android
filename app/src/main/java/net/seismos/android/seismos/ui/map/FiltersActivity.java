@@ -4,19 +4,21 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import android.util.Log;
+
 import android.view.View;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Switch;
 import android.widget.TextView;
 
-import com.crystal.crystalrangeseekbar.interfaces.OnRangeSeekbarChangeListener;
-import com.crystal.crystalrangeseekbar.interfaces.OnRangeSeekbarFinalValueListener;
-import com.crystal.crystalrangeseekbar.widgets.CrystalRangeSeekbar;
+import com.crystal.crystalrangeseekbar.interfaces.OnSeekbarChangeListener;
+import com.crystal.crystalrangeseekbar.interfaces.OnSeekbarFinalValueListener;
+import com.crystal.crystalrangeseekbar.widgets.CrystalSeekbar;
 
 import net.seismos.android.seismos.R;
 import net.seismos.android.seismos.global.Preferences;
+
+import java.text.DecimalFormat;
 
 public class FiltersActivity extends AppCompatActivity {
     private static final String TAG = "FiltersActivity";
@@ -37,32 +39,29 @@ public class FiltersActivity extends AppCompatActivity {
 
         preferences = getSharedPreferences(Preferences.PREFERENCES, 0);
 
-        final CrystalRangeSeekbar rangeSeekbar = findViewById(R.id.seekbar);
-        final TextView minRange = findViewById(R.id.magRangeMin);
-        final TextView maxRange = findViewById(R.id.magRangeMax);
+        final CrystalSeekbar rangeSeekbar = findViewById(R.id.seekbar);
+        final TextView minRange = findViewById(R.id.minMag);
 
-        // change listener
-        rangeSeekbar.setOnRangeSeekbarChangeListener(new OnRangeSeekbarChangeListener() {
+
+
+        rangeSeekbar.setOnSeekbarChangeListener(new OnSeekbarChangeListener() {
             @Override
-            public void valueChanged(Number minValue, Number maxValue) {
-                minRange.setText(String.valueOf(minValue));
-                maxRange.setText(String.valueOf(maxValue));
+            public void valueChanged(Number value) {
+                DecimalFormat format = new DecimalFormat("#.#");
+                minRange.setText(format.format(value.doubleValue()));
             }
         });
 
-        // final value listener
-        rangeSeekbar.setOnRangeSeekbarFinalValueListener(new OnRangeSeekbarFinalValueListener() {
+        rangeSeekbar.setOnSeekbarFinalValueListener(new OnSeekbarFinalValueListener() {
             @Override
-            public void finalValue(Number minValue, Number maxValue) {
-                Log.d("filtersActivity", "max:" + maxValue.toString()+ " min" + minValue.toString());
+            public void finalValue(Number value) {
                 preferences.edit()
-                        .putString(Preferences.PREF_MIN_MAG, String.valueOf(minValue))
-                        .putString(Preferences.PREF_MAX_MAG, String.valueOf(maxValue))
+                        .putString(Preferences.PREF_MIN_MAG, String.valueOf(value))
                         .apply();
             }
         });
 
-        rangeSeekbar.setMaxStartValue(Float.parseFloat(preferences.getString(Preferences.PREF_MAX_MAG, "10")));
+
         rangeSeekbar.setMinStartValue(Float.parseFloat(preferences.getString(Preferences.PREF_MIN_MAG, "5")));
         rangeSeekbar.apply();
 

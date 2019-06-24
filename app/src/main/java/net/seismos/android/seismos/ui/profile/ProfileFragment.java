@@ -33,7 +33,9 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.chip.Chip;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.squareup.picasso.Picasso;
 
 import net.seismos.android.seismos.R;
@@ -50,7 +52,7 @@ public class ProfileFragment extends Fragment implements ProfileContract.View
 
 
     private LineChart mChart;
-    private TextView seiCount;
+    private TextView earnedTotal;
 
 
     public ProfileFragment() {}
@@ -73,13 +75,13 @@ public class ProfileFragment extends Fragment implements ProfileContract.View
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
         mChart =  view.findViewById(R.id.chart1);
-        seiCount = view.findViewById(R.id.seiEarnedCount);
+        earnedTotal = view.findViewById(R.id.earnedTotal);
 
         ((TextView)view.findViewById(R.id.profileTitle)).setText(
-                FirebaseAuth.getInstance().getCurrentUser().getDisplayName()
-
-        );
+                FirebaseAuth.getInstance().getCurrentUser().getDisplayName());
 
         Chip editProfile = view.findViewById(R.id.editProfileButton);
         editProfile.setOnClickListener(new View.OnClickListener() {
@@ -100,27 +102,50 @@ public class ProfileFragment extends Fragment implements ProfileContract.View
 
         final TextView email = view.findViewById(R.id.memberSinceText);
 
-        FirebaseFirestore fb = FirebaseFirestore.getInstance();
 
-        fb.collection("users").document(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                .get()
-                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+        db.collection("users").document(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                .addSnapshotListener(new EventListener<DocumentSnapshot>() {
                     @Override
-                    public void onSuccess(DocumentSnapshot documentSnapshot) {
-
+                    public void onEvent(DocumentSnapshot documentSnapshot, FirebaseFirestoreException e) {
                         if (documentSnapshot.get("photo")!= null) {
                             Picasso.get()
                                     .load((String)documentSnapshot.get("photo"))
                                     .transform(new RoundImageHelper())
                                     .into(profileImage);
-
+                            Log.d(TAG, "IMAGE LOADED");
+                        }
                         email.setText((String)documentSnapshot.get("email"));
 
-                            Log.d(TAG, "IMAGE LOADED");
-
+                        Double total = documentSnapshot.getDouble("earnedTotal");
+                        if (total != null) {
+                            int totalValue  = total.intValue();
+                            earnedTotal.setText(Integer.toString(totalValue));
                         }
+
                     }
                 });
+
+
+
+//        db.collection("users").document(FirebaseAuth.getInstance().getCurrentUser().getUid())
+//                .get()
+//                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+//                    @Override
+//                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+//
+//                        if (documentSnapshot.get("photo")!= null) {
+//                            Picasso.get()
+//                                    .load((String)documentSnapshot.get("photo"))
+//                                    .transform(new RoundImageHelper())
+//                                    .into(profileImage);
+//
+//                        email.setText((String)documentSnapshot.get("email"));
+//
+//                            Log.d(TAG, "IMAGE LOADED");
+//
+//                        }
+//                    }
+//                });
 
 
 
@@ -232,12 +257,12 @@ public class ProfileFragment extends Fragment implements ProfileContract.View
             mChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
                 @Override
                 public void onValueSelected(Entry e, Highlight h) {
-                    seiCount.setText(Integer.toString( (int) e.getY()));
+                    earnedTotal.setText(Integer.toString( (int) e.getY()));
                 }
 
                 @Override
                 public void onNothingSelected() {
-                    seiCount.setText("420,420");
+                    earnedTotal.setText("420,420");
                 }
             });
 

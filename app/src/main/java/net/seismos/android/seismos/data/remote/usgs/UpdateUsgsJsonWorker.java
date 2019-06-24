@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.preference.PreferenceManager;
 import android.util.Log;
 
@@ -18,8 +19,10 @@ import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 
 import net.seismos.android.seismos.R;
+import net.seismos.android.seismos.data.local.DayUpdateDB;
 import net.seismos.android.seismos.data.local.DayUpdateDBAccessor;
 import net.seismos.android.seismos.data.local.EarthquakeDatabaseAccessor;
+import net.seismos.android.seismos.data.local.EarthquakeViewModel;
 import net.seismos.android.seismos.data.model.Earthquake;
 import net.seismos.android.seismos.global.Preferences;
 import net.seismos.android.seismos.ui.map.EqDetailsActivity;
@@ -54,25 +57,26 @@ public class UpdateUsgsJsonWorker extends Worker {
        List<Earthquake> earthquakes;
 
         try {
-
             // for purposes of quick loading when first opening the app
-            newEqs = fetchEqs(getApplicationContext().getString(R.string.earthquake_json_feed_45_day));
+            newEqs = fetchEqs(getApplicationContext().getString(R.string.earthquake_json_feed_sig_month));
 
-            earthquakes = EarthquakeDatabaseAccessor
+            earthquakes = DayUpdateDBAccessor
                     .getInstance(getApplicationContext())
                     .earthquakeDAO()
                     .loadAllEarthquakesBlocking();
 
+
             Earthquake largestNewEarthquake = null;
 
-            for (Earthquake earthquake : newEqs) {
-                if (earthquakes.contains(earthquake)) {
+
+            for (Earthquake newEq : newEqs) {
+                if (earthquakes.contains(newEq)) {
                     continue;
                 }
                 if (largestNewEarthquake == null ||
-                        earthquake.getMagnitude() >
+                        newEq.getMagnitude() >
                                 largestNewEarthquake.getMagnitude()) {
-                    largestNewEarthquake = earthquake;
+                    largestNewEarthquake = newEq;
                 }
             }
 

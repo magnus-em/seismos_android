@@ -9,6 +9,24 @@ public class User {
     private String email;
     private String provider;
     private int balance;
+    private int earnedToday;
+    private int earnedTotal;
+
+    public int getEarnedToday() {
+        return earnedToday;
+    }
+
+    public void setEarnedToday(int earnedToday) {
+        this.earnedToday = earnedToday;
+    }
+
+    public int getEarnedTotal() {
+        return earnedTotal;
+    }
+
+    public void setEarnedTotal(int earnedTotal) {
+        this.earnedTotal = earnedTotal;
+    }
 
     public int getBalance() {
         return balance;
