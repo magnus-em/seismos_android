@@ -63,6 +63,7 @@ public class SeismosFragment extends Fragment implements SeismosContract.View,
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d("NAVDEBUG", "onCreate called in SeismosFragment");
 
         Log.d(TAG, "onCreate called");
 
@@ -85,13 +86,15 @@ public class SeismosFragment extends Fragment implements SeismosContract.View,
                                 Log.d(TAG, "article title: " + document.get("title"));
                             }
 
-                            if (initial) {
-                                initAdapter();
-                                initScrollListener();
-                                initial = false;
-                            } else {
-                                recyclerViewAdapter.notifyDataSetChanged();
-                            }
+
+//
+//                            if (false) {
+//                                initAdapter();
+//                                initScrollListener();
+//                                initial = false;
+//                            } else {
+//                                recyclerViewAdapter.notifyDataSetChanged();
+//                            }
 
                         }
                     }
@@ -112,6 +115,8 @@ public class SeismosFragment extends Fragment implements SeismosContract.View,
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        initAdapter();
+//        initScrollListener();
 
 
 

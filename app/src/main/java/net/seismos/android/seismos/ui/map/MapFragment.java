@@ -52,14 +52,15 @@ public class MapFragment extends Fragment implements MapContract.View,
 
     private static final int FILTERS_RESULT = 10;
     private static final int ALERTS_RESULT = 11;
-
-
     MapContract.Presenter mPresenter;
 
-    GoogleMap mMap;
+    GoogleMap mMap = null;
+
 
     private static final LatLng SEATTLE = new LatLng(47.6, -122.33);
     private Marker oldMarker = null;
+    private Earthquake oldEarthquake = null;
+    private int oldEarthquakeIndex = 0;
 
     private BottomSheetBehavior sheetBehavior;
     private RecyclerView mRecyclerView;
@@ -81,6 +82,11 @@ public class MapFragment extends Fragment implements MapContract.View,
     SharedPreferences.OnSharedPreferenceChangeListener listener;
 
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        Log.d("NAVDEBUG", "onCreate called in MapFragment");
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -159,9 +165,15 @@ public class MapFragment extends Fragment implements MapContract.View,
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         // Obtain the SupportMapFragment and request the GoogleMap
+
         SupportMapFragment mapFragment = (SupportMapFragment)getChildFragmentManager()
                 .findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
+
+
+        if (mMap == null) {
+            mapFragment.getMapAsync(this);
+        }
+
         Context context = view.getContext();
         mRecyclerView.setLayoutManager(new LinearLayoutManager(context));
         mRecyclerView.setAdapter(mEarthquakeAdapter);
@@ -171,6 +183,10 @@ public class MapFragment extends Fragment implements MapContract.View,
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
+
+        Log.d("MAPDEBUG", "onActivityCreated() called");
+
         earthquakeViewModel = ViewModelProviders.of(getActivity()).get(EarthquakeViewModel.class);
         earthquakeViewModel.getEarthquakes().observe(this, new Observer<List<Earthquake>>() {
             @Override
@@ -183,15 +199,15 @@ public class MapFragment extends Fragment implements MapContract.View,
             }
         });
 
-        earthquakeViewModel.getSignificantEqs().observe(this, new Observer<List<Earthquake>>() {
-            @Override
-            public void onChanged(@Nullable List<Earthquake> earthquakes) {
-                if (earthquakes != null) {
-                    allEarthquakes = new ArrayList<>(earthquakes);
-                    renderEqs();
-                }
-            }
-        });
+//        earthquakeViewModel.getSignificantEqs().observe(this, new Observer<List<Earthquake>>() {
+//            @Override
+//            public void onChanged(@Nullable List<Earthquake> earthquakes) {
+//                if (earthquakes != null) {
+//                    allEarthquakes = new ArrayList<>(earthquakes);
+//                    renderEqs();
+//                }
+//            }
+//        });
 
         preferences.registerOnSharedPreferenceChangeListener(listener = new SharedPreferences.OnSharedPreferenceChangeListener() {
             @Override
@@ -225,6 +241,9 @@ public class MapFragment extends Fragment implements MapContract.View,
 
         renderedEqs.clear();
         oldMarker = null;
+        oldEarthquake = null;
+        oldEarthquakeIndex = 0;
+
         if (mMap != null) {
             mMap.clear();
         }
@@ -279,13 +298,13 @@ public class MapFragment extends Fragment implements MapContract.View,
         mMap = googleMap;
         mMap.setMapStyle(MapStyleOptions
                 .loadRawResourceStyle(getContext(), R.raw.map_style));
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(SEATTLE, 4));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(SEATTLE, 1));
         mMap.getUiSettings().setMapToolbarEnabled(false);
         mMap.setPadding(0, 0, 0, 0);
         mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
             @Override
             public void onMapClick(LatLng latLng) {
-                mPresenter.mapClicked();
+                toggleBottomSheet();
             }
         });
         mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
@@ -295,6 +314,9 @@ public class MapFragment extends Fragment implements MapContract.View,
                 return false;
             }
         });
+
+        Log.d("MAPDEBUG", "onMapReady() called");
+        renderEqs();
 
 
         mMap.getUiSettings().setMyLocationButtonEnabled(false);
@@ -353,20 +375,30 @@ public class MapFragment extends Fragment implements MapContract.View,
     }
 
     private void markerSelection(Marker marker) {
+
         Earthquake markedEarthquake = null;
         LatLng markerPos = marker.getPosition();
         for (Earthquake earthquake : renderedEqs) {
             LatLng eqPos = new LatLng(earthquake.getLatitude(), earthquake.getLongitude());
             if (markerPos.equals(eqPos)) {
 
+                if (oldEarthquake != null) {
+                    renderedEqs.remove(oldEarthquake);
+                    renderedEqs.add(oldEarthquakeIndex, oldEarthquake);
+                }
+
                 // prohibit same marker reselection leading to additional identical earthquakes in db
                 if (oldMarker == null) {
                     oldMarker = marker;
+                    oldEarthquakeIndex = renderedEqs.indexOf(earthquake);
+                    oldEarthquake = earthquake;
                     renderedEqs.remove(earthquake);
                     renderedEqs.add(0, earthquake);
                     mEarthquakeAdapter.notifyDataSetChanged();
                 } else {
                     if (!oldMarker.equals(marker)) {
+                        oldEarthquakeIndex = renderedEqs.indexOf(earthquake);
+                        oldEarthquake = earthquake;
                         renderedEqs.remove(earthquake);
                         renderedEqs.add(0, earthquake);
                         mEarthquakeAdapter.notifyDataSetChanged();

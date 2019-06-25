@@ -15,11 +15,7 @@ public class OnboardingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_onboarding);
 
-        findViewById(R.id.onboardingButton).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(OnboardingActivity.this, DashActivity.class));
-            }
-        });
+        findViewById(R.id.onboardingButton).setOnClickListener((View v) ->
+                startActivity(new Intent(OnboardingActivity.this, DashActivity.class)));
     }
 }

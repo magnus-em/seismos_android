@@ -1,5 +1,6 @@
 package net.seismos.android.seismos.ui.store;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -59,6 +60,7 @@ public class StoreFragment extends Fragment implements StoreContract.View,
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d("NAVDEBUG", "onCreate called in StoreFragment");
 
         db = FirebaseFirestore.getInstance();
 
@@ -88,12 +90,12 @@ public class StoreFragment extends Fragment implements StoreContract.View,
 
                             }
 
-                            if (initial) {
-                                populateOffers();
-                                initial = false;
-                            } else {
-                                storeTabAdapter.notifyDataSetChanged(); // this might only do the tab adapter and not the fragment's adapters underneath
-                            }
+//                            if (initial) {
+//                                populateOffers();
+//                                initial = false;
+//                            } else {
+//                                storeTabAdapter.notifyDataSetChanged(); // this might only do the tab adapter and not the fragment's adapters underneath
+//                            }
                         }
 
 
@@ -107,12 +109,14 @@ public class StoreFragment extends Fragment implements StoreContract.View,
     @Override
     public View onCreateView(@NonNull  LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        Log.d("NAVDEBUG", "onCreateView called in StoreFragment");
             return inflater.inflate(R.layout.fragment_store, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        Log.d("NAVDEBUG", "onViewCreated called in StoreFragment");
         TabLayout tabLayout = view.findViewById(R.id.tabLayout);
         ViewPager viewPager = view.findViewById(R.id.viewPager);
 
@@ -235,5 +239,59 @@ public class StoreFragment extends Fragment implements StoreContract.View,
 
     @Override
     public void setPresenter(StoreContract.Presenter presenter) {
+    }
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        Log.d("NAVDEBUG", "onAttach called in StoreFragment");
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        Log.d("NAVDEBUG", "onDetach() called in StoreFragment");
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        Log.d("NAVDEBUG", "onStart() called in StoreFragment");
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.d("NAVDEBUG", "onResume() called in StoreFragment");
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        Log.d("NAVDEBUG", "onPause() called in StoreFragment");
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        Log.d("NAVDEBUG", "onStop() called in StoreFragment");
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        Log.d("NAVDEBUG", "onSaveInstanceState() called in StoreFragment");
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Log.d("NAVDEBUG", "onDestroy() called in StoreFragment");
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        Log.d("NAVDEBUG", "onDestroyView() called in StoreFragment()");
     }
 }

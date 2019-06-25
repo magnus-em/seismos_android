@@ -33,6 +33,8 @@ public class ChartFragmentWeek extends Fragment {
     BarChart chart;
 
 
+    ChartFragmentWeek() {}
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,

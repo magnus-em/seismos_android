@@ -51,7 +51,7 @@ public class InitialUsgsJsonWorker extends Worker {
             // load all earthquakes from the last month. Usually several thousand. Not sure if this
             // is necessary -- maybe in the future just do 2.5 plus or something like that. The
             // limit for rendering on the GoogleMap is a few hundred anyways, which is around 4.0 +
-            earthquakes = fetchEqs(getApplicationContext().getString(R.string.earthquake_json_feed_all_month));
+            earthquakes = fetchEqs(getApplicationContext().getString(R.string.earthquake_json_feed_25_month));
             EarthquakeDatabaseAccessor.getInstance(getApplicationContext())
                     .earthquakeDAO()
                     .insertEarthquakes(earthquakes);

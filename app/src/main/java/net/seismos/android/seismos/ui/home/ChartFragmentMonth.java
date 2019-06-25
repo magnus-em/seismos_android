@@ -32,6 +32,8 @@ public class ChartFragmentMonth extends Fragment {
 
     BarChart chart;
 
+    ChartFragmentMonth() {}
+
 
     @Nullable
     @Override

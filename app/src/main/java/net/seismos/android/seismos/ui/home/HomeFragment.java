@@ -151,7 +151,7 @@ public class HomeFragment extends Fragment implements HomeContract.View ,
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        listener = (OnEqGlobeSelectedListener)context;
+//        listener = (OnEqGlobeSelectedListener)context;  todo make this listener work with the new ktx dashactivity
     }
 
     @Override

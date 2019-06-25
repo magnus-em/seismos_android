@@ -2,6 +2,7 @@
 <android.widget.ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/scrollView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:scrollbars="none">
@@ -539,8 +540,6 @@
                 app:layout_constraintTop_toBottomOf="@+id/homePlayPause" />
 
 
-
-
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 
@@ -560,16 +559,15 @@
         <androidx.viewpager.widget.ViewPager
             android:id="@+id/viewPager"
             android:layout_width="match_parent"
-            android:layout_height="240dp">
-        </androidx.viewpager.widget.ViewPager>
+            android:layout_height="240dp"></androidx.viewpager.widget.ViewPager>
 
 
         <View
             android:id="@+id/homeDivider2"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_marginTop="16dp"
             android:layout_marginLeft="16dp"
+            android:layout_marginTop="16dp"
             android:layout_marginRight="16dp"
             android:background="@color/blueDivider" />
 

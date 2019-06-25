@@ -19,6 +19,7 @@
     <string name="earthquake_json_feed_sig_month">https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/significant_month.geojson</string>
 
     <string name="earthquake_json_feed_all_month">https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_month.geojson</string>
+    <string name="earthquake_json_feed_25_month">https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/2.5_month.geojson</string>
 
     <string name="earthquake_channel_name">Global earthquakes</string>
 

@@ -22,6 +22,8 @@ public class OffersFragment extends Fragment {
 
     ArrayList<Offer> offers = new ArrayList<>();
 
+    OffersFragment() {}
+
     OffersFragment(OffersRecyclerViewAdapter.OfferClickListener listener) {
         this.listener = listener;
     }

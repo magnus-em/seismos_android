@@ -33,6 +33,8 @@ public class ChartFragmentToday extends Fragment {
 
     BarChart chart;
 
+    ChartFragmentToday() {}
+
 
     @Nullable
     @Override

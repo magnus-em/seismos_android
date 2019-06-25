@@ -50,6 +50,8 @@ public class EarthquakeViewModel extends AndroidViewModel {
         return earthquakes;
     }
 
+
+
     public LiveData<List<Earthquake>> getSignificantEqs() {
         if (significantEqs == null) {
             // load quick earthquakes from significant eq db for performance

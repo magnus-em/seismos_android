@@ -24,6 +24,10 @@ public class CollectionFragment extends Fragment {
 
     CollectionRecyclerViewAdapter.OfferClickListener listener;
 
+    CollectionFragment() {
+
+    }
+
     CollectionFragment(CollectionRecyclerViewAdapter.OfferClickListener listener) {
         this.listener = listener;
     }
