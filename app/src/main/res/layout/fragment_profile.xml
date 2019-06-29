@@ -147,7 +147,7 @@
             android:id="@+id/earnedTotal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
             android:fontFamily="@font/sfproregular"
             android:text="0"
@@ -445,7 +445,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/friendsRecycler"
             android:layout_width="0dp"
-            android:layout_height="80dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:scrollbars="none"
             app:layout_constraintEnd_toEndOf="parent"

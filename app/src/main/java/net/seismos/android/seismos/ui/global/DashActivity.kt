@@ -26,11 +26,12 @@ import androidx.navigation.Navigation
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import net.seismos.android.seismos.R
+import net.seismos.android.seismos.ui.home.HomeFragment
 
 /**
  * An activity that inflates a layout that has a [BottomNavigationView].
  */
-class DashActivity : AppCompatActivity() {
+class DashActivity : AppCompatActivity(), HomeFragment.OnEqGlobeSelectedListener {
 
     private var currentNavController: LiveData<NavController>? = null
     private var coordinates : DoubleArray? = null
@@ -75,11 +76,11 @@ class DashActivity : AppCompatActivity() {
         currentNavController = controller
     }
 
-    override fun onSupportNavigateUp(): Boolean {
+    override fun onSupportNavigateUp(): Boolean   {
         return currentNavController?.value?.navigateUp() ?: false
     }
 
-    fun openMapToLatLng(latLng : LatLng) {
+    override fun openMapToLatLng(latLng : LatLng) {
         val lat = latLng.latitude
         val lng = latLng.longitude
         coordinates = doubleArrayOf(lat, lng)

@@ -12,5 +12,13 @@
         tools:layout="@layout/fragment_map" >
 
 
+        <action
+            android:id="@+id/action_mapFragment_to_filtersFragment"
+            app:destination="@id/filtersFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/filtersFragment"
+        android:name="net.seismos.android.seismos.ui.map.FiltersFragment"
+        android:label="fragment_filters"
+        tools:layout="@layout/fragment_filters" />
 </navigation>

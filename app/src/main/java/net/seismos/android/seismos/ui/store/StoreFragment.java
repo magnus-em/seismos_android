@@ -295,4 +295,10 @@ public class StoreFragment extends Fragment implements StoreContract.View,
         super.onDestroyView();
         Log.d("NAVDEBUG", "onDestroyView() called in StoreFragment()");
     }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        Log.d("NAVDEVBUG", "onActivityCreated() called in StoreFragment");
+    }
 }

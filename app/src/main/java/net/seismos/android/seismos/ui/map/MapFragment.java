@@ -14,6 +14,7 @@ import com.google.android.material.chip.Chip;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
@@ -86,20 +87,38 @@ public class MapFragment extends Fragment implements MapContract.View,
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.d("NAVDEBUG", "onCreate called in MapFragment");
-        if (savedInstanceState != null) {
-            Log.d("MAPDEBUG", "RECREATED");
-        } else {
-            Log.d("MAPDEBUG", "NOT RECREATED");
-        }
 
          preferences = getActivity().getSharedPreferences(Preferences.PREFERENCES, 0);
+
+        earthquakeViewModel = ViewModelProviders.of(getActivity()).get(EarthquakeViewModel.class);
+
+        earthquakeViewModel.getEarthquakes().observe(this, new Observer<List<Earthquake>>() {
+            @Override
+            public void onChanged(@Nullable List<Earthquake> earthquakes) {
+                if (earthquakes != null) {
+                    allEarthquakes = new ArrayList<>(earthquakes);
+                    renderEqs();
+                }
+            }
+        });
+
+        preferences.registerOnSharedPreferenceChangeListener(listener = new SharedPreferences.OnSharedPreferenceChangeListener() {
+            @Override
+            public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+                Log.d(TAG, "onsharedprefs listener called");
+                if (key.equals(Preferences.PREF_MIN_MAG)) {
+                    mMinimumMagnitude = Float.valueOf(sharedPreferences.getString(Preferences.PREF_MIN_MAG, "5"));
+                    renderEqs();
+                }
+            }
+        });
 
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        Log.d("MAPLOADING", "ONE");
 
 
         View root = inflater.inflate(R.layout.fragment_map, container, false);
@@ -110,8 +129,9 @@ public class MapFragment extends Fragment implements MapContract.View,
         filterFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), FiltersActivity.class);
-                startActivityForResult(intent, FILTERS_RESULT);
+//                Intent intent = new Intent(getActivity(), FiltersActivity.class);
+//                startActivityForResult(intent, FILTERS_RESULT);
+                Navigation.findNavController(getView()).navigate(R.id.action_mapFragment_to_filtersFragment);
             }
         });
 
@@ -153,7 +173,6 @@ public class MapFragment extends Fragment implements MapContract.View,
                 startActivityForResult(intent, ALERTS_RESULT);
         });
 
-        preferences = getActivity().getSharedPreferences(Preferences.PREFERENCES, 0);
 
         mMinimumMagnitude = Float.valueOf(preferences.getString(Preferences.PREF_MIN_MAG, "5"));
 
@@ -163,14 +182,18 @@ public class MapFragment extends Fragment implements MapContract.View,
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         // Obtain the SupportMapFragment and request the GoogleMap
+        Log.d("MAPLOADING", "TWO");
+
 
         SupportMapFragment mapFragment = (SupportMapFragment)getChildFragmentManager()
                 .findFragmentById(R.id.map);
 
         if (mMap == null) {
+            Log.d("MAPLOADING", "MMAP IS NULL");
             mapFragment.getMapAsync(this);
         }
 
+        // shitty workaround to see if the map tab was opened by a click on a globe
         double[] coord = ((DashActivity)getContext()).getCoord();
         if (coord != null) {
             navigateToLatLng(new LatLng(coord[0], coord[1]));
@@ -197,53 +220,35 @@ public class MapFragment extends Fragment implements MapContract.View,
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        Log.d("MAPLOADING", "THREE");
+
         Log.d("MAPDEBUG", "onActivityCreated() called");
-        earthquakeViewModel = ViewModelProviders.of(getActivity()).get(EarthquakeViewModel.class);
-        earthquakeViewModel.getEarthquakes().observe(this, new Observer<List<Earthquake>>() {
-            @Override
-            public void onChanged(@Nullable List<Earthquake> earthquakes) {
-                if (earthquakes != null) {
-                    allEarthquakes = new ArrayList<>(earthquakes);
-                    renderEqs();
-                }
-            }
-        });
 
-//        earthquakeViewModel.getSignificantEqs().observe(this, new Observer<List<Earthquake>>() {
-//            @Override
-//            public void onChanged(@Nullable List<Earthquake> earthquakes) {
-//                if (earthquakes != null) {
-//                    allEarthquakes = new ArrayList<>(earthquakes);
-//                    renderEqs();
-//                }
-//            }
-//        });
-
-        preferences.registerOnSharedPreferenceChangeListener(listener = new SharedPreferences.OnSharedPreferenceChangeListener() {
-            @Override
-            public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-                Log.d(TAG, "onsharedprefs listener called");
-                if (key.equals(Preferences.PREF_MIN_MAG)) {
-                    mMinimumMagnitude = Float.valueOf(sharedPreferences.getString(Preferences.PREF_MIN_MAG, "5"));
-
-                }
-            }
-        });
     }
 
     @Override
     public void onResume() {
         super.onResume();
+        Log.d("MAPLOADING", "FOUR");
+
         Log.d("MAPDEBUG", "MapFragment ONRESUME CALLED");
         Log.d("MAPDEBUG", "render size: " + renderedEqs.size());
         Log.d("MAPDEBUG", "allsize: " + allEarthquakes.size());
-        renderEqs();
+//        renderEqs();
+        Log.d("MAPLOADING", "FIVE");
+
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
         Log.d("MAPDEBUG", "onDestroy called");
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        Log.d("MAPLOADING", "ONDESTROYVIEW() CALLED");
     }
 
     private void renderEqs() {
