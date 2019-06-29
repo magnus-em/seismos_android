@@ -37,6 +37,7 @@ import net.seismos.android.seismos.R;
 import net.seismos.android.seismos.data.model.Earthquake;
 import net.seismos.android.seismos.data.local.EarthquakeViewModel;
 import net.seismos.android.seismos.global.Preferences;
+import net.seismos.android.seismos.ui.global.DashActivity;
 import net.seismos.android.seismos.util.ResUtil;
 
 import java.util.ArrayList;
@@ -86,17 +87,20 @@ public class MapFragment extends Fragment implements MapContract.View,
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.d("NAVDEBUG", "onCreate called in MapFragment");
+        if (savedInstanceState != null) {
+            Log.d("MAPDEBUG", "RECREATED");
+        } else {
+            Log.d("MAPDEBUG", "NOT RECREATED");
+        }
+
+         preferences = getActivity().getSharedPreferences(Preferences.PREFERENCES, 0);
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        if (savedInstanceState != null) {
-            Log.d("MAPDEBUG", "RECREATED");
-        } else {
-            Log.d("MAPDEBUG", "NOT RECREATED");
-        }
 
         View root = inflater.inflate(R.layout.fragment_map, container, false);
         mRecyclerView = root.findViewById(R.id.earthquakeList);
@@ -137,22 +141,16 @@ public class MapFragment extends Fragment implements MapContract.View,
         });
 
         Chip alertsChip = root.findViewById(R.id.alerts_chip);
-        alertsChip.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        alertsChip.setOnClickListener((View v) -> {
                 Intent intent = new Intent(getActivity(), AlertsActivity.class);
                 startActivityForResult(intent, ALERTS_RESULT);
-            }
         });
 
 
         // this is the same as the setOnClickListener because the Close Icon blocks the touch event
-        alertsChip.setOnCloseIconClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        alertsChip.setOnCloseIconClickListener((View v) -> {
                 Intent intent = new Intent(getActivity(), AlertsActivity.class);
                 startActivityForResult(intent, ALERTS_RESULT);
-            }
         });
 
         preferences = getActivity().getSharedPreferences(Preferences.PREFERENCES, 0);
@@ -169,9 +167,25 @@ public class MapFragment extends Fragment implements MapContract.View,
         SupportMapFragment mapFragment = (SupportMapFragment)getChildFragmentManager()
                 .findFragmentById(R.id.map);
 
-
         if (mMap == null) {
             mapFragment.getMapAsync(this);
+        }
+
+        double[] coord = ((DashActivity)getContext()).getCoord();
+        if (coord != null) {
+            navigateToLatLng(new LatLng(coord[0], coord[1]));
+            ((DashActivity)getContext()).resetCoord();
+        }
+
+        Bundle bundle = getArguments();
+
+        if (bundle != null) {
+            float lat = bundle.getFloat("lat");
+
+            Log.d(TAG, "float param: " + lat);
+                Log.d(TAG, "FLOAT ARRAY PARAMETER NOT NULL");
+
+
         }
 
         Context context = view.getContext();
@@ -183,15 +197,11 @@ public class MapFragment extends Fragment implements MapContract.View,
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
-
         Log.d("MAPDEBUG", "onActivityCreated() called");
-
         earthquakeViewModel = ViewModelProviders.of(getActivity()).get(EarthquakeViewModel.class);
         earthquakeViewModel.getEarthquakes().observe(this, new Observer<List<Earthquake>>() {
             @Override
             public void onChanged(@Nullable List<Earthquake> earthquakes) {
-
                 if (earthquakes != null) {
                     allEarthquakes = new ArrayList<>(earthquakes);
                     renderEqs();
@@ -215,7 +225,7 @@ public class MapFragment extends Fragment implements MapContract.View,
                 Log.d(TAG, "onsharedprefs listener called");
                 if (key.equals(Preferences.PREF_MIN_MAG)) {
                     mMinimumMagnitude = Float.valueOf(sharedPreferences.getString(Preferences.PREF_MIN_MAG, "5"));
-                    renderEqs();
+
                 }
             }
         });
@@ -227,6 +237,7 @@ public class MapFragment extends Fragment implements MapContract.View,
         Log.d("MAPDEBUG", "MapFragment ONRESUME CALLED");
         Log.d("MAPDEBUG", "render size: " + renderedEqs.size());
         Log.d("MAPDEBUG", "allsize: " + allEarthquakes.size());
+        renderEqs();
     }
 
     @Override
@@ -236,8 +247,7 @@ public class MapFragment extends Fragment implements MapContract.View,
     }
 
     private void renderEqs() {
-        SharedPreferences sharedPreferences = getActivity().getSharedPreferences(Preferences.PREFERENCES, 0);
-        mMinimumMagnitude = Float.valueOf(sharedPreferences.getString(Preferences.PREF_MIN_MAG, "5"));
+        mMinimumMagnitude = Float.valueOf(preferences.getString(Preferences.PREF_MIN_MAG, "5"));
 
         renderedEqs.clear();
         oldMarker = null;
@@ -366,12 +376,15 @@ public class MapFragment extends Fragment implements MapContract.View,
 
     @Override
     public void navigateToLatLng(final LatLng latLng) {
-        mMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
-        for (Marker marker : markers) {
-            if (marker.getPosition().equals(latLng)) {
-                markerSelection(marker);
+        if (mMap != null) {
+            mMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
+            for (Marker marker : markers) {
+                if (marker.getPosition().equals(latLng)) {
+                    markerSelection(marker);
+                }
             }
         }
+
     }
 
     private void markerSelection(Marker marker) {

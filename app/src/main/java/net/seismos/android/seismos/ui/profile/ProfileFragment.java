@@ -53,7 +53,11 @@ public class ProfileFragment extends Fragment implements ProfileContract.View
 
     private LineChart mChart;
     private TextView earnedTotal;
+    private String photoUrl;
 
+    private FirebaseFirestore db;
+    private String emailString;
+    private int earnedTotalValue;
 
     public ProfileFragment() {}
 
@@ -62,6 +66,40 @@ public class ProfileFragment extends Fragment implements ProfileContract.View
         return new ProfileFragment();
     }
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        db = FirebaseFirestore.getInstance();
+
+        db.collection("users").document(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                .addSnapshotListener(new EventListener<DocumentSnapshot>() {
+                    @Override
+                    public void onEvent(DocumentSnapshot documentSnapshot, FirebaseFirestoreException e) {
+                        if (documentSnapshot.get("photo")!= null) {
+
+
+                            photoUrl = (String)documentSnapshot.get("photo");
+                            emailString = (String)documentSnapshot.get("email");
+                            Double total = documentSnapshot.getDouble("earnedTotal");
+                            if (total != null) {
+                                earnedTotalValue = total.intValue();
+                            }
+
+                            Picasso.get().load(photoUrl).fetch();
+
+
+                        }
+
+                        emailString = (String)documentSnapshot.get("email");
+
+                        Double total = documentSnapshot.getDouble("earnedTotal");
+                        if (total != null) {
+                             earnedTotalValue= total.intValue();
+                        }
+
+                    }
+     });
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -103,27 +141,15 @@ public class ProfileFragment extends Fragment implements ProfileContract.View
         final TextView email = view.findViewById(R.id.memberSinceText);
 
 
-        db.collection("users").document(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                .addSnapshotListener(new EventListener<DocumentSnapshot>() {
-                    @Override
-                    public void onEvent(DocumentSnapshot documentSnapshot, FirebaseFirestoreException e) {
-                        if (documentSnapshot.get("photo")!= null) {
-                            Picasso.get()
-                                    .load((String)documentSnapshot.get("photo"))
-                                    .transform(new RoundImageHelper())
-                                    .into(profileImage);
-                            Log.d(TAG, "IMAGE LOADED");
-                        }
-                        email.setText((String)documentSnapshot.get("email"));
 
-                        Double total = documentSnapshot.getDouble("earnedTotal");
-                        if (total != null) {
-                            int totalValue  = total.intValue();
-                            earnedTotal.setText(Integer.toString(totalValue));
-                        }
 
-                    }
-                });
+        earnedTotal.setText(Integer.toString(earnedTotalValue));
+        email.setText(emailString);
+
+            Picasso.get()
+                    .load(photoUrl)
+                    .transform(new RoundImageHelper())
+                    .into(profileImage);
 
 
 

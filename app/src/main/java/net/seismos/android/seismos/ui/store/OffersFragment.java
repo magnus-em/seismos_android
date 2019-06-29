@@ -1,6 +1,9 @@
 package net.seismos.android.seismos.ui.store;
 
 import android.os.Bundle;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -34,8 +37,17 @@ public class OffersFragment extends Fragment {
         return root;
     }
 
-    protected void populateData(ArrayList<Offer> offerList) {
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        populateData();
+    }
+
+    public void setData(ArrayList<Offer> offerList) {
         offers = offerList;
+    }
+
+    protected void populateData() {
         recyclerViewAdapter = new OffersRecyclerViewAdapter(offers, listener);
         recyclerView.setAdapter(recyclerViewAdapter);
         recyclerViewAdapter.notifyDataSetChanged();

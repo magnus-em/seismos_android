@@ -18,8 +18,12 @@ package net.seismos.android.seismos.ui.global
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.os.bundleOf
+import androidx.core.view.get
 import androidx.lifecycle.LiveData
 import androidx.navigation.NavController
+import androidx.navigation.Navigation
+import com.google.android.gms.maps.model.LatLng
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import net.seismos.android.seismos.R
 
@@ -29,6 +33,7 @@ import net.seismos.android.seismos.R
 class DashActivity : AppCompatActivity() {
 
     private var currentNavController: LiveData<NavController>? = null
+    private var coordinates : DoubleArray? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -72,5 +77,27 @@ class DashActivity : AppCompatActivity() {
 
     override fun onSupportNavigateUp(): Boolean {
         return currentNavController?.value?.navigateUp() ?: false
+    }
+
+    fun openMapToLatLng(latLng : LatLng) {
+        val lat = latLng.latitude
+        val lng = latLng.longitude
+        coordinates = doubleArrayOf(lat, lng)
+        val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_nav)
+
+
+        bottomNavigationView.setSelectedItemId(R.id.map)
+
+
+//        val bundle = bundleOf("lat" to lat)
+//        currentNavController?.value?.navigate(R.id.mapFragment, bundle)
+    }
+
+     fun getCoord() : DoubleArray? {
+         return coordinates
+    }
+
+    fun resetCoord() {
+        coordinates = null
     }
 }

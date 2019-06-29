@@ -1,6 +1,9 @@
 package net.seismos.android.seismos.ui.store;
 
 import android.os.Bundle;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -41,6 +44,12 @@ public class CollectionFragment extends Fragment {
         return root;
     }
 
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        populateData();
+    }
+
     private void initAdapter() {
         for (int i = 0; i < 4; i++) {
             if (i%2==0) {
@@ -51,8 +60,11 @@ public class CollectionFragment extends Fragment {
         }
     }
 
-    protected void populateData(ArrayList<Offer> offerList) {
-        offers = offerList;
+    protected void setData(ArrayList<Offer> offers) {
+        this.offers = offers;
+    }
+
+    protected void populateData() {
         recyclerViewAdapter = new CollectionRecyclerViewAdapter(offers, listener);
         recyclerView.setAdapter(recyclerViewAdapter);
         recyclerViewAdapter.notifyDataSetChanged();

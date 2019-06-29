@@ -19,6 +19,8 @@ import androidx.annotation.Nullable;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
 import android.util.Log;
@@ -36,7 +38,6 @@ import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
-import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.firebase.auth.FirebaseAuth;
@@ -49,6 +50,7 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import net.seismos.android.seismos.R;
 import net.seismos.android.seismos.data.local.EarthquakeViewModel;
 import net.seismos.android.seismos.data.model.Earthquake;
+import net.seismos.android.seismos.ui.global.DashActivity;
 import net.seismos.android.seismos.util.ResUtil;
 
 import java.text.SimpleDateFormat;
@@ -68,21 +70,19 @@ public class HomeFragment extends Fragment implements HomeContract.View ,
 
     private HomeContract.Presenter mPresenter;
 
-    OnEqGlobeSelectedListener listener;
+    DashActivity listener;
 
     public interface OnEqGlobeSelectedListener {
         public void openMapToLatLng(LatLng latLng);
     }
 
     BarDataSet setHandle;
-
     private BarChart mChart2;
     private BarChart mChart;
     private SensorManager mSensorManager;
     private Sensor mAccelerometer;
     private Thread thread;
     private boolean plotData = true;
-
     private boolean listening = false;
 
 
@@ -151,7 +151,7 @@ public class HomeFragment extends Fragment implements HomeContract.View ,
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-//        listener = (OnEqGlobeSelectedListener)context;  todo make this listener work with the new ktx dashactivity
+        listener = (DashActivity)context;
     }
 
     @Override
@@ -167,14 +167,12 @@ public class HomeFragment extends Fragment implements HomeContract.View ,
                              Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_home, container, false);
 
-
         seiEarnedView = root.findViewById(R.id.seiEarnedView);
         HorizontalScrollView scrollView = root.findViewById(R.id.globeScrollView);
         scrollView.setHorizontalScrollBarEnabled(false);
         root.findViewById(R.id.earnedToday).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 ValueAnimator animator = ValueAnimator.ofInt(0, 1000);
                 animator.setDuration(25000);
                 animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
@@ -187,16 +185,13 @@ public class HomeFragment extends Fragment implements HomeContract.View ,
                         } else {
                             seiEarnedView.updateThirdRing(progress-720);
                         }
-
                     }
                 });
                 animator.start();
-
             }
         });
 
         final TextView seiCount = root.findViewById(R.id.earnedToday);
-
 
         globes = new ArrayList<>();
 
@@ -208,6 +203,7 @@ public class HomeFragment extends Fragment implements HomeContract.View ,
                         new LatLng(mTopEarthquakes.get(0).getLatitude(),
                                 mTopEarthquakes.get(0).getLongitude())
                 );
+
             }
         });
          globe2 = root.findViewById(R.id.EqGlobe2);
@@ -296,8 +292,6 @@ public class HomeFragment extends Fragment implements HomeContract.View ,
             }
         });
 
-
-
         globes.add(globe1);
         globes.add(globe2);
         globes.add(globe3);
@@ -311,9 +305,6 @@ public class HomeFragment extends Fragment implements HomeContract.View ,
         for (EqGlobeView globeView : globes) {
             setupGlobesDepress(globeView);
         }
-
-
-
 
          titles = new ArrayList<>();
 
@@ -393,23 +384,6 @@ public class HomeFragment extends Fragment implements HomeContract.View ,
                      listening = true;
                  }
 
-
-
-
-//                 if (listening) {
-//                     button.setImageDrawable(getResources().getDrawable(R.drawable.home_pause_icon));
-//                     setHandle.setColor(getResources().getColor(R.color.eq74GradientStart));
-//                     upgradeCount++;
-//                 } else if (upgradeCount == 1) {
-//                     button.setImageDrawable(getResources().getDrawable(R.drawable.home_play_icon));
-//                     setHandle.setColor(getResources().getColor(R.color.blueDark));
-//                     upgradeCount++;
-//                 } else if (upgradeCount == 2) {
-//                     button.setImageDrawable(getResources().getDrawable(R.drawable.home_pause_icon));
-//                     setHandle.setColor(getResources().getColor(R.color.eq74GradientStart));
-//                     upgradeCount = 0;
-//                 }
-
              }
          });
 
@@ -437,15 +411,24 @@ public class HomeFragment extends Fragment implements HomeContract.View ,
                  startActivity(intent);
              }
          });
-
-
-
         return root;
     }
+
+
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        RecyclerView awardsRecycler = view.findViewById(R.id.awardsRecyclerView);
+        LinearLayoutManager layoutManager
+                = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+
+        awardsRecycler.setLayoutManager(layoutManager);
+
+        awardsRecycler.setAdapter(new AwardsAdapter());
+
+
 
         final TextView earnedTodayText = view.findViewById(R.id.earnedToday);
         db.collection("users").document(FirebaseAuth.getInstance().getCurrentUser().getUid())
@@ -473,8 +456,6 @@ public class HomeFragment extends Fragment implements HomeContract.View ,
         if (mAccelerometer != null) {
             mSensorManager.registerListener(this, mAccelerometer, SensorManager.SENSOR_DELAY_GAME);
         }
-
-
 
         // start
         // enable description text
@@ -568,10 +549,7 @@ public class HomeFragment extends Fragment implements HomeContract.View ,
         barChartRender.setRadius(10);
         mChart.setRenderer(barChartRender);
 
-
 //        setupGradient(mChart);
-
-
 
 
         startPlot();
@@ -617,13 +595,14 @@ public class HomeFragment extends Fragment implements HomeContract.View ,
 
     }
 
+
     private String parseTitle(Earthquake eq) {
         String result = "M";
         result = result.concat(Double.toString(eq.getMag()));
 
-
         return result;
     }
+
 
     private String parseDetail(Earthquake eq) {
         Date date = new Date(eq.getTime());
@@ -631,6 +610,7 @@ public class HomeFragment extends Fragment implements HomeContract.View ,
 
         return sdf.format(date);
     }
+
 
     private void startPlot() {
 
@@ -654,6 +634,7 @@ public class HomeFragment extends Fragment implements HomeContract.View ,
         thread.start();
     }
 
+
     @Override
     public void onSensorChanged(SensorEvent event) {
 
@@ -663,18 +644,14 @@ public class HomeFragment extends Fragment implements HomeContract.View ,
         }
     }
 
+
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
 
     }
 
-    List<Entry> oldEntries = new ArrayList<Entry>();
-    List<Entry> newEntries = new ArrayList<Entry>();
 
     private void addEntry(SensorEvent event) {
-
-
-
 
         BarData data = mChart.getData();
 
@@ -688,55 +665,25 @@ public class HomeFragment extends Fragment implements HomeContract.View ,
                 data.addDataSet(set);
             }
             float entryval = (Math.abs(event.values[0]) + Math.abs(event.values[1]) + Math.abs(event.values[2]))/3f;
-
             entryval = (float)(5 - (5 / (0.5*entryval + 1)));
-
-
-
             entryval += 0.2;
-
             data.setBarWidth(0.5f);
             data.addEntry(new BarEntry(set.getEntryCount(), entryval), 0);
-
-
-
             data.notifyDataChanged();
-
-
             // start
-
             mChart2.notifyDataSetChanged();
-
             mChart2.setVisibleXRangeMaximum(50);
-
-
-
             //end
 //
             mChart.notifyDataSetChanged();
-
             mChart.setVisibleXRangeMaximum(50);
-
             mChart.moveViewToX(data.getEntryCount());
             mChart2.moveViewToX(data.getEntryCount());
-
-
-
-//            if (newEntries.size()>80) {
-//                oldEntries = newEntries;
-//                newEntries.add(new BarEntry(set.getEntryCount(), entryval));
-//                AnimateDataSetChanged changer = new AnimateDataSetChanged(100, mChart, oldEntries, newEntries);
-//                changer.run();
-//            } else {'
-//                newEntries.add(new BarEntry(set.getEntryCount(), entryval));
-//            }
-
 
         }
     }
 
     private BarDataSet createSet() {
-
         ArrayList<BarEntry> values = new ArrayList<>();
         BarDataSet set = new BarDataSet(values, "data");
         set.setAxisDependency(YAxis.AxisDependency.LEFT);
@@ -815,9 +762,7 @@ public class HomeFragment extends Fragment implements HomeContract.View ,
         mSensorManager.registerListener(this, mAccelerometer, SensorManager.SENSOR_DELAY_GAME);
     }
 
-
-
-
+    
     @Override
     public void showSomething() {
         // demo method that can be called by whatever has access to this through HomeContract.View

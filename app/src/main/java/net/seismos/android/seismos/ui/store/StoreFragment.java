@@ -62,6 +62,10 @@ public class StoreFragment extends Fragment implements StoreContract.View,
         super.onCreate(savedInstanceState);
         Log.d("NAVDEBUG", "onCreate called in StoreFragment");
 
+
+        offersFragment = new OffersFragment(this);
+        collectionFragment = new CollectionFragment(this);
+
         db = FirebaseFirestore.getInstance();
 
         db.collection("globalstore")
@@ -89,6 +93,8 @@ public class StoreFragment extends Fragment implements StoreContract.View,
                                 Log.d(TAG, "SOURCE: " + source);
 
                             }
+
+                            populateOffers();
 
 //                            if (initial) {
 //                                populateOffers();
@@ -120,8 +126,7 @@ public class StoreFragment extends Fragment implements StoreContract.View,
         TabLayout tabLayout = view.findViewById(R.id.tabLayout);
         ViewPager viewPager = view.findViewById(R.id.viewPager);
 
-        offersFragment = new OffersFragment(this);
-        collectionFragment = new CollectionFragment(this);
+
 
         storeTabAdapter = new StoreTabAdapter(getChildFragmentManager());
         storeTabAdapter.addFragment(offersFragment, "Today's offers");
@@ -132,13 +137,6 @@ public class StoreFragment extends Fragment implements StoreContract.View,
         tabLayout.setupWithViewPager(viewPager);
 
         final TextView balance = view.findViewById(R.id.balanceText);
-        balance.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getContext(), StoreDetailActivity.class);
-                startActivity(intent);
-            }
-        });
 
         db.collection("users").document(FirebaseAuth.getInstance().getUid())
                 .addSnapshotListener(new EventListener<DocumentSnapshot>() {
@@ -147,12 +145,14 @@ public class StoreFragment extends Fragment implements StoreContract.View,
                         balance.setText(Long.toString((long)documentSnapshot.get("balance")));
                     }
                 });
+
+
     }
 
 
 
     private void populateOffers() {
-        offersFragment.populateData(offers);
+        offersFragment.setData(offers);
 
         db.collection("users").document(FirebaseAuth.getInstance().getUid())
                 .collection("bought")
@@ -221,7 +221,7 @@ public class StoreFragment extends Fragment implements StoreContract.View,
             }
         }
 
-        collectionFragment.populateData(bought);
+        collectionFragment.setData(bought);
     }
 
 
@@ -256,6 +256,7 @@ public class StoreFragment extends Fragment implements StoreContract.View,
     @Override
     public void onStart() {
         super.onStart();
+
         Log.d("NAVDEBUG", "onStart() called in StoreFragment");
     }
 

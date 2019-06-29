@@ -15,7 +15,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
 
             <HorizontalScrollView
@@ -437,13 +437,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:layout_marginBottom="24dp"
                 android:backgroundTint="@color/offWhite"
                 android:clickable="true"
                 android:padding="0dp"
                 android:tint="@color/blueBackground"
                 app:fabCustomSize="65dp"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.498"
                 app:layout_constraintStart_toStartOf="parent"
@@ -530,10 +528,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="32dp"
                 android:layout_marginEnd="8dp"
                 android:background="@color/blueDivider"
-                android:visibility="gone"
+                android:visibility="visible"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -571,11 +569,25 @@
             android:layout_marginRight="16dp"
             android:background="@color/blueDivider" />
 
+        <TextView
+            android:id="@+id/textView12"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:fontFamily="@font/sfproregular"
+            android:text="Data quality"
+            android:textColor="@color/offWhite"
+            android:textSize="20dp" />
+
         <ImageView
             android:id="@+id/homeDataQuality"
             android:layout_width="match_parent"
-            android:layout_height="260dp"
+            android:layout_height="wrap_content"
             android:layout_margin="16dp"
+            android:adjustViewBounds="true"
+            android:cropToPadding="true"
             app:srcCompat="@drawable/home_data_quality" />
 
         <View
@@ -583,20 +595,27 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginLeft="16dp"
+            android:layout_marginTop="8dp"
             android:layout_marginRight="16dp"
-            android:layout_marginBottom="24dp"
+            android:layout_marginBottom="8dp"
             android:background="@color/blueDivider" />
 
-        <ImageView
-            android:id="@+id/homeBadges"
+        <TextView
+            android:id="@+id/textView9"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginLeft="16dp"
-            android:adjustViewBounds="true"
-            android:cropToPadding="true"
-            app:layout_constraintStart_toStartOf="parent"
-            app:srcCompat="@drawable/home_badges" />
+            android:layout_marginBottom="16dp"
+            android:fontFamily="@font/sfproregular"
+            android:text="Awards"
+            android:textColor="@color/offWhite"
+            android:textSize="20dp" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/awardsRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"/>
+
 
     </LinearLayout>
 </android.widget.ScrollView>

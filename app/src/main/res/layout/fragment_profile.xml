@@ -114,7 +114,7 @@
             android:layout_width="match_parent"
             android:layout_height="2dp"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="32dp"
             android:layout_marginEnd="16dp"
             android:background="@color/blueDefault"
             app:layout_constraintEnd_toEndOf="parent"
@@ -135,7 +135,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="8dp"
             android:fontFamily="@font/sfproregular"
             android:text="Total Sei earned"
             android:textColor="@color/offWhite"
@@ -162,19 +162,32 @@
             android:layout_width="match_parent"
             android:layout_height="2dp"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="42dp"
             android:layout_marginEnd="16dp"
             android:background="@color/blueDefault"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/chart1" />
 
+        <View
+            android:id="@+id/view15"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="16dp"
+            android:background="@color/blueDefault"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/view6" />
+
         <TextView
             android:id="@+id/textView23"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="8dp"
             android:fontFamily="@font/sfproregular"
             android:text="Leaderboards"
             android:textColor="@color/offWhite"
@@ -186,8 +199,8 @@
             android:id="@+id/view5"
             android:layout_width="match_parent"
             android:layout_height="2dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="12dp"
             android:layout_marginEnd="16dp"
             android:background="@color/blueLight"
             app:layout_constraintEnd_toEndOf="parent"
@@ -199,8 +212,8 @@
             android:id="@+id/view4"
             android:layout_width="match_parent"
             android:layout_height="2dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="12dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="40dp"
             android:layout_marginEnd="16dp"
             android:background="@color/blueLight"
             app:layout_constraintEnd_toEndOf="parent"
@@ -211,10 +224,11 @@
             android:id="@+id/view6"
             android:layout_width="match_parent"
             android:layout_height="2dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="12dp"
             android:layout_marginEnd="16dp"
             android:background="@color/blueLight"
+            android:visibility="invisible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -224,12 +238,12 @@
             android:id="@+id/textView24"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="12dp"
             android:fontFamily="@font/sfprolight"
             android:text="Nearby"
             android:textColor="@color/offWhite"
-            android:textSize="18dp"
+            android:textSize="16dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/view4" />
 
@@ -237,12 +251,12 @@
             android:id="@+id/textView25"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="12dp"
             android:fontFamily="@font/sfprolight"
             android:text="Friends"
             android:textColor="@color/offWhite"
-            android:textSize="18dp"
+            android:textSize="16dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/view5" />
 
@@ -251,7 +265,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
-            android:layout_marginBottom="12dp"
+            android:layout_marginBottom="8dp"
             android:fontFamily="@font/sfprolight"
             android:text="Rank"
             android:textColor="@color/offWhite70"
@@ -264,7 +278,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="52dp"
-            android:layout_marginBottom="12dp"
+            android:layout_marginBottom="8dp"
             android:fontFamily="@font/sfprolight"
             android:text="Members"
             android:textColor="@color/offWhite70"
@@ -355,21 +369,21 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="8dp"
             android:fontFamily="@font/sfproregular"
             android:text="Friends &amp; Family"
             android:textColor="@color/offWhite"
             android:textSize="20dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/view6" />
+            app:layout_constraintTop_toBottomOf="@+id/view15" />
 
         <ImageView
             android:id="@+id/imageView23"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
-            android:layout_marginTop="4dp"
+            android:layout_marginTop="6dp"
             android:layout_marginEnd="16dp"
-            android:layout_marginBottom="4dp"
+            android:layout_marginBottom="6dp"
             android:adjustViewBounds="true"
             app:layout_constraintBottom_toBottomOf="@+id/textView34"
             app:layout_constraintEnd_toEndOf="parent"
@@ -387,7 +401,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/horizontalScrollView" />
+            app:layout_constraintTop_toBottomOf="@+id/friendsRecycler" />
 
         <TextView
             android:id="@+id/textView35"
@@ -428,61 +442,15 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/textView35" />
 
-        <HorizontalScrollView
-            android:id="@+id/horizontalScrollView"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/friendsRecycler"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="80dp"
             android:layout_marginTop="16dp"
             android:scrollbars="none"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView34">
-
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:orientation="horizontal" >
-
-                <net.seismos.android.seismos.ui.profile.FriendsView
-                    android:layout_width="75dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="8dp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <net.seismos.android.seismos.ui.profile.FriendsView
-                    android:layout_width="75dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="8dp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-                <net.seismos.android.seismos.ui.profile.FriendsView
-                    android:layout_width="75dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="8dp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-                <net.seismos.android.seismos.ui.profile.FriendsView
-                    android:layout_width="75dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="8dp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-                <net.seismos.android.seismos.ui.profile.FriendsView
-                    android:layout_width="75dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="8dp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-            </LinearLayout>
-        </HorizontalScrollView>
+            app:layout_constraintTop_toBottomOf="@+id/textView34"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
