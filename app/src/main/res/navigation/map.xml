@@ -15,10 +15,18 @@
         <action
             android:id="@+id/action_mapFragment_to_filtersFragment"
             app:destination="@id/filtersFragment" />
+        <action
+            android:id="@+id/action_mapFragment_to_alertsFragment"
+            app:destination="@id/alertsFragment" />
     </fragment>
     <fragment
         android:id="@+id/filtersFragment"
         android:name="net.seismos.android.seismos.ui.map.FiltersFragment"
         android:label="fragment_filters"
         tools:layout="@layout/fragment_filters" />
+    <fragment
+        android:id="@+id/alertsFragment"
+        android:name="net.seismos.android.seismos.ui.map.AlertsFragment"
+        android:label="fragment_alerts"
+        tools:layout="@layout/fragment_alerts" />
 </navigation>

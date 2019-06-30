@@ -19,6 +19,7 @@ import androidx.annotation.Nullable;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
@@ -81,10 +82,16 @@ public class HomeFragment extends Fragment implements HomeContract.View ,
     private boolean plotData = true;
     private boolean listening = false;
 
+    private boolean firstEntry = true;
+
 
     private ChartTabAdapter chartTabAdapter;
     private TabLayout tabLayout;
     private ViewPager viewPager;
+
+    private Fragment todayChart;
+    private Fragment weekChart;
+    private Fragment monthChart;
 
     SeiEarnedView seiEarnedView;
 
@@ -131,6 +138,11 @@ public class HomeFragment extends Fragment implements HomeContract.View ,
                     }
                 });
 
+        todayChart = new ChartFragmentToday();
+        weekChart = new ChartFragmentWeek();
+        monthChart = new ChartFragmentMonth();
+
+
     }
 
     @Override
@@ -165,9 +177,9 @@ public class HomeFragment extends Fragment implements HomeContract.View ,
          tabLayout = root.findViewById(R.id.tabLayout);
 
          chartTabAdapter = new ChartTabAdapter(getFragmentManager());
-         chartTabAdapter.addFragment(new ChartFragmentToday(), "Today");
-         chartTabAdapter.addFragment(new ChartFragmentWeek(), "Week");
-         chartTabAdapter.addFragment(new ChartFragmentMonth(), "Month");
+         chartTabAdapter.addFragment(todayChart,"Today");
+         chartTabAdapter.addFragment(weekChart, "Week");
+         chartTabAdapter.addFragment(monthChart, "Month");
 
          viewPager.setAdapter(chartTabAdapter);
          tabLayout.setupWithViewPager(viewPager);
@@ -202,8 +214,7 @@ public class HomeFragment extends Fragment implements HomeContract.View ,
          });
 
          root.findViewById(R.id.editProfileButton).setOnClickListener((View v) -> {
-                 Intent intent = new Intent(getContext(), ScheduleActivity.class);
-                 startActivityForResult(intent, SCHEDULE_RESULT);
+             Navigation.findNavController(v).navigate(R.id.action_homeFragment_to_scheduleFragment);
          });
 
          root.findViewById(R.id.upgradeChip).setOnClickListener((View v) -> {
@@ -454,6 +465,8 @@ public class HomeFragment extends Fragment implements HomeContract.View ,
 
     private void addEntry(SensorEvent event) {
 
+
+
         BarData data = topChart.getData();
 
         if (data != null) {
@@ -469,6 +482,14 @@ public class HomeFragment extends Fragment implements HomeContract.View ,
             entryval = (float)(5 - (5 / (0.5*entryval + 1)));
             entryval += 0.3;
             data.setBarWidth(0.5f);
+
+            if (firstEntry) {
+                for (int i = 0; i < 50; i++) {
+                    data.addEntry(new BarEntry(set.getEntryCount(), entryval), 0);
+                }
+                firstEntry =false;
+            }
+
             data.addEntry(new BarEntry(set.getEntryCount(), entryval), 0);
             data.notifyDataChanged();
             // start
@@ -544,7 +565,12 @@ public class HomeFragment extends Fragment implements HomeContract.View ,
                 SensorManager.SENSOR_DELAY_GAME);
     }
 
-    
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        firstEntry = true;
+    }
+
     @Override
     public void showSomething() {
         // demo method that can be called by whatever has access to this through HomeContract.View

@@ -9,5 +9,38 @@
         android:id="@+id/seismosFragment"
         android:name="net.seismos.android.seismos.ui.seismos.SeismosFragment"
         android:label="fragment_seismos"
-        tools:layout="@layout/fragment_seismos" />
+        tools:layout="@layout/fragment_seismos" >
+        <action
+            android:id="@+id/action_seismosFragment_to_DYFIFragment"
+            app:destination="@id/DYFIFragment" />
+        <action
+            android:id="@+id/action_seismosFragment_to_eqSafetyFragment"
+            app:destination="@id/eqSafetyFragment" />
+        <action
+            android:id="@+id/action_seismosFragment_to_networkStatusFragment"
+            app:destination="@id/networkStatusFragment" />
+        <action
+            android:id="@+id/action_seismosFragment_to_projectSeismosFragment"
+            app:destination="@id/projectSeismosFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/DYFIFragment"
+        android:name="net.seismos.android.seismos.ui.seismos.DYFIFragment"
+        android:label="fragment_dyfi"
+        tools:layout="@layout/fragment_dyfi" />
+    <fragment
+        android:id="@+id/eqSafetyFragment"
+        android:name="net.seismos.android.seismos.ui.seismos.EqSafetyFragment"
+        android:label="fragment_eq_safety"
+        tools:layout="@layout/fragment_eq_safety" />
+    <fragment
+        android:id="@+id/networkStatusFragment"
+        android:name="net.seismos.android.seismos.ui.seismos.NetworkStatusFragment"
+        android:label="fragment_network_status"
+        tools:layout="@layout/fragment_network_status" />
+    <fragment
+        android:id="@+id/projectSeismosFragment"
+        android:name="net.seismos.android.seismos.ui.seismos.ProjectSeismosFragment"
+        android:label="fragment_project_seismos"
+        tools:layout="@layout/fragment_project_seismos" />
 </navigation>

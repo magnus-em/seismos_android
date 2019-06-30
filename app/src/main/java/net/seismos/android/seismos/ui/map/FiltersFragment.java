@@ -6,6 +6,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
@@ -52,6 +53,10 @@ public class FiltersFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         Toolbar toolbar = view.findViewById(R.id.filters_toolbar);
+        ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         preferences = getActivity().getSharedPreferences(Preferences.PREFERENCES, 0);
 
@@ -99,8 +104,8 @@ public class FiltersFragment extends Fragment {
         Switch coverageSwitch = view.findViewById(R.id.coverageSwitch);
         coverageSwitch.setChecked(preferences.getBoolean(Preferences.PREF_NODE_COVERAGE, false));
 
-        RadioGroup hourDay = view.findViewById(R.id.hourDayGroup);
-        RadioGroup weekMonth = view.findViewById(R.id.weekMonthGroup);
+         hourDay = view.findViewById(R.id.hourDayGroup);
+         weekMonth = view.findViewById(R.id.weekMonthGroup);
 
         RadioButton hour = view.findViewById(R.id.hourRadio);
         hour.setOnClickListener((View v) -> onRadioButtonClicked(v));

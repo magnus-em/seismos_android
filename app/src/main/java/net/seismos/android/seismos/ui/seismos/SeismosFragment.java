@@ -8,6 +8,7 @@ import android.os.Handler;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
@@ -133,21 +134,21 @@ public class SeismosFragment extends Fragment implements SeismosContract.View,
         networkStatus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getActivity(), NetworkStatusActivity.class));
+                Navigation.findNavController(v).navigate(R.id.action_seismosFragment_to_networkStatusFragment);
             }
         });
 
         eqSafety.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getActivity(), EqSafetyActivity.class));
+                Navigation.findNavController(v).navigate(R.id.action_seismosFragment_to_eqSafetyFragment);
             }
         });
 
         dyfi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getActivity(), DYFIActivity.class));
+                Navigation.findNavController(v).navigate(R.id.action_seismosFragment_to_DYFIFragment);
             }
         });
 
@@ -155,7 +156,7 @@ public class SeismosFragment extends Fragment implements SeismosContract.View,
         projectSeismos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getActivity(), ProjectSeismosActivity.class));
+                Navigation.findNavController(v).navigate(R.id.action_seismosFragment_to_projectSeismosFragment);
             }
         });
     }

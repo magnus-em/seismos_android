@@ -20,6 +20,8 @@ import com.google.firebase.firestore.QuerySnapshot;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 import androidx.viewpager.widget.ViewPager;
 
 import android.util.Log;
@@ -43,10 +45,15 @@ public class StoreFragment extends Fragment implements StoreContract.View,
 
     private FirebaseFirestore db;
 
+    LiveData<ArrayList<Offer>> liveOffers = new MutableLiveData<>();
+
     final private ArrayList<Offer> offers = new ArrayList<>();
     final private ArrayList<Offer> bought = new ArrayList<>();
 
-    private boolean initial = true;
+    private String balanceString;
+
+    private boolean offersLoaded = false;
+    private boolean collectionLoaded = false;
 
     StoreTabAdapter storeTabAdapter;
 
@@ -61,7 +68,6 @@ public class StoreFragment extends Fragment implements StoreContract.View,
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.d("NAVDEBUG", "onCreate called in StoreFragment");
-
 
         offersFragment = new OffersFragment(this);
         collectionFragment = new CollectionFragment(this);
@@ -87,27 +93,40 @@ public class StoreFragment extends Fragment implements StoreContract.View,
                                 offer.setId(id);
                                 offers.add(offer);
 
-                                String source =queryDocumentSnapshots.getMetadata().hasPendingWrites()
-                                        ? "Local" : "Server";
-
-                                Log.d(TAG, "SOURCE: " + source);
-
                             }
 
+                            offersLoaded = true;
                             populateOffers();
-
-//                            if (initial) {
-//                                populateOffers();
-//                                initial = false;
-//                            } else {
-//                                storeTabAdapter.notifyDataSetChanged(); // this might only do the tab adapter and not the fragment's adapters underneath
-//                            }
                         }
-
-
                     }
                 });
 
+        db.collection("users").document(FirebaseAuth.getInstance().getUid())
+                .collection("bought")
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @Override
+                    public void onEvent(QuerySnapshot queryDocumentSnapshots,
+                                        FirebaseFirestoreException e) {
+                        Log.d(TAG, "Successfully got BOUGHT offers");
+                        for (DocumentSnapshot doc : queryDocumentSnapshots) {
+                            Offer offer = new Offer();
+                            String id = doc.getId();
+                            id = id.replaceAll("\\s","");
+                            offer.setId(id);
+                            offer.setKey((String)doc.get("key"));
+                            bought.add(offer);
+                        }
+                        collectionLoaded = true;
+                        populateOffers();
+                    }
+                });
+        db.collection("users").document(FirebaseAuth.getInstance().getUid())
+                .addSnapshotListener(new EventListener<DocumentSnapshot>() {
+                    @Override
+                    public void onEvent(@javax.annotation.Nullable DocumentSnapshot documentSnapshot, @javax.annotation.Nullable FirebaseFirestoreException e) {
+                        balanceString = Long.toString((long)documentSnapshot.get("balance"));
+                    }
+                });
 
 
     }
@@ -127,7 +146,6 @@ public class StoreFragment extends Fragment implements StoreContract.View,
         ViewPager viewPager = view.findViewById(R.id.viewPager);
 
 
-
         storeTabAdapter = new StoreTabAdapter(getChildFragmentManager());
         storeTabAdapter.addFragment(offersFragment, "Today's offers");
         storeTabAdapter.addFragment(collectionFragment, "My collection");
@@ -137,6 +155,7 @@ public class StoreFragment extends Fragment implements StoreContract.View,
         tabLayout.setupWithViewPager(viewPager);
 
         final TextView balance = view.findViewById(R.id.balanceText);
+        balance.setText(balanceString);
 
         db.collection("users").document(FirebaseAuth.getInstance().getUid())
                 .addSnapshotListener(new EventListener<DocumentSnapshot>() {
@@ -146,57 +165,19 @@ public class StoreFragment extends Fragment implements StoreContract.View,
                     }
                 });
 
-
+        populateOffers();
     }
 
 
 
     private void populateOffers() {
-        offersFragment.setData(offers);
+        Log.d(TAG, "Populate called: offers size: " + offers.size());
+        Log.d(TAG, "collection size: " + bought.size());
 
-        db.collection("users").document(FirebaseAuth.getInstance().getUid())
-                .collection("bought")
-                .addSnapshotListener(new EventListener<QuerySnapshot>() {
-                    @Override
-                    public void onEvent(QuerySnapshot queryDocumentSnapshots,
-                                        FirebaseFirestoreException e) {
-                        Log.d(TAG, "Successfully got BOUGHT offers");
-                        for (DocumentSnapshot doc : queryDocumentSnapshots) {
-                            Offer offer = new Offer();
-                            String id = doc.getId();
-                            id = id.replaceAll("\\s","");
-                            offer.setId(id);
-                            offer.setKey((String)doc.get("key"));
-                            bought.add(offer);
-                        }
-                        populateCollection();
-                    }
-                });
-
-
-//        db.collection("users").document(FirebaseAuth.getInstance().getUid())
-//                .collection("bought")
-//                .get()
-//                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-//                    @Override
-//                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-//                        Log.d(TAG, "Successfully got BOUGHT offers");
-//                        for (DocumentSnapshot doc : queryDocumentSnapshots) {
-//                            Offer offer = new Offer();
-//                            String id = doc.getId();
-//                            id = id.replaceAll("\\s","");
-//                            offer.setId(id);
-//                            offer.setKey((String)doc.get("key"));
-//                            bought.add(offer);
-//                        }
-//                        populateCollection();
-//                    }
-//                }).addOnFailureListener(new OnFailureListener() {
-//            @Override
-//            public void onFailure(@NonNull Exception e) {
-//                Log.d(TAG, "Failure to get bought offers: " + e.toString());
-//            }
-//        });
+        if (offersLoaded && collectionLoaded) {
+            offersFragment.setData(offers);
+            populateCollection();
+        }
     }
 
     private void populateCollection() {
@@ -239,66 +220,5 @@ public class StoreFragment extends Fragment implements StoreContract.View,
 
     @Override
     public void setPresenter(StoreContract.Presenter presenter) {
-    }
-
-    @Override
-    public void onAttach(@NonNull Context context) {
-        super.onAttach(context);
-        Log.d("NAVDEBUG", "onAttach called in StoreFragment");
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        Log.d("NAVDEBUG", "onDetach() called in StoreFragment");
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-
-        Log.d("NAVDEBUG", "onStart() called in StoreFragment");
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        Log.d("NAVDEBUG", "onResume() called in StoreFragment");
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        Log.d("NAVDEBUG", "onPause() called in StoreFragment");
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        Log.d("NAVDEBUG", "onStop() called in StoreFragment");
-    }
-
-    @Override
-    public void onSaveInstanceState(@NonNull Bundle outState) {
-        super.onSaveInstanceState(outState);
-        Log.d("NAVDEBUG", "onSaveInstanceState() called in StoreFragment");
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        Log.d("NAVDEBUG", "onDestroy() called in StoreFragment");
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        Log.d("NAVDEBUG", "onDestroyView() called in StoreFragment()");
-    }
-
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        Log.d("NAVDEVBUG", "onActivityCreated() called in StoreFragment");
     }
 }

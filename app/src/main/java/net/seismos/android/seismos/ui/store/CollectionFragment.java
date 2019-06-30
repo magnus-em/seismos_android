@@ -62,6 +62,9 @@ public class CollectionFragment extends Fragment {
 
     protected void setData(ArrayList<Offer> offers) {
         this.offers = offers;
+        if (recyclerViewAdapter!= null) {
+            recyclerViewAdapter.notifyDataSetChanged();
+        }
     }
 
     protected void populateData() {

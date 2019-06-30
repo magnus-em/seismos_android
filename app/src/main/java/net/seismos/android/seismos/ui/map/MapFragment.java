@@ -162,15 +162,13 @@ public class MapFragment extends Fragment implements MapContract.View,
 
         Chip alertsChip = root.findViewById(R.id.alerts_chip);
         alertsChip.setOnClickListener((View v) -> {
-                Intent intent = new Intent(getActivity(), AlertsActivity.class);
-                startActivityForResult(intent, ALERTS_RESULT);
+            Navigation.findNavController(v).navigate(R.id.action_mapFragment_to_alertsFragment);
         });
 
 
         // this is the same as the setOnClickListener because the Close Icon blocks the touch event
         alertsChip.setOnCloseIconClickListener((View v) -> {
-                Intent intent = new Intent(getActivity(), AlertsActivity.class);
-                startActivityForResult(intent, ALERTS_RESULT);
+            Navigation.findNavController(v).navigate(R.id.action_mapFragment_to_alertsFragment);
         });
 
 

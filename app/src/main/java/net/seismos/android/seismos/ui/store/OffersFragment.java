@@ -45,6 +45,9 @@ public class OffersFragment extends Fragment {
 
     public void setData(ArrayList<Offer> offerList) {
         offers = offerList;
+        if (recyclerViewAdapter!= null) {
+            populateData();
+        }
     }
 
     protected void populateData() {
