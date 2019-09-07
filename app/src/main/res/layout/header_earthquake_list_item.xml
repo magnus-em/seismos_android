@@ -88,13 +88,13 @@
         android:layout_marginTop="1dp"
         android:layout_marginBottom="1dp"
         android:text="TextView"
-        app:layout_constraintBottom_toBottomOf="@+id/detailDepthText"
+        app:layout_constraintBottom_toBottomOf="@+id/depthCount"
         app:layout_constraintStart_toEndOf="@+id/earthquakeTime"
-        app:layout_constraintTop_toTopOf="@+id/detailDepthText"
+        app:layout_constraintTop_toTopOf="@+id/depthCount"
         app:srcCompat="@drawable/deptharrow" />
 
     <TextView
-        android:id="@+id/detailDepthText"
+        android:id="@+id/depthCount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/sfprolight"

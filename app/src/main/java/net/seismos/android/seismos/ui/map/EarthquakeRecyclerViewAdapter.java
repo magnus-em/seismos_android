@@ -49,7 +49,7 @@ public class EarthquakeRecyclerViewAdapter
     private static final NumberFormat MAGNITUDE_FORMAT =
             new DecimalFormat("0.0");
     private static final SimpleDateFormat TIME_FORMAT =
-            new SimpleDateFormat("EEE, d MMM HH:mm:ss", Locale.US);
+            new SimpleDateFormat("EEE, d MMM hh:mm:ss a z", Locale.US);
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
@@ -99,6 +99,11 @@ public class EarthquakeRecyclerViewAdapter
             TextView textView = binding.getRoot().findViewById(R.id.earthquakeTime);
             Date start = new Date(eq.getTime());
             textView.setText(TIME_FORMAT.format(start));
+
+            ((TextView)binding.getRoot().findViewById(R.id.detectedByCount))
+                    .setText(Integer.toString(eq.getFelt()));
+
+
 
         }
     }

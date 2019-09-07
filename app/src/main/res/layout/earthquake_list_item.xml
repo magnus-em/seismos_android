@@ -14,165 +14,133 @@
             type="java.text.NumberFormat"/>
     </data>
 
-<androidx.constraintlayout.widget.ConstraintLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:visibility="visible"
-    android:clickable="true"
-    android:focusable="true"
-    android:background="@drawable/earthquake_list_ripple">
-
-    <ImageView
-        android:id="@+id/ringView"
-        android:layout_width="75dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="18dp"
-        app:layout_constraintBottom_toBottomOf="@id/detectedByText"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/mag_ring_74" />
-
-    <TextView
-        android:id="@+id/earthquakeLocation"
-        android:layout_width="0dp"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="2dp"
-        android:layout_marginEnd="16dp"
-        android:fontFamily="@font/sfpromedium"
-        android:maxLines="2"
-        android:text="@{earthquake.place}"
-        android:textAlignment="textStart"
-        android:textColor="@color/offWhite"
-        android:textSize="16dp"
-        app:layout_constraintEnd_toStartOf="@+id/earthquakeFlag"
-        app:layout_constraintStart_toEndOf="@+id/ringView"
-        app:layout_constraintTop_toTopOf="@id/ringView"
-        tools:text="223 km SE of Zurovska, Czechia " />
+        android:background="@drawable/earthquake_list_ripple"
+        android:clickable="true"
+        android:focusable="true"
+        android:visibility="visible">
 
-    <TextView
-        android:id="@+id/magnitudeText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/sfpromedium"
-        android:text="@{magnitudeformat.format(earthquake.mag)}"
-        android:textColor="@color/offWhite"
-        android:textSize="28dp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/ringView"
-        app:layout_constraintEnd_toEndOf="@+id/ringView"
-        app:layout_constraintStart_toStartOf="@+id/ringView"
-        app:layout_constraintTop_toTopOf="@+id/ringView"
-        tools:text="6.7" />
+        <ImageView
+            android:id="@+id/ringView"
+            android:layout_width="75dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="12dp"
+            android:adjustViewBounds="true"
+            android:cropToPadding="false"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/mag_ring_74" />
 
-    <TextView
-        android:id="@+id/earthquakeTime"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="4dp"
-        android:fontFamily="@font/sfprolight"
-        android:textColor="@color/offWhite70"
-        android:textSize="15sp"
-        app:layout_constraintBottom_toTopOf="@+id/detectedByText"
-        app:layout_constraintStart_toEndOf="@+id/ringView"
-        app:layout_constraintTop_toBottomOf="@+id/earthquakeLocation"
-        tools:text="March 14 at 9:43 " />
+        <TextView
+            android:id="@+id/earthquakeLocation"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="16dp"
+            android:fontFamily="@font/sfpromedium"
+            android:maxLines="2"
+            android:text="@{earthquake.place}"
+            android:textAlignment="textStart"
+            android:textColor="@color/offWhite"
+            android:textSize="18dp"
+            app:layout_constraintEnd_toStartOf="@+id/earthquakeFlag"
+            app:layout_constraintStart_toEndOf="@+id/ringView"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="223 km SE of Zurovska, Czechia " />
 
-    <TextView
-        android:id="@+id/detectedByText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="2dp"
-        android:fontFamily="@font/sfprolight"
-        android:text="Detected by "
-        android:textColor="@color/offWhite70"
-        android:textSize="15sp"
-        app:layout_constraintStart_toEndOf="@+id/ringView"
-        app:layout_constraintTop_toBottomOf="@+id/earthquakeTime" />
+        <TextView
+            android:id="@+id/magnitudeText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/sfpromedium"
+            android:text="@{magnitudeformat.format(earthquake.mag)}"
+            android:textColor="@color/offWhite"
+            android:textSize="28dp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/ringView"
+            app:layout_constraintEnd_toEndOf="@+id/ringView"
+            app:layout_constraintStart_toStartOf="@+id/ringView"
+            app:layout_constraintTop_toTopOf="@+id/ringView"
+            tools:text="6.7" />
 
-    <View
-        android:id="@+id/divider"
-        android:layout_width="0dp"
-        android:layout_height="1dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="18dp"
-        android:layout_marginEnd="16dp"
-        android:background="#60415D6E"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/detectedByText" />
+        <TextView
+            android:id="@+id/earthquakeTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="4dp"
+            android:fontFamily="@font/sfprolight"
+            android:textColor="@color/offWhite70"
+            android:textSize="16dp"
+            app:layout_constraintBottom_toTopOf="@+id/detectedByText"
+            app:layout_constraintStart_toEndOf="@+id/ringView"
+            app:layout_constraintTop_toBottomOf="@+id/earthquakeLocation"
+            app:layout_constraintVertical_bias="0.0"
+            tools:text="March 14 at 9:43 " />
 
-    <ImageView
-        android:id="@+id/depthArrow"
-        android:layout_width="16dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="18dp"
-        android:layout_marginTop="1dp"
-        android:layout_marginBottom="1dp"
-        android:text="TextView"
-        app:layout_constraintBottom_toBottomOf="@+id/detailDepthText"
-        app:layout_constraintStart_toEndOf="@+id/earthquakeTime"
-        app:layout_constraintTop_toTopOf="@+id/detailDepthText"
-        app:srcCompat="@drawable/deptharrow" />
+        <TextView
+            android:id="@+id/detectedByText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:fontFamily="@font/sfprolight"
+            android:text="Reported by"
+            android:textColor="@color/offWhite70"
+            android:textSize="15sp"
+            app:layout_constraintStart_toStartOf="@+id/earthquakeTime"
+            app:layout_constraintTop_toBottomOf="@+id/earthquakeTime" />
 
-    <TextView
-        android:id="@+id/detailDepthText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/sfprolight"
-        android:text="@{Double.toString(earthquake.depth)}"
-        android:textColor="@color/offWhite70"
-        android:textSize="15sp"
-        app:layout_constraintBottom_toTopOf="@+id/detectedByText"
-        app:layout_constraintStart_toEndOf="@+id/depthArrow"
-        app:layout_constraintTop_toBottomOf="@+id/earthquakeLocation" />
+        <View
+            android:id="@+id/divider"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="16dp"
+            android:background="#60415D6E"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/detectedByText" />
 
-    <ImageView
-        android:id="@+id/earthquakeFlag"
-        android:layout_width="25dp"
-        android:layout_height="16dp"
-        android:layout_marginEnd="15dp"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="@+id/earthquakeLocation"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/earthquakeLocation"
-        app:srcCompat="@drawable/demoflag" />
+        <ImageView
+            android:id="@+id/earthquakeFlag"
+            android:layout_width="25dp"
+            android:layout_height="16dp"
+            android:layout_marginEnd="15dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/earthquakeLocation"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/earthquakeLocation"
+            app:srcCompat="@drawable/demoflag" />
 
-    <ImageView
-        android:id="@+id/replayButton"
-        android:layout_width="28dp"
-        android:layout_height="28dp"
-        android:layout_marginEnd="15dp"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="@+id/detectedByText"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/detectedByText"
-        app:srcCompat="@drawable/greenreplay" />
+        <ImageView
+            android:id="@+id/replayButton"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_marginEnd="15dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/detectedByText"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/detectedByText"
+            app:srcCompat="@drawable/greenreplay" />
 
-    <TextView
-        android:id="@+id/detectedByCount"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/sfprolight"
-        android:text="1086"
-        android:textColor="@color/offWhite"
-        android:textSize="16dp"
-        app:layout_constraintBottom_toBottomOf="@+id/detectedByText"
-        app:layout_constraintStart_toEndOf="@+id/detectedByText"
-        app:layout_constraintTop_toTopOf="@+id/detectedByText" />
+        <TextView
+            android:id="@+id/detectedByCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:fontFamily="@font/sfprolight"
+            android:text="1086"
+            android:textColor="@color/offWhite"
+            android:textSize="15sp"
+            app:layout_constraintBottom_toBottomOf="@+id/detectedByText"
+            app:layout_constraintStart_toEndOf="@+id/detectedByText"
+            app:layout_constraintTop_toTopOf="@+id/detectedByText" />
 
-    <TextView
-        android:id="@+id/textView7"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text=" users"
-        app:layout_constraintBottom_toBottomOf="@id/detectedByCount"
-        app:layout_constraintStart_toEndOf="@id/detectedByCount"
-        app:layout_constraintTop_toTopOf="@id/detectedByCount" />
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

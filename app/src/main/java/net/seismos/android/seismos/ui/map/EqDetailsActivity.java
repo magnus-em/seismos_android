@@ -3,6 +3,7 @@ package net.seismos.android.seismos.ui.map;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -12,6 +13,8 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.android.gms.maps.CameraUpdate;
@@ -36,8 +39,11 @@ import net.seismos.android.seismos.R;
 import net.seismos.android.seismos.data.local.EarthquakeViewModel;
 import net.seismos.android.seismos.data.model.Earthquake;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class EqDetailsActivity extends AppCompatActivity implements OnMapReadyCallback {
 
@@ -52,6 +58,7 @@ public class EqDetailsActivity extends AppCompatActivity implements OnMapReadyCa
     private String title;
     private String id;
     private double magnitude;
+    private Date date;
 
     private EarthquakeViewModel earthquakeViewModel;
     private Earthquake eq;
@@ -62,37 +69,51 @@ public class EqDetailsActivity extends AppCompatActivity implements OnMapReadyCa
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_eq_details);
-
-
-
-
         Toolbar toolbar = findViewById(R.id.eq_details_toolbar);
         setSupportActionBar(toolbar);
-
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
-
-        TextView titleText = findViewById(R.id.placeTextTitle);
-        TextView locationText = findViewById(R.id.detailLocationText);
-
-
         Intent intent = getIntent();
 
         latitude = intent.getDoubleExtra("lat", 0);
         longitude = intent.getDoubleExtra("long", 0);
-        place = intent.getStringExtra("place");
+        String lat = latitude > 0 ? "° N" : "° S";
+        String lon = longitude > 0 ? "° W" : "° E";
+        String locText = Math.abs(latitude) + lat + "  " + Math.abs(longitude) + lon;
+        ((TextView)findViewById(R.id.detailLocationText)).setText(locText);
+
         title = intent.getStringExtra("title");
+        ((TextView)findViewById(R.id.placeTextTitle)).setText(title);
+
+        date = new Date(intent.getLongExtra("date", 0));
+        SimpleDateFormat format = new SimpleDateFormat("MM-dd-yyyy hh:mm:ss a z", Locale.getDefault());
+        String time = format.format(date);
+        ((TextView)findViewById(R.id.detailTimeText)).setText(time);
+
+        findViewById(R.id.usgsButton).setOnClickListener((View v) -> {
+            String url = intent.getStringExtra("url");
+
+            if (!url.startsWith("http://") && !url.startsWith("https://"))
+                url = "http://" + url;
+
+            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+            startActivity(browserIntent);
+        });
+
+
+        ((TextView)findViewById(R.id.detectedBy))
+                .setText(intent.getStringExtra("felt"));
+
+
+        ((TextView)findViewById(R.id.depthCount))
+                .setText(intent.getDoubleExtra("depth", 0) + " km");
+
+        place = intent.getStringExtra("place");
         id = intent.getStringExtra("id");
         magnitude = intent.getDoubleExtra("mag", 0);
 
-
-
-        ((TextView)findViewById(R.id.placeTextTitle)).setText(title);
-        locationText.setText("Lat: " + latitude + " Long: " + longitude);
-
 //        mag.setText(intent.getStringExtra("mag"));
 //        title.setText(intent.getStringExtra("title"));
-//        date.setText(intent.getStringExtra("date"));
 //        felt.setText(intent.getStringExtra("felt"));
 //        tsunami.setText(intent.getStringExtra("tsunami"));
 //        alert.setText(intent.getStringExtra("alert"));

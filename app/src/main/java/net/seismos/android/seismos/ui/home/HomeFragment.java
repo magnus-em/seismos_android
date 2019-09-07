@@ -2,6 +2,7 @@ package net.seismos.android.seismos.ui.home;
 
 import android.animation.ValueAnimator;
 
+import androidx.core.content.ContextCompat;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import android.content.Context;
@@ -49,7 +50,9 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import net.seismos.android.seismos.R;
 import net.seismos.android.seismos.data.local.EarthquakeViewModel;
 import net.seismos.android.seismos.data.model.Earthquake;
+import net.seismos.android.seismos.detection.DetectionService;
 import net.seismos.android.seismos.util.ResUtil;
+
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -151,8 +154,6 @@ public class HomeFragment extends Fragment implements HomeContract.View ,
         View root = inflater.inflate(R.layout.fragment_home, container, false);
 
         seiEarnedView = root.findViewById(R.id.seiEarnedView);
-
-
         root.findViewById(R.id.earnedToday).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -208,12 +209,18 @@ public class HomeFragment extends Fragment implements HomeContract.View ,
                      listening = false;
                      seiEarnedView.setRing2Activated(false);
                      seiEarnedView.setRing3Activated(false);
+
+                     stopService();
+
+
                  } else {
                      button.setImageDrawable(getResources().getDrawable(R.drawable.home_pause_icon));
                      setHandle.setColor(getResources().getColor(R.color.eq74GradientStart));
                      listening = true;
                      seiEarnedView.setRing2Activated(true);
                      seiEarnedView.setRing3Activated(true);
+
+                     startService();
                  }
 
              }
@@ -233,6 +240,17 @@ public class HomeFragment extends Fragment implements HomeContract.View ,
                  startActivity(intent);
          });
         return root;
+    }
+
+    public void startService() {
+        Intent serviceIntent = new Intent(getContext(), DetectionService.class);
+        serviceIntent.putExtra("input", "You've earned 37 sei today");
+        ContextCompat.startForegroundService(getContext(), serviceIntent);
+    }
+
+    public void stopService() {
+        Intent serviceIntent = new Intent(getContext(), DetectionService.class);
+        getContextHandle().stopService(serviceIntent);
     }
 
 

@@ -368,13 +368,15 @@ public class MapFragment extends Fragment implements MapContract.View,
         Intent intent = new Intent(getActivity(), EqDetailsActivity.class);
 
         intent.putExtra("id", eq.getId());
-
+        intent.putExtra("url", eq.getUrl());
         intent.putExtra("title", eq.getTitle());
         intent.putExtra("mag", Double.toString(eq.getMagnitude()));
         intent.putExtra("lat", eq.getLatitude());
         intent.putExtra("long", eq.getLongitude());
+        intent.putExtra("depth", eq.getDepth());
+
         intent.putExtra("place", eq.getPlace());
-        intent.putExtra("date", Long.toString(eq.getTime()));
+        intent.putExtra("date", eq.getTime());
         intent.putExtra("felt", Integer.toString(eq.getFelt()));
         intent.putExtra("tsunami", Integer.toString(eq.getTsunami()));
         intent.putExtra("alert", eq.getAlert());

@@ -62,7 +62,7 @@
                     android:fontFamily="@font/sfpromedium"
                     android:text="102km SSW of Luwuk, Indonesia"
                     android:textColor="@color/offWhite"
-                    android:textSize="20dp"
+                    android:textSize="24dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -94,7 +94,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/articleTitle" />
 
                 <TextView
-                    android:id="@+id/feltCountText"
+                    android:id="@+id/depthText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
@@ -113,24 +113,52 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="8dp"
                     android:fontFamily="@font/sfprolight"
-                    android:text="Detected by 42 users"
+                    android:text="Detected by"
+                    android:textAllCaps="false"
                     android:textColor="@color/offWhite"
                     android:textSize="16dp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/feltCountText" />
+                    app:layout_constraintTop_toBottomOf="@+id/depthText" />
 
+
+                <TextView
+                    android:id="@+id/detectedBy"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/sfprolight"
+                    android:text="42"
+                    android:textColor="@color/offWhite"
+                    android:textSize="18dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/tsunamiText"
+                    app:layout_constraintStart_toEndOf="@+id/tsunamiText"
+                    app:layout_constraintTop_toBottomOf="@+id/depthText" />
+
+                <TextView
+                    android:id="@+id/tsunamiText3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:fontFamily="@font/sfprolight"
+                    android:text="users"
+                    android:textColor="@color/offWhite"
+                    android:textSize="16dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/detectedBy"
+                    app:layout_constraintStart_toEndOf="@+id/detectedBy"
+                    app:layout_constraintTop_toTopOf="@+id/detectedBy" />
 
                 <View
                     android:id="@+id/divider"
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:layout_marginStart="16dp"
-                    android:layout_marginTop="24dp"
+                    android:layout_marginTop="16dp"
                     android:layout_marginEnd="16dp"
                     android:background="@color/blueDivider"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tsunamiText" />
+                    app:layout_constraintTop_toBottomOf="@+id/usgsButton" />
 
                 <TextView
                     android:id="@+id/detailLocationText"
@@ -159,7 +187,7 @@
                     app:layout_constraintTop_toTopOf="@+id/dateText" />
 
                 <TextView
-                    android:id="@+id/detailDepthText"
+                    android:id="@+id/depthCount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="120dp"
@@ -167,9 +195,9 @@
                     android:text="163 km"
                     android:textColor="@color/offWhite"
                     android:textSize="16dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/feltCountText"
+                    app:layout_constraintBottom_toBottomOf="@+id/depthText"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/feltCountText" />
+                    app:layout_constraintTop_toTopOf="@+id/depthText" />
 
                 <TextView
                     android:id="@+id/textView45"
@@ -325,11 +353,27 @@
                     app:layout_constraintBottom_toBottomOf="@+id/liquefactionStatusImg"
                     app:layout_constraintStart_toEndOf="@+id/liquefactionStatusImg" />
 
+                <Button
+                    android:id="@+id/usgsButton"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:backgroundTint="@color/blueDefault"
+                    android:fontFamily="@font/sfprodisplay_light"
+                    android:gravity="center"
+                    android:text="Extended information"
+                    android:textAllCaps="false"
+                    android:textSize="18dp"
+                    app:cornerRadius="8dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tsunamiText" />
+
 
             </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-
 
 
         </LinearLayout>
