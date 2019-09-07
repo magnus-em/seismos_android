@@ -140,6 +140,8 @@ public class MapFragment extends Fragment implements MapContract.View,
 
         sheetBehavior = BottomSheetBehavior.from(layoutBottomSheet);
 
+        sheetBehavior.setState(STATE_HIDDEN);
+
         sheetBehavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
             @Override
             public void onStateChanged(@NonNull View view, int i) {
@@ -227,6 +229,8 @@ public class MapFragment extends Fragment implements MapContract.View,
     @Override
     public void onResume() {
         super.onResume();
+
+
         Log.d("MAPLOADING", "FOUR");
 
         Log.d("MAPDEBUG", "MapFragment ONRESUME CALLED");
@@ -328,6 +332,8 @@ public class MapFragment extends Fragment implements MapContract.View,
             }
         });
 
+
+
         Log.d("MAPDEBUG", "onMapReady() called");
         renderEqs();
 
@@ -360,11 +366,12 @@ public class MapFragment extends Fragment implements MapContract.View,
     public void onItemClicked(Earthquake eq) {
 
         Intent intent = new Intent(getActivity(), EqDetailsActivity.class);
+
+        intent.putExtra("id", eq.getId());
+
         intent.putExtra("title", eq.getTitle());
         intent.putExtra("mag", Double.toString(eq.getMagnitude()));
         intent.putExtra("lat", eq.getLatitude());
-        Log.d(TAG, "LAT:" + eq.getLatitude());
-        Log.d(TAG, "preference: " + preferences.getString(Preferences.PREF_MIN_MAG, "nonthing"));
         intent.putExtra("long", eq.getLongitude());
         intent.putExtra("place", eq.getPlace());
         intent.putExtra("date", Long.toString(eq.getTime()));
@@ -430,19 +437,19 @@ public class MapFragment extends Fragment implements MapContract.View,
         // magnitude of the earthquake
         if (markedEarthquake != null) {
             if (markedEarthquake.getMagnitude() < 5) {
-                marker.setIcon(resizeBitmap(R.drawable.active_pin_49, 90, 126));
+                marker.setIcon(resizeBitmap(R.drawable.active_pin_49, 256, 300));
             } else if (markedEarthquake.getMagnitude() < 6) {
-                marker.setIcon(resizeBitmap(R.drawable.active_pin_59, 90, 126));
+                marker.setIcon(resizeBitmap(R.drawable.active_pin_59, 256, 300));
             } else if (markedEarthquake.getMagnitude() < 6.5) {
-                marker.setIcon(resizeBitmap(R.drawable.active_pin_64, 90, 126));
+                marker.setIcon(resizeBitmap(R.drawable.active_pin_64, 256, 300));
             } else if (markedEarthquake.getMagnitude() < 7) {
-                marker.setIcon(resizeBitmap(R.drawable.active_pin_69, 90, 126));
+                marker.setIcon(resizeBitmap(R.drawable.active_pin_69, 256, 300));
             } else if (markedEarthquake.getMagnitude() < 7.5) {
-                marker.setIcon(resizeBitmap(R.drawable.active_pin_74, 90, 126));
+                marker.setIcon(resizeBitmap(R.drawable.active_pin_74, 256, 300));
             } else if (markedEarthquake.getMagnitude() < 8) {
-                marker.setIcon(resizeBitmap(R.drawable.active_pin_79, 90, 126));
+                marker.setIcon(resizeBitmap(R.drawable.active_pin_79, 256, 300));
             } else {
-                marker.setIcon(resizeBitmap(R.drawable.active_pin_8, 90, 126));
+                marker.setIcon(resizeBitmap(R.drawable.active_pin_8, 256, 300));
             }
         }
 

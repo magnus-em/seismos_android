@@ -10,6 +10,7 @@ import android.graphics.drawable.Drawable;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 
 import com.google.android.gms.maps.model.LatLng;
@@ -19,6 +20,7 @@ import net.seismos.android.seismos.data.model.Earthquake;
 import net.seismos.android.seismos.util.ResUtil;
 
 public class EqGlobeView extends View {
+    private static final String TAG = "EqGlobeView";
 
 
     private float mStrokeWidth = 10;
@@ -95,7 +97,7 @@ public class EqGlobeView extends View {
 
     public void setEarthquake(Earthquake earthquake) {
         mEarthquake = earthquake;
-        createDrawable();
+        createFilename();
         createGradient();
         invalidate();
     }
@@ -135,10 +137,121 @@ public class EqGlobeView extends View {
 
     private void createDrawable() {
         LatLng position = new LatLng(mEarthquake.getLatitude(), mEarthquake.getLongitude());
-        if ((int)(position.latitude)%2 == 0) {
+        if ((int)(position.latitude)%4 == 0) {
             mMapDrawable = getResources().getDrawable(R.drawable.peruglobe);
-        } else {
+        } else if  ((int)(position.latitude)%3 == 0){
             mMapDrawable = getResources().getDrawable(R.drawable.usaglobe);
+        } else if ((int)(position.latitude)%2 == 0) {
+            mMapDrawable = getResources().getDrawable(R.drawable.japanglobe);
+        } else {
+            mMapDrawable = getResources().getDrawable(R.drawable.peruglobe);
+        }
+
+
+
+
+
+
+    }
+
+    private void createFilename() {
+        LatLng position = new LatLng(mEarthquake.getLatitude(), mEarthquake.getLongitude());
+        double lat = position.latitude;
+        double lon = position.longitude;
+        boolean negLat = false;
+        boolean negLon = false;
+        boolean latIsNeg = false;
+        boolean lonIsNeg = false;
+
+
+
+        if (lon >-20 && lon <= 0) {
+            negLon = true;
+        }
+
+        if (lat < 0) {
+            negLat = true;
+        }
+        if (lon < 0) {
+            negLon = true;
+        }
+
+
+        if (lon <= -20) {
+            lonIsNeg = true;
+        }
+
+
+
+        String lonString = "";
+
+        int lonInt = (int)(lon - (lon%20));
+
+
+
+        if (negLon) {
+            lonString += "_";
+        }
+
+
+
+        if (lonIsNeg) {
+            lonString += Integer.toString(-lonInt);
+        } else {
+            lonString += Integer.toString(lonInt);
+        }
+
+        String string = "";
+
+        if (lat < 90 && lat >= 80) {
+            string = "80";
+        } else if (lat < 80 && lat >= 70) {
+            string = "70";
+        } else if (lat < 70 && lat >= 60) {
+            string = "60";
+        } else if (lat < 60 && lat >= 50) {
+            string = "50";
+        } else if (lat < 50 && lat >= 40) {
+            string = "40";
+        } else if (lat < 40 && lat >= 20) {
+            string = "20";
+        } else if (lat < 20 && lat >= 0) {
+            string = "0";
+        } else if (lat > -20) {
+            string = "_20";
+        } else if (lat > -40) {
+            string = "_40";
+        } else if (lat > -50) {
+            string = "_50";
+        } else if (lat > -60) {
+            string = "_60";
+        } else if (lat > -70) {
+            string = "_70";
+        } else if (lat > -80) {
+            string = "_80";
+        } else if (lat > -90) {
+            string = "_90";
+        }
+
+
+
+        String filename = "g" + lonString + "d" + string;
+        Log.d(TAG, "filename: " + filename);
+        int mapID = getResources().getIdentifier("net.seismos.android.seismos:drawable/" + filename,
+                                                    null, null);
+        int altId = getResources().getIdentifier("net.seismos.android.seismos:drawable/g_60d60",
+                null, null);
+
+        mMapDrawable = getResources().getDrawable(mapID);
+    }
+
+    public void setDrawable(int i) {
+        if ((int)(i)%3 == 0) {
+            mMapDrawable = getResources().getDrawable(R.drawable.peruglobe);
+        } else if  ((int)(i)%2 == 0){
+            mMapDrawable = getResources().getDrawable(R.drawable.usaglobe);
+        } else {
+            mMapDrawable = getResources().getDrawable(R.drawable.japanglobe);
         }
     }
 

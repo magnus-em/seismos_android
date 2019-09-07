@@ -200,14 +200,20 @@ public class HomeFragment extends Fragment implements HomeContract.View ,
              @Override
              public void onClick(View v) {
 
+
+
                  if (listening) {
                      button.setImageDrawable(getResources().getDrawable(R.drawable.home_play_icon));
                      setHandle.setColor(getResources().getColor(R.color.blueDark));
                      listening = false;
+                     seiEarnedView.setRing2Activated(false);
+                     seiEarnedView.setRing3Activated(false);
                  } else {
                      button.setImageDrawable(getResources().getDrawable(R.drawable.home_pause_icon));
                      setHandle.setColor(getResources().getColor(R.color.eq74GradientStart));
                      listening = true;
+                     seiEarnedView.setRing2Activated(true);
+                     seiEarnedView.setRing3Activated(true);
                  }
 
              }
@@ -480,7 +486,7 @@ public class HomeFragment extends Fragment implements HomeContract.View ,
             }
             float entryval = (Math.abs(event.values[0]) + Math.abs(event.values[1]) + Math.abs(event.values[2]))/3f;
             entryval = (float)(5 - (5 / (0.5*entryval + 1)));
-            entryval += 0.3;
+            entryval += 0.1;
             data.setBarWidth(0.5f);
 
             if (firstEntry) {
@@ -494,11 +500,11 @@ public class HomeFragment extends Fragment implements HomeContract.View ,
             data.notifyDataChanged();
             // start
             bottomChart.notifyDataSetChanged();
-            bottomChart.setVisibleXRangeMaximum(50);
+            bottomChart.setVisibleXRangeMaximum(70);
             //end
 //
             topChart.notifyDataSetChanged();
-            topChart.setVisibleXRangeMaximum(50);
+            topChart.setVisibleXRangeMaximum(70);
             topChart.moveViewToX(data.getEntryCount());
             bottomChart.moveViewToX(data.getEntryCount());
 

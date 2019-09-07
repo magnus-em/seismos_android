@@ -50,6 +50,7 @@ public class GlobesAdapter extends RecyclerView.Adapter {
         DepressAnimationUtil.setup(holder.itemView);
         GlobeViewHolder vh = (GlobeViewHolder)holder;
         vh.globe.setEarthquake(earthquakes.get(position));
+//        vh.globe.setDrawable(position);
         vh.title.setText(parseTitle(earthquakes.get(position)));
         vh.detail.setText(parseDetail(earthquakes.get(position)));
 

@@ -18,9 +18,9 @@ public class UpgradeActivity extends AppCompatActivity {
 
         ViewPager viewPager = findViewById(R.id.upgradeViewPager);
         UpgradeAdapter upgradeAdapter = new UpgradeAdapter(getSupportFragmentManager());
-        upgradeAdapter.addFragment(new UpgradeFragment1(), "Seismos Plus");
-        upgradeAdapter.addFragment(new UpgradeFragment2(), "Seismos Pro");
-        upgradeAdapter.addFragment(new UpgradeFragment3(), "Seismos Supporter");
+        upgradeAdapter.addFragment(new UpgradeFragment1(), "Seismos Pro");
+//        upgradeAdapter.addFragment(new UpgradeFragment2(), "Seismos Pro");
+        upgradeAdapter.addFragment(new UpgradeFragment3(), "Seismos Patron");
 
         viewPager.setAdapter(upgradeAdapter);
 

@@ -148,7 +148,7 @@ public class StoreFragment extends Fragment implements StoreContract.View,
 
         storeTabAdapter = new StoreTabAdapter(getChildFragmentManager());
         storeTabAdapter.addFragment(offersFragment, "Today's offers");
-        storeTabAdapter.addFragment(collectionFragment, "My collection");
+        storeTabAdapter.addFragment(collectionFragment, "Bought");
 
 
         viewPager.setAdapter(storeTabAdapter);

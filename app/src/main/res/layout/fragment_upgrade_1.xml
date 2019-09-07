@@ -39,7 +39,7 @@
                 android:layout_marginEnd="32dp"
                 android:layout_marginBottom="24dp"
                 android:fontFamily="@font/sfpromedium"
-                android:text="$2.99 / Month"
+                android:text="$2.49 / Month"
                 android:textAlignment="center"
                 android:textAppearance="@style/ChipTheme"
                 android:textColor="@color/offWhite"
@@ -62,7 +62,7 @@
                 android:layout_marginEnd="32dp"
                 android:layout_marginBottom="12dp"
                 android:fontFamily="@font/sfpromedium"
-                android:text="12 Months - $2.49 / Month"
+                android:text="$1.99 / Month for 12 months"
                 android:textAlignment="center"
                 android:textAppearance="@style/ChipTheme"
                 android:textColor="@color/blueHighlight"
@@ -85,7 +85,7 @@
                 android:layout_marginTop="24dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/profile_image" />
+                app:srcCompat="@drawable/seismospro" />
 
             <TextView
                 android:id="@+id/textView4"
@@ -94,7 +94,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="4dp"
                 android:fontFamily="@font/sfpromedium"
-                android:text="Seismos Plus"
+                android:text="Seismos Pro"
                 android:textColor="@color/offWhite"
                 android:textSize="24dp"
                 app:layout_constraintStart_toEndOf="@+id/imageView27"
@@ -107,7 +107,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginBottom="8dp"
                 android:fontFamily="@font/sfprolight"
-                android:text="Science Fan"
+                android:text="Citizen Scientist"
                 android:textColor="@color/offWhite"
                 android:textSize="16dp"
                 app:layout_constraintBottom_toBottomOf="@+id/imageView27"
@@ -122,7 +122,7 @@
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
                 android:fontFamily="@font/sfprolight"
-                android:text="Simple tools to increase production, 2.5x basic limit"
+                android:text="Here are some basic tools to get you started. You’ll get earthquake early warning alerts, scheduling, and safety checklists. Also, all ads are gone!"
                 android:textColor="@color/offWhite"
                 android:textSize="15dp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -149,7 +149,7 @@
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="16dp"
                 android:fontFamily="@font/sfpromedium"
-                android:text="Included in Plus:"
+                android:text="Included in Pro:"
                 android:textColor="@color/offWhite"
                 android:textSize="20dp"
                 app:layout_constraintStart_toStartOf="parent"
@@ -160,10 +160,21 @@
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_marginStart="32dp"
+                android:layout_marginTop="8dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imageView3"
+                app:srcCompat="@drawable/upgrade_check" />
+
+            <ImageView
+                android:id="@+id/imageView3"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="32dp"
                 android:layout_marginTop="16dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView63"
-                app:srcCompat="@drawable/upgrade_check" />
+                app:srcCompat="@drawable/upgrade_check"
+                tools:visibility="visible" />
 
             <ImageView
                 android:id="@+id/imageView35"
@@ -219,6 +230,19 @@
                 app:layout_constraintTop_toTopOf="@+id/imageView28" />
 
             <TextView
+                android:id="@+id/textView15"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:fontFamily="@font/sfprolight"
+                android:text="Replay earthquake events"
+                android:textColor="@color/offWhite"
+                android:textSize="16dp"
+                app:layout_constraintBottom_toBottomOf="@+id/imageView3"
+                app:layout_constraintStart_toEndOf="@+id/imageView3"
+                app:layout_constraintTop_toTopOf="@+id/imageView3" />
+
+            <TextView
                 android:id="@+id/textView71"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -250,7 +274,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:fontFamily="@font/sfprolight"
-                android:text="Earn sei on 2 devices at once"
+                android:text="Schedule earthquake listening"
                 android:textColor="@color/offWhite"
                 android:textSize="16dp"
                 app:layout_constraintBottom_toBottomOf="@+id/imageView37"
@@ -263,7 +287,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:fontFamily="@font/sfprolight"
-                android:text="Exclusive Plus badge"
+                android:text="2 devices per user"
                 android:textColor="@color/offWhite"
                 android:textSize="16dp"
                 app:layout_constraintBottom_toBottomOf="@+id/imageView38"
