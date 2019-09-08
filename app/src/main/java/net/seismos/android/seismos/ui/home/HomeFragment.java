@@ -51,6 +51,7 @@ import net.seismos.android.seismos.R;
 import net.seismos.android.seismos.data.local.EarthquakeViewModel;
 import net.seismos.android.seismos.data.model.Earthquake;
 import net.seismos.android.seismos.detection.DetectionService;
+import net.seismos.android.seismos.global.GlobalApplicationState;
 import net.seismos.android.seismos.util.ResUtil;
 
 
@@ -62,20 +63,14 @@ import java.util.List;
 
 public class HomeFragment extends Fragment implements HomeContract.View ,
         SensorEventListener {
-
     private static final String TAG = "HomeFragment";
-    private static final int SCHEDULE_RESULT = 101;
 
     GlobesAdapter globesAdapter;
-
     FirebaseFirestore db;
     private int earnedToday = 0;
     TextView earnedTodayText;
-
     private HomeContract.Presenter mPresenter;
-
     OnEqGlobeSelectedListener listener;
-
     BarDataSet setHandle;
     private BarChart bottomChart;
     private BarChart topChart;
@@ -84,33 +79,22 @@ public class HomeFragment extends Fragment implements HomeContract.View ,
     private Thread thread;
     private boolean plotData = true;
     private boolean listening = false;
-
     private boolean firstEntry = true;
 
 
     private ChartTabAdapter chartTabAdapter;
     private TabLayout tabLayout;
     private ViewPager viewPager;
-
     private Fragment todayChart;
     private Fragment weekChart;
     private Fragment monthChart;
 
     SeiEarnedView seiEarnedView;
 
-    int upgradeCount = 0;
-
-    double progressAngle;
-
     public EarthquakeViewModel earthquakeViewModel;
     private ArrayList<Earthquake> mTopEarthquakes = new ArrayList<>();
 
     public HomeFragment() { } // required empty public constructor
-
-    public static HomeFragment newInstance() {
-        return new HomeFragment();
-    }
-
 
     @Override
     public void onAttach(Context context) {
@@ -124,27 +108,48 @@ public class HomeFragment extends Fragment implements HomeContract.View ,
 
         db = FirebaseFirestore.getInstance();
         db.collection("users").document(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                .addSnapshotListener(new EventListener<DocumentSnapshot>() {
-                    @Override
-                    public void onEvent(DocumentSnapshot documentSnapshot, FirebaseFirestoreException e) {
-                        if (e != null) {
-                            Log.d(TAG, "Firestore listen failed: ", e);
-                            return;
-                        }
+                .addSnapshotListener((documentSnapshot, e) -> {
+                    if (e != null) {
+                        Log.d(TAG, "Firestore listen failed: ", e);
+                        return;
+                    }
 
-                        Double today = documentSnapshot.getDouble("earnedToday");
-                        if (today != null) {
-                            earnedToday  = today.intValue();
+                    Double today = documentSnapshot.getDouble("earnedToday");
+                    if (today != null) {
+                        earnedToday  = today.intValue();
+
                             if (earnedTodayText != null)
                                 earnedTodayText.setText(Integer.toString(earnedToday));
-                        }
+                            Log.d("TESTING", "updaters called");
+                            if (earnedToday<=360) {
+                                seiEarnedView.updateFirstRing(earnedToday);
+                                seiEarnedView.setRing2Activated(false);
+                                seiEarnedView.setRing3Activated(false);
+                            } else if (earnedToday<=720) {
+                                seiEarnedView.maxFirst();
+                                seiEarnedView.setRing2Activated(true);
+                                seiEarnedView.setRing3Activated(false);
+
+                                seiEarnedView.updateSecondRing(earnedToday-360);
+                            } else if (earnedToday<=1080) {
+                                seiEarnedView.maxFirst();
+                                seiEarnedView.maxSecond();
+                                seiEarnedView.setRing2Activated(true);
+                                seiEarnedView.setRing3Activated(true);
+                                seiEarnedView.updateThirdRing(earnedToday - 720);
+                            }  else {
+                                seiEarnedView.setRing2Activated(true);
+                                seiEarnedView.setRing3Activated(true);
+                                seiEarnedView.maxFirst();
+                                seiEarnedView.maxSecond();
+                                seiEarnedView.maxThird();
+                            }
                     }
                 });
 
         todayChart = new ChartFragmentToday();
         weekChart = new ChartFragmentWeek();
         monthChart = new ChartFragmentMonth();
-
 
     }
 
@@ -154,24 +159,6 @@ public class HomeFragment extends Fragment implements HomeContract.View ,
         View root = inflater.inflate(R.layout.fragment_home, container, false);
 
         seiEarnedView = root.findViewById(R.id.seiEarnedView);
-        root.findViewById(R.id.earnedToday).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ValueAnimator animator = ValueAnimator.ofInt(0, 1000);
-                animator.setDuration(25000);
-                animator.addUpdateListener((ValueAnimator animation) -> {
-                        float progress = animation.getAnimatedFraction()*(1080);
-                        if (progress <= 360) {
-                            seiEarnedView.updateFirstRing(progress);
-                        } else if (progress <= 720) {
-                            seiEarnedView.updateSecondRing(progress-360);
-                        } else {
-                            seiEarnedView.updateThirdRing(progress-720);
-                        }
-                });
-                animator.start();
-            }
-        });
 
 
          viewPager = root.findViewById(R.id.viewPager);
@@ -187,7 +174,7 @@ public class HomeFragment extends Fragment implements HomeContract.View ,
 
          final FloatingActionButton button = root.findViewById(R.id.homePlayPause);
 
-         if (listening) {
+         if (((GlobalApplicationState)(getContextHandle().getApplicationContext())).isRecording()) {
              button.setImageDrawable(getResources().getDrawable(R.drawable.home_pause_icon));
          } else {
              button.setImageDrawable(getResources().getDrawable(R.drawable.home_play_icon));
@@ -197,32 +184,17 @@ public class HomeFragment extends Fragment implements HomeContract.View ,
 
          bottomChart = root.findViewById(R.id.accelChart2);
 
-         root.findViewById(R.id.homePlayPause).setOnClickListener(new View.OnClickListener() {
-             @Override
-             public void onClick(View v) {
-
-
-
-                 if (listening) {
-                     button.setImageDrawable(getResources().getDrawable(R.drawable.home_play_icon));
-                     setHandle.setColor(getResources().getColor(R.color.blueDark));
-                     listening = false;
-                     seiEarnedView.setRing2Activated(false);
-                     seiEarnedView.setRing3Activated(false);
-
-                     stopService();
-
-
-                 } else {
-                     button.setImageDrawable(getResources().getDrawable(R.drawable.home_pause_icon));
-                     setHandle.setColor(getResources().getColor(R.color.eq74GradientStart));
-                     listening = true;
-                     seiEarnedView.setRing2Activated(true);
-                     seiEarnedView.setRing3Activated(true);
-
-                     startService();
-                 }
-
+         root.findViewById(R.id.homePlayPause).setOnClickListener(v -> {
+             if (((GlobalApplicationState)(getContextHandle().getApplicationContext())).isRecording()) {
+                 button.setImageDrawable(getResources().getDrawable(R.drawable.home_play_icon));
+                 setHandle.setColor(getResources().getColor(R.color.blueDark));
+                 ((GlobalApplicationState)(getContextHandle().getApplicationContext())).setRecording(false);
+                 stopService();
+             } else {
+                 button.setImageDrawable(getResources().getDrawable(R.drawable.home_pause_icon));
+                 setHandle.setColor(getResources().getColor(R.color.eq74GradientStart));
+                 ((GlobalApplicationState)(getContextHandle().getApplicationContext())).setRecording(true);
+                 startService();
              }
          });
 
@@ -449,21 +421,17 @@ public class HomeFragment extends Fragment implements HomeContract.View ,
 
 
     private void startPlot() {
-
         if (thread != null) {
             thread.interrupt();
         }
 
-        thread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                while (true) {
-                    plotData = true;
-                    try {
-                        Thread.sleep(15);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
+        thread = new Thread(() -> {
+            while (true) {
+                plotData = true;
+                try {
+                    Thread.sleep(15);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
                 }
             }
         });
@@ -585,6 +553,11 @@ public class HomeFragment extends Fragment implements HomeContract.View ,
     @Override
     public void onResume() {
         super.onResume();
+            seiEarnedView.restore(earnedToday);
+
+        Log.d("TESTING", "onResume called");
+
+
         mSensorManager.registerListener(this, mAccelerometer,
                 SensorManager.SENSOR_DELAY_GAME);
     }

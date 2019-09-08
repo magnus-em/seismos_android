@@ -1,5 +1,6 @@
 package net.seismos.android.seismos.ui.home;
 
+import android.animation.ValueAnimator;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -109,23 +110,80 @@ public class SeiEarnedView extends View {
 
     }
 
+    public void restore(float angle) {
+        if (angle <=360) {
+            mSweepAngle1 = angle;
+        } else if (angle <=720){
+            ring2Activated = true;
+            mSweepAngle1 = 360;
+            mSweepAngle2 = angle-360;
+        } else if (angle <= 1080) {
+            ring2Activated = true;
+            ring3Activated = true;
+            mSweepAngle1 = 360;
+            mSweepAngle2 = 360;
+            mSweepAngle3 = angle - 720;
+        } else {
+            ring2Activated = true;
+            ring3Activated = true;
+            maxFirst();
+            maxSecond();
+            maxThird();
+
+        }
+        invalidate();
+    }
+
+    public void maxFirst() {
+        mSweepAngle1 = 360;
+        invalidate();
+    }
+    public void maxSecond() {
+        mSweepAngle2 = 360;
+        invalidate();
+    }
+
+    public void maxThird() {
+        mSweepAngle3 = 360;
+        invalidate();
+    }
 
     public void updateFirstRing(double angle) {
-        mSweepAngle1 = (float)angle;
-        invalidate();
+        ValueAnimator va = ValueAnimator.ofFloat(mSweepAngle1, (float)angle);
+        int mDuration = 1000; //in millis
+        va.setDuration(mDuration);
+        va.addUpdateListener(animation -> {
+            mSweepAngle1 = (float)animation.getAnimatedValue();
+            invalidate();
+        });
+        va.start();
+//        mSweepAngle1 = (float)angle;
+//        invalidate();
     }
 
     public void updateSecondRing(double angle) {
         if (ring2Activated) {
-            mSweepAngle2 = (float)angle;
-            invalidate();
+            ValueAnimator va = ValueAnimator.ofFloat(mSweepAngle2, (float)angle);
+            int mDuration = 1000; //in millis
+            va.setDuration(mDuration);
+            va.addUpdateListener(animation -> {
+                mSweepAngle2 = (float)animation.getAnimatedValue();
+                invalidate();
+            });
+            va.start();
         }
     }
 
     public void updateThirdRing(double angle) {
         if (ring3Activated) {
-            mSweepAngle3 = (float)angle;
-            invalidate();
+            ValueAnimator va = ValueAnimator.ofFloat(mSweepAngle3, (float)angle);
+            int mDuration = 1000; //in millis
+            va.setDuration(mDuration);
+            va.addUpdateListener(animation -> {
+                mSweepAngle3 = (float)animation.getAnimatedValue();
+                invalidate();
+            });
+            va.start();
         }
     }
 

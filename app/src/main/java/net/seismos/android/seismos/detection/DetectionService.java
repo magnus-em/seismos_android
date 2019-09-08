@@ -13,10 +13,22 @@ import android.os.IBinder;
 import android.os.Looper;
 import android.os.Message;
 import android.os.Process;
+import android.util.Log;
 
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
+
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.Transaction;
 
 import net.seismos.android.seismos.R;
 import net.seismos.android.seismos.ui.global.DashActivity;
@@ -24,22 +36,54 @@ import net.seismos.android.seismos.ui.global.DashActivity;
 public class DetectionService extends Service {
     public static final String CHANNEL_ID = "ForegroundDetectionService";
     private Looper serviceLooper;
-    private ServiceHandler serviceHandler;
+    private MyHandler serviceHandler;
+    private FirebaseFirestore db;
+    private boolean killFlag = false;
+    private NotificationCompat.Builder builder;
+    private NotificationManagerCompat notificationManager;
+
 
     // Handler that receives messages from the thread
-    private final class ServiceHandler extends Handler {
-        public ServiceHandler(Looper looper) {
+    private final class MyHandler extends Handler {
+        public MyHandler(Looper looper) {
             super(looper);
         }
         @Override
         public void handleMessage(Message msg) {
             // Normally we would do some work here, like download a file.
             // For our sample, we just sleep for 5 seconds.
-            try {
-                Thread.sleep(5000);
-            } catch (InterruptedException e) {
-                // Restore interrupt status.
-                Thread.currentThread().interrupt();
+
+
+            final DocumentReference docRef =  db.collection("users")
+                    .document(FirebaseAuth.getInstance().getCurrentUser().getUid());
+
+            for (int i=0;i<150;i++) {
+                if (killFlag) return;
+
+                db.runTransaction(new Transaction.Function<Integer>() {
+                    @Nullable
+                    @Override
+                    public Integer apply(@NonNull Transaction transaction) throws FirebaseFirestoreException {
+                        DocumentSnapshot snapshot = transaction.get(docRef);
+                        int balance = snapshot.getLong("earnedToday").intValue();
+                        balance = balance + 20;
+                        transaction.update(docRef, "earnedToday", balance);
+                        return balance;
+                    }
+                }).addOnSuccessListener(integer -> {
+                    Log.d("DETECTIONSERVICE", "Integer: " + integer);
+
+                    notificationManager.notify(1,
+                            builder.setContentText("You have earned " + integer + " sei").build());
+                }).addOnFailureListener(e -> Log.d("DETECTIONSERVICE", "FAILURE: " + e.getMessage()));
+
+
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    // Restore interrupt status.
+                    Thread.currentThread().interrupt();
+                }
             }
             // Stop the service using the startId, so that we don't stop
             // the service in the middle of handling another job
@@ -59,7 +103,13 @@ public class DetectionService extends Service {
 
         // Get the HandlerThread's Looper and use it for our Handler
         serviceLooper = thread.getLooper();
-        serviceHandler = new ServiceHandler(serviceLooper);
+        serviceHandler = new MyHandler(serviceLooper);
+        db = FirebaseFirestore.getInstance();
+
+         notificationManager
+                = NotificationManagerCompat.from(getApplicationContext());
+
+
     }
 
     @Override
@@ -70,12 +120,13 @@ public class DetectionService extends Service {
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0,
                 notificationIntent, 0);
 
-        Notification notification = new NotificationCompat.Builder(this, CHANNEL_ID)
+        builder = new NotificationCompat.Builder(this, CHANNEL_ID)
                 .setContentTitle("Actively detecting")
                 .setContentText(input)
                 .setSmallIcon(R.drawable.nav_icon_seismos)
-                .setContentIntent(pendingIntent)
-                .build();
+                .setContentIntent(pendingIntent);
+
+        Notification notification = builder.build();
 
 
         startForeground(1, notification);
@@ -90,20 +141,19 @@ public class DetectionService extends Service {
         serviceHandler.sendMessage(msg);
 
 
-
-
-
-
         // and then at some point, stopSelf()
-
 
         return START_NOT_STICKY;
 
     }
 
+
+
     @Override
     public void onDestroy() {
+        Log.d("DETECTIONSERVICE", "SERVICE STOPPED, ONDESTROY");
         super.onDestroy();
+        killFlag = true;
     }
 
     @Nullable
