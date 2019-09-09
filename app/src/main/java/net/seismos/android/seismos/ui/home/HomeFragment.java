@@ -52,6 +52,7 @@ import net.seismos.android.seismos.data.local.EarthquakeViewModel;
 import net.seismos.android.seismos.data.model.Earthquake;
 import net.seismos.android.seismos.detection.DetectionService;
 import net.seismos.android.seismos.global.GlobalApplicationState;
+import net.seismos.android.seismos.ui.alert.AlertActivity;
 import net.seismos.android.seismos.util.ResUtil;
 
 
@@ -386,12 +387,9 @@ public class HomeFragment extends Fragment implements HomeContract.View ,
 
         Log.d(TAG, "onActivityCreated() called in HomeFragment");
 
-        earthquakeViewModel.getSignificantEqs().observe(this, new Observer<List<Earthquake>>() {
-            @Override
-            public void onChanged(@Nullable List<Earthquake> earthquakes) {
-                if (earthquakes != null && earthquakes.size()  != 0) {
-                    setEarthquakes(earthquakes);
-                }
+        earthquakeViewModel.getSignificantEqs().observe(this, earthquakes -> {
+            if (earthquakes != null && earthquakes.size()  != 0) {
+                setEarthquakes(earthquakes);
             }
         });
     }
@@ -401,6 +399,9 @@ public class HomeFragment extends Fragment implements HomeContract.View ,
         if (globesAdapter != null) {
             globesAdapter.setEarthquakes(mTopEarthquakes);
         }
+
+
+
     }
 
 
@@ -556,6 +557,12 @@ public class HomeFragment extends Fragment implements HomeContract.View ,
             seiEarnedView.restore(earnedToday);
 
         Log.d("TESTING", "onResume called");
+
+        Intent intent = new Intent(getContext(), AlertActivity.class);
+        startActivity(intent);
+
+
+
 
 
         mSensorManager.registerListener(this, mAccelerometer,

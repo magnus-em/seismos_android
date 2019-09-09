@@ -42,6 +42,7 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.squareup.picasso.Picasso;
 
 import net.seismos.android.seismos.R;
+import net.seismos.android.seismos.ui.alert.AlertActivity;
 import net.seismos.android.seismos.ui.global.LauncherActivity;
 import net.seismos.android.seismos.util.RoundImageHelper;
 
@@ -143,6 +144,12 @@ public class ProfileFragment extends Fragment implements ProfileContract.View
                     }
                 });
             }
+        });
+
+        Chip alertDemo = view.findViewById(R.id.demoAlertChip);
+        alertDemo.setOnClickListener(v -> {
+            Intent intent = new Intent(getContext(), AlertActivity.class);
+            startActivity(intent);
         });
 
         final ImageView profileImage = view.findViewById(R.id.profileImage);

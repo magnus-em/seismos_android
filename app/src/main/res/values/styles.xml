@@ -24,6 +24,10 @@
 
     </style>
 
+    <style name="TextBody1" parent="TextAppearance.AppCompat.Body1">
+        <item name="android:lineSpacingMultiplier">1.25</item>
+    </style>
+
 
     <style name="ChipTheme" parent="Widget.MaterialComponents.Chip.Action">
         <item name="android:textSize">16dp</item>

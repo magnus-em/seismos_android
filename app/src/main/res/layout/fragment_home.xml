@@ -231,7 +231,8 @@
             android:fontFamily="@font/sfproregular"
             android:text="Data quality"
             android:textColor="@color/offWhite"
-            android:textSize="20dp" />
+            android:textSize="20dp"
+            android:visibility="gone" />
 
         <ImageView
             android:id="@+id/homeDataQuality"
@@ -240,7 +241,7 @@
             android:layout_margin="16dp"
             android:adjustViewBounds="true"
             android:cropToPadding="true"
-            app:srcCompat="@drawable/home_data_quality" />
+            app:srcCompat="@drawable/data_quality_placeholder" />
 
         <View
             android:id="@+id/homeDivider3"

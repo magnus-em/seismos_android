@@ -35,6 +35,7 @@ import net.seismos.android.seismos.ui.global.DashActivity;
 
 public class DetectionService extends Service {
     public static final String CHANNEL_ID = "ForegroundDetectionService";
+
     private Looper serviceLooper;
     private MyHandler serviceHandler;
     private FirebaseFirestore db;
@@ -48,6 +49,8 @@ public class DetectionService extends Service {
         public MyHandler(Looper looper) {
             super(looper);
         }
+
+
         @Override
         public void handleMessage(Message msg) {
             // Normally we would do some work here, like download a file.
@@ -57,26 +60,21 @@ public class DetectionService extends Service {
             final DocumentReference docRef =  db.collection("users")
                     .document(FirebaseAuth.getInstance().getCurrentUser().getUid());
 
-            for (int i=0;i<150;i++) {
-                if (killFlag) return;
+            while (!killFlag) {
 
-                db.runTransaction(new Transaction.Function<Integer>() {
-                    @Nullable
-                    @Override
-                    public Integer apply(@NonNull Transaction transaction) throws FirebaseFirestoreException {
-                        DocumentSnapshot snapshot = transaction.get(docRef);
-                        int balance = snapshot.getLong("earnedToday").intValue();
-                        balance = balance + 20;
-                        transaction.update(docRef, "earnedToday", balance);
-                        return balance;
-                    }
+                db.runTransaction(transaction -> {
+                    DocumentSnapshot snapshot = transaction.get(docRef);
+                    int balance = snapshot.getLong("earnedToday").intValue();
+                    balance = balance + 20;
+                    transaction.update(docRef, "earnedToday", balance);
+                    return balance;
                 }).addOnSuccessListener(integer -> {
+
                     Log.d("DETECTIONSERVICE", "Integer: " + integer);
 
                     notificationManager.notify(1,
                             builder.setContentText("You have earned " + integer + " sei").build());
                 }).addOnFailureListener(e -> Log.d("DETECTIONSERVICE", "FAILURE: " + e.getMessage()));
-
 
                 try {
                     Thread.sleep(1000);
@@ -85,8 +83,10 @@ public class DetectionService extends Service {
                     Thread.currentThread().interrupt();
                 }
             }
+
             // Stop the service using the startId, so that we don't stop
             // the service in the middle of handling another job
+
             stopSelf(msg.arg1);
         }
     }
@@ -108,8 +108,6 @@ public class DetectionService extends Service {
 
          notificationManager
                 = NotificationManagerCompat.from(getApplicationContext());
-
-
     }
 
     @Override
