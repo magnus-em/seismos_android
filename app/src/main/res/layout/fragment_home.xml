@@ -83,7 +83,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/earnedToday" />
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/homePlayPause"
+                android:id="@+id/recordingButtonFAB"
                 style="@style/Widget.MaterialComponents.FloatingActionButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -92,6 +92,7 @@
                 android:clickable="true"
                 android:padding="0dp"
                 android:tint="@color/blueBackground"
+                android:visibility="invisible"
                 app:fabCustomSize="65dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.498"
@@ -100,6 +101,19 @@
                 app:rippleColor="@color/blueDefault"
                 app:srcCompat="@drawable/home_play_icon" />
 
+
+            <ImageView
+                android:id="@+id/recordingButton"
+                android:layout_width="65dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:adjustViewBounds="true"
+                android:backgroundTint="@color/offWhite"
+                android:padding="0dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/accelChart2"
+                app:srcCompat="@drawable/recording" />
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/editProfileButton"
@@ -117,10 +131,10 @@
                 app:chipStartPadding="10dp"
                 app:chipStrokeColor="@color/offWhite"
                 app:chipStrokeWidth="1dp"
-                app:layout_constraintBottom_toBottomOf="@+id/homePlayPause"
-                app:layout_constraintEnd_toStartOf="@+id/homePlayPause"
+                app:layout_constraintBottom_toBottomOf="@+id/recordingButton"
+                app:layout_constraintEnd_toStartOf="@+id/recordingButton"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/homePlayPause"
+                app:layout_constraintTop_toTopOf="@+id/recordingButton"
                 app:layout_constraintVertical_bias="0.533"
                 app:textEndPadding="8dp"
                 app:textStartPadding="2dp">
@@ -144,10 +158,10 @@
                 app:chipStartPadding="10dp"
                 app:chipStrokeColor="@color/offWhite"
                 app:chipStrokeWidth="1dp"
-                app:layout_constraintBottom_toBottomOf="@+id/homePlayPause"
+                app:layout_constraintBottom_toBottomOf="@+id/recordingButton"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/homePlayPause"
-                app:layout_constraintTop_toTopOf="@+id/homePlayPause"
+                app:layout_constraintStart_toEndOf="@+id/recordingButton"
+                app:layout_constraintTop_toTopOf="@+id/recordingButton"
                 app:layout_constraintVertical_bias="0.533"
                 app:textEndPadding="10dp"
                 app:textStartPadding="2dp">
@@ -187,7 +201,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/homePlayPause" />
+                app:layout_constraintTop_toBottomOf="@+id/recordingButton" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

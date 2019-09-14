@@ -18,6 +18,9 @@
         <item name="android:statusBarColor">@color/blueBackground</item>
     </style>
 
+
+
+
     <style name="SignInTheme" parent="AppTheme">
         <item name="android:statusBarColor">@color/blueBackground</item>
 

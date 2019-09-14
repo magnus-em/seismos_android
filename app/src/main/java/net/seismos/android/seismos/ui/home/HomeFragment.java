@@ -1,9 +1,6 @@
 package net.seismos.android.seismos.ui.home;
 
-import android.animation.ValueAnimator;
-
 import androidx.core.content.ContextCompat;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.Intent;
@@ -29,6 +26,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.BarChart;
@@ -52,7 +50,7 @@ import net.seismos.android.seismos.data.local.EarthquakeViewModel;
 import net.seismos.android.seismos.data.model.Earthquake;
 import net.seismos.android.seismos.detection.DetectionService;
 import net.seismos.android.seismos.global.GlobalApplicationState;
-import net.seismos.android.seismos.ui.alert.AlertActivity;
+import net.seismos.android.seismos.util.DepressAnimationUtil;
 import net.seismos.android.seismos.util.ResUtil;
 
 
@@ -173,26 +171,29 @@ public class HomeFragment extends Fragment implements HomeContract.View ,
          viewPager.setAdapter(chartTabAdapter);
          tabLayout.setupWithViewPager(viewPager);
 
-         final FloatingActionButton button = root.findViewById(R.id.homePlayPause);
+
+
+        ImageView button = root.findViewById(R.id.recordingButton);
+        DepressAnimationUtil.setup(button);
 
          if (((GlobalApplicationState)(getContextHandle().getApplicationContext())).isRecording()) {
-             button.setImageDrawable(getResources().getDrawable(R.drawable.home_pause_icon));
+             button.setImageDrawable(getResources().getDrawable(R.drawable.recording));
          } else {
-             button.setImageDrawable(getResources().getDrawable(R.drawable.home_play_icon));
+             button.setImageDrawable(getResources().getDrawable(R.drawable.not_recording));
          }
 
          topChart = root.findViewById(R.id.accelChart1);
 
          bottomChart = root.findViewById(R.id.accelChart2);
 
-         root.findViewById(R.id.homePlayPause).setOnClickListener(v -> {
+         root.findViewById(R.id.recordingButton).setOnClickListener(v -> {
              if (((GlobalApplicationState)(getContextHandle().getApplicationContext())).isRecording()) {
-                 button.setImageDrawable(getResources().getDrawable(R.drawable.home_play_icon));
+                 button.setImageDrawable(getResources().getDrawable(R.drawable.not_recording));
                  setHandle.setColor(getResources().getColor(R.color.blueDark));
                  ((GlobalApplicationState)(getContextHandle().getApplicationContext())).setRecording(false);
                  stopService();
              } else {
-                 button.setImageDrawable(getResources().getDrawable(R.drawable.home_pause_icon));
+                 button.setImageDrawable(getResources().getDrawable(R.drawable.recording));
                  setHandle.setColor(getResources().getColor(R.color.eq74GradientStart));
                  ((GlobalApplicationState)(getContextHandle().getApplicationContext())).setRecording(true);
                  startService();
@@ -558,8 +559,6 @@ public class HomeFragment extends Fragment implements HomeContract.View ,
 
         Log.d("TESTING", "onResume called");
 
-        Intent intent = new Intent(getContext(), AlertActivity.class);
-        startActivity(intent);
 
 
 

@@ -9,12 +9,15 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import net.seismos.android.seismos.R;
+import net.seismos.android.seismos.util.DepressAnimationUtil;
 
-public class UpgradeFragment3 extends Fragment {
+public class UpgradeFragmentPro extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_upgrade_3, container, false);
+        View root = inflater.inflate(R.layout.fragment_upgrade_pro, container, false);
+        DepressAnimationUtil.setup(root.findViewById(R.id.fiatChip));
+        DepressAnimationUtil.setup(root.findViewById(R.id.seiChip));
         return root;
     }
 }

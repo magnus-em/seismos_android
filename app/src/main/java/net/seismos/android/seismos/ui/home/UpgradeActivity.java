@@ -4,7 +4,7 @@ import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
+
 import android.view.Window;
 import android.view.WindowManager;
 
@@ -18,9 +18,9 @@ public class UpgradeActivity extends AppCompatActivity {
 
         ViewPager viewPager = findViewById(R.id.upgradeViewPager);
         UpgradeAdapter upgradeAdapter = new UpgradeAdapter(getSupportFragmentManager());
-        upgradeAdapter.addFragment(new UpgradeFragment1(), "Seismos Pro");
+        upgradeAdapter.addFragment(new UpgradeFragmentPro(), "Seismos Pro");
 //        upgradeAdapter.addFragment(new UpgradeFragment2(), "Seismos Pro");
-        upgradeAdapter.addFragment(new UpgradeFragment3(), "Seismos Patron");
+        upgradeAdapter.addFragment(new UpgradeFragmentPatron(), "Seismos Patron");
 
         viewPager.setAdapter(upgradeAdapter);
 
@@ -28,7 +28,7 @@ public class UpgradeActivity extends AppCompatActivity {
             Window window = this.getWindow();
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-            window.setStatusBarColor(this.getResources().getColor(R.color.gradientBlueHighlightEnd));
+            window.setStatusBarColor(this.getResources().getColor(R.color.upgradeStatusBar));
         }
 
 
