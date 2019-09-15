@@ -43,7 +43,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="24dp"
         android:fontFamily="@font/sfproregular"
-        android:text="Seismos node coverage"
+        android:text="Show other sensors"
         android:textColor="@color/offWhite"
         android:textSize="20dp"
         app:layout_constraintStart_toStartOf="parent"
@@ -56,11 +56,37 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:fontFamily="@font/sfprolight"
-        android:text="Show where the Seismos network has enough nodes to issue EEW alerts"
+        android:text="Overlays an anonymized map of other phones listening for earthquakes"
         android:textColor="@color/offWhite70"
         android:textSize="14dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView17" />
+
+    <TextView
+        android:id="@+id/textView15"
+        android:layout_width="272dp"
+        android:layout_height="42dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/sfprolight"
+        android:text="Only show earthquakes above a certain threshold"
+        android:textColor="@color/offWhite70"
+        android:textSize="14dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView32" />
+
+    <TextView
+        android:id="@+id/textView89"
+        android:layout_width="272dp"
+        android:layout_height="42dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/sfprolight"
+        android:text="Only show earthquakes that happened recently"
+        android:textColor="@color/offWhite70"
+        android:textSize="14dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView38" />
 
     <Switch
         android:id="@+id/coverageSwitch"
@@ -78,7 +104,7 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="24dp"
         android:layout_marginEnd="16dp"
         android:background="@color/blueDefault"
         app:layout_constraintEnd_toEndOf="parent"
@@ -105,26 +131,27 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView32"
-        app:srcCompat="@drawable/magnitude_slider"
-        app:corner_radius="10"
-        app:min_value="4"
-        app:max_value="10"
-        app:steps="0.1"
         app:bar_color="@color/offWhite70"
         app:bar_highlight_color="@color/offWhite"
+        app:corner_radius="10"
+        app:data_type="_float"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView15"
         app:left_thumb_color="@color/blueLight"
         app:left_thumb_color_pressed="@color/blueHighlight"
-        app:data_type="_float"/>
+        app:max_value="10"
+        app:min_value="4"
+        app:srcCompat="@drawable/magnitude_slider"
+        app:steps="0.1" />
 
     <View
         android:id="@+id/divider2"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="32dp"
         android:layout_marginEnd="16dp"
         android:background="@color/blueDefault"
         app:layout_constraintEnd_toEndOf="parent"
@@ -164,7 +191,7 @@
         android:fontFamily="@font/sfproregular"
         android:text="4.0"
         android:textColor="@color/offWhite"
-        android:textSize="20dp"
+        android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="@+id/textView32"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/textView32" />
@@ -176,7 +203,7 @@
         android:layout_marginStart="32dp"
         android:layout_marginTop="8dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView38">
+        app:layout_constraintTop_toBottomOf="@+id/textView89">
 
         <RadioButton
             android:id="@+id/hourRadio"
@@ -209,7 +236,7 @@
         android:layout_marginStart="70dp"
         android:layout_marginTop="8dp"
         app:layout_constraintStart_toEndOf="@+id/hourDayGroup"
-        app:layout_constraintTop_toBottomOf="@+id/textView38">
+        app:layout_constraintTop_toBottomOf="@+id/textView89">
 
         <RadioButton
             android:id="@+id/weekRadio"

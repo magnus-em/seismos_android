@@ -65,7 +65,7 @@ public class DetectionService extends Service {
                 db.runTransaction(transaction -> {
                     DocumentSnapshot snapshot = transaction.get(docRef);
                     int balance = snapshot.getLong("earnedToday").intValue();
-                    balance = balance + 20;
+                    balance = balance + 5;
                     transaction.update(docRef, "earnedToday", balance);
                     return balance;
                 }).addOnSuccessListener(integer -> {
@@ -77,7 +77,7 @@ public class DetectionService extends Service {
                 }).addOnFailureListener(e -> Log.d("DETECTIONSERVICE", "FAILURE: " + e.getMessage()));
 
                 try {
-                    Thread.sleep(1000);
+                    Thread.sleep(5000);
                 } catch (InterruptedException e) {
                     // Restore interrupt status.
                     Thread.currentThread().interrupt();

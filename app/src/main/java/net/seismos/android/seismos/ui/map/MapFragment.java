@@ -42,6 +42,8 @@ import net.seismos.android.seismos.ui.global.DashActivity;
 import net.seismos.android.seismos.util.ResUtil;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import static com.google.android.material.bottomsheet.BottomSheetBehavior.STATE_COLLAPSED;
@@ -76,6 +78,7 @@ public class MapFragment extends Fragment implements MapContract.View,
     public EarthquakeViewModel earthquakeViewModel;
 
     private float mMinimumMagnitude;
+    private Calendar pastTimeCutoff = Calendar.getInstance();
 
     ArrayList<Marker> markers = new ArrayList<>();
 
@@ -92,27 +95,24 @@ public class MapFragment extends Fragment implements MapContract.View,
 
         earthquakeViewModel = ViewModelProviders.of(getActivity()).get(EarthquakeViewModel.class);
 
-        earthquakeViewModel.getEarthquakes().observe(this, new Observer<List<Earthquake>>() {
-            @Override
-            public void onChanged(@Nullable List<Earthquake> earthquakes) {
-                if (earthquakes != null) {
-                    allEarthquakes = new ArrayList<>(earthquakes);
-                    renderEqs();
-                }
+        earthquakeViewModel.getEarthquakes().observe(this, earthquakes -> {
+            if (earthquakes != null) {
+                allEarthquakes = new ArrayList<>(earthquakes);
+                renderEqs();
             }
         });
 
-        preferences.registerOnSharedPreferenceChangeListener(listener = new SharedPreferences.OnSharedPreferenceChangeListener() {
-            @Override
-            public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-                Log.d(TAG, "onsharedprefs listener called");
-                if (key.equals(Preferences.PREF_MIN_MAG)) {
-                    mMinimumMagnitude = Float.valueOf(sharedPreferences.getString(Preferences.PREF_MIN_MAG, "5"));
-                    renderEqs();
-                }
+        preferences.registerOnSharedPreferenceChangeListener(listener = (sharedPreferences, key) -> {
+            Log.d(TAG, "onsharedprefs listener called");
+            if (key.equals(Preferences.PREF_MIN_MAG)) {
+                mMinimumMagnitude = Float.valueOf(sharedPreferences.getString(Preferences.PREF_MIN_MAG, "5"));
+                renderEqs();
+            } else if (key.equals(Preferences.PREF_TIME_FRAME)) {
+                String timeFrame = sharedPreferences.getString(Preferences.PREF_TIME_FRAME, "month");
+                updateTimeFrame(timeFrame);
+                renderEqs();
             }
         });
-
     }
 
     @Override
@@ -175,6 +175,7 @@ public class MapFragment extends Fragment implements MapContract.View,
 
 
         mMinimumMagnitude = Float.valueOf(preferences.getString(Preferences.PREF_MIN_MAG, "5"));
+        updateTimeFrame(preferences.getString(Preferences.PREF_TIME_FRAME, "month"));
 
         return root;
     }
@@ -269,8 +270,11 @@ public class MapFragment extends Fragment implements MapContract.View,
 
         for (Earthquake earthquake : allEarthquakes) {
             if (earthquake.getMagnitude() >= mMinimumMagnitude) {
-                renderedEqs.add(earthquake);
-                mEarthquakeAdapter.notifyDataSetChanged(); // use a different less resource intensive dataset changed notifier
+                Date eqDate = new Date(earthquake.getTime());
+                if (eqDate.after(pastTimeCutoff.getTime())) {
+                    renderedEqs.add(earthquake);
+                    mEarthquakeAdapter.notifyDataSetChanged(); // use a different less resource intensive dataset changed notifier
+                }
             }
         }
 
@@ -489,6 +493,27 @@ public class MapFragment extends Fragment implements MapContract.View,
 
         if (sheetBehavior.getState() == STATE_HIDDEN) {
             sheetBehavior.setState(STATE_COLLAPSED);
+        }
+    }
+
+    private void updateTimeFrame(String tf) {
+        switch (tf) {
+            case "month":
+                pastTimeCutoff = Calendar.getInstance();
+                pastTimeCutoff.add(Calendar.MONTH, -1);
+                break;
+            case "week":
+                pastTimeCutoff = Calendar.getInstance();
+                pastTimeCutoff.add(Calendar.WEEK_OF_MONTH, -1);
+                break;
+            case "day":
+                pastTimeCutoff = Calendar.getInstance();
+                pastTimeCutoff.add(Calendar.DAY_OF_MONTH, -1);
+                break;
+            case "hour":
+                pastTimeCutoff = Calendar.getInstance();
+                pastTimeCutoff.add(Calendar.HOUR, -1);
+                break;
         }
     }
 }

@@ -53,31 +53,18 @@
                 app:layout_constraintTop_toBottomOf="@+id/networkStatus" />
 
             <ImageView
-                android:id="@+id/projectSeismos"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="24dp"
-                android:layout_marginEnd="8dp"
-                android:adjustViewBounds="true"
-                android:cropToPadding="true"
-                app:layout_constraintEnd_toStartOf="@+id/upperGuideLine"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/mission_seismos" />
-
-            <ImageView
                 android:id="@+id/earthquakeSafety"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
                 android:adjustViewBounds="true"
                 android:cropToPadding="true"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@+id/upperGuideLine"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/projectSeismos"
                 app:srcCompat="@drawable/earthquake_safety" />
 
             <ImageView
@@ -95,18 +82,18 @@
                 app:srcCompat="@drawable/network_status" />
 
             <ImageView
-                android:id="@+id/didYouFeelIt"
+                android:id="@+id/projectSeismos"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
+                android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
                 android:adjustViewBounds="true"
                 android:cropToPadding="true"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/upperGuideLine"
-                app:layout_constraintTop_toBottomOf="@+id/earthquakeSafety"
-                app:srcCompat="@drawable/did_you_feel_it" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/project_seismos" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.appbar.AppBarLayout>

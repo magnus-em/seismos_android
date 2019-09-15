@@ -121,36 +121,27 @@ public class SeismosFragment extends Fragment implements SeismosContract.View,
 
 
 
-        ImageView projectSeismos = view.findViewById(R.id.projectSeismos);
+
         ImageView networkStatus = view.findViewById(R.id.networkStatus);
         ImageView eqSafety = view.findViewById(R.id.earthquakeSafety);
-        ImageView dyfi = view.findViewById(R.id.didYouFeelIt);
+        ImageView projectSeismos = view.findViewById(R.id.projectSeismos);
+
 
         setupImageButton(projectSeismos);
         setupImageButton(networkStatus);
         setupImageButton(eqSafety);
-        setupImageButton(dyfi);
+//        setupImageButton(dyfi);
 
-        networkStatus.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Navigation.findNavController(v).navigate(R.id.action_seismosFragment_to_networkStatusFragment);
-            }
-        });
+        networkStatus.setOnClickListener(v -> Navigation.findNavController(v).navigate(R.id.action_seismosFragment_to_networkStatusFragment));
 
-        eqSafety.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Navigation.findNavController(v).navigate(R.id.action_seismosFragment_to_eqSafetyFragment);
-            }
-        });
+        eqSafety.setOnClickListener(v -> Navigation.findNavController(v).navigate(R.id.action_seismosFragment_to_eqSafetyFragment));
 
-        dyfi.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Navigation.findNavController(v).navigate(R.id.action_seismosFragment_to_DYFIFragment);
-            }
-        });
+//        dyfi.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Navigation.findNavController(v).navigate(R.id.action_seismosFragment_to_DYFIFragment);
+//            }
+//        });
 
 
         projectSeismos.setOnClickListener(new View.OnClickListener() {

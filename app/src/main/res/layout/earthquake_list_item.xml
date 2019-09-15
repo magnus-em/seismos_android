@@ -94,6 +94,19 @@
             app:layout_constraintStart_toStartOf="@+id/earthquakeTime"
             app:layout_constraintTop_toBottomOf="@+id/earthquakeTime" />
 
+        <TextView
+            android:id="@+id/detectedByText2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="4dp"
+            android:fontFamily="@font/sfprolight"
+            android:text="people"
+            android:textColor="@color/offWhite70"
+            android:textSize="15sp"
+            app:layout_constraintStart_toEndOf="@+id/detectedByCount"
+            app:layout_constraintTop_toBottomOf="@+id/earthquakeTime" />
+
         <View
             android:id="@+id/divider"
             android:layout_width="0dp"

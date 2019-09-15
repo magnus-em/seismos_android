@@ -3,7 +3,7 @@
 
 
     <string name="nav_title_home">Home</string>
-    <string name="nav_title_map">Map</string>
+    <string name="nav_title_map">Recent</string>
     <string name="nav_title_seismos">Seismos</string>
     <string name="nav_title_store">Store</string>
     <string name="nav_title_profile">Profile</string>
