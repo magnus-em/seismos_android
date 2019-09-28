@@ -24,18 +24,33 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".ui.global.DashActivityNav" android:screenOrientation="portrait"/>
+
         <activity android:name=".ui.global.DashActivity" android:screenOrientation="portrait"/>
 
         <activity android:name=".ui.onboarding.OnboardingActivity" android:screenOrientation="portrait"/>
 
         <activity android:name=".ui.map.EqDetailsActivity" android:screenOrientation="portrait"
-            android:launchMode="singleTop" android:parentActivityName=".ui.global.DashActivity"/>
+            android:launchMode="singleTop" android:parentActivityName=".ui.global.DashActivityNav"/>
         <activity android:name=".ui.alert.AlertActivity" android:screenOrientation="portrait"/>
         <activity android:name=".ui.store.StoreDetailActivity" android:screenOrientation="portrait" android:launchMode="singleTop"/>
         <activity android:name=".ui.home.UpgradeActivity" android:theme="@style/upgradeActivity" android:screenOrientation="portrait" android:launchMode="singleTop"/>
+
+        <activity android:name=".ui.seismos.EqSafetyActivity" android:screenOrientation="portrait"/>
+
+        <activity android:name=".ui.map.IFeltThisActivity" android:screenOrientation="portrait"/>
+
+        <activity android:name=".ui.seismos.MissionSeismosActivity" android:screenOrientation="portrait"/>
+
+        <activity android:name=".ui.seismos.NetworkStatusActivity" android:screenOrientation="portrait"/>
+
+        <activity android:name=".ui.home.ScheduleActivity" android:screenOrientation="portrait"/>
+
+        <activity android:name=".ui.map.AlertsActivity" android:screenOrientation="portrait"/>
+
+        <activity android:name=".ui.map.FiltersActivity" android:screenOrientation="portrait"/>
         
         <service android:name=".detection.DetectionService"  android:enabled="true"/>
-
 
 
         <meta-data

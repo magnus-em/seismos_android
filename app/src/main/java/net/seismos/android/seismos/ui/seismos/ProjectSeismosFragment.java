@@ -1,9 +1,11 @@
 package net.seismos.android.seismos.ui.seismos;
 
 import android.os.Bundle;
+import android.text.method.ScrollingMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -18,7 +20,7 @@ public class ProjectSeismosFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
-        return inflater.inflate(R.layout.fragment_project_seismos1, container, false);
+        return inflater.inflate(R.layout.fragment_project_seismos, container, false);
     }
 
     @Override
@@ -29,5 +31,11 @@ public class ProjectSeismosFragment extends Fragment {
         ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayShowTitleEnabled(false);
+
+        TextView body = view.findViewById(R.id.text);
+
+        body.setMovementMethod(new ScrollingMovementMethod());
+
+
     }
 }

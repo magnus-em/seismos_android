@@ -37,7 +37,7 @@
         android:id="@+id/networkStatusFragment"
         android:name="net.seismos.android.seismos.ui.seismos.NetworkStatusFragment"
         android:label="fragment_network_status"
-        tools:layout="@layout/fragment_network_status" />
+        tools:layout="@layout/activity_network_status" />
     <fragment
         android:id="@+id/projectSeismosFragment"
         android:name="net.seismos.android.seismos.ui.seismos.ProjectSeismosFragment"

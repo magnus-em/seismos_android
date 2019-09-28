@@ -33,7 +33,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 
-public class EqDetailsActivity extends AppCompatActivity implements OnMapReadyCallback {
+public class IFeltThisActivity extends AppCompatActivity implements OnMapReadyCallback {
 
     private static final String TAG = "EqDetailsActivity";
 
@@ -56,7 +56,7 @@ public class EqDetailsActivity extends AppCompatActivity implements OnMapReadyCa
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_eq_details);
+        setContentView(R.layout.activity_i_felt_this);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -67,8 +67,6 @@ public class EqDetailsActivity extends AppCompatActivity implements OnMapReadyCa
         longitude = intent.getDoubleExtra("long", 0);
         String lat = latitude > 0 ? "° N" : "° S";
         String lon = longitude > 0 ? "° W" : "° E";
-        String locText = Math.abs(latitude) + lat + "  " + Math.abs(longitude) + lon;
-        ((TextView)findViewById(R.id.detailLocationText)).setText(locText);
 
         title = intent.getStringExtra("title");
         ((TextView)findViewById(R.id.placeTextTitle)).setText(title);
@@ -78,15 +76,7 @@ public class EqDetailsActivity extends AppCompatActivity implements OnMapReadyCa
         String time = format.format(date);
         ((TextView)findViewById(R.id.detailTimeText)).setText(time);
 
-        findViewById(R.id.usgsButton).setOnClickListener((View v) -> {
-            String url = intent.getStringExtra("url");
 
-            if (!url.startsWith("http://") && !url.startsWith("https://"))
-                url = "http://" + url;
-
-            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-            startActivity(browserIntent);
-        });
 
 
         ((TextView)findViewById(R.id.detectedBy))
@@ -127,27 +117,27 @@ public class EqDetailsActivity extends AppCompatActivity implements OnMapReadyCa
         options.position(new LatLng(latitude, longitude));
 
         marker = mMap.addMarker(options);
-            if (magnitude < 5) {
-                marker.setIcon(resizeBitmap(R.drawable.active_pin_49, 256, 300));
-            } else if (magnitude< 6) {
-                marker.setIcon(resizeBitmap(R.drawable.active_pin_59, 256, 300));
-            } else if (magnitude< 6.5) {
-                marker.setIcon(resizeBitmap(R.drawable.active_pin_64, 256, 300));
-            } else if (magnitude< 7) {
-                marker.setIcon(resizeBitmap(R.drawable.active_pin_69, 256, 300));
-            } else if (magnitude< 7.5) {
-                marker.setIcon(resizeBitmap(R.drawable.active_pin_74, 256, 300));
-            } else if (magnitude < 8) {
-                marker.setIcon(resizeBitmap(R.drawable.active_pin_79, 256, 300));
-            } else {
-                marker.setIcon(resizeBitmap(R.drawable.active_pin_8, 256, 300));
-            }
+        if (magnitude < 5) {
+            marker.setIcon(resizeBitmap(R.drawable.active_pin_49, 256, 300));
+        } else if (magnitude< 6) {
+            marker.setIcon(resizeBitmap(R.drawable.active_pin_59, 256, 300));
+        } else if (magnitude< 6.5) {
+            marker.setIcon(resizeBitmap(R.drawable.active_pin_64, 256, 300));
+        } else if (magnitude< 7) {
+            marker.setIcon(resizeBitmap(R.drawable.active_pin_69, 256, 300));
+        } else if (magnitude< 7.5) {
+            marker.setIcon(resizeBitmap(R.drawable.active_pin_74, 256, 300));
+        } else if (magnitude < 8) {
+            marker.setIcon(resizeBitmap(R.drawable.active_pin_79, 256, 300));
+        } else {
+            marker.setIcon(resizeBitmap(R.drawable.active_pin_8, 256, 300));
+        }
 
-        CameraUpdate update = CameraUpdateFactory.newLatLngZoom(new LatLng(latitude, longitude),
-                                                                    4);
+        CameraUpdate update = CameraUpdateFactory.newLatLngZoom(new LatLng(latitude + 80, longitude),
+                1);
         mMap.moveCamera(update);
         mMap.getUiSettings().setMyLocationButtonEnabled(false);
-        mMap.getUiSettings().setScrollGesturesEnabled(false);
+//        mMap.getUiSettings().setScrollGesturesEnabled(false);
         mMap.getUiSettings().setZoomControlsEnabled(false);
 
     }

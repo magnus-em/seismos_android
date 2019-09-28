@@ -23,10 +23,10 @@
         android:id="@+id/filtersFragment"
         android:name="net.seismos.android.seismos.ui.map.FiltersFragment"
         android:label="fragment_filters"
-        tools:layout="@layout/fragment_filters" />
+        tools:layout="@layout/activity_filters" />
     <fragment
         android:id="@+id/alertsFragment"
         android:name="net.seismos.android.seismos.ui.map.AlertsFragment"
         android:label="fragment_alerts"
-        tools:layout="@layout/fragment_alerts" />
+        tools:layout="@layout/activity_alerts" />
 </navigation>

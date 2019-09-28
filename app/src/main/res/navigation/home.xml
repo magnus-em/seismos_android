@@ -18,7 +18,7 @@
         android:id="@+id/scheduleFragment"
         android:name="net.seismos.android.seismos.ui.home.ScheduleFragment"
         android:label="fragment_schedule"
-        tools:layout="@layout/fragment_schedule" />
+        tools:layout="@layout/activity_schedule" />
 
 
 </navigation>

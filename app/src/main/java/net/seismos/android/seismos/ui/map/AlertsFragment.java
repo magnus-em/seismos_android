@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 import android.widget.Switch;
 
 import androidx.annotation.NonNull;
@@ -24,7 +25,7 @@ public class AlertsFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
-        return inflater.inflate(R.layout.fragment_alerts, container, false);
+        return inflater.inflate(R.layout.activity_alerts, container, false);
     }
 
     @Override
@@ -50,6 +51,10 @@ public class AlertsFragment extends Fragment {
 
         Switch notifSwitch = view.findViewById(R.id.eqNotification);
         notifSwitch.setChecked(preferences.getBoolean(Preferences.PREF_EQ_NOTIF, true));
+
+        notifSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            preferences.edit().putBoolean(Preferences.PREF_EQ_NOTIF, isChecked).apply();
+        });
 
     }
 

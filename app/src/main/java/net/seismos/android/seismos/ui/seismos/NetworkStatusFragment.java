@@ -18,7 +18,7 @@ public class NetworkStatusFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
-        return inflater.inflate(R.layout.fragment_network_status, container, false);
+        return inflater.inflate(R.layout.activity_network_status, container, false);
     }
 
     @Override

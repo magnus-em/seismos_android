@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.view.View;
 
 import net.seismos.android.seismos.R;
-import net.seismos.android.seismos.ui.global.DashActivity;
+import net.seismos.android.seismos.ui.global.DashActivityNav;
 
 public class OnboardingActivity extends AppCompatActivity {
     @Override
@@ -16,6 +16,6 @@ public class OnboardingActivity extends AppCompatActivity {
         setContentView(R.layout.activity_onboarding);
 
         findViewById(R.id.onboardingButton).setOnClickListener((View v) ->
-                startActivity(new Intent(OnboardingActivity.this, DashActivity.class)));
+                startActivity(new Intent(OnboardingActivity.this, DashActivityNav.class)));
     }
 }

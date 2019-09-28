@@ -8,7 +8,7 @@
     tools:context=".ui.global.DashActivityNav">
 
     <FrameLayout
-        android:id="@+id/host_container"
+        android:id="@+id/nav_host_container"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1" />

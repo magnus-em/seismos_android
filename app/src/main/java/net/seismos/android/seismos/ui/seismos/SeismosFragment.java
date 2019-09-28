@@ -130,25 +130,21 @@ public class SeismosFragment extends Fragment implements SeismosContract.View,
         setupImageButton(projectSeismos);
         setupImageButton(networkStatus);
         setupImageButton(eqSafety);
-//        setupImageButton(dyfi);
 
-        networkStatus.setOnClickListener(v -> Navigation.findNavController(v).navigate(R.id.action_seismosFragment_to_networkStatusFragment));
-
-        eqSafety.setOnClickListener(v -> Navigation.findNavController(v).navigate(R.id.action_seismosFragment_to_eqSafetyFragment));
-
-//        dyfi.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Navigation.findNavController(v).navigate(R.id.action_seismosFragment_to_DYFIFragment);
-//            }
-//        });
+        networkStatus.setOnClickListener(v -> {
+            Intent intent = new Intent(getContext(), NetworkStatusActivity.class);
+            startActivity(intent);
+        });
 
 
-        projectSeismos.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Navigation.findNavController(v).navigate(R.id.action_seismosFragment_to_projectSeismosFragment);
-            }
+        eqSafety.setOnClickListener(v -> {
+            Intent intent = new Intent(getContext(), EqSafetyActivity.class);
+            startActivity(intent);
+        });
+
+        projectSeismos.setOnClickListener(v -> {
+            Intent intent = new Intent(getContext(), MissionSeismosActivity.class);
+            startActivity(intent);
         });
     }
 

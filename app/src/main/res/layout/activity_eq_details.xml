@@ -15,13 +15,13 @@
             android:orientation="vertical" >
 
             <com.google.android.material.appbar.AppBarLayout
-                android:id="@+id/appBarLayout2"
+                android:id="@+id/appBarLayout"
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
                 android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
                 <androidx.appcompat.widget.Toolbar
-                    android:id="@+id/eq_details_toolbar"
+                    android:id="@+id/toolbar"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/blueDark"

@@ -16,22 +16,17 @@ import android.os.Process;
 import android.util.Log;
 
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
-import com.google.firebase.firestore.Transaction;
 
 import net.seismos.android.seismos.R;
-import net.seismos.android.seismos.ui.global.DashActivity;
+import net.seismos.android.seismos.ui.global.DashActivityNav;
 
 public class DetectionService extends Service {
     public static final String CHANNEL_ID = "ForegroundDetectionService";
@@ -114,7 +109,7 @@ public class DetectionService extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
         String input = intent.getStringExtra("input");
         createNotificationChannel();
-        Intent notificationIntent = new Intent(this, DashActivity.class);
+        Intent notificationIntent = new Intent(this, DashActivityNav.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0,
                 notificationIntent, 0);
 

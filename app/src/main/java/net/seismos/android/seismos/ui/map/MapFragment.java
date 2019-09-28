@@ -1,6 +1,5 @@
 package net.seismos.android.seismos.ui.map;
 
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.Intent;
@@ -14,7 +13,6 @@ import com.google.android.material.chip.Chip;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
@@ -38,13 +36,13 @@ import net.seismos.android.seismos.R;
 import net.seismos.android.seismos.data.model.Earthquake;
 import net.seismos.android.seismos.data.local.EarthquakeViewModel;
 import net.seismos.android.seismos.global.Preferences;
-import net.seismos.android.seismos.ui.global.DashActivity;
+import net.seismos.android.seismos.ui.global.DashActivityNav;
 import net.seismos.android.seismos.util.ResUtil;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
+
 
 import static com.google.android.material.bottomsheet.BottomSheetBehavior.STATE_COLLAPSED;
 import static com.google.android.material.bottomsheet.BottomSheetBehavior.STATE_EXPANDED;
@@ -126,13 +124,9 @@ public class MapFragment extends Fragment implements MapContract.View,
         final View scrolling = root.findViewById(R.id.scrollingIndicator);
         final FloatingActionButton filterFab = root.findViewById(R.id.locationFab);
         filterFab.setImageDrawable(ResUtil.getInstance().getDrawable(R.drawable.filter_icon));
-        filterFab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-//                Intent intent = new Intent(getActivity(), FiltersActivity.class);
-//                startActivityForResult(intent, FILTERS_RESULT);
-                Navigation.findNavController(getView()).navigate(R.id.action_mapFragment_to_filtersFragment);
-            }
+        filterFab.setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity(), FiltersActivity.class);
+            startActivityForResult(intent, FILTERS_RESULT);
         });
 
 
@@ -164,13 +158,15 @@ public class MapFragment extends Fragment implements MapContract.View,
 
         Chip alertsChip = root.findViewById(R.id.alerts_chip);
         alertsChip.setOnClickListener((View v) -> {
-            Navigation.findNavController(v).navigate(R.id.action_mapFragment_to_alertsFragment);
+            Intent intent = new Intent(getContext(), AlertsActivity.class);
+            startActivity(intent);
         });
 
 
         // this is the same as the setOnClickListener because the Close Icon blocks the touch event
         alertsChip.setOnCloseIconClickListener((View v) -> {
-            Navigation.findNavController(v).navigate(R.id.action_mapFragment_to_alertsFragment);
+            Intent intent = new Intent(getContext(), AlertsActivity.class);
+            startActivity(intent);
         });
 
 
@@ -195,21 +191,17 @@ public class MapFragment extends Fragment implements MapContract.View,
         }
 
         // shitty workaround to see if the map tab was opened by a click on a globe
-        double[] coord = ((DashActivity)getContext()).getCoord();
-        if (coord != null) {
-            navigateToLatLng(new LatLng(coord[0], coord[1]));
-            ((DashActivity)getContext()).resetCoord();
-        }
+
+
+
 
         Bundle bundle = getArguments();
 
         if (bundle != null) {
             float lat = bundle.getFloat("lat");
-
-            Log.d(TAG, "float param: " + lat);
-                Log.d(TAG, "FLOAT ARRAY PARAMETER NOT NULL");
-
-
+            float lng = bundle.getFloat("lng");
+            navigateToLatLng(new LatLng(lat, lng));
+            navigateToLatLng(new LatLng(lat, lng));
         }
 
         Context context = view.getContext();
@@ -368,9 +360,7 @@ public class MapFragment extends Fragment implements MapContract.View,
 
     @Override
     public void onItemClicked(Earthquake eq) {
-
         Intent intent = new Intent(getActivity(), EqDetailsActivity.class);
-
         intent.putExtra("id", eq.getId());
         intent.putExtra("url", eq.getUrl());
         intent.putExtra("title", eq.getTitle());
@@ -378,7 +368,6 @@ public class MapFragment extends Fragment implements MapContract.View,
         intent.putExtra("lat", eq.getLatitude());
         intent.putExtra("long", eq.getLongitude());
         intent.putExtra("depth", eq.getDepth());
-
         intent.putExtra("place", eq.getPlace());
         intent.putExtra("date", eq.getTime());
         intent.putExtra("felt", Integer.toString(eq.getFelt()));
@@ -386,9 +375,31 @@ public class MapFragment extends Fragment implements MapContract.View,
         intent.putExtra("alert", eq.getAlert());
         intent.putExtra("types", eq.getTypes());
         intent.putExtra("cdi", Double.toString(eq.getCdi()));
-
         startActivity(intent);
     }
+
+    @Override
+    public void onChipClicked(Earthquake eq) {
+        Intent intent = new Intent(getActivity(), IFeltThisActivity.class);
+        intent.putExtra("id", eq.getId());
+        intent.putExtra("url", eq.getUrl());
+        intent.putExtra("title", eq.getTitle());
+        intent.putExtra("mag", Double.toString(eq.getMagnitude()));
+        intent.putExtra("lat", eq.getLatitude());
+        intent.putExtra("long", eq.getLongitude());
+        intent.putExtra("depth", eq.getDepth());
+        intent.putExtra("place", eq.getPlace());
+        intent.putExtra("date", eq.getTime());
+        intent.putExtra("felt", Integer.toString(eq.getFelt()));
+        intent.putExtra("tsunami", Integer.toString(eq.getTsunami()));
+        intent.putExtra("alert", eq.getAlert());
+        intent.putExtra("types", eq.getTypes());
+        intent.putExtra("cdi", Double.toString(eq.getCdi()));
+        startActivity(intent);
+    }
+
+
+
 
     @Override
     public void navigateToLatLng(final LatLng latLng) {

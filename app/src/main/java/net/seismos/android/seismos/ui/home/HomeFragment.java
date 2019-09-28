@@ -201,7 +201,8 @@ public class HomeFragment extends Fragment implements HomeContract.View ,
          });
 
          root.findViewById(R.id.editProfileButton).setOnClickListener((View v) -> {
-             Navigation.findNavController(v).navigate(R.id.action_homeFragment_to_scheduleFragment);
+             Intent intent = new Intent(getContext(), ScheduleActivity.class);
+             startActivity(intent);
          });
 
          root.findViewById(R.id.upgradeChip).setOnClickListener((View v) -> {

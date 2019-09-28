@@ -1,12 +1,10 @@
 package net.seismos.android.seismos.detection;
 
 import android.app.IntentService;
-import android.app.Notification;
 import android.app.PendingIntent;
 import android.content.Intent;
 
-import net.seismos.android.seismos.R;
-import net.seismos.android.seismos.ui.global.DashActivity;
+import net.seismos.android.seismos.ui.global.DashActivityNav;
 
 public class DetectionService2 extends IntentService {
 
@@ -25,7 +23,7 @@ public class DetectionService2 extends IntentService {
         }
     }
 
-    Intent notificationIntent = new Intent(this, DashActivity.class);
+    Intent notificationIntent = new Intent(this, DashActivityNav.class);
     PendingIntent pendingIntent =
             PendingIntent.getActivity(this, 0, notificationIntent, 0);
 

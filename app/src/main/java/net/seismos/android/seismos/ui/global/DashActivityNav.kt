@@ -18,11 +18,8 @@ package net.seismos.android.seismos.ui.global
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.os.bundleOf
-import androidx.core.view.get
 import androidx.lifecycle.LiveData
 import androidx.navigation.NavController
-import androidx.navigation.Navigation
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import net.seismos.android.seismos.R
@@ -31,14 +28,14 @@ import net.seismos.android.seismos.ui.home.HomeFragment
 /**
  * An activity that inflates a layout that has a [BottomNavigationView].
  */
-class DashActivity : AppCompatActivity(), HomeFragment.OnEqGlobeSelectedListener {
+class DashActivityNav : AppCompatActivity(), HomeFragment.OnEqGlobeSelectedListener {
 
     private var currentNavController: LiveData<NavController>? = null
     private var coordinates : DoubleArray? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_dash)
+        setContentView(R.layout.activity_dash_nav)
         if (savedInstanceState == null) {
             setupBottomNavigationBar()
         } // Else, need to wait for onRestoreInstanceState

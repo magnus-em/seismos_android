@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:scrollbars="none">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appBarLayout"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/blueDark"
+                app:layout_scrollFlags="scroll|snap">
+
+                <TextView
+                    android:id="@+id/eq_detail_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/sfpromedium"
+                    android:text="I felt this earthquake"
+                    android:textColor="@color/offWhite"
+                    android:textSize="22sp" />
+
+
+            </androidx.appcompat.widget.Toolbar>
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <fragment
+            android:id="@+id/mapfrag"
+            android:name="com.google.android.gms.maps.SupportMapFragment"
+            android:layout_width="match_parent"
+            android:layout_height="150dp" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/placeTextTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:fontFamily="@font/sfpromedium"
+                android:text="102km SSW of Luwuk, Indonesia"
+                android:textColor="@color/offWhite"
+                android:textSize="24dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/placeTextTitle2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:fontFamily="@font/sfprotext_medium"
+                android:text="Could you stand during the shaking?"
+                android:textAlignment="center"
+                android:textColor="@color/offWhite"
+                android:textSize="26dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/divider" />
+
+            <TextView
+                android:id="@+id/dateText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/sfprolight"
+                android:text="When:"
+                android:textColor="@color/offWhite"
+                android:textSize="16dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/placeTextTitle" />
+
+            <TextView
+                android:id="@+id/depthText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/sfprolight"
+                android:text="Depth:"
+                android:textColor="@color/offWhite"
+                android:textSize="16dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/dateText" />
+
+            <TextView
+                android:id="@+id/tsunamiText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/sfprolight"
+                android:text="Detected by"
+                android:textAllCaps="false"
+                android:textColor="@color/offWhite"
+                android:textSize="16dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/depthText" />
+
+
+            <TextView
+                android:id="@+id/detectedBy"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/sfprolight"
+                android:text="42"
+                android:textColor="@color/offWhite"
+                android:textSize="18dp"
+                app:layout_constraintBottom_toBottomOf="@+id/tsunamiText"
+                app:layout_constraintStart_toEndOf="@+id/tsunamiText"
+                app:layout_constraintTop_toBottomOf="@+id/depthText" />
+
+            <TextView
+                android:id="@+id/tsunamiText3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:fontFamily="@font/sfprolight"
+                android:text="users"
+                android:textColor="@color/offWhite"
+                android:textSize="16dp"
+                app:layout_constraintBottom_toBottomOf="@+id/detectedBy"
+                app:layout_constraintStart_toEndOf="@+id/detectedBy"
+                app:layout_constraintTop_toTopOf="@+id/detectedBy" />
+
+            <View
+                android:id="@+id/divider"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:background="@color/blueDivider"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tsunamiText" />
+
+            <TextView
+                android:id="@+id/detailTimeText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="120dp"
+                android:fontFamily="@font/sfprolight"
+                android:text="04-12-19 at 11:40:49 UTC"
+                android:textColor="@color/offWhite"
+                android:textSize="16dp"
+                app:layout_constraintBottom_toBottomOf="@+id/dateText"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/dateText" />
+
+            <TextView
+                android:id="@+id/depthCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="120dp"
+                android:fontFamily="@font/sfprolight"
+                android:text="163 km"
+                android:textColor="@color/offWhite"
+                android:textSize="16dp"
+                app:layout_constraintBottom_toBottomOf="@+id/depthText"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/depthText" />
+
+            <View
+                android:id="@+id/divider2"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"/>
+
+            <Button
+                android:id="@+id/usgsButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="48dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="48dp"
+                android:backgroundTint="@color/blueDefault"
+                android:fontFamily="@font/sfprodisplay_light"
+                android:gravity="center"
+                android:text="No, I had to get on the ground"
+                android:textAllCaps="false"
+                android:textSize="16dp"
+                app:cornerRadius="12dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/placeTextTitle2" />
+
+            <Button
+                android:id="@+id/usgsButton3"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="48dp"
+                android:layout_marginEnd="48dp"
+                android:backgroundTint="@color/blueDefault"
+                android:fontFamily="@font/sfprodisplay_light"
+                android:gravity="center"
+                android:text="Yes, but with much difficulty"
+                android:textAllCaps="false"
+                android:textSize="16dp"
+                app:cornerRadius="12dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/usgsButton" />
+
+            <Button
+                android:id="@+id/usgsButton4"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="48dp"
+                android:layout_marginEnd="48dp"
+                android:backgroundTint="@color/blueDefault"
+                android:fontFamily="@font/sfprodisplay_regular"
+                android:gravity="center"
+                android:text="Yes, with some difficulty"
+                android:textAllCaps="false"
+                android:textSize="16dp"
+                app:cornerRadius="12dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/usgsButton3" />
+
+            <Button
+                android:id="@+id/usgsButton5"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="48dp"
+                android:layout_marginEnd="48dp"
+                android:backgroundTint="@color/blueDefault"
+                android:fontFamily="@font/sfprodisplay_light"
+                android:gravity="center"
+                android:text="Yes, without difficulty"
+                android:textAllCaps="false"
+                android:textSize="16dp"
+                app:cornerRadius="12dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/usgsButton4" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>
+
