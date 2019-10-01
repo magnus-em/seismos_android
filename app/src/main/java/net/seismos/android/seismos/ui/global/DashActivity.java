@@ -1,9 +1,7 @@
 package net.seismos.android.seismos.ui.global;
 
 import android.os.Bundle;
-import android.view.MenuItem;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -40,29 +38,34 @@ public class DashActivity extends AppCompatActivity implements HomeFragment.OnEq
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dash);
 
-        homeFragment = new HomeFragment();
 
-        mapFragment = new MapFragment();
-        seismosFragment = new SeismosFragment();
-        storeFragment = new StoreFragment();
-        profileFragment = new ProfileFragment();
+        if (savedInstanceState==null) {
+
+            homeFragment = new HomeFragment();
+            mapFragment = new MapFragment();
+            seismosFragment = new SeismosFragment();
+            storeFragment = new StoreFragment();
+            profileFragment = new ProfileFragment();
 
 
-        getSupportFragmentManager().beginTransaction()
-                .add(R.id.host_container,homeFragment, HOME_FRAGMENT)
-                .hide(homeFragment)
-                .add(R.id.host_container, mapFragment, MAP_FRAGMENT)
-                .hide(mapFragment)
-                .add(R.id.host_container, seismosFragment, SEISMOS_FRAGMENT)
-                .hide(seismosFragment)
-                .add(R.id.host_container, storeFragment, STORE_FRAGMENT)
-                .hide(storeFragment)
-                .add(R.id.host_container, profileFragment, PROFILE_FRAGMENT)
-                .hide(profileFragment)
-                .show(homeFragment)
-                .commit();
+            getSupportFragmentManager().beginTransaction()
+                    .add(R.id.host_container,homeFragment, HOME_FRAGMENT)
+                    .hide(homeFragment)
+                    .add(R.id.host_container, mapFragment, MAP_FRAGMENT)
+                    .hide(mapFragment)
+                    .add(R.id.host_container, seismosFragment, SEISMOS_FRAGMENT)
+                    .hide(seismosFragment)
+                    .add(R.id.host_container, storeFragment, STORE_FRAGMENT)
+                    .hide(storeFragment)
+                    .add(R.id.host_container, profileFragment, PROFILE_FRAGMENT)
+                    .hide(profileFragment)
+                    .show(homeFragment)
+                    .commit();
 
-        active = homeFragment;
+            active = homeFragment;
+        }
+
+
 
 
         nav = findViewById(R.id.bottom_nav);
@@ -70,10 +73,12 @@ public class DashActivity extends AppCompatActivity implements HomeFragment.OnEq
     }
 
 
+
+
     private void setupNavMenu(BottomNavigationView nav) {
         nav.setOnNavigationItemSelectedListener(menuItem -> {
             switch (menuItem.getItemId()) {
-                case R.id.home:
+                case R.id.homeTitle:
                     getSupportFragmentManager().beginTransaction()
                             .hide(active)
                             .show(homeFragment)

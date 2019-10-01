@@ -11,7 +11,6 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.material.chip.Chip;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -68,7 +67,7 @@ public class StoreDetailActivity extends AppCompatActivity {
                     }
                 });
 
-        Toolbar toolbar = findViewById(R.id.filters_toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

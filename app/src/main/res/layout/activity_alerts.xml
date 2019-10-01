@@ -6,6 +6,32 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <TextView
+        android:id="@+id/textView100"
+        android:layout_width="272dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/sfprolight"
+        android:text="Get notifications for recent earthquakes around the world, a few minutes after they happen"
+        android:textColor="@color/offWhite70"
+        android:textSize="14dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView43" />
+
+    <TextView
+        android:id="@+id/textView108"
+        android:layout_width="272dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/sfprolight"
+        android:text="Get notifications when an earthquake occurs near someone you care about"
+        android:textColor="@color/offWhite70"
+        android:textSize="14dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/friendsAndFamilyTitle" />
+
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
@@ -21,12 +47,12 @@
             app:layout_scrollFlags="scroll|snap">
 
             <TextView
-                android:id="@+id/alerts_toolbar_title"
+                android:id="@+id/toolbar_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:fontFamily="@font/sfpromedium"
-                android:text="@string/alerts"
+                android:text="Alerts"
                 android:textColor="@color/offWhite"
                 android:textSize="22sp" />
 
@@ -49,63 +75,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/view16" />
 
-    <HorizontalScrollView
-        android:id="@+id/friendScrollView"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/friendsRecycler"
         android:layout_width="0dp"
-        android:layout_height="100dp"
-        android:layout_marginTop="16dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:scrollbars="none"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/friendsAndFamilyTitle">
+        app:layout_constraintTop_toBottomOf="@+id/textView108"
+        tools:visibility="visible" />
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
 
-            <net.seismos.android.seismos.ui.profile.FriendsView
-                android:layout_width="75dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <net.seismos.android.seismos.ui.profile.FriendsView
-                android:layout_width="75dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <net.seismos.android.seismos.ui.profile.FriendsView
-                android:layout_width="75dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <net.seismos.android.seismos.ui.profile.FriendsView
-                android:layout_width="75dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <net.seismos.android.seismos.ui.profile.FriendsView
-                android:layout_width="75dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-        </LinearLayout>
-    </HorizontalScrollView>
 
     <View
         android:id="@+id/view10"
@@ -118,7 +99,7 @@
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/friendScrollView" />
+        app:layout_constraintTop_toBottomOf="@id/friendsRecycler" />
 
     <TextView
         android:id="@+id/customEqAlertTitle"
@@ -134,7 +115,7 @@
         app:layout_constraintTop_toBottomOf="@+id/view10" />
 
     <ImageView
-        android:id="@+id/addFriendsAlertPlus"
+        android:id="@+id/addFriendsButton"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_marginTop="2dp"
@@ -149,7 +130,7 @@
 
 
     <ImageView
-        android:id="@+id/addZoneAlertPlus"
+        android:id="@+id/addZoneButton"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_marginTop="2dp"
@@ -218,13 +199,13 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
         android:background="@color/blueDefault"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView43" />
+        app:layout_constraintTop_toBottomOf="@+id/textView100" />
 
     <TextView
         android:id="@+id/textView75"

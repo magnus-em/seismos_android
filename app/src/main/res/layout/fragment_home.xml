@@ -274,7 +274,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginBottom="16dp"
             android:fontFamily="@font/sfproregular"
-            android:text="Awards"
+            android:text="Recent awards"
             android:textColor="@color/offWhite"
             android:textSize="20dp" />
 

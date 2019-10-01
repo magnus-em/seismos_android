@@ -31,7 +31,6 @@ import com.github.mikephil.charting.formatter.LargeValueFormatter;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.chip.Chip;
 import com.google.firebase.auth.FirebaseAuth;
@@ -44,6 +43,7 @@ import com.squareup.picasso.Picasso;
 import net.seismos.android.seismos.R;
 import net.seismos.android.seismos.ui.alert.AlertActivity;
 import net.seismos.android.seismos.ui.global.LauncherActivity;
+import net.seismos.android.seismos.ui.social.FriendsAdapter;
 import net.seismos.android.seismos.util.RoundImageHelper;
 
 import java.util.ArrayList;

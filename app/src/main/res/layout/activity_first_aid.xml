@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
@@ -25,22 +26,26 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:fontFamily="@font/sfpromedium"
-                android:text="Network Status"
+                android:text="Title"
                 android:textColor="@color/offWhite"
                 android:textSize="22sp" />
+
+
+
         </androidx.appcompat.widget.Toolbar>
+
     </com.google.android.material.appbar.AppBarLayout>
 
     <TextView
-        android:id="@+id/placeholderID"
+        android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/sfpromedium"
-        android:text="NETWORK STATUS"
+        android:fontFamily="@font/sfprodisplay_medium"
+        android:text="First Aid Activity"
         android:textColor="@color/offWhite"
-        android:textSize="30dp"
+        android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/appBarLayout" />
 </androidx.constraintlayout.widget.ConstraintLayout>

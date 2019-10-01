@@ -17,6 +17,10 @@
     <color name="accentBlue">#00B4FF</color>
     <color name="accentGreen">#00FFA0</color>
 
+    <color name="accentGreenTransparent">#8000FFA0</color>
+
+
+
     <color name="eq8GradientStart">#C723AC</color>
     <color name="eq8GradientEnd">#A700FF</color>
 

@@ -31,7 +31,9 @@
         <activity android:name=".ui.onboarding.OnboardingActivity" android:screenOrientation="portrait"/>
 
         <activity android:name=".ui.map.EqDetailsActivity" android:screenOrientation="portrait"
-            android:launchMode="singleTop" android:parentActivityName=".ui.global.DashActivityNav"/>
+            android:launchMode="singleTop"/>
+
+
         <activity android:name=".ui.alert.AlertActivity" android:screenOrientation="portrait"/>
         <activity android:name=".ui.store.StoreDetailActivity" android:screenOrientation="portrait" android:launchMode="singleTop"/>
         <activity android:name=".ui.home.UpgradeActivity" android:theme="@style/upgradeActivity" android:screenOrientation="portrait" android:launchMode="singleTop"/>
@@ -49,6 +51,27 @@
         <activity android:name=".ui.map.AlertsActivity" android:screenOrientation="portrait"/>
 
         <activity android:name=".ui.map.FiltersActivity" android:screenOrientation="portrait"/>
+
+        <activity android:name=".ui.social.AddFriendActivity" android:screenOrientation="portrait"/>
+
+        <activity android:name=".ui.map.AddAlertZoneActivity" android:screenOrientation="portrait" />
+
+        <activity android:name=".ui.seismos.MakeAPlanActivity" android:screenOrientation="portrait"/>
+
+        <activity android:name=".ui.seismos.BuildAKitActivity" android:screenOrientation="portrait"/>
+
+        <activity android:name=".ui.seismos.SecureYourHomeActivity" android:screenOrientation="portrait"/>
+
+        <activity android:name=".ui.seismos.ProtectiveActionActivity" android:screenOrientation="portrait"/>
+
+        <activity android:name=".ui.seismos.AfterTheEarthquakeActivity" android:screenOrientation="portrait"/>
+
+        <activity android:name=".ui.seismos.FirstAidActivity" android:screenOrientation="portrait"/>
+
+        <activity android:name=".ui.seismos.FindShelterActivity" android:screenOrientation="portrait"/>
+
+        <activity android:name=".ui.seismos.VolunteerActivity" android:screenOrientation="portrait"/>
+
         
         <service android:name=".detection.DetectionService"  android:enabled="true"/>
 

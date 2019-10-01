@@ -134,6 +134,7 @@ public class MapFragment extends Fragment implements MapContract.View,
 
         sheetBehavior = BottomSheetBehavior.from(layoutBottomSheet);
 
+
         sheetBehavior.setState(STATE_HIDDEN);
 
         sheetBehavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
@@ -502,9 +503,22 @@ public class MapFragment extends Fragment implements MapContract.View,
 
         oldMarker = marker;
 
+
         if (sheetBehavior.getState() == STATE_HIDDEN) {
             sheetBehavior.setState(STATE_COLLAPSED);
         }
+
+        // oneline: 27
+
+        //twoline:
+        Log.d("BOTTOMSHEET", "place length: " + markedEarthquake.getPlace().length());
+        if (markedEarthquake.getPlace().length() > 31) {
+            sheetBehavior.setPeekHeight(ResUtil.getInstance().dpToPx(180));
+        } else {
+            sheetBehavior.setPeekHeight(ResUtil.getInstance().dpToPx(160));
+        }
+
+
     }
 
     private void updateTimeFrame(String tf) {

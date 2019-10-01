@@ -14,14 +14,14 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.appcompat.widget.Toolbar
-            android:id="@+id/filters_toolbar"
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/blueDark"
             app:layout_scrollFlags="scroll|snap">
 
             <TextView
-                android:id="@+id/alerts_toolbar_title"
+                android:id="@+id/toolbar_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"

@@ -18,10 +18,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/blueDark"
-        app:itemIconTint="@color/nav_icon_color"
+        app:itemIconTint="@color/nav_icon_color_green"
         app:labelVisibilityMode="labeled"
         app:itemHorizontalTranslationEnabled="false"
-        app:itemTextColor="@color/nav_icon_color"
+        app:itemTextColor="@color/nav_icon_color_green"
         app:menu="@menu/bottom_nav_menu"/>
 
 

@@ -1,4 +1,4 @@
-package net.seismos.android.seismos.ui.profile;
+package net.seismos.android.seismos.ui.social;
 
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -20,7 +20,7 @@ public class FriendsAdapter extends RecyclerView.Adapter {
     private ArrayList<String> awards = new ArrayList<>();
 
 
-    FriendsAdapter() {
+    public FriendsAdapter() {
         for (int i = 0; i < 10; i++) {
             if (i%2==0) {
                 awards.add("yello");

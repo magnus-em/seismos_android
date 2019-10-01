@@ -50,7 +50,7 @@
             app:layout_constraintEnd_toStartOf="@+id/earthquakeFlag"
             app:layout_constraintStart_toEndOf="@+id/ringView"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="223 km SE of Zurovska, Czechia " />
+            tools:text="223 km SE of Zurovska, Czechia magnus Melbourne " />
 
         <TextView
             android:id="@+id/magnitudeText"

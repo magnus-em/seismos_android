@@ -3,12 +3,13 @@ package net.seismos.android.seismos.ui.home;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ChartTabAdapter extends FragmentStatePagerAdapter {
+public class ChartTabAdapter extends FragmentPagerAdapter {
     private final List<Fragment> mFragmentList = new ArrayList<>();
     private final List<String>  mFragmentTitleList = new ArrayList<>();
 

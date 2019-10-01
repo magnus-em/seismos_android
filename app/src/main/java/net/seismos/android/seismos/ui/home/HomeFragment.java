@@ -128,7 +128,6 @@ public class HomeFragment extends Fragment implements HomeContract.View ,
                                 seiEarnedView.maxFirst();
                                 seiEarnedView.setRing2Activated(true);
                                 seiEarnedView.setRing3Activated(false);
-
                                 seiEarnedView.updateSecondRing(earnedToday-360);
                             } else if (earnedToday<=1080) {
                                 seiEarnedView.maxFirst();
@@ -169,9 +168,8 @@ public class HomeFragment extends Fragment implements HomeContract.View ,
          chartTabAdapter.addFragment(monthChart, "Month");
 
          viewPager.setAdapter(chartTabAdapter);
+
          tabLayout.setupWithViewPager(viewPager);
-
-
 
         ImageView button = root.findViewById(R.id.recordingButton);
         DepressAnimationUtil.setup(button);
@@ -373,7 +371,6 @@ public class HomeFragment extends Fragment implements HomeContract.View ,
         topChart.setRenderer(barChartRender);
 
         setupGradient(topChart);
-
 
         startPlot();
     }
