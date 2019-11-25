@@ -81,8 +81,11 @@ public class EqSafetyActivity extends AppCompatActivity {
             Intent intent = new Intent(this, cls);
             startActivity(intent);
         });
-
     }
 
-
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
+    }
 }

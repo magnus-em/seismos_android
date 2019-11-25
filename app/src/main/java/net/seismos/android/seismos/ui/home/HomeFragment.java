@@ -184,6 +184,13 @@ public class HomeFragment extends Fragment implements HomeContract.View ,
 
          bottomChart = root.findViewById(R.id.accelChart2);
 
+         root.findViewById(R.id.recordingButton).setOnClickListener(new View.OnClickListener() {
+             @Override
+             public void onClick(View v) {
+
+             }
+         });
+
          root.findViewById(R.id.recordingButton).setOnClickListener(v -> {
              if (((GlobalApplicationState)(getContextHandle().getApplicationContext())).isRecording()) {
                  button.setImageDrawable(getResources().getDrawable(R.drawable.not_recording));

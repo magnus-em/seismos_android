@@ -284,7 +284,7 @@
             android:layout_marginBottom="6dp"
             android:backgroundTint="#001A2C"
             app:cardCornerRadius="16dp"
-            app:cardElevation="10dp"
+            app:cardUseCompatPadding="false"
             app:layout_constraintBottom_toTopOf="@+id/guidelineMiddle"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -407,7 +407,6 @@
                     app:layout_constraintBottom_toTopOf="@+id/planSub"
                     app:layout_constraintStart_toStartOf="@+id/guidelineVertical"
                     app:layout_constraintTop_toTopOf="@id/planIcon" />
-
 
 
                 <TextView

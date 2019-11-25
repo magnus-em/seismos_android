@@ -6,6 +6,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <ImageView
+        android:id="@+id/reminderChip"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:adjustViewBounds="true"
+        android:cropToPadding="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/body1"
+        app:srcCompat="@drawable/set_reminder_chip" />
+
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
@@ -26,7 +38,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:fontFamily="@font/sfpromedium"
-                android:text="Title"
+                android:text="Make a plan"
                 android:textColor="@color/offWhite"
                 android:textSize="22sp" />
 
@@ -37,15 +49,18 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
+        android:id="@+id/body1"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/sfprodisplay_medium"
-        android:text="Make A Plan Activity"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:fontFamily="@font/sfprodisplay_light"
+        android:text="Text about filling out the checklist, agreeing on, and revising a plan with your family and close friends. Being ready and knowing what to do in the event of an earthquake is half the battle. Set a biannual reminder in your calendar of choice to practice your plans."
         android:textColor="@color/offWhite"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:textSize="18dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/appBarLayout" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

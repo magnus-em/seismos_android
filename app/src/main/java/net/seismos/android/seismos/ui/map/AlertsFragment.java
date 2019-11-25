@@ -47,6 +47,8 @@ public class AlertsFragment extends Fragment {
 //            }
 //        });
 
+
+
         SharedPreferences preferences = getActivity().getSharedPreferences(Preferences.PREFERENCES, 0);
 
         Switch notifSwitch = view.findViewById(R.id.eqNotification);
