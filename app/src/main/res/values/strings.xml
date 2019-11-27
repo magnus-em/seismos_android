@@ -21,8 +21,6 @@
     <string name="earthquake_json_feed_all_month">https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_month.geojson</string>
     <string name="earthquake_json_feed_25_month">https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/2.5_month.geojson</string>
 
-    <string name="earthquake_channel_name">Global earthquakes</string>
-
     <string name="recent_eq_description">Recent Earthquakes</string>
     <string name="see_all_recent_eq_description">SEE ALL</string>
 

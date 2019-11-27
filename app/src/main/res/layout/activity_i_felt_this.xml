@@ -74,7 +74,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
-                android:fontFamily="@font/sfprotext_medium"
+                android:fontFamily="@font/sfprodisplay_medium"
                 android:text="Could you stand during the shaking?"
                 android:textAlignment="center"
                 android:textColor="@color/offWhite"
