@@ -6,6 +6,8 @@ import android.util.Log;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
+import net.seismos.android.seismos.data.model.Earthquake;
+
 import java.util.Map;
 
 
@@ -44,7 +46,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         Map<String, String> data = remoteMessage.getData();
 
         //TODO get earthquake details from notification payload, create an earthquake object and pass it in instead of new object
-        net.seismos.android.seismos.data.model.Notification a = new net.seismos.android.seismos.data.model.Notification(data.get("channel"), new Object(), data.get("title"), data.get("body"));
+        net.seismos.android.seismos.data.model.Notification a = new net.seismos.android.seismos.data.model.Notification(data.get("channel"), new Earthquake());
     a.broadcastNotification();
     }
 

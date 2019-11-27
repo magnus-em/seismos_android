@@ -1,9 +1,17 @@
 package net.seismos.android.seismos.data.remote.usgs;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
-
+import android.os.Build;
 import androidx.annotation.NonNull;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
+import androidx.core.content.ContextCompat;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.preference.PreferenceManager;
 import android.util.Log;
 
@@ -11,9 +19,14 @@ import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 
 import net.seismos.android.seismos.R;
+import net.seismos.android.seismos.data.local.DayUpdateDB;
 import net.seismos.android.seismos.data.local.DayUpdateDBAccessor;
+import net.seismos.android.seismos.data.local.EarthquakeDatabaseAccessor;
+import net.seismos.android.seismos.data.local.EarthquakeViewModel;
 import net.seismos.android.seismos.data.model.Earthquake;
+import net.seismos.android.seismos.data.model.Notification;
 import net.seismos.android.seismos.global.Preferences;
+import net.seismos.android.seismos.ui.map.EqDetailsActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -27,10 +40,9 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-public class  UpdateUsgsJsonWorker extends Worker {
+public class UpdateUsgsJsonWorker extends Worker {
 
     private static final String TAG = "UpdateUsgsJsonWorker";
-    private static final String NOTIFICATION_CHANNEL = "earthquake";
 
     public static final int NOTIFICATION_ID = 1;
 
@@ -42,7 +54,7 @@ public class  UpdateUsgsJsonWorker extends Worker {
     @Override
     public Result doWork() {
         ArrayList<Earthquake> newEqs;
-       List<Earthquake> earthquakes;
+        List<Earthquake> earthquakes;
 
         try {
             // for purposes of quick loading when first opening the app
@@ -74,9 +86,12 @@ public class  UpdateUsgsJsonWorker extends Worker {
             if (largestNewEarthquake != null &&
                     largestNewEarthquake.getMagnitude() >= minMag) {
                 // Trigger a notification
-              //  Notification n = new Notification(getApplicationContext(), R.string.usgs_notification_channel_name, NotificationChannelImportance.getUSGS(), largestNewEarthquake, largestNewEarthquake.getMagnitude() + " magnitude earthquake detected from USGS", "In " + largestNewEarthquake.getLocation(), R.drawable.aftertheearthquake_icon);
-              //  n.broadcastNotification(); here
 
+                Notification n = new Notification("USGS Earthquake Warnings" ,largestNewEarthquake);
+                n.broadcastNotification();
+                //broadcastNotification(largestNewEarthquake);
+
+                Log.d(TAG, "THERE WAZ AN EQ: " + largestNewEarthquake.getTitle());
             }
 
 
@@ -194,8 +209,58 @@ public class  UpdateUsgsJsonWorker extends Worker {
 
 
 
-
-
+//    private void broadcastNotification(Earthquake earthquake) {
+//
+//        Intent startActivityIntent = new Intent(getApplicationContext(), EqDetailsActivity.class);
+//
+//
+//        // TODO: change this implementation so that you just pass the ID of the EQ with the intent
+//        // and then then the EQ class retrieves the earthquake from the DB
+//
+//        startActivityIntent.putExtra("title", earthquake.getTitle());
+//        startActivityIntent.putExtra("mag", Double.toString(earthquake.getMagnitude()));
+//        startActivityIntent.putExtra("lat", earthquake.getLatitude());
+//        startActivityIntent.putExtra("long", earthquake.getLongitude());
+//        startActivityIntent.putExtra("place", earthquake.getPlace());
+//        startActivityIntent.putExtra("date", Long.toString(earthquake.getTime()));
+//        startActivityIntent.putExtra("felt", Integer.toString(earthquake.getFelt()));
+//        startActivityIntent.putExtra("tsunami", Integer.toString(earthquake.getTsunami()));
+//        startActivityIntent.putExtra("alert", earthquake.getAlert());
+//        startActivityIntent.putExtra("types", earthquake.getTypes());
+//        startActivityIntent.putExtra("cdi", Double.toString(earthquake.getCdi()));
+//
+//
+//        PendingIntent launchIntent = PendingIntent.getActivity(getApplicationContext(), 0,
+//                startActivityIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+//
+//        final NotificationCompat.Builder earthquakeNotificationBuilder
+//                = new NotificationCompat.Builder(getApplicationContext(), "USGS Earthquake Warnings");
+//
+//        earthquakeNotificationBuilder
+//                .setSmallIcon(R.drawable.nav_icon_seismos)
+//                .setColor(ContextCompat.getColor(getApplicationContext(), R.color.eq74GradientStart))
+//                .setDefaults(NotificationCompat.DEFAULT_ALL)
+//                .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
+//                .setContentIntent(launchIntent)
+//                .setAutoCancel(true)
+//                .setShowWhen(true)
+//
+//                .setPriority(NotificationCompat.PRIORITY_HIGH)
+//
+//                .setContentTitle("Recent magnitude " + earthquake.getMagnitude() + " earthquake")
+//                .setContentText(earthquake.getPlace());
+//
+//
+////                .setStyle(new NotificationCompat.BigTextStyle()
+////                        .bigText(earthquake.getDetails()));
+//
+//        NotificationManagerCompat notificationManager
+//                = NotificationManagerCompat.from(getApplicationContext());
+//
+//        notificationManager.notify(NOTIFICATION_ID, earthquakeNotificationBuilder.build());
+//
+//
+//    }
 
 
 }

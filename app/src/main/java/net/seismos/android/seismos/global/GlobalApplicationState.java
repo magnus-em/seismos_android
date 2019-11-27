@@ -30,6 +30,7 @@ public class GlobalApplicationState extends Application {
 
     @Override
     public void onCreate() {
+        //TODO when app first installed, ask what type of notifications they want to receive. USGS? ShakeAlert? Seismos? Store offers?
         super.onCreate();
         context = getApplicationContext();
         ResUtil.init(context);
@@ -42,7 +43,8 @@ public class GlobalApplicationState extends Application {
              ContextCompat.startForegroundService(this, serviceIntent);
          }
 
-
+        //create notification channels
+        Notification.createNotificationChannels();
          //subscribes to warning topic in firebase
         FirebaseMessaging.getInstance().subscribeToTopic("warnings")
 //                .addOnCompleteListener(new OnCompleteListener<Void>() {

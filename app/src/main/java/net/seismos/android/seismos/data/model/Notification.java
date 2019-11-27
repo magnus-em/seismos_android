@@ -23,14 +23,11 @@ public class Notification {
     private String thisChannel;
     //thisObject is used to create the intent that is shown when notification is clicked
     private Object thisObject;
-    private String thisMessage;
-    private String thisTitle;
 
 
-    public Notification(String channel, Object object, String title, String message){
+    public Notification(String channel, Object object){
         thisObject = object;
-        thisMessage = message;
-        thisTitle = title;
+
         thisChannel = channel;
     }
 
@@ -64,40 +61,71 @@ public class Notification {
             seismos.enableLights(true);
             seismos.enableVibration(true);
             GlobalApplicationState.getContext().getSystemService(NotificationManager.class).createNotificationChannel(seismos);
+
+            //friends and family
+            NotificationChannel friendsnfamily = new NotificationChannel("Friends & Family Earthquake Warnings", "Friends & Family Earthquake Warnings", NotificationManager.IMPORTANCE_HIGH);
+            friendsnfamily.enableLights(true);
+            friendsnfamily.enableVibration(true);
+            GlobalApplicationState.getContext().getSystemService(NotificationManager.class).createNotificationChannel(friendsnfamily);
         }
 
     }
 
-    public void broadcastNotification() {
-        createNotificationChannels();
-        // TODO: change this implementation so that you just pass the ID of the EQ with the intent
-        // and then then the EQ class retrieves the earthquake from the DB
+    //this function decides details of the notification, such as image, title, message, and priority. based on channel and object type
+    private NotificationCompat.Builder getNotification() {
         PendingIntent pendingIntent;
+        String title;
+        String message;
+        int image;
+        int priority;
+
+        image = R.drawable.earthquake_safety; //decide image below based on object type and channel
+
         if(thisObject instanceof Earthquake){
-            Earthquake earthquake = (Earthquake)thisObject;
-            Intent startActivityIntent = new Intent(GlobalApplicationState.getContext(), EqDetailsActivity.class);
-            startActivityIntent.putExtra("title", earthquake.getTitle());
-            startActivityIntent.putExtra("mag", Double.toString(earthquake.getMagnitude()));
-            startActivityIntent.putExtra("lat", earthquake.getLatitude());
-            startActivityIntent.putExtra("long", earthquake.getLongitude());
-            startActivityIntent.putExtra("place", earthquake.getPlace());
-            startActivityIntent.putExtra("date", Long.toString(earthquake.getTime()));
-            startActivityIntent.putExtra("felt", Integer.toString(earthquake.getFelt()));
-            startActivityIntent.putExtra("tsunami", Integer.toString(earthquake.getTsunami()));
-            startActivityIntent.putExtra("alert", earthquake.getAlert());
-            startActivityIntent.putExtra("types", earthquake.getTypes());
-            startActivityIntent.putExtra("cdi", Double.toString(earthquake.getCdi()));
+            priority = NotificationCompat.PRIORITY_HIGH;
+
+            if(thisChannel.equals("USGS Earthquake Warnings")){
+                Earthquake earthquake = (Earthquake)thisObject;
+                Intent startActivityIntent = new Intent(GlobalApplicationState.getContext(), EqDetailsActivity.class);
+                startActivityIntent.putExtra("title", earthquake.getTitle());
+                startActivityIntent.putExtra("mag", Double.toString(earthquake.getMagnitude()));
+                startActivityIntent.putExtra("lat", earthquake.getLatitude());
+                startActivityIntent.putExtra("long", earthquake.getLongitude());
+                startActivityIntent.putExtra("place", earthquake.getPlace());
+                startActivityIntent.putExtra("date", Long.toString(earthquake.getTime()));
+                startActivityIntent.putExtra("felt", Integer.toString(earthquake.getFelt()));
+                startActivityIntent.putExtra("tsunami", Integer.toString(earthquake.getTsunami()));
+                startActivityIntent.putExtra("alert", earthquake.getAlert());
+                startActivityIntent.putExtra("types", earthquake.getTypes());
+                startActivityIntent.putExtra("cdi", Double.toString(earthquake.getCdi()));
 
 
-            pendingIntent = PendingIntent.getActivity(GlobalApplicationState.getContext(), 0,
-                    startActivityIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+                pendingIntent = PendingIntent.getActivity(GlobalApplicationState.getContext(), 0,
+                        startActivityIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+                title = "USGS reports " + ((Earthquake) thisObject).getMagnitude() + " magnitude Earthquake.";
+                message = "In " + ((Earthquake) thisObject).getLocation();
+
+
+                //TODO separate this between friends and family and personal shake alert warnings
+            }else{
+                //TODO consider changing title based on severity of magnitude
+                title = "ShakeAlert reports Earthquake near you! Magnitude " + ((Earthquake) thisObject).getMagnitude() + ".";
+                message = "Get to cover!";
+                //TODO go to warning page with safety instructions. the following is a placeholder
+                Intent startActivityIntent = new Intent(GlobalApplicationState.getContext(), EqDetailsActivity.class);
+                pendingIntent = PendingIntent.getActivity(GlobalApplicationState.getContext(), 0,
+                        startActivityIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+            }
 
         }else{
+            priority = NotificationCompat.PRIORITY_LOW;
 
-            //TODO these comments
-            //other types of notification objects (that will lead to a different intent)
-            //store offers? reminders? congrats on progress?
-            //the following 2 lines initialize a placeholder intent. will be replaced with whatever is needed
+            //TODO create intent based on what object it is (store offer, sei rewards, etc)
+            //the following is a placeholder title and intent to load
+            title = "Placeholder title.";
+            message = "This needs to be fixed.";
+            //TODO go to warning page with safety instructions. the following is a placeholder
             Intent startActivityIntent = new Intent(GlobalApplicationState.getContext(), EqDetailsActivity.class);
             pendingIntent = PendingIntent.getActivity(GlobalApplicationState.getContext(), 0,
                     startActivityIntent, PendingIntent.FLAG_UPDATE_CURRENT);
@@ -105,20 +133,6 @@ public class Notification {
 
         final NotificationCompat.Builder notificationBuilder
                 = new NotificationCompat.Builder(GlobalApplicationState.getContext(), thisChannel);
-
-        int image;
-        int priority;
-        //TODO separate usgs/shakealert/seismos channels to use a different icon. should probably use same priority and importance though
-        //TODO add support for other notification channels, such as store offers, friends and family warnings, sei earnings. must also add those channels to the create function below
-        if(thisChannel.equals("USGS Earthquake Warnings") || thisChannel.equals("ShakeAlert Earthquake Warnings") || thisChannel.equals("Seismos Earthquake Warnings")){
-            priority = NotificationCompat.PRIORITY_HIGH;
-            image = R.drawable.aftertheearthquake_icon; //TODO need to pick a different icon
-        }else{
-            //this is a place holder in case the notification channel sent from db is malformed
-            priority = NotificationCompat.PRIORITY_LOW;
-            image = R.drawable.aftertheearthquake_icon;
-        }
-        Log.d(TAG, "notification channel is: " + thisChannel);
 
         notificationBuilder
                 .setSmallIcon(image)
@@ -131,15 +145,35 @@ public class Notification {
 
                 .setPriority(priority)
 
-                .setContentTitle(thisTitle)
-                .setContentText(thisMessage);
+                .setContentTitle(title)
+                .setContentText(message);
+        return notificationBuilder;
+
+    }
+
+    private boolean willNotificationBeShown(){
+        //TODO check device location if the channel is shakealert or seismos, to determine if the earthquake is near me or friends/family, and decide whether or not to show notification
+//        if(thisChannel.equals("ShakeAlert Earthquake Warnings") || thisChannel.equals("Seismos Earthquake Warnings")){
+//            if(!isNearMe && !isNearFriendsAndFamilry){
+//                return false;
+//            }
+//        }
+        return true;
+    }
+
+    public void broadcastNotification() {
+        createNotificationChannels();
+
+
+
 
         NotificationManagerCompat notificationManager
                 = NotificationManagerCompat.from(GlobalApplicationState.getContext());
+        if(willNotificationBeShown()){
+            notificationManager.notify(0, getNotification().build());
 
-        notificationManager.notify(0, notificationBuilder.build());
+        }
 
-        Log.d(TAG, "THERE WAZ A NOTIFICATION: " + thisTitle);
 
     }
 }
